@@ -8,6 +8,6 @@
 </head>
 <body>
 
-	<h1>ì§ì›ë“±ë¡</h1>
+	<h1>Á÷¿øµî·Ï</h1>
 </body>
 </html>
