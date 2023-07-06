@@ -28,6 +28,8 @@
     }
     body{
         background-color: #F4F7FD;
+        width: 100vw;
+        height: 100vh;
     }
     nav{
         width: 100%;
@@ -36,14 +38,14 @@
         border-bottom: 1px solid rgb(213, 213, 213);
     }
     #sidebar{
-        
+        width: 300px;
+        height: 100%;
+        background-color: white;
     }
 </style>
 </head>
 <body>
     <nav></nav>
-    
-    <div id="sdfs"></div>
 
     <div id="sidebar"></div>
 </body>
