@@ -5,14 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	body{
-		background-color: #F4F7FD;
-	}
-</style>
+<link rel="stylesheet" href="${root}/static/css/admin/carInventory.css">
 </head>
 <body>
-	
-	<h1>홈화면</h1>
+
+    <%@ include file="/WEB-INF/views/admin/header.jsp" %>
+    <nav></nav>
+
+    <div id="sidebar"></div>
 </body>
-</html>
