@@ -41,9 +41,7 @@
         background-color: white;
         border: 1px solid black;
         border-radius: 20px;
-        display: grid;
-        grid-template-rows: 3fr 1fr 1fr 1fr;
-        grid-gap: 50px;
+       
     }
 
     img{
@@ -52,17 +50,23 @@
         margin-left: 90px;
         margin-top: 20px;
     }
+
+    #login-form{
+        display: grid;
+        grid-template-rows: 3fr 1fr 1fr 1fr;
+        grid-gap: 50px;
+    }
     
 </style>
 </head>
 <body>
 		<div id="wrap">
+            <form id="login-form" action="" method="POST">
             <img src="/zoody/resources/img/logo/logo.png" alt="로고 이미지">
-            <!-- <form action="" method="POST"> -->
                 <input type="text" name="" placeholder="ID">
                 <input type="text" name="" placeholder="PWD">
-                <input id="btn btn-success" style="text-align: center; margin-left: 50px;" type="submit" value="로그인"> 
-            <!-- </form> -->
+                <input type="submit" value="로그인"> 
+            </form>
 		</div>
 </body>
 </html>
