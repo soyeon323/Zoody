@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
-@RequestMapping("home")
+@RequestMapping(value = {"/","home","main"})
 public class HomeController {
 	
 	@GetMapping
