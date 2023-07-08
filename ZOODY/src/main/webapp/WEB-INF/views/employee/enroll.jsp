@@ -10,9 +10,16 @@
 <title>Insert title here</title>
 <style>
     #wrap{
-        
+        width: 1663px;
+        height: 93vh;
+        border: 1px solid black;
+        position: absolute;
+        top: 65px;
+        left: 255px;
     }
+    
 </style>
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
     
@@ -20,6 +27,7 @@
 
     <div id="wrap">
 
+      <h3>인사등록</h3>
 
     </div>
 

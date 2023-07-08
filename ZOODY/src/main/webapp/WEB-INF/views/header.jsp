@@ -27,6 +27,7 @@
         vertical-align: baseline;
     }
     body{
+        font-family: 'Spoqa Han Sans Neo', 'sans-serif';
         background-color: #F4F7FD;
         width: 100%;
         height: 100%;
