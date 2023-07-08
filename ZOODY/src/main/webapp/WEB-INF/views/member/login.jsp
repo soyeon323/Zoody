@@ -75,7 +75,7 @@
             <img src="/zoody/resources/img/logo/logo.png" alt="로고 이미지">
                 <input type="text" name="" placeholder="ID">
                 <input type="text" name="" placeholder="PWD">
-                <input class="btn btn-primary"--> style="color: whitesmoke;" type="submit" value="로그인"> 
+                <input class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인"> 
             </form>
 		</div>
 </body>
