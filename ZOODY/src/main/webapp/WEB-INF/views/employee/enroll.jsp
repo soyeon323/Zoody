@@ -28,8 +28,8 @@
     }
     body{
         background-color: #F4F7FD;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
     }
     nav{
         width: 100%;
@@ -39,8 +39,9 @@
     }
     #sidebar{
         width: 300px;
-        height: 100%;
+        height: 92vh;
         background-color: white;
+        border-right: 1px solid rgb(213, 213, 213);
     }
 </style>
 </head>
