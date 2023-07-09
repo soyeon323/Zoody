@@ -45,7 +45,7 @@
         border-right: 1px solid rgb(213, 213, 213);
     }
     #logoImg>img{
-        width: 128px;
+        width: 125px;
         height: 40px;
     }
     #logoImg{
