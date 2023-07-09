@@ -6,11 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Zoody</title>
+<title>Insert title here</title>
+<link rel="stylesheet" href="${root}/resources/css/common/side.css">
 </head>
 <body>
- 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <%@ include file="/WEB-INF/views/common/side.jsp" %>
+
+    <div id="sidebar">
+
+        <div id="storage"></div>
+    </div>
 
 </body>
