@@ -1,0 +1,20 @@
+nav{
+  width: 100%;
+  height: 65px;
+  background-color: white;
+  border-bottom: 1px solid rgb(213, 213, 213);
+}
+
+#logoImg>img{
+  width: 125px;
+  height: 40px;
+}
+#logoImg{
+  width: 125px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+
