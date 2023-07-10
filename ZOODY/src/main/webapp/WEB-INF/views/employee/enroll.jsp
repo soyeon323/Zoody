@@ -114,7 +114,45 @@
     #chart #optionRadio div:nth-child(2) input, #chart #optionRadio div:nth-child(6) input{
         margin-left: 15px;
     }
-    </style>
+    #userBtn{
+        margin-left: 80px;
+        width: 1500px;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    #userBtn input, #userBtn button{
+        width: 160px;
+        height: 37px;
+        margin-left: 20px;
+        color: white;
+        border-radius: 10px;
+        font-weight: 300;
+    }
+    #userBtn input{
+        background-color: #5189FA;
+        margin-right: 20px;
+    }
+    #userBtn button{
+        background-color: #00CBA4;
+        border: none;
+    }
+    #explanEnroll{
+        margin-left: 80px;
+        margin-top: 10px;
+        color: #C5C5C5;
+        font-weight: 300;
+    }
+    #explanEnroll>img{
+        width: 15px;
+        height: 15px;
+    }
+    #guideMent01>img{
+        width: 15px;
+        height: 15px;
+    }
+    #guideMent01{color: #C5C5C5; font-weight: 300;}
+</style>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -248,9 +286,21 @@
                         <input type="radio" name="HeadInfoYn" value="" id="InfoNo2">
                         <label for="InfoNo2">허용하지 않음</label>
                     </div>
-                    <div></div>
+                    <div id="guideMent01">
+                        <img src="/zoody/resources/img/icon01.png" alt="아이콘">
+                        <a>허용 : 임원에게 부서장의 인사정보를 공개함</a>
+                    </div>
                 </div>
 
+                <div id="explanEnroll">
+                    <img src="/zoody/resources/img/icon01.png" alt="아이콘">
+                    <a>허위정보 기입 시 제재를 받을 수 있습니다.</a>
+                </div>
+
+                <div id="userBtn">
+                    <input type="submit" value="등록" id="userEnroll">
+                    <button id="enrollCancel">취소</button>
+                </div>
             </form>
         </div>
 
