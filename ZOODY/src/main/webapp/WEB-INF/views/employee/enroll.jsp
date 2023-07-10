@@ -88,9 +88,31 @@
         color: #4B4B4B;
         width: 180px; 
     }
-
     #content-1 td:nth-child(2), #content-1 td:nth-child(4){
         width: 329px;
+    }
+    #chart #optionRadio{
+        display: grid;
+        grid-template-rows: 65px 15px 65px;
+        grid-template-columns: 250px 280px 969px;
+        border: 1px solid #D7D7D7;
+        background-color: white;
+        width: 1500px;
+        margin-left: 80px;
+        margin-top: 40px;
+    }
+    #chart #optionRadio div{
+        display: flex;
+        align-items: center;
+    }
+    #chart #optionRadio div:nth-child(4){grid-column: span 3;}
+    #hr01>hr{width: 1500px;}
+    #chart #optionRadio div:first-child, #chart #optionRadio div:nth-child(5){
+        font-size: 17px;
+        margin-left: 25px;
+    }
+    #chart #optionRadio div:nth-child(2) input, #chart #optionRadio div:nth-child(6) input{
+        margin-left: 15px;
     }
     </style>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
@@ -208,6 +230,27 @@
                         <td>정직원</td>
                     </tr>
                 </table>
+
+                <div id="optionRadio">
+                    <div>본인 인사정보 수정</div>
+                    <div>
+                        <input type="radio" checked name="userInfoModify" value="" id="InfoOk">
+                        <label for="InfoOk">허용</label>
+                        <input type="radio" name="userInfoModify" value="" id="InfoNo">
+                        <label for="InfoNo">허용하지 않음</label>
+                    </div>
+                    <div></div>
+                    <div id="hr01"><hr></div>
+                    <div>부서장 인사정보 공개</div>
+                    <div>
+                        <input type="radio" checked name="HeadInfoYn" value="" id="InfoOk2">
+                        <label for="InfoOk2">허용</label>
+                        <input type="radio" name="HeadInfoYn" value="" id="InfoNo2">
+                        <label for="InfoNo2">허용하지 않음</label>
+                    </div>
+                    <div></div>
+                </div>
+
             </form>
         </div>
 
