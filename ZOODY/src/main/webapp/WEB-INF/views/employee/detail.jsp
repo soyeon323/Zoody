@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/resources/css/employee/enroll.css">
+<link rel="stylesheet" href="${root}/resources/css/employee/detail.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -24,7 +24,7 @@
         <!-- 임시사이드바 -->
         <div id="side-bar"></div>
 
-        <div id="enroll">인사등록</div>
+        <div id="enroll">인사상세조회</div>
 
         <div id="chart">
             <form action="/app/employee/enroll" method="post" enctype="multipart/form-data">
@@ -37,7 +37,7 @@
                         <td colspan="3">주디 동물원</td>
                     </tr>
                     <tr id="chart-2">
-                        <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
+                        <td rowspan="3"><input type="text" name="name" placeholder="김철수"></td>
                         <td>사번</td>
                         <td><input type="text" name="userNo" placeholder="사번입력" maxlength="6"></td>
                         <td>핸드폰번호</td>
@@ -157,7 +157,7 @@
                 </div>
 
                 <div id="userBtn">
-                    <input type="submit" value="등록" id="userEnroll">
+                    <input type="submit" value="수정" id="userEnroll">
                     <button id="enrollCancel">취소</button>
                 </div>
             </form>

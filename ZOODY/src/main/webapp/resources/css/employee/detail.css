@@ -1,0 +1,153 @@
+#wrap{
+    width: 1663px;
+    height: 93vh;
+    position: absolute;
+    top: 65px;
+    left: 255px;
+}
+#enroll{
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-left: 80px;
+}
+#chart table,#chart td,#chart th {
+    border: 1px solid #D7D7D7;
+    background-color: white;
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: middle;
+}
+#chart table{
+    margin-left: 80px;
+    margin-top: 30px;
+    width: 1500px;
+    height: 200px;
+}
+#chart-1 td:first-child, #chart-1 td:nth-child(2), #chart-1 td:nth-child(3), #chart-3 td:nth-child(3){
+    width: 210px;
+} 
+#chart-1 td:nth-child(2), #chart-1 td:nth-child(3), #chart-2 td:nth-child(2),
+#chart-3 td:first-child, #chart-4 td:first-child, #chart-2 td:nth-child(4),
+#chart-3 td:nth-child(3), #chart-4 td:nth-child(3){
+    background-color: #ececec95;
+    color: #4B4B4B;
+    height: 50px;
+}
+
+#chart-1 td:nth-child(4), #chart-2 td:first-child, #chart-2 td:nth-child(3), #chart-2 td:nth-child(5),
+#chart-3 td:nth-child(2), #chart-3 td:nth-child(4), #chart-4 td:nth-child(2), #chart-4 td:nth-child(4){
+    font-size: 17px;
+}
+#chart-1 img{
+    display: block; 
+    margin: 0 auto;
+    vertical-align: middle;
+}
+.btn-upload {
+    width: 160px;
+    height: 37px;
+    background: #00BEEA;
+    border: 1px solid #E0E0E0;
+    color: white;
+    border-radius: 10px;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 105px;
+}
+input::placeholder {color:#383838; font-weight: 500;}
+#file {display: none;}
+input{
+    border: none;
+    text-align: center;
+}
+select{
+    width: 100px;
+    text-align: center;
+}
+#content-1 td:first-child, #content-1 td:nth-child(3), #content-1 td:nth-child(5),
+#content-2 td:first-child, #content-2 td:nth-child(3), #content-2 td:nth-child(5),
+#content-3 td:first-child, #content-3 td:nth-child(3), #content-3 td:nth-child(5),
+#content-4 td:first-child, #content-4 td:nth-child(3), #content-4 td:nth-child(5){
+    background-color: #ececec95;
+    color: #4B4B4B;
+    width: 180px; 
+}
+#content-1 td:nth-child(2), #content-1 td:nth-child(4){
+    width: 329px;
+}
+#chart #optionRadio{
+    display: grid;
+    grid-template-rows: 65px 15px 65px;
+    grid-template-columns: 250px 280px 969px;
+    border: 1px solid #D7D7D7;
+    background-color: white;
+    width: 1500px;
+    margin-left: 80px;
+    margin-top: 40px;
+}
+#chart #optionRadio div{
+    display: flex;
+    align-items: center;
+}
+#chart #optionRadio div:nth-child(4){grid-column: span 3;}
+#hr01>hr{width: 1500px;}
+#chart #optionRadio div:first-child, #chart #optionRadio div:nth-child(5){
+    font-size: 17px;
+    margin-left: 25px;
+}
+#chart #optionRadio div:nth-child(2) input, #chart #optionRadio div:nth-child(6) input{
+    margin-left: 15px;
+}
+#userBtn{
+    margin-left: 80px;
+    width: 1500px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+#userBtn input, #userBtn button{
+    width: 160px;
+    height: 37px;
+    margin-left: 20px;
+    color: white;
+    border-radius: 10px;
+    font-weight: 300;
+}
+#userBtn input{
+    background-color: #5189FA;
+    margin-right: 20px;
+}
+#userBtn button{
+    background-color: #00CBA4;
+    border: none;
+}
+#explanEnroll{
+    margin-left: 80px;
+    margin-top: 10px;
+    color: #C5C5C5;
+    font-weight: 300;
+}
+#explanEnroll>img{
+    width: 15px;
+    height: 15px;
+}
+#guideMent01>img{
+    width: 15px;
+    height: 15px;
+}
+#guideMent01{color: #C5C5C5; font-weight: 300;}
+#side-bar{
+    width: 256px;
+    height: 890px;
+    background-color: white;
+    position: absolute;
+    left: -255px;
+    top: 0px; 
+    border-right: 1px solid #c5c5c58b;
+    border-top: 1px solid #c5c5c58b;
+}
