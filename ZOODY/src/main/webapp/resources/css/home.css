@@ -1,12 +1,17 @@
 #wrap{
-
+    width: 1898;
+    height: 872px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30;
 }
 
 #grid-wrap {
     display: grid;
     margin-left: 275;
-    width: calc(98% - 270px);
-    height: calc(98% - 70px);
+    width: 100%;
+    height: 100%;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: auto;
     gap: 20px;
@@ -45,6 +50,7 @@
     box-shadow: none;
     display: flex;
     position: relative;
+    z-index: -1;
 }
 
 .calender {
