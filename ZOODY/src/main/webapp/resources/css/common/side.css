@@ -47,8 +47,8 @@ body, ul, li {
   }
   
   .side-bar {
-    position: fixed;    /* 스크롤을 따라오도록 지정 */
-    background-color: rgb(235, 236, 238);
+    /* position: fixed; */
+    background-color: rgb(255, 255, 255);
     width: var(--side-bar-width);
     min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
   }
@@ -137,7 +137,7 @@ body, ul, li {
   }
   .side-bar {
     position: fixed;    /* 스크롤을 따라오도록 지정 */
-    background-color: #f3f3f3;
+    background-color: #ffffff;
     width: var(--side-bar-width);
     min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
   }
@@ -190,8 +190,7 @@ a {
   --side-bar-height: 90vh;
 }
 .side-bar {
-  position: fixed;    /* 스크롤을 따라오도록 지정 */
-  background-color: #779af3;
+  background-color: #ffffff;
   width: var(--side-bar-width);
   min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
 }
@@ -242,9 +241,9 @@ a {
 /* 모든 메뉴의 a에 속성값 부여 */
 .side-bar ul > li > a {
   display: block;
-  color: rgb(0, 0, 0);
-  font-size: 1.0rem;
-  font-weight: bold;
+  color: #828B9D;
+  font-size: 14px;
+  font-weight: 400;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 50px;
