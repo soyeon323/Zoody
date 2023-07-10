@@ -119,10 +119,10 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 등록</div>
+        <div id="enroll">동물 건강 정보</div>
 
         <div id="chart">
-            <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
+            <form action="/app/animal/health" method="post" enctype="multipart/form-data">
                 
                 <table>
                     <tr id="chart-1">
@@ -185,8 +185,7 @@
                 </div>
 
                 <div id="btn-area">
-                        <div class="btn-upload">등록</div>
-                        <div class="btn-upload">취소</div>
+                        <div class="btn-upload">닫기</div>
                 </div>
               
             </form>

@@ -14,9 +14,15 @@ public class AnimalController {
 		return "animal/enroll";
 	}
 	
-	//동물 등록
+	//동물 상세 조회
 	@GetMapping("detail")
 	public String animalDetail() {
 		return "animal/detail";
+	}
+	
+	//동물 건강 정보 조회
+	@GetMapping("health")
+	public String animalHealth() {
+		return "animal/health";
 	}
 }
