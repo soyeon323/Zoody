@@ -152,6 +152,16 @@
         height: 15px;
     }
     #guideMent01{color: #C5C5C5; font-weight: 300;}
+    #side-bar{
+        width: 256px;
+        height: 890px;
+        background-color: white;
+        position: absolute;
+        left: -255px;
+        top: 0px; 
+        border-right: 1px solid #c5c5c58b;
+        border-top: 1px solid #c5c5c58b;
+    }
 </style>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
@@ -164,6 +174,9 @@
     <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <div id="wrap">
+
+        <!-- 임시사이드바 -->
+        <div id="side-bar"></div>
 
         <div id="enroll">인사등록</div>
 
