@@ -102,8 +102,13 @@
         background-color: rgb(56, 211, 115);
     }
 
-    .btn-upload:nth-child(2):hover{
+    .btn-upload:nth-child(3):hover{
         background-color: rgb(211, 79, 56);
+    }
+
+    #content-area{
+        margin-left: 100px;
+        margin-top: 30px;
     }
     </style>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
@@ -119,7 +124,7 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 등록</div>
+        <div id="enroll">동물 건강 정보</div>
 
         <div id="chart">
             <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
@@ -174,18 +179,31 @@
                         <td>서식지</td>
                         <td><input type="text" name="" placeholder="서식지"></td>
                     </tr>
+                    
                 </table>
-                <div style="margin-left: 80px; color:gray">※허위 사실 기제시 제제를 받습니다.</div>
+                
                 <div id="enroll-btn">
                     <label for="file">
                         <div class="btn-upload">프로필 등록</div>
                     </label>
                     <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
                 </div>
-
+                <div id="content-area">
+                    <div>건강검진 종합 소견</div>
+                    <br>
+                    <span>유질환 :</span>
+                    <input type="text" placeholder="유질환">
+                    <br>
+                    <span>생활 습관 관리 :</span>
+                    <input type="text" placeholder="생활 습관 관리">
+                    <br>
+                    <span>의사 소견 :</span>
+                    <input type="text" placeholder="의사 소견">
+                </div>
                 <div id="btn-area">
-                        <div class="btn-upload">등록</div>
-                        <div class="btn-upload">취소</div>
+                        <div class="btn-upload">수정 하기</div>
+                        <div class="btn-upload">완료 </div>
+                        <div class="btn-upload">닫기</div>
                 </div>
               
             </form>
