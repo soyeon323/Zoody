@@ -6,10 +6,17 @@
     left: 255px;
 }
 #enroll{
-    font-size: 20px;
-    font-weight: 600;
     margin-top: 40px;
     margin-left: 80px;
+}
+#enroll>a:first-child{
+    font-size: 20px;
+    font-weight: 600;
+}
+#enroll>a:nth-child(2){
+    font-size: 15px;
+    color: #4B4B4B;
+    margin-left: 30px;
 }
 #chart table,#chart td,#chart th {
     border: 1px solid #D7D7D7;
@@ -141,13 +148,7 @@ select{
     height: 15px;
 }
 #guideMent01{color: #C5C5C5; font-weight: 300;}
-#side-bar{
-    width: 256px;
-    height: 890px;
-    background-color: white;
-    position: absolute;
-    left: -255px;
-    top: 0px; 
-    border-right: 1px solid #c5c5c58b;
-    border-top: 1px solid #c5c5c58b;
+
+#chart-3 input[type="email"]{
+    width: 270px;
 }

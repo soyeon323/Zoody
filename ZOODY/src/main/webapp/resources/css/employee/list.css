@@ -1,0 +1,88 @@
+#wrap{
+    width: 1663px;
+    height: 93vh;
+    position: absolute;
+    top: 65px;
+    left: 255px;
+}
+
+#enroll{
+    margin-top: 40px;
+    margin-left: 80px;
+}
+
+#enroll>a:first-child{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#back{
+    width: 1500px;
+    height: 700px;
+    background-color: white;
+    margin-left: 80px;
+    margin-top: 30px;
+    border: 1px solid #d7d7d7ba;
+    border-radius: 7px;
+    display: grid;
+    grid-template-rows: 60px 570px;
+}
+
+#back div:first-child{
+    display: flex;
+    justify-content: end;
+    margin-right: 30px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+#back div:first-child select{
+    width: 200px;
+    margin-right: 10px;
+    border: 1px solid #D7D7D7;
+}
+
+#back div:first-child input[type="text"]{
+    width: 250px;
+    border: 1px solid #D7D7D7;
+}
+
+#back div:first-child input[type="submit"]{
+    background-image: url("/zoody/resources/img/search.png");
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0);
+    border: 0px;   
+    position: absolute;
+    cursor:pointer;
+    outline: 0;
+    right: 100px;
+    top: 143px;
+}
+
+#back div:first-child input[type="text"]::placeholder{
+    color: #D7D7D7;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#content{
+    width: 1500px;
+    margin-top: 20px;
+}
+#content>thead{
+    width: 1500px;
+    height: 60px;
+    border-bottom: 1px solid #D7D7D7;
+    border-top: 1px solid #D7D7D7;
+}
+
+#content tr{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#content>thead tr{
+    height: 60px;
+}

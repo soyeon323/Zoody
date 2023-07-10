@@ -19,12 +19,12 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
 
-    <div id="wrap">
+    <div id="wrap">`
 
-        <!-- 임시사이드바 -->
-        <div id="side-bar"></div>
-
-        <div id="enroll">인사상세조회</div>
+        <div id="enroll">
+            <a>인사상세조회</a>
+            <a>내용을 클릭하여 수정할 수 있습니다.</a>
+        </div>
 
         <div id="chart">
             <form action="/app/employee/enroll" method="post" enctype="multipart/form-data">
@@ -39,15 +39,15 @@
                     <tr id="chart-2">
                         <td rowspan="3"><input type="text" name="name" placeholder="김철수"></td>
                         <td>사번</td>
-                        <td><input type="text" name="userNo" placeholder="사번입력" maxlength="6"></td>
+                        <td><input type="text" name="userNo" placeholder="S08845" maxlength="6"></td>
                         <td>핸드폰번호</td>
-                        <td><input type="tel" name="phone" placeholder="핸드폰번호입력" maxlength="13" oninput="formatPhoneNumber(this)"></td>
+                        <td><input type="tel" name="phone" placeholder="010-1234-5678" maxlength="13" oninput="formatPhoneNumber(this)"></td>
                     </tr>
                     <tr id="chart-3">
                         <td>이메일</td>
-                        <td><input type="email" name="email" placeholder="이메일입력"></td>
+                        <td><input type="email" name="email" placeholder="yoonssong123@naver.com"></td>
                         <td>내선번호</td>
-                        <td><input type="tel" name="companyTel" placeholder="내선번호입력" maxlength="11" oninput="formatCompanyNumber(this)"></td>
+                        <td><input type="tel" name="companyTel" placeholder="02-123-4567" maxlength="11" oninput="formatCompanyNumber(this)"></td>
                     </tr>
                     <tr id="chart-4">
                         <td>직위/직책</td>
@@ -62,7 +62,7 @@
                             </select>
                         </td>
                         <td>대표전화</td>
-                        <td><input type="tel" name="representTel" placeholder="내선번호입력" maxlength="11" oninput="formatRepresentNumber(this)"></td>
+                        <td><input type="tel" name="representTel" placeholder="02-123-4657" maxlength="11" oninput="formatRepresentNumber(this)"></td>
                     </tr>
                 </table>
                 
@@ -76,11 +76,11 @@
                 <table id="chart-content"> 
                     <tr id="content-1">
                         <td>입사일</td>
-                        <td><input type="date" name="enrollDate"></td>
+                        <td><input type="date" name="enrollDate" value="2023-07-07"></td>
                         <td>생년월일</td>
-                        <td><input type="date" name="birthday"></td>
+                        <td><input type="date" name="birthday" value="2023-07-07"></td>
                         <td>퇴사일</td>
-                        <td><input type="date" name="leaveday"></td>
+                        <td><input type="date" name="leaveday" value="2023-07-07"></td>
                     </tr>
                     <tr id="content-2">
                         <td>채용구분</td>
@@ -109,13 +109,13 @@
                             </select>
                         </td>
                         <td>주소</td>
-                        <td><input type="text" name="leaveReason" placeholder="주소입력"></td>
+                        <td><input type="text" name="leaveReason" placeholder="서울시 강동구 천호동"></td>
                         <td>급여구분</td>
                         <td id="salary"></td>
                     </tr>
                     <tr id="content-4">
                         <td>직무</td>
-                        <td><input type="text" name="job" placeholder="직무입력"></td>
+                        <td><input type="text" name="job" placeholder="현장직"></td>
                         <td>프로젝트 참여여부</td>
                         <td>
                             <select name="projectYn" id="projectYn">
