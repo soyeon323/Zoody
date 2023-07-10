@@ -1,12 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>동물 등록</title>
+<title>동물 상세 조회</title>
 <link rel="stylesheet" href="${root}/resources/css/home.css">
 <style>
     #wrap{
@@ -94,7 +95,6 @@
     }
 
     #btn-area{
-        margin-top: 50px;
         display: flex;
         justify-content: space-evenly;
     }
@@ -103,7 +103,7 @@
         background-color: rgb(56, 211, 115);
     }
 
-    .btn-upload:nth-child(2):hover{
+    .btn-upload:nth-child(3):hover{
         background-color: rgb(211, 79, 56);
     }
     </style>
@@ -120,7 +120,7 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 등록</div>
+        <div id="enroll">동물 상세 조회</div>
 
         <div id="chart">
             <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
@@ -178,7 +178,6 @@
                     </tr>
                 </table>
                 
-                <div style="margin-left: 80px; color: gray;">※ 허위 정보 기입시 제제를 받을수 있습니다</div>
                 <div id="enroll-btn">
                     <label for="file">
                         <div class="btn-upload">프로필 등록</div>
@@ -187,8 +186,9 @@
                 </div>
 
                 <div id="btn-area">
-                        <div class="btn-upload">등록</div>
-                        <div class="btn-upload">취소</div>
+                        <div class="btn-upload">훈련 일지 작성</div>
+                        <div class="btn-upload">건강 상태 정보</div>
+                        <div class="btn-upload"> 닫기 </div>
                 </div>
               
             </form>
@@ -198,3 +198,6 @@
 
 </body>
 </html>
+<script>
+  
+</script>

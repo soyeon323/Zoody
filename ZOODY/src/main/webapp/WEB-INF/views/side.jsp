@@ -11,11 +11,6 @@
 <body>
 
     <aside class="side-bar">
-        <section class="side-bar__icon-box">
-        <section class="side-bar__icon-1">
-            <div></div>
-            <div></div>
-            <div></div>
         </section>
         </section>
         <ul>
@@ -49,7 +44,7 @@
         <li>
             <a href="#">동물 관리</a>
             <ul>
-            <li><a href="#">text1</a></li>
+            <li><a href="/zoody/animal/enroll">동물 등록</a></li>
             <li><a href="#">text2</a></li>
             <li><a href="#">text3</a></li>
             <li><a href="#">text4</a></li>
