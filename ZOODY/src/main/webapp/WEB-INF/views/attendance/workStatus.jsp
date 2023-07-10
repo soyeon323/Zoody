@@ -14,6 +14,7 @@
 <body>
 
     <%@ include file="/WEB-INF/views/header.jsp" %>
+    <%@ include file="/WEB-INF/views/side.jsp" %>
     
 </body>
 </html>
