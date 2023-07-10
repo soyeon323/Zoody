@@ -1,14 +1,13 @@
-package com.kh.zoody.animal.controller;
+package com.kh.zoody.employee.enroll;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("animal")
-public class AnimalController {
+@RequestMapping("employee")
+public class EmployeeEnrollController {
 
 	@GetMapping("enroll")
-	public void animalEnroll() {}
-	
+	public void enroll() {}
 }
