@@ -141,13 +141,3 @@ select{
     height: 15px;
 }
 #guideMent01{color: #C5C5C5; font-weight: 300;}
-#side-bar{
-    width: 256px;
-    height: 890px;
-    background-color: white;
-    position: absolute;
-    left: -255px;
-    top: 0px; 
-    border-right: 1px solid #c5c5c58b;
-    border-top: 1px solid #c5c5c58b;
-}

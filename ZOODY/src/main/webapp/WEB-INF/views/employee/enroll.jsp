@@ -21,9 +21,6 @@
 
     <div id="wrap">
 
-        <!-- 임시사이드바 -->
-        <div id="side-bar"></div>
-
         <div id="enroll">인사등록</div>
 
         <div id="chart">
@@ -62,7 +59,7 @@
                             </select>
                         </td>
                         <td>대표전화</td>
-                        <td><input type="tel" name="representTel" placeholder="내선번호입력" maxlength="11" oninput="formatRepresentNumber(this)"></td>
+                        <td><input type="tel" name="representTel" placeholder="대표전화입력" maxlength="11" oninput="formatRepresentNumber(this)"></td>
                     </tr>
                 </table>
                 

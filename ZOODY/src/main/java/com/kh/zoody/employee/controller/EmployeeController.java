@@ -20,4 +20,9 @@ public class EmployeeController {
 	
 	//직원상세조회 및 수정
 	
+	//직원목록 화면
+	@GetMapping("list")
+	public void list() {}
+	
+	//직원목록 
 }
