@@ -133,7 +133,7 @@
                     <tr id="chart-4">
                         <td>직위/직책</td>
                         <td>
-                            <select name="position" id="position">
+                            <select name="position" id="position" onchange="updateMoney()">
                                 <option value="">사원</option>
                                 <option value="">주임</option>
                                 <option value="">대리</option>
@@ -192,7 +192,7 @@
                         <td>주소</td>
                         <td><input type="text" name="leaveReason" placeholder="주소입력"></td>
                         <td>급여구분</td>
-                        <td></td>
+                        <td id="salary"></td>
                     </tr>
                     <tr id="content-4">
                         <td>직무</td>
@@ -210,8 +210,6 @@
                 </table>
             </form>
         </div>
-
-
 
     </div>
 
@@ -253,10 +251,8 @@
     });
 
     function updateMoney() {
-        var positionSelect = document.getElementById('position');
-        var selectedValue = positionSelect.value;
-        var moneyTD = document.getElementById('money');
-
-        moneyTD.textContent = selectedValue;
+        const position = document.querySelector("#position");
+        const selectedText = position.options[position.selectedIndex].innerText;
+        document.querySelector("#salary").innerText = selectedText;
     }
 </script>
