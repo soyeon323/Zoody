@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/attendance/detail.css">
+    <link rel="stylesheet" href="${root}/resources/css/attendance/attendance.css">
     <title>Document</title>
 </head>
 <body>
@@ -21,20 +21,11 @@
             <%@ include file="/WEB-INF/views/side.jsp" %>
         </div>
         <div id="att_main">
-            <!-- 첫번째 줄 -->
-            <div class="att_check"></div>
-            <div class="att_type1"></div>
-            <div class="att_type2"></div>
-            <div class="att_type3"></div>
-            <div class="att_type4"></div>
-            <div class="att_workList"></div>
-
-            <!-- 두번째 줄 : 검색바 부분 -->
-            <div class="search_area"></div>
-
-            <!-- 세번째 줄 -->
-            <div class="att_myList"></div>
-            <div class="att_leaveList"></div>
+            <!-- 맨 윗 줄 -->
+            <div class="att_check" style="color: aqua;"></div>
+            <div class="" style="color: aqua;"></div>
+            <div class="" style="color: aqua;"></div>
+            <div class="" style="color: aqua;"></div>
         </div>
     </div>
     
