@@ -102,7 +102,7 @@
         background-color: rgb(56, 211, 115);
     }
 
-    .btn-upload:nth-child(3):hover{
+    .btn-upload:nth-child(2):hover{
         background-color: rgb(211, 79, 56);
     }
 
@@ -119,6 +119,11 @@
         resize: none;
         width: 100%;
     }
+
+    #t1{
+        height: 30px;
+
+    }
     </style>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
@@ -133,85 +138,18 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 건강 정보</div>
+        <div id="enroll">훈련 일지 작성 </div>
 
-        <div id="chart">
-            <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
-                
-                <table>
-                    <tr id="chart-1">
-                        <td rowspan="4"><img src="/zoody/resources/img/profile.png" alt="동물사진"></td>
-                        <td>이름</td>
-                        <td>계 통</td>
-                        <td colspan="3">
-                            <select name="position" id="position">
-                                <option value="">양서류</option>
-                                <option value="">포유류</option>
-                                <option value="">조류</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr id="chart-2">
-                        <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
-                        <td>담당자</td>
-                        <td><input type="text" name="" placeholder="담당자" maxlength="6"></td>
-                        <td>담당 부서</td>
-                        <td><input type="tel" name="" placeholder="담당 부서" maxlength="13" oninput="formatPhoneNumber(this)"></td>
-                    </tr>
-                    <tr id="chart-3">
-                        <td>애칭</td>
-                        <td><input type="email" name="" placeholder="애칭"></td>
-                        <td>방사장</td>
-                        <td><input type="tel" name="" placeholder="방사장" maxlength="11" oninput="formatCompanyNumber(this)"></td>
-                    </tr>
-                    <tr id="chart-4">
-                        <td>멸종 위기</td>
-                        <td>
-                            <select name="position" id="position">
-                                <option value="">절멸(EX)</option>
-                                <option value="">야생절멸(EW)</option>
-                                <option value="">위급(CR)</option>
-                                <option value="">위기(EN)</option>
-                                <option value="">취약(VU)</option>
-                                <option value="">준위협(NT)</option>
-                                <option value="">최소관심(LC)</option>
-                                <option value="">정보부족(DD)</option>
-                                <option value="">미평가(NE)</option>
-                            </select>
-                        </td>
-                        <td>식 성</td>
-                        <td><input type="text" name="" placeholder="식성" maxlength="11" oninput="formatRepresentNumber(this)"></td>
-                    </tr>
-                      <tr id="chart-4">
-                        <td>등록 일시</td>
-                        <td><input type="date" name="enrollDate"></td>
-                        <td>서식지</td>
-                        <td><input type="text" name="" placeholder="서식지"></td>
-                    </tr>
-                    
-                </table>
-                
-                <div id="enroll-btn">
-                    <label for="file">
-                        <div class="btn-upload">프로필 등록</div>
-                    </label>
-                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
-                </div>
                 <div id="content-area">
-                    <div>건강검진 종합 소견</div>
                     <br>
-                    <span>유질환</span>
+                    <span>제목</span>
                     <textarea name="" id="t1" cols="30" rows="10"></textarea>
-                    <br>
-                    <span>생활 습관 관리</span>
-                    <textarea name="" id="t2" cols="30" rows="9"></textarea>
-                    <br>
+                  
                     <span>의사 소견</span>
                     <textarea name="" id="t3" cols="30" rows="10"></textarea>
                 </div>
                 <div id="btn-area">
-                        <div class="btn-upload">수정 하기</div>
-                        <div class="btn-upload">완료 </div>
+                        <div class="btn-upload">등록</div>
                         <div class="btn-upload">닫기</div>
                 </div>
               

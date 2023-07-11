@@ -25,4 +25,10 @@ public class AnimalController {
 	public String animalHealth() {
 		return "animal/health";
 	}
+	
+	//동물 훈련 일지 작성
+	@GetMapping("training")
+	public String animalTraining() {
+		return "animal/training";
+	}
 }
