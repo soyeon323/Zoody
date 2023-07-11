@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- summerNote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -112,18 +115,16 @@
     }
     #content-area{
         display: grid;
-        grid-gap: 10px;
-    }
-
-    #t1 ,#t2 ,#t3{
-        resize: none;
-        width: 100%;
+        grid-gap: 30px;
     }
 
     #t1{
+        resize: none;
+        width: 70%;
         height: 30px;
 
     }
+
     </style>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
@@ -135,7 +136,7 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
-
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <div id="wrap">
 
         <div id="enroll">훈련 일지 작성 </div>
@@ -145,8 +146,8 @@
                     <span>제목</span>
                     <textarea name="" id="t1" cols="30" rows="10"></textarea>
                   
-                    <span>의사 소견</span>
-                    <textarea name="" id="t3" cols="30" rows="10"></textarea>
+                    <span>훈련 내용</span>
+                    <div id="summernote"></div>
                 </div>
                 <div id="btn-area">
                         <div class="btn-upload">등록</div>
@@ -161,5 +162,53 @@
 </body>
 </html>
 <script>
-  
+
+    // sunnerNote
+    $('#summernote').summernote({
+        	placeholder: '내용입력',
+        	tabsize: 2,
+        	height: 500,
+        	maxHeight:800,
+        	minHeight:500,
+        	width: 1500,
+		callbacks : {
+			onImageUpload : f01
+		},
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+
+      function f01(FileList) {
+
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
+
+        $.ajax({
+            url :'' ,
+            type : 'post',
+            data : fd,
+            processData : false,
+            contentType : false,
+            dataType:'json',
+            success : (changeNameList)=>{
+                console.log(changeNameList);
+                for(let changeName of changeNameList){
+                    $('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
+                }
+            },
+            error : (e)=>{
+                alert(e);
+            }
+        });
+        }
+
 </script>
