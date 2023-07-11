@@ -26,7 +26,9 @@
         </div>
 
         <div id="back">
-            <div>
+
+            <div id="firstDiv">
+                <a>전체직원 3명</a>
                 <select name="searchType" id="department">
                     <option value="">부서</option>
                     <option value="">이름</option>
@@ -36,6 +38,7 @@
                 <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
                 <input type="submit" value="검색">
             </div>
+
             <div>
                 <table id="content">
                     <thead>
@@ -65,9 +68,28 @@
                             <td>이메일</td>
                             <td>내선번호</td>
                         </tr>
+                        <tr>
+                            <td>부서</td>
+                            <td>사번</td>
+                            <td>이름</td>
+                            <td>직위</td>
+                            <td>이메일</td>
+                            <td>내선번호</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            
+        </div>
+        
+        <div id="page">
+            <a href=""><img src="${root}/resources/img/left.png" alt="왼쪽화살표"></a>
+            <a href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="">5</a>
+            <a href=""><img src="${root}/resources/img/right.png" alt="오른쪽화살표"></a>
         </div>
     </div>
 
