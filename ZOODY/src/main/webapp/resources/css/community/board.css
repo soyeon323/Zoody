@@ -1,0 +1,12 @@
+#wrap {
+    width: calc(100% - 555px - 60px);
+    height: calc(100% - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 30;
+    margin-bottom: 80;
+    margin-left: 585;
+    background-color: brown;
+}
+
