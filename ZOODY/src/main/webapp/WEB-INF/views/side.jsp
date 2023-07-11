@@ -12,8 +12,7 @@
 <body>
 
     <aside class="side-bar">
-        </section>
-        </section>
+     
         <ul>
         <li>
             <a href="#"><i class="fa-solid fa-cat"></i> 근태 관리</a>
@@ -83,3 +82,18 @@
     </aside>
 </head>
 <body>
+
+    <script>
+        // side-bar토글형식
+        document.addEventListener('DOMContentLoaded', function() {
+        var menuItems = document.querySelectorAll('.side-bar > ul > li > a');
+
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
+            e.preventDefault();
+            var listItem = this.parentNode;
+            listItem.classList.toggle('active');
+            });
+        });
+        });
+    </script>
