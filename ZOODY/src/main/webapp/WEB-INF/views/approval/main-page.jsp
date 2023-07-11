@@ -20,7 +20,7 @@
 		
 			<div class="wrap-header">
 				<div class="category-list">
-					<button class="category-box my-upvote">
+					<button class="category-box my-upvote my-upvote-active">
 						<div class="category-title">내 상신 문서</div>
 						<div class="number-of-case">
 							<span class="my-upvote-number">(값)12</span>
@@ -60,26 +60,87 @@
 			</div>
 		
 			<div class="wrap-body">
-				<div class="approval-box">
+				<div class="approval-box ongoing-approval">
 					<div class="approval-info">
 						<div class="info-upper-line">
 							<div class="approval-title">
 								(값) 혹한기 대비 물자 구매 품의서
 							</div>
-							<div class="approval-state">
+							<div class="approval-state ongoing">
 								진 행 중
 							</div>
 						</div>
 						<div class="info-lower-line">
-							<div class="wirter"></div>
-							<div class="enroll-date"></div>
-							<div class="category"></div>
+							<div class="wirter">
+								기안자 : (값) 유정연
+							</div>
+							<div class="enroll-date">
+								기안 일자 : (값) 2023-07-11
+							</div>
+							<div class="category">
+								결재양식 : (값) 품의서
+							</div>
 						</div>
 					</div>
 					<button class="detail-btn">
 						상세 조회
 					</button>
 				</div>
+
+				<div class="approval-box rejected-approval">
+					<div class="approval-info">
+						<div class="info-upper-line">
+							<div class="approval-title">
+								(값) 휴가 신청서
+							</div>
+							<div class="approval-state rejected">
+								반 려
+							</div>
+						</div>
+						<div class="info-lower-line">
+							<div class="wirter">
+								기안자 : (값) 유정연
+							</div>
+							<div class="enroll-date">
+								기안 일자 : (값) 2023-07-11
+							</div>
+							<div class="category">
+								결재양식 : (값) 휴가 신청서
+							</div>
+						</div>
+					</div>
+					<button class="detail-btn">
+						상세 조회
+					</button>
+				</div>
+
+				<div class="approval-box delayed-approval">
+					<div class="approval-info">
+						<div class="info-upper-line">
+							<div class="approval-title">
+								(값) 23-06 맹수팀 진료관련 지출 결의서
+							</div>
+							<div class="approval-state delayed">
+								지연됨
+							</div>
+						</div>
+						<div class="info-lower-line">
+							<div class="wirter">
+								기안자 : (값) 유정연
+							</div>
+							<div class="enroll-date">
+								기안 일자 : (값) 2023-07-11
+							</div>
+							<div class="category">
+								결재양식 : (값) 지출 결의서
+							</div>
+						</div>
+					</div>
+					<button class="detail-btn">
+						상세 조회
+					</button>
+				</div>
+
 			</div>
 
 		</div>
