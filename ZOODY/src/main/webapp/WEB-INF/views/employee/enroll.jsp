@@ -132,7 +132,7 @@
                         <input type="radio" checked name="userInfoModify" value="" id="InfoOk">
                         <label for="InfoOk">허용</label>
                         <input type="radio" name="userInfoModify" value="" id="InfoNo">
-                        <label for="InfoNo">허용하지 않음</label>
+                        <label for="InfoNo">허용안함</label>
                     </div>
                     <div></div>
                     <div id="hr01"><hr></div>
@@ -141,7 +141,7 @@
                         <input type="radio" checked name="HeadInfoYn" value="" id="InfoOk2">
                         <label for="InfoOk2">허용</label>
                         <input type="radio" name="HeadInfoYn" value="" id="InfoNo2">
-                        <label for="InfoNo2">허용하지 않음</label>
+                        <label for="InfoNo2">허용안함</label>
                     </div>
                     <div id="guideMent01">
                         <img src="${root}/resources/img/icon01.png" alt="아이콘">
