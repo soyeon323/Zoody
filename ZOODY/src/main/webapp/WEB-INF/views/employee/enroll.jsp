@@ -18,17 +18,18 @@
 <body>
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
+    <%@ include file="/WEB-INF/views/side.jsp" %>
 
     <div id="wrap">
 
         <div id="enroll">인사등록</div>
 
         <div id="chart">
-            <form action="/app/employee/enroll" method="post" enctype="multipart/form-data">
+            <form action="${root}/employee/enroll" method="post" enctype="multipart/form-data">
                 
                 <table>
                     <tr id="chart-1">
-                        <td rowspan="4"><img src="/zoody/resources/img/profile.png" alt="프로필기본사진"></td>
+                        <td rowspan="4"><img src="${root}/resources/img/profile.png" alt="프로필기본사진"></td>
                         <td>이름</td>
                         <td>소속</td>
                         <td colspan="3">주디 동물원</td>
@@ -143,13 +144,13 @@
                         <label for="InfoNo2">허용하지 않음</label>
                     </div>
                     <div id="guideMent01">
-                        <img src="/zoody/resources/img/icon01.png" alt="아이콘">
+                        <img src="${root}/resources/img/icon01.png" alt="아이콘">
                         <a>허용 : 임원에게 부서장의 인사정보를 공개함</a>
                     </div>
                 </div>
 
                 <div id="explanEnroll">
-                    <img src="/zoody/resources/img/icon01.png" alt="아이콘">
+                    <img src="${root}/resources/img/icon01.png" alt="아이콘">
                     <a>허위정보 기입 시 제재를 받을 수 있습니다.</a>
                 </div>
 
