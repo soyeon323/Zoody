@@ -10,8 +10,12 @@ public class ApprovalController {
 
 	@GetMapping("main-page")
 	public String mainPage() {
-		
 		return "approval/main-page";
+	}
+	
+	@GetMapping("write/letter-of-approval")
+	public String writeLetterOfApproval() {
+		return "approval/write/letter-of-approval";
 	}
 	
 }
