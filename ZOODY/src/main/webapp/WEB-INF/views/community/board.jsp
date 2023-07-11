@@ -6,18 +6,23 @@
 <head>   
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/resources/css/board.css">
+<link rel="stylesheet" href="${root}/resources/css/community/board.css">
 </head>
 <body>
 
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
-
+    <%@ include file="/WEB-INF/views/community/communitySide.jsp" %>
     <div id="wrap">
-        화면
-        <div>dadsa</div>
-        <h1>dssda</h1>
-        <span>dsadsa</span>
+
+        <div id="grid-wrap">
+
+            
+            <div>dadsa</div>
+            <h1>dssda</h1>
+            <span>dsadsa</span>
+
+        </div>
     </div>
 
 </body>
