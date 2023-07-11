@@ -1,3 +1,5 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
 /* 사이드바랑 메인 영역 나누기 */
 
 #att_wrap{
@@ -18,7 +20,7 @@
 }
 
 /* 근무현황 영역 나누기----------------------------------------------------*/
-#att_main > div{
+#att_main div[class^="att_"]{
     background-color: white;
     border: 1px solid #F1F1F1;
     border-radius: 5px;
@@ -26,12 +28,16 @@
 }
 
 /* 첫번째 줄 */
-.att_count1{
+.count1{
     background-color: #00CBA4;
+    border: 1px solid #F1F1F1;
+    border-radius: 5px;
 }
 
-.att_count2{
+.count2{
     background-color: #00BEEA;
+    border: 1px solid #F1F1F1;
+    border-radius: 5px;
 }
 
 /* 두번째 줄 */
@@ -58,14 +64,17 @@
 
 /* 컨텐츠 채우기----------------------------------------------------*/
 
-/* 첫번째 줄 */
+/* 출퇴근 체크*/
+.att_check{
+    position: relative;
+}
+
 .att_check p:first-child{
     color: #96A0B5;
     font-size: 12px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 152.8%;
-    letter-spacing: -0.12px;
 
     padding-top: 25px;
     padding-left: 27px;
@@ -80,4 +89,184 @@
     letter-spacing: 2.7px;
 
     padding-left: 26px;
+}
+
+.att_check button[name="check-first"] {
+    width: 116px;
+    height: 30px;
+
+    border-radius: 5px;
+    border: 1.5px solid #5189FA;
+    background: #EFF5FF;
+
+    color: #4876EF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 0.65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    position: absolute;
+    left: 137px;
+    top: 48px;
+}
+
+.att_check button[name="check-second"] {
+    width: 116px;
+    height: 30px;
+
+    border-radius: 5px;
+    border: 1.5px solid #00CBA4;
+    background: #EFF5FF;
+
+    color: #00CBA4;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 0.65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    position: absolute;
+    right: 27px;
+    top: 48px;
+}
+
+.att_check button[name="check-first"]:hover{
+    border: 2px solid #5189FA;
+}
+
+.att_check button[name="check-second"]:hover {
+    border: 2px solid #00CBA4;
+}
+
+/* 휴가 현황 */
+.count1{
+    position: relative;
+}
+
+.count-flex{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding-top: 13px;
+    padding-left: 15px;
+}
+
+.count1 p:first-child{
+    color: #F1F1F1;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+    letter-spacing: 0.6px;
+}
+
+.count1 p:nth-child(2){
+    color: #EFF5FF;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+
+    padding-left: 15px;
+}
+
+.count1 > a{
+    position: absolute;
+    bottom: 9px;
+    right: 13px;
+}
+
+/* 연차 현황 */
+.count2{
+    position: relative;
+}
+
+.count-flex2{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding-top: 13px;
+    padding-left: 15px;
+}
+
+.count2 p:first-child{
+    color: #F1F1F1;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+    letter-spacing: 0.6px;
+}
+
+.count2 p:nth-child(2){
+    color: #EFF5FF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+
+    padding-left: 15px;
+}
+
+.count2 > a{
+    position: absolute;
+    bottom: 9px;
+    right: 13px;
+}
+
+/* 내 출결 현황 */
+.att_my > p{
+    color: #474747;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 0.34px;
+
+    margin-left: 31px;
+    margin-top: 15px;
+}
+
+.att_my > hr{
+    width: 769px;
+    background: #a8a8a8;
+    margin: 0.5rem 0 0.7rem 12px;
+}
+
+.att_my > table > tbody > tr{
+    color: #868686;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+    letter-spacing: 0.24px;
+}
+
+.att_my > table > tbody{
+    margin-left: 5px;
+}
+
+.table>:not(caption)>*>* {
+    padding: 0.5rem 1.3rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
