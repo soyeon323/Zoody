@@ -40,11 +40,13 @@
     width: 200px;
     margin-right: 10px;
     border: 1px solid #D7D7D7;
+    border-radius: 5px;
 }
 
 #back div:first-child input[type="text"]{
     width: 250px;
     border: 1px solid #D7D7D7;
+    border-radius: 5px;
 }
 
 #back div:first-child input[type="submit"]{
@@ -75,6 +77,7 @@
     height: 60px;
     border-bottom: 1px solid #D7D7D7;
     border-top: 1px solid #D7D7D7;
+    color: #4B4B4B;
 }
 
 #content tr{
@@ -85,4 +88,54 @@
 
 #content>thead tr{
     height: 60px;
+}
+
+#content>tbody{
+    color: black;
+    font-size: 18px;
+}
+
+#content>tbody tr{
+    height: 48px;
+    margin-top: 20px;
+}
+
+#page{
+    width: 1500px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#page a{
+    margin-right: 20px;
+    text-decoration: none;
+    color: #4B4B4B;
+    font-size: 18px;
+}
+
+#page>a img{
+    width: 17px;
+    height: 17px;
+}
+
+#page>a:nth-child(2){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    background-color: #4876EF;
+    color: white;
+}
+
+table tbody tr:hover{
+    background-color: #00CBA4;
+    cursor: pointer;
+}
+
+#firstDiv>a{
+    width: 940px;
+    font-size: 18px;
+    color: #4B4B4B;
 }
