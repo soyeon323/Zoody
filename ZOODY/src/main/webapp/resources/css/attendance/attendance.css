@@ -7,9 +7,9 @@
 
 #att_main{
     /* background-color: red; */
-    height: 922px;
-    margin-top: 20px;
-    margin-left: 20px;
+    /* height: 922px; */
+    margin-top: 15px;
+    margin-left: 24px;
 
     display: grid;
     grid-template-columns: 417px 175px 175px 787px;
