@@ -6,13 +6,13 @@
 }
 
 #storage{
-    width: 269px;
-    height: 45px;
+
     background-color: #4876EF;
     position: absolute;
     bottom: 0px;
     color: white;
 }
+
     
 /*--------------------------- 사이드바css 는 나중에 따로 header.css로 분리 예정----------------------------------*/
 
@@ -38,13 +38,7 @@ body, ul, li {
   
   /* 사이드바의 너비와 높이를 변수를 통해 통제 */
   :root {
-    --side-bar-width: 270px;
-    --side-bar-height: 90vh;
-  }
-  
-  .side-bar {
-    position: fixed;    /* 스크롤을 따라오도록 지정 */
-    background-color: rgb(235, 236, 238);
+
     width: var(--side-bar-width);
     min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
   }
@@ -91,14 +85,13 @@ body, ul, li {
   /* 모든 메뉴의 a에 속성값 부여 */
   .side-bar ul > li > a {
     display: block;
-    color: white;
-    font-size: 1.4rem;
-    font-weight: bold;
+
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 50px;
     transition: .5s;
   }
+
   
   /* 자식의 position이 absolute일 때 자식을 영역 안에 가두어 준다 */
   .side-bar > ul > li {
@@ -127,28 +120,7 @@ body, ul, li {
   }
   /* 사이드바 시작 */
   /* 사이드바의 너비와 높이를 변수를 통해 통제 */
-  :root {
-    --side-bar-width: 270px;
-    --side-bar-height: 90vh;
-  }
-  .side-bar {
-    position: fixed;    /* 스크롤을 따라오도록 지정 */
-    background-color: #f3f3f3;
-    width: var(--side-bar-width);
-    min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
-  }
-  /* 아이콘 끝 */
-  /* 모든 메뉴의 a에 속성값 부여 */
-  .side-bar ul > li > a {
-    display: block;
-    color: white;
-    font-size: 1.0rem;
-    font-weight: bold;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 50px;
-    transition: .5s;
-  }
+
   /* 자식의 position이 absolute일 때 자식을 영역 안에 가두어 준다 */
   .side-bar > ul > li {
     position: relative;
@@ -181,16 +153,7 @@ a {
 }
 /* 사이드바 시작 */
 /* 사이드바의 너비와 높이를 변수를 통해 통제 */
-:root {
-  --side-bar-width: 270px;
-  --side-bar-height: 90vh;
-}
-.side-bar {
-  position: fixed;    /* 스크롤을 따라오도록 지정 */
-  background-color: #779af3;
-  width: var(--side-bar-width);
-  min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
-}
+
 
 
 /* 아이콘 시작 */
@@ -235,17 +198,7 @@ a {
 }
 
 /* 아이콘 끝 */
-/* 모든 메뉴의 a에 속성값 부여 */
-.side-bar ul > li > a {
-  display: block;
-  color: rgb(0, 0, 0);
-  font-size: 1.0rem;
-  font-weight: bold;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 50px;
-  transition: .5s;
-}
+
 /* 자식의 position이 absolute일 때 자식을 영역 안에 가두어 준다 */
 .side-bar > ul > li {
   position: relative;

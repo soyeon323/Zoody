@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>동물 상세 조회</title>
-<link rel="stylesheet" href="${root}/resources/css/home.css">
+<title>Insert title here</title>
 <style>
     #wrap{
         width: 1663px;
@@ -120,7 +119,7 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 상세 조회</div>
+        <div id="enroll">동물 등록</div>
 
         <div id="chart">
             <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
@@ -187,15 +186,13 @@
 
                 <div id="btn-area">
                         <div class="btn-upload">훈련 일지 작성</div>
-                        <div class="btn-upload">건강 상태 정보</div>
-                        <div class="btn-upload"> 닫기 </div>
+                        <div class="btn-upload">건강 정보 조회</div>
+                        <div class="btn-upload">닫기</div>
                 </div>
               
             </form>
         </div>
-
     </div>
-
 </body>
 </html>
 <script>
