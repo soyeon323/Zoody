@@ -39,6 +39,10 @@
                 <input type="submit" value="검색">
             </div>
 
+            <div id="newEmployee">
+                <img src="${root}/resources/img/employee.png" alt="직원아이콘">
+                <a href="">인사등록</a>
+            </div>
             <div>
                 <table id="content">
                     <thead>
@@ -52,6 +56,38 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>부서</td>
+                            <td>사번</td>
+                            <td>이름</td>
+                            <td>직위</td>
+                            <td>이메일</td>
+                            <td>내선번호</td>
+                        </tr>
+                        <tr>
+                            <td>부서</td>
+                            <td>사번</td>
+                            <td>이름</td>
+                            <td>직위</td>
+                            <td>이메일</td>
+                            <td>내선번호</td>
+                        </tr>
+                        <tr>
+                            <td>부서</td>
+                            <td>사번</td>
+                            <td>이름</td>
+                            <td>직위</td>
+                            <td>이메일</td>
+                            <td>내선번호</td>
+                        </tr>
+                        <tr>
+                            <td>부서</td>
+                            <td>사번</td>
+                            <td>이름</td>
+                            <td>직위</td>
+                            <td>이메일</td>
+                            <td>내선번호</td>
+                        </tr>
                         <tr>
                             <td>부서</td>
                             <td>사번</td>

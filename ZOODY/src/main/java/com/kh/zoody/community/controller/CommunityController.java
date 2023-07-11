@@ -15,5 +15,4 @@ public class CommunityController {
 	public String board() {
 		return "community/board";
 	}
-	
 }
