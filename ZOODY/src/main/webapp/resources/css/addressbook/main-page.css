@@ -1,4 +1,8 @@
 main {
+	display: flex;
+}
+
+.wrap {
     width: 1650px;
     height: 905px;
 }
@@ -126,7 +130,7 @@ main {
 
 /* 상세내용 표 */
 .detail-table {
-    width: 1105px;
+    width: 990px;
     height: 176px;
 
     margin-top: 20px;
@@ -135,45 +139,29 @@ main {
 table, td, th {
     border : 1px solid black;
     border-collapse : collapse;
- };
-
-
-.profile-data-cell {
-    width: 155px;
-    height: 176px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.profile-img {
-    width: 126px;
-    height: 150px;
-}
+ }
 
 .header-cell {
-    width: 155px;
-    height: 44px;
-
-    background-color: rgb(215, 215, 215);
-}
-.table-header-title {
     width: 155px;
     height: 44px;
 
     font-size: 16px;
     font-weight: 400;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: rgb(215, 215, 215);
 }
 
 .data-cell {
     width: 242px;
     height: 44px;
+
+    font-size: 14px;
+    font-weight: 400;
     
-    padding-left: 10px
+    vertical-align: middle;
+}
+
+.center-align-cell {
+    text-align: center;
+    vertical-align: middle;
 }
