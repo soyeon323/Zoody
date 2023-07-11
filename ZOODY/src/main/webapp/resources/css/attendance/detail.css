@@ -1,0 +1,46 @@
+/* 사이드바랑 메인 영역 나누기 */
+
+#att_wrap{
+    display: grid;
+    grid-template-columns: 264px auto;
+}
+
+#att_main{
+    /* background-color: red; */
+    height: 922px;
+    margin-top: 50px;
+    margin-left: 50px;
+
+    display: grid;
+    grid-template-columns: 417px 144px 144px 144px 144px 461px;
+    grid-template-rows: 82px 51px 247px 407px;
+    gap: 15px;
+}
+
+/* 근무조회 영역 나누기----------------------------------------------------*/
+
+/* 첫번째 줄 */
+#att_main div[class^="att_"]{
+    background-color: white;
+    border: 1px solid #F1F1F1;
+    border-radius: 5px;
+}
+
+.att_workList{
+    grid-column: 6/7;
+    grid-row: -5/-2;
+}
+
+/* 두번째 줄 */
+.search_area{
+    grid-column: 1/6;
+}
+
+/* 세번째 줄 */
+.att_myList{
+    grid-column: 1/6;
+    grid-row: -3/-1;
+}
+
+
+

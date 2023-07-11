@@ -1,0 +1,83 @@
+/* 사이드바랑 메인 영역 나누기 */
+
+#att_wrap{
+    display: grid;
+    grid-template-columns: 264px auto;
+}
+
+#att_main{
+    /* background-color: red; */
+    height: 922px;
+    margin-top: 20px;
+    margin-left: 20px;
+
+    display: grid;
+    grid-template-columns: 417px 175px 175px 787px;
+    grid-template-rows: 94px 382px 184px 183px;
+    gap: 15px;
+}
+
+/* 근무현황 영역 나누기----------------------------------------------------*/
+#att_main > div{
+    background-color: white;
+    border: 1px solid #F1F1F1;
+    border-radius: 5px;
+    
+}
+
+/* 첫번째 줄 */
+.att_count1{
+    background-color: #00CBA4;
+}
+
+.att_count2{
+    background-color: #00BEEA;
+}
+
+/* 두번째 줄 */
+.att_grap{
+    grid-column: 2/5;
+}
+
+/* 세번째 줄 */
+.att_work{
+    grid-column: 2/4;
+    grid-row: 3/4;
+}
+
+.att_department{
+    grid-column: 4/5;
+    grid-row: 3/5;
+}
+
+/* 네번째 줄 */
+.att_my{
+    grid-column: 1/4;
+}
+
+
+/* 컨텐츠 채우기----------------------------------------------------*/
+
+/* 첫번째 줄 */
+.att_check p:first-child{
+    color: #96A0B5;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%;
+    letter-spacing: -0.12px;
+
+    padding-top: 25px;
+    padding-left: 27px;
+}
+
+.att_check p:nth-child(2){
+    color: #3A3A3A;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 2.7px;
+
+    padding-left: 26px;
+}
