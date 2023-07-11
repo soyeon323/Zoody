@@ -12,5 +12,10 @@ public class AttendanceController {
 	public String workStatus() {
 		return "attendance/workStatus";
 	}
+	
+	@GetMapping("detail")
+	public String detail() {
+		return "attendance/detail";
+	}
 
 }
