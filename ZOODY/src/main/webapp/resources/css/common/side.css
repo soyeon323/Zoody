@@ -1,13 +1,13 @@
 #sidebar{
   width: 255px;
-  height: 93vh;
+  /* height: 93vh; */
   background-color: white;
   border-right: 1px solid rgb(213, 213, 213);
 }
 
 #storage{
   width: 269px;
-  height: 45px;
+  height: 5vh;
   background-color: #4876EF;
   position: absolute;
   bottom: 0px;
@@ -41,7 +41,7 @@ a {
 /* 사이드바의 너비와 높이를 변수를 통해 통제 */
 :root {
   --side-bar-width: 270px;
-  --side-bar-height: 100vh;
+  --side-bar-height: 95vh;
 }
 .side-bar {
   /* position: fixed; */
