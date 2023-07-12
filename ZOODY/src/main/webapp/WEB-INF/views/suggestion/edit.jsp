@@ -29,7 +29,7 @@
         <form action="${root}/suggestion/write" method="post" enctype="multipart/form-data">
 
             <div id="suggestionWrite">
-                <a>글쓰기</a>
+                <a>건의사항</a>
             </div>
     
             <div id="selectArea">
@@ -48,7 +48,7 @@
             
             <div id="title">
                 <a>제목</a>
-                <input type="text" name="title">
+                <input type="text" name="title" value="건의사항 제목111">
             </div>
     
             <div id="fileArea">
@@ -61,7 +61,7 @@
             </div>
 
             <div id="contentArea">
-                <textarea id="summernote" name="content"></textarea>  
+                <textarea id="summernote" name="content">내용내용</textarea>  
             </div>
 
             <div id="radioArea">
@@ -82,7 +82,7 @@
             </div>
 
             <div id="btnArea">
-                <input type="submit" value="작성">
+                <input type="submit" value="수정">
                 <button>취소</button>
             </div>
         </form>

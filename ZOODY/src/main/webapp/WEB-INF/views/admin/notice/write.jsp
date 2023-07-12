@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/resources/css/suggestion/write.css">
+<link rel="stylesheet" href="${root}/resources/css/admin/notice/write.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 <body style="overflow-x: hidden">
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
-    <%@ include file="/WEB-INF/views/tempside.jsp" %>
+    <%@ include file="/WEB-INF/views/admin/side.jsp" %>
 
     <div id="wrap">
 
@@ -82,7 +82,7 @@
             </div>
 
             <div id="btnArea">
-                <input type="submit" value="작성">
+                <input type="submit" value="수정">
                 <button>취소</button>
             </div>
         </form>
