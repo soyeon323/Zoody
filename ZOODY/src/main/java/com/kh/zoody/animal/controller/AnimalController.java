@@ -31,4 +31,9 @@ public class AnimalController {
 	public String animalTraining() {
 		return "animal/training";
 	}
+	
+	@GetMapping("list")
+	public String animalList() {
+		return "animal/list";
+	}
 }
