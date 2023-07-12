@@ -41,8 +41,12 @@
 	<aop:aspectj-autoproxy/>
 
 	<!-- @Aspect 어노테이션도 scan 하기 위함 -->
-	<context:component-scan base-package="com.kh.zoody">
+	<context:component-scan base-package="com.kh.zoody" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
 	</context:component-scan>
-		
+	
+	<!-- 필터가 요청을 위임할 객체 등록 -->
+	<bean name="abc" class="org.springframework.web.filter.CharacterEncodingFilter">
+		<property name="encoding" value="UTF-8" />
+	</bean>
 </beans>
