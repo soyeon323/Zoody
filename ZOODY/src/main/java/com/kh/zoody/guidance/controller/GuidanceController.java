@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("guidance")
 public class GuidanceController {
-	
+
 	@GetMapping("guidance")
-	public void map() {}
+	public void guidance() {}
 }
