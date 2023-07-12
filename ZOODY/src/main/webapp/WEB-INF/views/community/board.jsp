@@ -17,10 +17,28 @@
 
         <div id="grid-wrap">
 
+            <div class="boder-grid-header">
+                자유 게시판
+            </div>
             
-            <div>dadsa</div>
-            <h1>dssda</h1>
-            <span>dsadsa</span>
+            <div class="boder-grid-body">
+                
+                <div class="boder-grid-body-top">t
+
+                </div>
+                <div class="boder-grid-body-meddle">m
+
+                </div>
+                <div class="boder-grid-body-bottom">b
+                    
+                </div>
+
+            </div>
+            
+
+            <div class="boder-grid-footer">
+                아래
+            </div>
 
         </div>
     </div>
