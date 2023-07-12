@@ -42,5 +42,104 @@
     grid-row: -3/-1;
 }
 
+/* 컨텐츠 채우기----------------------------------------------------*/
 
+/* 첫번째 줄----------------------------------------------------*/
+/* 출퇴근 체크*/
+.att_check{
+    position: relative;
+}
+
+.att_check p:first-child{
+    color: #96A0B5;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%;
+
+    padding-top: 14px;
+    padding-left: 27px;
+}
+
+.att_check p:nth-child(2){
+    color: #3A3A3A;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 2.7px;
+
+    padding-left: 26px;
+}
+
+.att_check button[name="check-first"] {
+    width: 116px;
+    height: 30px;
+
+    border-radius: 5px;
+    border: 1.5px solid #5189FA;
+    background: #EFF5FF;
+
+    color: #4876EF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 0.65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    position: absolute;
+    left: 138px;
+    top: 37px;
+}
+
+.att_check button[name="check-second"] {
+    width: 116px;
+    height: 30px;
+
+    border-radius: 5px;
+    border: 1.5px solid #00CBA4;
+    background: #EFF5FF;
+
+    color: #00CBA4;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 0.65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    position: absolute;
+    right: 26px;
+    top: 37px;
+}
+
+.att_check button[name="check-first"]:hover{
+    border: 2px solid #5189FA;
+}
+
+.att_check button[name="check-second"]:hover {
+    border: 2px solid #00CBA4;
+}
+
+/* 출근 유형 */
+.type-flex{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.type-flex > p{
+    
+}
 
