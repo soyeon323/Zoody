@@ -7,6 +7,7 @@ main {
     height: 100%;
     
     display: flex;
+    flex-direction: column;
 }
 
 .wrap-header {
@@ -35,4 +36,153 @@ main {
     background-color: rgb(72, 118, 239);
     border: 0px;
     border-radius: 10px;
+}
+
+.wrap-main {
+    width: 1600px;
+    height: 840px;
+    
+    display: flex;
+    justify-content: space-between;
+}
+.mail-sidebar {
+    width: 285px;
+    height: 830px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    border: 2px solid rgb(72, 118, 239);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.mail-list-area {
+     width: 1280px;
+     height: 830px;
+
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+
+     border: 2px solid rgb(72, 118, 239);
+     border-radius: 10px;
+     box-sizing: border-box;
+}
+
+.mail-sidebar-header {
+    width: 255px;
+    height: 90px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    border-bottom: 1px solid rgb(53, 54, 54);
+}
+.unread-count {
+    font-size: 17px;
+    font-weight: 700;
+    color: rgb(53, 54, 54);
+}
+.my-important-btn {
+    width: 85px;
+    height: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: rgb(53, 54, 54);
+    font-size: 17px;
+    font-weight: 700;
+
+    background-color: #F4F7FD;
+    border: 0px;
+
+    cursor: pointer;
+}
+
+.default-folder-list {
+    height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+.folder-btn {
+    width: 255px;
+    height: 30px;
+
+    align-self: baseline;
+    display: flex;
+    gap: 20px;
+
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+
+    background-color: #F4F7FD;
+    border: 0px;
+    box-sizing: border-box;
+}
+.selected-folder-btn {
+    color: rgb(72, 118, 239);
+}
+
+.custom-list-header {
+    width: 255px;
+    height: 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+
+    border-bottom: 1px solid rgb(53, 54, 54);
+}
+
+.custom-folder-list {
+    width: 255px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+.custom-folder {
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+
+
+.mail-list-header {
+    width: 1200px;
+    height: 100px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list-header-left {
+    width: 200px;
+
+    display: flex;
+    justify-content: space-between;
+}
+.unread-receive {
+     display: flex;
+}
+.unread-receive > .unread-count {
+    color: rgb(72, 118, 239);
 }
