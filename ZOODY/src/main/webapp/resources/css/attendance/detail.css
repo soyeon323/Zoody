@@ -137,9 +137,115 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-left: 15px;
+    margin-top: 10px;
 }
 
 .type-flex > p{
+    color: #b3b7be;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%;
+    letter-spacing: 0.96px;
+}
+
+.att_type1 > p:last-child{
+    color: #474747;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 152.8%;
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.type-p{
+    color: #96A0B5;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 152.8%;
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+/* 검색바 줄----------------------------------------------------*/
+.search_area{
+    display: grid;
+    grid-template-columns: 0.7fr 4fr 2.5fr;
+    align-items: end;
+}
+
+.search_area > div > button{
+    color: #EFF5FF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%;
+    letter-spacing: 1.3px;
+
+    border-radius: 5px;
+    background: #00CBA4;
+
+    width: 102px;
+    height: 24px;
+    flex-shrink: 0;
+
+    border: none;
+}
+
+.form-select {
+    height: 26px;
+    display: block;
+    width: 86px;
+    /* padding: 0.375rem 2.25rem 0.375rem 0.75rem; */
+    background-color: #fff;
+
+    color: #5F5F5F;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
     
 }
 
+.search-flex{
+    display: flex;
+    position: relative;
+    gap: 9px;
+    justify-content: flex-end;
+}
+
+.search-input > input{
+    border-radius: 5px;
+    border: 1px solid #D7D7D7;
+    background: #FFF;
+
+    color: #3a3a3a;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+
+    width: 213px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.search-input > input::placeholder{
+    color: #B0B0B0;
+    padding-left: 5px;
+}
+
+.search-input > svg{
+    position: absolute;
+    right: 8px;
+    top: 5px;
+}

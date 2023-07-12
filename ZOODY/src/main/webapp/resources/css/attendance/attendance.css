@@ -234,7 +234,7 @@
 /* 총 근무일수 그래프 */
 .att_total{
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
 }
 
 .total-title > p:first-child{
@@ -273,6 +273,35 @@
     font-weight: 400;
     line-height: 152.8%;
     letter-spacing: 0.96px;
+}
+
+/* 그래프 */
+.total-grap{
+    padding-top: 51px;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #00BEEA;;
+    transition: width .6s ease;
+}
+
+.bg-success {
+    background-color: #EF4898!important;
+}
+
+.bg-info {
+    background-color: #00CBA4!important;
+}
+
+.bg-info2 {
+    background-color: #A574EE!important;
 }
 
 /* 두번째 줄----------------------------------------------------*/
