@@ -15,7 +15,6 @@
   }
   
   
-  
   /* 노멀라이즈 시작 */
   body, ul, li {
     margin: 0;
@@ -71,13 +70,10 @@
   padding-left: 50px;
   }
   
-  
-  
   /* 사이드 바 고정 */
   .side-bar{
   transform: translate(-20px, 0);   /* 둥근 모서리의 너비만큼 숨겨주기 */
   }
-  
   
   /* 사이드바 끝 */
   /* 커스텀 끝 */
@@ -108,7 +104,8 @@
     background-color: #F8F9FC;
     border: 1px solid #CACFDA;
     display: grid;
-    grid-template-rows: 70px 90px;
+    grid-template-rows: 70px 90px 70px 60px 30px 50px 50px 30px 50px 50px;
+    z-index: 10;
   }
 
   .mini-side>div:first-child>a{
@@ -117,7 +114,7 @@
   }
 
   .mini-side>div:first-child{
-    margin-top: 30px;
+    margin-top: 45px;
   }
 
   .mini-side>div:nth-child(2)>button{
@@ -134,4 +131,47 @@
   a:hover{
     text-decoration: none;
     color: black;
+  }
+
+  .mini-side>div:nth-child(2){
+    margin-top: 20px;
+  }
+
+  .mini-side>div:nth-child(3){
+    margin-top: 40px;
+  }
+  
+  .mini-side>div:nth-child(3)>a, .mini-side>div:nth-child(5), .mini-side>div:nth-child(8){
+    margin-left: 35px;
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+  }
+
+  .mini-side>div:nth-child(4)>a,.mini-side>div:nth-child(6)>a, .mini-side>div:nth-child(7)>a,
+  .mini-side>div:nth-child(9)>a, .mini-side>div:nth-child(10)>a{
+    color: #515151;
+  }
+  
+  .mini-side>div:nth-child(4){
+    margin-left: 53px;
+    margin-top: 15px;
+  }
+
+  .mini-side>div:nth-child(5){
+    margin-top: 10px;
+  }
+
+  .mini-side>div:nth-child(6),.mini-side>div:nth-child(9){
+    margin-left: 53px;
+    margin-top: 25px;
+  }
+
+  .mini-side>div:nth-child(7), .mini-side>div:nth-child(10){
+    margin-left: 53px;
+    margin-top: 10px;
+  }
+
+  .mini-side>div:nth-child(8){
+    margin-top: 13px;
   }

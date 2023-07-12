@@ -13,9 +13,11 @@ public class AdminController {
 
 	//공지사항 작성 화면
 	@GetMapping("notice/write")
-	public String noticeWrite() {
-		return "admin/notice/write";
-	}
+	public void noticeWrite() {}
 	
 	//공지사항 작성
+	
+	//공지사항 수정 화면
+	@GetMapping("notice/edit")
+	public void edit() {}
 }
