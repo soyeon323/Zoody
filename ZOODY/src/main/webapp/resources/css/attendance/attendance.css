@@ -64,6 +64,7 @@
 
 /* 컨텐츠 채우기----------------------------------------------------*/
 
+/* 첫번째 줄----------------------------------------------------*/
 /* 출퇴근 체크*/
 .att_check{
     position: relative;
@@ -73,7 +74,7 @@
     color: #96A0B5;
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 152.8%;
 
     padding-top: 25px;
@@ -230,6 +231,136 @@
     right: 13px;
 }
 
+/* 총 근무일수 그래프 */
+.att_total{
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.total-title > p:first-child{
+    color: #A4A4A4;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+    letter-spacing: 0.88px;
+
+    padding-left: 25px;
+    padding-top: 21px;
+}
+
+.total-title-flex{
+    display: flex;
+    padding-left: 22px;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.total-title-flex > p:first-child{
+    color: #474747;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.total-title-flex > p:nth-child(2){
+    color: #A4A4A4;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+    letter-spacing: 0.96px;
+}
+
+/* 두번째 줄----------------------------------------------------*/
+
+/* 세번째 줄----------------------------------------------------*/
+/* 휴가 요청 현황 */
+.leave-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30px;
+    margin-top: 12px;
+    margin-right: 34px;
+    margin-bottom: 9px;
+}
+
+.leave-flex > a > svg{
+    border-radius: 2px;
+    background: #00CBA4;
+}
+
+.leave-flex > p{
+    color: #5A5A5A;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+}
+
+.att_leave > hr{
+    width: 387px;
+    background: #a8a8a8;
+    margin: 0.5rem 0 1rem 12px;
+}
+
+.att_leave > table > tbody > tr{
+    color: #7B7B7B;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%;
+    letter-spacing: 0.6px;
+}
+
+/* 연차 요청 현황 */
+.work-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30px;
+    margin-top: 12px;
+    margin-right: 34px;
+    margin-bottom: 9px;
+}
+
+.work-flex > a > svg{
+    border-radius: 2px;
+    background: #5189FA;
+}
+
+.work-flex > p{
+    color: #5A5A5A;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+}
+
+.att_work > hr{
+    width: 337px;
+    background: #a8a8a8;
+    margin: 0.5rem 0 1rem 12px;
+}
+
+.att_work > table > tbody > tr{
+    color: #7B7B7B;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%;
+    letter-spacing: 0.6px;
+}
+
+/* 네번째 줄----------------------------------------------------*/
 /* 내 출결 현황 */
 .att_my > p{
     color: #474747;
