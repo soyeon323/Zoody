@@ -15,4 +15,12 @@ public class SuggestionController {
 	//건의사항 작성 화면
 	@GetMapping("write")
 	public void write() {}
+	
+	//건의사항 작성
+	
+	//건의사항 수정 화면
+	@GetMapping("edit")
+	public void edit() {}
+	
+	//건의사항 수정
 }
