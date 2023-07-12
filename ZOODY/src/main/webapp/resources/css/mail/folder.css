@@ -1,0 +1,19 @@
+main {
+	display: flex;
+}
+
+.wrap {
+    width: 1650px;
+    height: 100%;
+    
+    display: flex;
+}
+
+.wrap-header {
+    width: 1600px;
+    height: 90px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
