@@ -18,7 +18,7 @@
 <body>
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
-    <%@ include file="/WEB-INF/views/tempside.jsp" %>
+    <%@ include file="/WEB-INF/views/notice/side.jsp" %>
 
     <div id="wrap">
 
@@ -76,6 +76,12 @@
                     <div><a>23-07-01</a></div>
                     <div><a href="">삭제</a></div>
                 </div>
+            </div>
+        </div>
+
+        <div id="btnArea">
+            <div id="btn02">
+                <button>목록</button>
             </div>
         </div>
     </div>
