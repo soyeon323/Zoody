@@ -118,6 +118,24 @@
                 </div>
               </div>
               <div class="total-grap">
+                <div class="grap-flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
+                    <circle cx="2.5" cy="2.5" r="2.5" fill="#00BEEA"/>
+                  </svg>
+                  <p>출석</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
+                    <circle cx="2.5" cy="2.5" r="2.5" fill="#EF4898"/>
+                  </svg>
+                  <p>지각</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
+                    <circle cx="2.5" cy="2.5" r="2.5" fill="#00CBA4"/>
+                  </svg>
+                  <p>외근</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
+                    <circle cx="2.5" cy="2.5" r="2.5" fill="#A574EE"/>
+                  </svg>
+                  <p>휴가</p>
+                </div>
                 <!-- 프로그레스 -->
                 <div class="progress">
                   <div class="progress-bar" role="progressbar" aria-label="Segment one" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -126,14 +144,51 @@
                   <div class="progress-bar bg-info2" role="progressbar" aria-label="Segment three" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
-              <div>
-                
+              <div class="total-percent">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2" height="68" viewBox="0 0 2 68" fill="none">
+                  <path d="M0.499997 67C0.499997 67.2761 0.723855 67.5 0.999997 67.5C1.27614 67.5 1.5 67.2761 1.5 67L0.499997 67ZM0.5 -2.18558e-08L0.499997 67L1.5 67L1.5 2.18558e-08L0.5 -2.18558e-08Z" fill="#EEEEEE"/>
+                </svg>
+                <div class="total-percent-flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="5" fill="#00BEEA"/>
+                  </svg>
+                  <p>90%</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="5" fill="#EF4898"/>
+                  </svg>
+                  <p>3%</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="5" fill="#00CBA4"/>
+                  </svg>
+                  <p>10%</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="5" fill="#A574EE"/>
+                  </svg>
+                  <p>13%</p>
+                </div>
               </div>
             </div>
 
             <!-- 두번째 줄 -->
             <div class="att_calendar"></div>
-            <div class="att_grap"></div>
+            <div class="att_grap">
+              <div class="grap-title">
+                <p>주간 근무 현황</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 10" fill="none">
+                  <g clip-path="url(#clip0_325_7076)">
+                    <path d="M6.31787 10C5.22747 10 4.16155 9.70676 3.25491 9.15735C2.34827 8.60794 1.64164 7.82705 1.22436 6.91342C0.807076 5.99979 0.697897 4.99446 0.910624 4.02455C1.12335 3.05465 1.64843 2.16373 2.41946 1.46447C3.1905 0.765206 4.17285 0.289002 5.2423 0.0960758C6.31176 -0.0968503 7.42027 0.00216643 8.42768 0.380605C9.43508 0.759043 10.2961 1.39991 10.9019 2.22215C11.5077 3.0444 11.8311 4.0111 11.8311 5C11.8295 6.32564 11.2481 7.59658 10.2145 8.53395C9.18096 9.47132 7.77957 9.99857 6.31787 10ZM6.31787 0.833336C5.4092 0.833336 4.52094 1.07771 3.76541 1.53555C3.00987 1.99338 2.42101 2.64413 2.07328 3.40549C1.72554 4.16685 1.63456 5.00462 1.81183 5.81288C1.98911 6.62113 2.42667 7.36356 3.0692 7.94628C3.71173 8.529 4.53036 8.92584 5.42157 9.08661C6.31278 9.24738 7.23654 9.16487 8.07604 8.8495C8.91554 8.53414 9.63308 8.00008 10.1379 7.31488C10.6427 6.62967 10.9122 5.82409 10.9122 5C10.9109 3.89531 10.4264 2.8362 9.56507 2.05506C8.70376 1.27393 7.53595 0.834549 6.31787 0.833336Z" fill="#96A0B5"/>
+                    <path d="M6.77824 2.08325H5.85938V6.24992H6.77824V2.08325Z" fill="#96A0B5"/>
+                    <path d="M6.77824 7.08325H5.85938V7.91659H6.77824V7.08325Z" fill="#96A0B5"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_325_7076">
+                      <rect width="11.0264" height="12" fill="white" transform="translate(0.804688)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <p>주 최대 근무시간이 넘지 않게 주의하세요</p>
+              </div>
+            </div>
 
             <!-- 세번째 줄 -->
             <div class="att_leave">
@@ -203,7 +258,79 @@
                   </tbody>
                 </table>
             </div>
-            <div class="att_department"></div>
+            <div class="att_department">
+              <p>부서별 출근 현황</p>
+              <table>
+                  <thead>
+                    <tr>
+                      <th>직급</th>
+                      <th>이름</th>
+                      <th>출근시간</th>
+                      <th>퇴근시간</th>
+                      <th>초과근무시간</th>
+                      <th>상태</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                    <tr>
+                      <td>대리</td>
+                      <td>이동욱</td>
+                      <td>08 : 56 : 03</td>
+                      <td>18 : 03 : 56</td>
+                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                      <td>오후 반차</td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
 
             <!-- 네번째 줄 -->
             <div class="att_my">
@@ -234,7 +361,7 @@
                       </tr>
                       
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
     </div>

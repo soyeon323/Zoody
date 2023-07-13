@@ -275,9 +275,50 @@
     letter-spacing: 0.96px;
 }
 
+.total-percent{
+    margin-left: 26px;
+    display: grid;
+    grid-template-columns: 2px auto;
+    gap: 32px;
+    align-items: center;
+}
+
+.total-percent-flex{
+    display: grid;
+    grid-template-columns: 8px auto;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    column-gap: 6px;
+}
+
+.total-percent-flex > p{
+    color: #363636;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; 
+}
+
+.grap-flex{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+}
+
+.grap-flex > p{
+    color: #747474;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+}
+
 /* 그래프 */
 .total-grap{
-    padding-top: 51px;
+    padding-top: 33px;
 }
 
 .progress-bar {
@@ -305,6 +346,35 @@
 }
 
 /* 두번째 줄----------------------------------------------------*/
+/* 주간 근무 현황 */
+.grap-title{
+    display: flex;
+    align-items: baseline;
+    margin-top: 20px;
+    margin-left: 35px;
+    gap: 5px;
+}
+
+.grap-title > p:first-child{
+    color: #474747;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 25.976px */
+    letter-spacing: 0.34px;
+    padding-right: 21px;
+}
+
+.grap-title > p:last-child{
+    color: #96A0B5;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%; /* 15.28px */
+    letter-spacing: 0.5px;
+}
 
 /* 세번째 줄----------------------------------------------------*/
 /* 휴가 요청 현황 */
@@ -387,6 +457,55 @@
     font-weight: 300;
     line-height: 152.8%;
     letter-spacing: 0.6px;
+}
+
+/* 부서별 출근 현황 */
+.att_department > p{
+    color: #474747;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 25.976px */
+    letter-spacing: 0.34px;
+
+    padding-top: 18px;
+    padding-left: 27px;
+    padding-bottom: 13px;
+}
+
+.att_department > table{
+    margin: 0 auto;
+    width: 723px;
+}
+
+.att_department > table > thead{
+    width: 723px;
+    height: 30px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    background: #EFF5FF;
+
+    color: #868686;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 16.808px */
+    letter-spacing: 0.22px;
+    text-align: center;
+}
+
+.att_department > table > tbody{
+    color: #868686;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 18.336px */
+    letter-spacing: 0.24px;
+    text-align: center;
 }
 
 /* 네번째 줄----------------------------------------------------*/
