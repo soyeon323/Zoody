@@ -165,14 +165,14 @@ main {
     color: rgb(53, 54, 54);
 }
 
-.mail-list-area {
+.mail-title-area {
     display: flex;
     flex-direction: column;
 
 }
 
 .mail-list-header {
-    width: 1200px;
+    width: 1250px;
     height: 100px;
 
     display: flex;
@@ -180,10 +180,25 @@ main {
     align-items: center;
 }
 .list-header-left {
-    width: 200px;
+    width: 270px;
 
     display: flex;
     justify-content: space-between;
+}
+.back-btn {
+    width: 25px;
+
+    background-color: transparent;
+    border: 0px;
+
+    cursor: pointer;
+}
+.list-header-title {
+    width: 110px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .unread-receive {
     width: 100px;
@@ -195,163 +210,163 @@ main {
     color: rgb(72, 118, 239);
 }
 
-.list-header-right {
-    width: 300px;
+
+.mail-detail-area { 
+    width: 1250px;
+
+    border-top: 1px solid rgb(53, 54, 54);
+}
+.detail-header-bar {
+    height: 40px;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
 
-.search-input-area {
-    width: 250px;
-    height: 35px;
+    border-bottom: 1px solid rgb(53, 54, 54);
+}
+.reply-btn { 
+    width: 80px;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
 
-    border-radius: 30px;
-    border: 1px solid rgb(53, 54, 54);
-    box-sizing: border-box;
-
-    background-color: rgb(255, 255, 255);
-}
-.search-input {
-    width: 220px;
-    height: 33px;
-
-    border: 0px;
-    background-color: rgb(255, 255, 255)
-}
-.search-input:focus {
-    outline: none;
-}
-.search-icon {
     cursor: pointer;
 }
 
-.mail-list-body{
-    width: 1250px;
-    height: 660px;
-
-    border-top: 1px solid rgb(53, 54, 54);
-    border-bottom: 1px solid rgb(53, 54, 54);
-}
-.list-table-header {
-    height: 35px;
-
-    border-bottom: 1px solid rgb(53, 54, 54);
-}
-.table-header-btns{
-    width: 150px;
-    height: 35px;
+.delete-btn , .unread-btn , .move-btn{ 
+    width: 100px;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-}
-.check-btn {
-    width: 20px;
-    height: 20px;
     
-    appearance: none;
-    border: 1px solid rgb(53, 54, 54);
-    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
 
     cursor: pointer;
 }
-.header-btn {
-    font-size: 15px;
+
+.detail-title-area {
+    width: 1250px;
+    height: 120px;
+
+    display: flex;
+    align-items: center;
+}
+.bookmark-btn {
+    width: 70px;
+
+    background-color: transparent;
+    border: 0px;
+}
+.mail-title {
+    font-size: 18px;
     font-weight: 700;
     color: rgb(53, 54, 54);
 
-    background-color: #F4F7FD;
+}
+
+.sender-info {
+    width: 1250px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+}
+.mail-header-text {
+    width: 105px;
+
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+.mail-sender {
+    margin-left: 10px;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+
+.receiver-info {
+    width: 1250px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+}
+.mail-receivers { 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mail-receiver { 
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+
+.mail-send-date {
+    width: 250px;
+    height: 70px;
+
+    margin-left: 25px;
+
+    display: flex;
+    align-items: center;
+    
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+
+.attachment-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    border-top: 1px solid #989898;
+}
+.attachment-text {
+    width: 105px;
+
+    margin-top: 20px;
+
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+.attachment-elem {
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+}
+.download-attachment-btn {
+    margin-left: 15px;
+
+    background-color: transparent;
     border: 0px;
 
     cursor: pointer;
 }
-
-.table-data {
-    height: 25px;
-
-    display: flex;
-    align-items: center;
-
-    border-bottom: 1px solid #989898;
-}
-.selected-table-data { 
-    background-color: rgba(81, 137, 250, 0.44);
-}
-.check-btn-area {
-    width: 27px;
-    height: 27px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.small-check-btn {
-    width: 17px;
-    height: 17px;
-    
-    appearance: none;
-    border: 1px solid rgb(53, 54, 54);
-    border-radius: 5px;
-
-    cursor: pointer;
-}
-.add-bookmark-area {
-    width: 80px;
-
-    display: flex;
-    justify-content: center;
-}
-.add-bookmark-btn {
-
-     background-color: transparent;
-     border: 0px;
-
-     cursor: pointer;
-}
-.read-check-icon {
-    width: 45px;
-
-    display: flex;
-    justify-content: center;
-}
-.attachment-check-icon {
-    width: 80px;
-
-    display: flex;
-    justify-content: center;
-}
-.mail-sender {
-    width: 100px;
-
-    color: rgb(53, 54, 54);
+.attachment-name {
     font-size: 14px;
     font-weight: 400;
-}
-.mail-title {
-    width: 750px;
-    height: 25px;
-
     color: rgb(53, 54, 54);
-    font-size: 14px;
-    font-weight: 400;
-
-    display: flex;
-    align-items: center;
-
-    overflow-x: hidden;
-}
-.send-date {
-    width: 150px;
-
-    text-align: center;
-
-    color: rgb(53, 54, 54);
-    font-size: 14px;
-    font-weight: 400;
 }
