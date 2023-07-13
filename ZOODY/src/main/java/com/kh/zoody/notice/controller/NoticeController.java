@@ -11,5 +11,11 @@ public class NoticeController {
 	//공지사항목록 화면
 	@GetMapping("list")
 	public void notice() {}
+	
+	//공지사항 상세조회
+	@GetMapping("detail")
+	public String detail() {
+		return "notice/detail";
+	}
 
 }

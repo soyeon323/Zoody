@@ -20,7 +20,7 @@
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
-    <div id="wrap">`
+    <div id="wrap">
 
         <div id="enroll">
             <a>공지사항</a>
