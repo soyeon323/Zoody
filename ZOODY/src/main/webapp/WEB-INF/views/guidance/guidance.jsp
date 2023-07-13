@@ -15,13 +15,37 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <style>
-  #container {overflow:hidden;height:800px;position:relative;}
-#btnRoadview,  #btnMap {position:absolute;top:5px;left:5px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
-#btnRoadview:hover,  #btnMap:hover{background-color: #fcfcfc;border: 1px solid #c1c1c1;}
-#container.view_map #mapWrapper {z-index: 10;}
-#container.view_map #btnMap {display: none;}
-#container.view_roadview #mapWrapper {z-index: 0;}
-#container.view_roadview #btnRoadview {display: none;}
+  #container {
+    overflow:hidden;
+    height:800px;
+    position:relative;
+  }
+#btnRoadview,  #btnMap {
+  position:absolute;
+  top:5px;
+  left:5px;
+  padding:7px 12px;
+  font-size:14px;border: 1px solid #dbdbdb;
+  background-color: #fff;border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;
+  cursor:pointer;
+}
+#btnRoadview:hover,  #btnMap:hover{
+  background-color: #fcfcfc;
+  border: 1px solid #c1c1c1;
+}
+#container.view_map #mapWrapper {
+  z-index: 10;
+}
+#container.view_map #btnMap {
+  display: none;
+}
+#container.view_roadview #mapWrapper {
+  z-index: 0;
+}
+#container.view_roadview #btnRoadview {
+  display: none;
+}
 
 </style>
 </head>
