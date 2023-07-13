@@ -23,14 +23,135 @@
             
             <div class="boder-grid-body">
                 
-                <div class="boder-grid-body-top">t
+                <div class="boder-grid-body-top">
+                    <c:if test="${empty board.count}">
+                        <div>전체 게시글 0 개</div>
+                    </c:if>
+                    <c:if test="${not empty board.count}">
+                        <div>전체 게시글 ${ board.count } 개</div>
+                    </c:if>
 
-                </div>
-                <div class="boder-grid-body-meddle">m
+                    <div class="search-area">
 
+                        <select name="search-area-cat">
+                            <option value="title" selected>제목
+                            <option value="writer"> 작성자
+                            <option value="???"> ???
+                        </select>
+
+                        <div class="search-area-search">
+                            <input type="text">
+                            <img src="${root}/resources/svg/icon/search.svg" alt="🔍">
+                        </div>
+
+                    </div>
                 </div>
-                <div class="boder-grid-body-bottom">b
+                <div class="boder-grid-body-meddle">
+                    <div class="boder-grid-body-meddle-notice">
+                        <div>
+                            <img src="" alt="📢">
+                            ${ notice.title }
+                        </div>
+                        <div>
+                            <img src="" alt="📢">
+                            ${ notice.title }
+                        </div>
+                    </div>
+                </div>
+                <div class="boder-grid-body-bottom">
                     
+                    <table class="list-table">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>조회수</th>
+                                <th>작성일</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </div>
 
             </div>
