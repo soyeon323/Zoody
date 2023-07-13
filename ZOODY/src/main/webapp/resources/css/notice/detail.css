@@ -1,11 +1,11 @@
 #wrap{
     width: 1633px;
-    height: 127vh;
+    height: 120vh;
     position: absolute;
     top: 65px;
     left: 255px;
     display: grid;
-    grid-template-rows: 80px 150px 856px;
+    grid-template-rows: 80px 150px 886px 80px;
 }
 
 #notice{
@@ -53,7 +53,6 @@
     background-color: white;
     border: 1px solid #E0E0E0;
     margin-left: 85px;
-    margin-top: 20px;
     border-radius: 7px;
     display: grid;
     grid-template-rows: 70px 110px 300px 300px;
@@ -204,4 +203,20 @@ input[type='text']::placeholder{
     justify-self: end;
     margin-right: 20px;
     margin-bottom: 7px;
+}
+
+#btnArea button{
+    width: 160px;
+    height: 37px;
+    color: white;
+    border-radius: 10px;
+    font-weight: 300;
+    background-color: #5189FA;
+    border: none;
+}
+
+#btn02{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
 }
