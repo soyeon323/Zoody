@@ -17,5 +17,15 @@ public class AttendanceController {
 	public String detail() {
 		return "attendance/detail";
 	}
+	
+	@GetMapping("admin")
+	public String objection() {
+		return "attendance/objection";
+	}
+	
+	@GetMapping("admin/objection")
+	public String adminObjection(){
+		return "attendance/adminObjection";
+	}
 
 }
