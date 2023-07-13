@@ -8,104 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-    #wrap{
-        width: 1663px;
-        height: 93vh;
-        position: absolute;
-        top: 65px;
-        left: 255px;
-    }
-    #enroll{
-        font-size: 20px;
-        font-weight: 600;
-        margin-top: 40px;
-        margin-left: 80px;
-    }
-    #chart table,#chart td,#chart th {
-        border: 1px solid #D7D7D7;
-        background-color: white;
-        border-collapse: collapse;
-        text-align: center;
-        vertical-align: middle;
-    }
-    #chart table{
-        margin-left: 80px;
-        margin-top: 30px;
-        width: 1500px;
-        height: 200px;
-    }
-    #chart-1 td:first-child, #chart-1 td:nth-child(2), #chart-1 td:nth-child(3), #chart-3 td:nth-child(3){
-        width: 210px;
-    } 
-    #chart-1 td:nth-child(2), #chart-1 td:nth-child(3), #chart-2 td:nth-child(2),
-    #chart-3 td:first-child, #chart-4 td:first-child, #chart-2 td:nth-child(4),
-    #chart-3 td:nth-child(3), #chart-4 td:nth-child(3){
-        background-color: #ececec95;
-        color: #4B4B4B;
-        height: 50px;
-    }
-
-    #chart-1 td:nth-child(4), #chart-2 td:first-child, #chart-2 td:nth-child(3), #chart-2 td:nth-child(5),
-    #chart-3 td:nth-child(2), #chart-3 td:nth-child(4), #chart-4 td:nth-child(2), #chart-4 td:nth-child(4){
-        font-size: 17px;
-    }
-    #chart-1 img{
-        display: block; 
-        margin: 0 auto;
-        vertical-align: middle;
-    }
-    .btn-upload {
-        width: 160px;
-        height: 37px;
-        background: #00BEEA;
-        border: 1px solid #E0E0E0;
-        color: white;
-        border-radius: 10px;
-        font-weight: 300;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10px;
-        margin-left: 105px;
-    }
-    input::placeholder {color:#c5c5c5; font-weight: 300;}
-    #file {display: none;}
-    input{
-        border: none;
-        text-align: center;
-    }
-    select{
-        width: 100px;
-        text-align: center;
-    }
-    #content-1 td:first-child, #content-1 td:nth-child(3), #content-1 td:nth-child(5),
-    #content-2 td:first-child, #content-2 td:nth-child(3), #content-2 td:nth-child(5),
-    #content-3 td:first-child, #content-3 td:nth-child(3), #content-3 td:nth-child(5),
-    #content-4 td:first-child, #content-4 td:nth-child(3), #content-4 td:nth-child(5){
-        background-color: #ececec95;
-        color: #4B4B4B;
-        width: 180px; 
-    }
-
-    #content-1 td:nth-child(2), #content-1 td:nth-child(4){
-        width: 329px;
-    }
-
-    #btn-area{
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    .btn-upload:hover{
-        background-color: rgb(56, 211, 115);
-    }
-
-    .btn-upload:nth-child(3):hover{
-        background-color: rgb(211, 79, 56);
-    }
-    </style>
+<link rel="stylesheet" href="${root}/resources/css/animal/detail.css">
+  
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -119,8 +23,7 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 등록</div>
-
+        <div id="enroll">동물 상세 조회</div>
         <div id="chart">
             <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
                 
@@ -184,6 +87,21 @@
                     <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
                 </div>
 
+
+                <div id="content-area">
+                    <div>건강검진 종합 소견</div>
+                    <br>
+                    <span>유질환</span>
+                    <textarea name="" id="t1" cols="30" rows="10"></textarea>
+                    <br>
+                    <span>생활 습관 관리</span>
+                    <textarea name="" id="t2" cols="30" rows="9"></textarea>
+                    <br>
+                    <span>의사 소견</span>
+                    <textarea name="" id="t3" cols="30" rows="10"></textarea>
+                </div>
+
+
                 <div id="btn-area">
                         <div class="btn-upload">훈련 일지 작성</div>
                         <div class="btn-upload">건강 정보 조회</div>
@@ -196,5 +114,20 @@
 </body>
 </html>
 <script>
-  
+    
+    var healthBtn = document.querySelector('.btn-upload:nth-child(2)');
+
+    var contentArea = document.getElementById('content-area');
+
+    contentArea.style.display = 'none';
+
+    healthBtn.addEventListener('click', function() {
+
+        if (contentArea.style.display === 'none') {
+            contentArea.style.display = 'grid';
+        } else {
+            contentArea.style.display = 'none';
+        }
+    });
+
 </script>
