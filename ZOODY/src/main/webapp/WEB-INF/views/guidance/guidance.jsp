@@ -143,7 +143,6 @@ function toggleMap(active) {
     }
 }
 </script> 
- 
 
 </body>
 </html>
