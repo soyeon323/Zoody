@@ -14,4 +14,16 @@ public class MailController {
 		return "mail/folder/receive";
 	}
 	
+	@GetMapping("write")
+	public String mailWrite() {
+		
+		return "mail/write";
+	}
+	
+	@GetMapping("detail")
+	public String mailDetail(String no) {
+		
+		return "mail/detail";
+	}
+	
 }

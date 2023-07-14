@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Zoody</title>
-<link rel="stylesheet" href="${root}/resources/css/mail/folder/receive.css">
+<link rel="stylesheet" href="${root}/resources/css/mail/detail.css">
 </head>
 <body>
 
@@ -79,6 +79,9 @@
 					<div class="mail-list-header">
 						<div class="list-header-left">
 							<div class="list-header-title">
+								<button class="back-btn">
+									<img src="${root}/resources/svg/icon/right-direction.svg" alt="뒤로">
+								</button>
 								받은 메일함
 							</div>
 							<div class="unread-receive">
@@ -87,74 +90,65 @@
 								<div class="receive-count">{999}</div>
 							</div>
 						</div>
-						
-						<div class="list-header-right">
-							<div class="search-input-area">
-								<input type="text" class="search-input">
-							</div>
-							<img class="search-icon" src="${root}/resources/svg/icon/search.svg" alt="검색">
-						</div>
-
 					</div>
 
-					<div class="mail-list-body">
+					<div class="mail-detail-area">
 
-						<div class="list-table-header">
-							<div class="table-header-btns">
-								<input type="checkbox" name="selectAll" id="select-all" class="check-btn">
-								<button class="header-btn">읽음</button>
-								<button class="header-btn">삭제</button>
-							</div>
-						</div>
-						<div class="table-data">
-							<div class="check-btn-area">
-								<input type="checkbox" class="small-check-btn">
-							</div>
-							<div class="add-bookmark-area">
-								<button class="add-bookmark-btn">
-									<img src="${root}/resources/svg/icon/small-star.svg" alt="즐겨찾기">
-								</button>
-							</div>
-							<div class="read-check-icon">
-								<img src="${root}/resources/svg/icon/unread-mail.svg" alt="안읽음">
-							</div>
-							<div class="attachment-check-icon">
-								<img src="${root}/resources/svg/icon/attachment.svg" alt="안읽음">
-							</div>
-							<div class="mail-sender">
-								{이지은}
-							</div>
-							<div class="mail-title">
-								{[협업요청] 23년8월12일 맹수팀 연간 건강점검간 남미팀에 인력충원 요청합니다.}
-							</div>
-							<div class="send-date">
-								{2023-07-10 14:25}
+						<div class="detail-header-bar">
+							<div class="reply-btn">답장</div>
+							<div class="delete-btn">삭제</div>
+							<div class="unread-btn">안읽음</div>
+							<div class="move-btn">
+								이동
+								<img src="${root}/resources/svg/icon/down-direction.svg" alt="확장">
 							</div>
 						</div>
 
-						<div class="table-data selected-table-data">
-							<div class="check-btn-area">
-								<input type="checkbox" class="small-check-btn">
-							</div>
-							<div class="add-bookmark-area">
-								<button class="add-bookmark-btn">
-									<img src="${root}/resources/svg/icon/small-star.svg" alt="즐겨찾기">
-								</button>
-							</div>
-							<div class="read-check-icon">
-								<img src="${root}/resources/svg/icon/read-mail.svg" alt="읽음">
-							</div>
-							<div class="attachment-check-icon">
-								<img src="${root}/resources/svg/icon/attachment.svg" alt="첨부파일">
-							</div>
-							<div class="mail-sender">
-								{유지민}
-							</div>
+						<div class="detail-title-area">
+							<button class="bookmark-btn">
+								<img src="${root}/resources/svg/icon/star.svg" alt="중요">
+							</button>
 							<div class="mail-title">
-								{[휴가계획서] 23년 하반기 동물복지2과 인원 휴가계획서.}
+								{ [보고] 2023 하반기 퇴직희망자 명단 }
 							</div>
-							<div class="send-date">
-								{2023-07-10 16:30}
+						</div>
+
+						<div class="sender-info">
+							<div class="mail-header-text">보낸 사람</div>
+							<div class="mail-sender">
+								{ 주호민 (homin_zoo@zoody.co.kr) }
+							</div>
+						</div>
+
+						<div class="receiver-info">
+							<div class="mail-header-text">받는 사람</div>
+							<div class="mail-receivers">
+								<div class="mail-receiver">{ 박지민 (j_m@zoody.co.kr) }</div>
+								<div class="mail-receiver">{ 김남준 (rkiive@zoody.co.kr) }</div>
+							</div>
+						</div>
+
+						<div class="mail-send-date">
+							{ 2023년 7월 17일 (월) 오후 04:30 }
+						</div>
+
+						<div class="attachment-area">
+							<div class="attachment-text">첨부 파일</div>
+							<div class="attachment-elem">
+								<button class="download-attachment-btn">
+									<img src="${root}/resources/svg/icon/small-plus.svg" alt="다운로드">
+								</button>
+								<div class="attachment-name">
+									{ 2023년 하반기 퇴직희망자 명단.xlsx }
+								</div>
+							</div>
+							<div class="attachment-elem">
+								<button class="download-attachment-btn">
+									<img src="${root}/resources/svg/icon/small-plus.svg" alt="다운로드">
+								</button>
+								<div class="attachment-name">
+									{ 2023년 하반기 퇴직희망자 명단.hwp }
+								</div>
 							</div>
 						</div>
 
