@@ -15,11 +15,13 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <style>
+
   #container {
     overflow:hidden;
     height:800px;
     position:relative;
   }
+
 #btnRoadview,  #btnMap {
   position:absolute;
   top:5px;
@@ -30,19 +32,24 @@
   box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;
   cursor:pointer;
 }
+
 #btnRoadview:hover,  #btnMap:hover{
   background-color: #fcfcfc;
   border: 1px solid #c1c1c1;
 }
+
 #container.view_map #mapWrapper {
   z-index: 10;
 }
+
 #container.view_map #btnMap {
   display: none;
 }
+
 #container.view_roadview #mapWrapper {
   z-index: 0;
 }
+
 #container.view_roadview #btnRoadview {
   display: none;
 }
@@ -60,7 +67,7 @@
     <div id="container" class="view_map">
         <div id="mapWrapper" style="width:100%;height:00px;position:relative;">
             <div id="map" style="width:100%;height:800px"></div> <!-- 지도를 표시할 div 입니다 -->
-            <input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰">
+            <!-- <input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰"> -->
         </div>
         <div id="rvWrapper" style="width:100%;height:300px;position:absolute;top:0;left:0;">
             <div id="roadview" style="height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
@@ -86,11 +93,8 @@ var placePosition = new kakao.maps.LatLng(37.43107559930207, 127.009982299925);
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.42267753749449, 127.02243224710735), // 지도의 중심좌표
-        level: 0.1 // 지도의 확대 레벨
+        level: 2 // 지도의 확대 레벨
     };  
-
-
-
 
 // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
 var map = new kakao.maps.Map(mapContainer, mapOption);

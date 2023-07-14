@@ -133,12 +133,20 @@
                 </tbody>
               </table>
               <input class="btn btn-primary" style="margin-left: 800px;" type="submit" value="제출"  onclick="score();">
+              <input type="button" value="초기화" class="btn btn-success" id="initBtn" onclick="deselect();">
             </form>
+           
 </body>
 </html>
 
 <script>
 
+    //초기화
+    function deselect() {
+    $("input[type='radio']").prop('checked', false);
+
+    }
+    
     function validateForm() {
         var radios = document.querySelectorAll('input[type="radio"]:checked');
         var totalQuestions = 10; // 전체 문항 수
@@ -146,10 +154,8 @@
         if (radios.length !== totalQuestions) {
             alert("모든 문항에 체크해주세요.");
             return false;
-        }else{
-            location.href = "${root}/home";
+         }
         }
-    }
 
 
     // 전체 문항의 합산 점수 가져오기
@@ -162,8 +168,9 @@
             for (var i = 0; i < radios.length; i++) {
                 score += parseInt(radios[i].value);
             }
-            console.log("총 점수: " + score); //이 점수로 평균치 계산 해야함
-            alert('설문 완료');
+            console.log("총 점수: " + score);   //이 점수로 평균치 계산 해야함
+
+
         }
     }
 
