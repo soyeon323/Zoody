@@ -20,4 +20,8 @@ public class AdminController {
 	//공지사항 수정 화면
 	@GetMapping("notice/edit")
 	public void edit() {}
+	
+	//공지사항 목록
+	@RequestMapping("notice/list")
+	public void noticeList() {}
 }

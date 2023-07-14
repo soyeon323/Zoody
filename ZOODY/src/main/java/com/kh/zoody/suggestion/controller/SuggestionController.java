@@ -23,4 +23,10 @@ public class SuggestionController {
 	public void edit() {}
 	
 	//건의사항 수정
+	
+	//건의사항 상세조회
+	@RequestMapping("detail")
+	public String detail() {
+		return "suggestion/detail";
+	}
 }
