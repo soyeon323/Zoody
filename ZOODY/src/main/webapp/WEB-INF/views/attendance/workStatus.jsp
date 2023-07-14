@@ -260,75 +260,92 @@
             </div>
             <div class="att_department">
               <p>부서별 출근 현황</p>
-              <table>
-                  <thead>
-                    <tr>
-                      <th>직급</th>
-                      <th>이름</th>
-                      <th>출근시간</th>
-                      <th>퇴근시간</th>
-                      <th>초과근무시간</th>
-                      <th>상태</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                    <tr>
-                      <td>대리</td>
-                      <td>이동욱</td>
-                      <td>08 : 56 : 03</td>
-                      <td>18 : 03 : 56</td>
-                      <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                      <td>오후 반차</td>
-                    </tr>
-                  </tbody>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">직급</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">출근시간</th>
+                    <th scope="col">퇴근시간</th>
+                    <th scope="col">초과근무시간</th>
+                    <th scope="col">상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>대리</td>
+                    <td>이동욱</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
 

@@ -80,9 +80,9 @@
         </ul>
         <div id="storage"> &nbsp;&nbsp;&nbsp; 현재용량 500MB</div>
     </aside>
-</head>
-<body>
 
+</body>
+</html>
     <script>
         // side-bar토글형식
         document.addEventListener('DOMContentLoaded', function() {
