@@ -18,7 +18,7 @@
         <div id="grid-wrap">
 
             <div class="boder-grid-header">
-                자유 게시판
+                익명 게시판
             </div>
             
             <div class="boder-grid-body">
@@ -158,7 +158,9 @@
             
 
             <div class="boder-grid-footer">
-                아래
+                
+                <div class="boder-grid-footer-page"></div>
+
             </div>
 
         </div>
