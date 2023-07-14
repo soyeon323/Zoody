@@ -298,3 +298,112 @@
     right: 8px;
     top: 5px;
 }
+
+/* 목록 조회----------------------------------------------------*/
+.att_myList{
+    display: grid;
+    grid-template-rows: auto 59px;
+}
+
+.att_myList > .table{
+    border-spacing: 0;
+    margin: 0 auto;
+    border-collapse: initial;
+    text-align: center;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.att_myList > .table > thead{
+    color: #585858;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 22.92px */
+    /* border-radius: 8px; */
+}
+
+.att_myList > .table > thead > tr{
+    background: #F4F7FD;
+}
+
+.att_myList > .table > tbody{
+    color: #868686;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%; /* 21.392px */
+    letter-spacing: 0.28px;
+}
+
+.att_myList > .table>:not(caption)>*>* {
+    padding: 1rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+/* 목록 페이징 */
+.list-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.list-page > a > button{
+    border: none;
+    background-color: #fff;
+
+    color: #5B5B5B;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.list-page > a > button.active{
+    background-color: #1B91FF;
+    color: #fff;
+
+    border-radius: 3px;
+}
+
+/* 휴가 요청 현황 리스트 */
+.leave-board > .table, .work-board > .table{
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.leave-board > .table > thead, .work-board > .table > thead{
+    color: #474747;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 22.92px */
+
+    background: #F4F7FD;
+}
+
+.leave-board > .table > tbody, .work-board > .table > tbody{
+    color: #7B7B7B;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%; /* 21.392px */
+    letter-spacing: 0.7px;
+}
+
+.leave-board > .table>:not(caption)>*>* , .work-board > .table>:not(caption)>*>*{
+    padding: 0.9rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}

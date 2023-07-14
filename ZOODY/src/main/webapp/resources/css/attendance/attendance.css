@@ -460,6 +460,11 @@
 }
 
 /* 부서별 출근 현황 */
+.att_department{
+    display: grid;
+    grid-template-rows: 57px auto;
+}
+
 .att_department > p{
     color: #474747;
     font-family: Spoqa Han Sans Neo;
@@ -477,6 +482,7 @@
 .att_department > table{
     margin: 0 auto;
     width: 723px;
+    margin-bottom: 4px;
 }
 
 .att_department > table > thead{
@@ -502,7 +508,7 @@
     font-family: Spoqa Han Sans Neo;
     font-size: 13px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 152.8%; /* 18.336px */
     letter-spacing: 0.24px;
     text-align: center;

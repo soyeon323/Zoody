@@ -28,21 +28,22 @@
         <div id="obj_main">
             <!-- 맨 윗 줄 -->
             <div class="obj_count">
-                <p>이의신청 건수</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
-                    <circle cx="13" cy="13" r="13" fill="#EFF5FF"/>
-                </svg>
-                <p>100</p>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="33 건">
+                이의신청 건수
+              </button>
             </div>
             <div class="obj_search">
                 <div class="search-area">
                     <p>날짜</p>
+                    <input type="date" name="" id="">
+                    <p>~</p>
+                    <input type="date" name="" id="">
                 </div>
                 <div></div>
                 <div class="search-flex">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                       <option selected>전체</option>
-                      <option value="1">상태</option>
+                      <option value="1">부서</option>
                     </select>
                     <div class="search-input">
                       <input type="text" placeholder="내용을 입력하세요.">
@@ -60,10 +61,162 @@
                   </div>
             </div>
             <div class="obj_table">
-                
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">날짜</th>
+                    <th scope="col">부서</th>
+                    <th scope="col">사원명</th>
+                    <th scope="col">출근시간</th>
+                    <th scope="col">퇴근시간</th>
+                    <th scope="col">초과근무시간</th>
+                    <th scope="col">상태</th>
+                    <th scope="col">이의신청</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td><button class="obj-btn">확인하기</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2023-07-04</td>
+                    <td>총무부</td>
+                    <td>이동욱 대리</td>
+                    <td>08 : 56 : 03</td>
+                    <td>18 : 03 : 56</td>
+                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
+                    <td>오후 반차</td>
+                    <td>반려</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="list-page">
+                <a href="">
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M7.9499 9.53261C7.8796 9.46288 7.8238 9.37993 7.78573 9.28854C7.74765 9.19714 7.72805 9.09912 7.72805 9.00011C7.72805 8.9011 7.74765 8.80307 7.78573 8.71167C7.8238 8.62028 7.8796 8.53733 7.9499 8.46761L11.3924 5.03261C11.4627 4.96288 11.5185 4.87993 11.5566 4.78854C11.5946 4.69714 11.6142 4.59912 11.6142 4.50011C11.6142 4.4011 11.5946 4.30307 11.5566 4.21167C11.5185 4.12028 11.4627 4.03733 11.3924 3.96761C11.2519 3.82792 11.0618 3.74951 10.8636 3.74951C10.6655 3.74951 10.4754 3.82792 10.3349 3.96761L6.89239 7.41011C6.47104 7.83198 6.23438 8.40385 6.23438 9.00011C6.23438 9.59636 6.47104 10.1682 6.89239 10.5901L10.3349 14.0326C10.4746 14.1712 10.6631 14.2493 10.8599 14.2501C10.9586 14.2507 11.0564 14.2318 11.1478 14.1944C11.2392 14.1571 11.3223 14.1021 11.3924 14.0326C11.4627 13.9629 11.5185 13.8799 11.5566 13.7885C11.5946 13.6971 11.6142 13.5991 11.6142 13.5001C11.6142 13.4011 11.5946 13.3031 11.5566 13.2117C11.5185 13.1203 11.4627 13.0373 11.3924 12.9676L7.9499 9.53261Z" fill="#5B5B5B"/>
+                    </svg>
+                  </button>
+                </a>
+                <a href=""><button class="active">1</button></a>
+                <a href=""><button>2</button></a>
+                <a href=""><button>3</button></a>
+                <a href=""><button>4</button></a>
+                <a href=""><button>5</button></a>
+                <a href="">
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M11.55 7.41011L8.10747 3.96761C7.96695 3.82792 7.77686 3.74951 7.57872 3.74951C7.38058 3.74951 7.1905 3.82792 7.04997 3.96761C6.97968 4.03733 6.92388 4.12028 6.88581 4.21167C6.84773 4.30307 6.82812 4.4011 6.82812 4.50011C6.82812 4.59912 6.84773 4.69714 6.88581 4.78854C6.92388 4.87993 6.97968 4.96288 7.04997 5.03261L10.5 8.46761C10.5703 8.53733 10.6261 8.62028 10.6641 8.71167C10.7022 8.80307 10.7218 8.9011 10.7218 9.00011C10.7218 9.09912 10.7022 9.19714 10.6641 9.28854C10.6261 9.37993 10.5703 9.46288 10.5 9.53261L7.04997 12.9676C6.90875 13.1078 6.82901 13.2984 6.82831 13.4975C6.8276 13.6965 6.90599 13.8876 7.04622 14.0289C7.18646 14.1701 7.37705 14.2498 7.57607 14.2505C7.7751 14.2512 7.96625 14.1728 8.10747 14.0326L11.55 10.5901C11.9713 10.1682 12.208 9.59636 12.208 9.00011C12.208 8.40385 11.9713 7.83198 11.55 7.41011Z" fill="#5B5B5B"/>
+                    </svg>
+                  </button>
+                </a>
+              </div>
             </div>
         </div>
     </div>
     
+    <script>
+      $(document).ready(function() {
+        $('[data-bs-toggle="popover"]').popover({container: "body"});
+      });
+    </script>
 </body>
 </html>
