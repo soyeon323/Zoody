@@ -13,7 +13,7 @@ public class NoticeController {
 	public void notice() {}
 	
 	//공지사항 상세조회
-	@GetMapping("detail")
+	@RequestMapping("detail")
 	public String detail() {
 		return "notice/detail";
 	}
