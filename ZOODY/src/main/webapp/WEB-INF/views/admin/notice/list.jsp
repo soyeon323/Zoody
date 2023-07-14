@@ -18,7 +18,7 @@
 <body>
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
-  <%--   <%@ include file="/WEB-INF/views/admin/tempside.jsp" %> --%>
+    <%@ include file="/WEB-INF/views/admin/tempside.jsp" %>
 
     <div id="wrap">
 
@@ -88,30 +88,67 @@
                 <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <td scope="col">
+                            <input type="checkbox" name="adminNotice">
+                        </td>
+                        <td scope="col">번호</td>
+                        <td scope="col">제목</td>
+                        <td scope="col">작성자</td>
+                        <td scope="col">작성일</td>
+                        <td scope="col">조회수</td>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                        <tr>
+                            <td scope="col">
+                                <input type="checkbox" name="adminNotice">
+                            </td>
+                            <td scope="col">1</td>
+                            <td scope="col">공지사항제목111</td>
+                            <td scope="col">admin</td>
+                            <td scope="col">2023-07-01</td>
+                            <td scope="col">1</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">
+                                <input type="checkbox" name="adminNotice">
+                            </td>
+                            <td scope="col">1</td>
+                            <td scope="col">공지사항제목111</td>
+                            <td scope="col">admin</td>
+                            <td scope="col">2023-07-01</td>
+                            <td scope="col">1</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">
+                                <input type="checkbox" name="adminNotice">
+                            </td>
+                            <td scope="col">1</td>
+                            <td scope="col">공지사항제목111</td>
+                            <td scope="col">admin</td>
+                            <td scope="col">2023-07-01</td>
+                            <td scope="col">1</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">
+                                <input type="checkbox" name="adminNotice">
+                            </td>
+                            <td scope="col">1</td>
+                            <td scope="col">공지사항제목111</td>
+                            <td scope="col">admin</td>
+                            <td scope="col">2023-07-01</td>
+                            <td scope="col">1</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">
+                                <input type="checkbox" name="adminNotice">
+                            </td>
+                            <td scope="col">1</td>
+                            <td scope="col">공지사항제목111</td>
+                            <td scope="col">admin</td>
+                            <td scope="col">2023-07-01</td>
+                            <td scope="col">1</td>
+                        </tr>
                     </tbody>
                   </table>
             </div>
