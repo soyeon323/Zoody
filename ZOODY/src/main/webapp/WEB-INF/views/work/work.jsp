@@ -93,7 +93,7 @@
         display: none;
         width: 600px;
         padding: 20px 60px;
-        height: 800px;
+        height: 700px;
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
@@ -115,6 +115,23 @@
         height: 300px;
     }
 
+
+    fieldset {
+    border: 3px solid #ccc;
+    padding: 10px;
+    width: 300px;
+    border-radius: 4px;
+    }
+
+    fieldset > legend  input{
+        size: 200px;
+    }
+
+
+    #btn-area{
+        box-sizing: border-box;
+        margin-left: 20px;
+    }
 </style>
 </head>
 <body>
@@ -157,7 +174,19 @@
            <div id="modal-area">
                <input type="text" name="" placeholder="업무 명">
                <input type="text" name="" placeholder="직원 명">
-               <button style="width: 30px;">+</button>
+               <div id="btn-area">
+                   <button class="btn btn-primary" style="width: 30px;" id="plusBtn">+</button>
+                   <button class="btn btn-primary" style="width: 30px;" id="minusBtn">-</button>
+               </div>
+               
+               <fieldset>
+                <legend>업무 내용</legend>
+          
+            </fieldset>
+            <div id="btn-area"> 
+                <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="추가">
+                <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="취소">
+            </div>
             </div>
            
             <a class="modal_close_btn">닫기</a>
@@ -229,6 +258,39 @@
     document.getElementById('popup_open_btn').addEventListener('click', function() {
         // 모달창 띄우기
         modal('my_modal');
+    });
+
+
+    // input +
+    document.getElementById('plusBtn').addEventListener('click', function() {
+        var fieldset = document.querySelector('fieldset');
+
+        var inputText = document.createElement('input');
+        inputText.setAttribute('type', 'text');
+        inputText.setAttribute('name', '');
+
+        var inputCheckbox = document.createElement('input');
+        inputCheckbox.setAttribute('type', 'checkbox');
+
+        fieldset.appendChild(inputText);
+        fieldset.appendChild(inputCheckbox);
+    });
+
+
+    // input -
+    document.getElementById('minusBtn').addEventListener('click', function() {
+        var fieldset = document.querySelector('fieldset');
+
+        var inputText = fieldset.querySelector('input[type="text"]');
+        var inputCheckbox = fieldset.querySelector('input[type="checkbox"]');
+
+        if (inputText) {
+            fieldset.removeChild(inputText);
+        }
+
+        if (inputCheckbox) {
+            fieldset.removeChild(inputCheckbox);
+        }
     });
 
 </script>
