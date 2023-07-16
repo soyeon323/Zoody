@@ -12,5 +12,10 @@ public class MeetingroomController {
 	public String reserve() {
 		return "meetingroom/reserve";
 	}
+	
+	@GetMapping("add")
+	public String add() {
+		return "meetingroom/add";
+	}
 
 }
