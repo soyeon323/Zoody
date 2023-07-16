@@ -24,14 +24,21 @@
                         이미지
                     </div>
                     <div class="profile-info">
-                            <div>a</div>
-                            <div>b</div>
+                            <div class="profile-content">
+                                <div><img src="${root}/resources/svg/icons/edit.svg" alt=""></div>
+                                <div>2</div>
+                                <div>3</div>
+                                <div>4</div>
+                                <div>5</div>
+                            </div>
                             <div class="profile-btns">
                                 d
                             </div>
                     </div>
                 </div>
-                <div class="area calender">캘린더</div>
+                <div class="area calender">
+                    <%@ include file="/WEB-INF/views/common/fullcalendar.jsp" %>
+                </div>
                 <div class="area weather">날씨</div>
                 <div class="area news">
                     
