@@ -15,7 +15,6 @@
 
 /* 링크 이어주기 */
 .mt_link{
-
     color: #BDBDBD;
     font-family: Spoqa Han Sans Neo;
     font-size: 12px;
@@ -84,7 +83,7 @@
 .mt_box{
     width: 100%;
     height: 580px;
-    background-color: aqua;
+    /* background-color: aqua; */
 
     display: grid;
     grid-template-columns: 330px 330px 330px 330px;
@@ -92,29 +91,35 @@
 
     row-gap: 94px;
     column-gap: 17px;
+
+    position: relative;
 }
 
 .card-img, .card-img-bottom, .card-img-top {
     width: 100%;
     height: 159px;
-    filter: brightness(50%); 
+    filter: brightness(40%); 
 }
 
 .card-title {
     text-align: center;
-    margin-top: -117px;
+    margin-top: -108px;
+    margin-left: 101px;
 
     color: #FFF;
     font-family: 'Spoqa Han Sans Neo';
     font-size: 16px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 152.8%; /* 24.448px */
     letter-spacing: 1.28px;
+
+    position: absolute;
+    
 }
 
 .btn {
-    margin-left: 115px;
+    margin-left: 106px;
     color: #EFF5FF;
     font-family: Spoqa Han Sans Neo;
     font-size: 12px;
@@ -128,9 +133,63 @@
     width: 82px;
     height: 26px;
     flex-shrink: 0;
+
+    position: absolute;
+    bottom: 118px;
 }
 
 .btn-primary {
     color: #fff;
     border-color: #00CBA4;
+}
+
+.card-text{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    row-gap: 8px;
+}
+
+.card-text > span{
+    color: #555;
+    font-family: Poppins;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 152.8%; /* 16.808px */
+    letter-spacing: 0.385px;
+    text-transform: capitalize;
+}
+
+.card-text > p{
+    color: #A8A8A8;
+    font-family: Poppins;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 15.28px */
+    letter-spacing: 0.35px;
+    text-transform: capitalize;
+}
+
+/* 회의실 추가 버튼 */
+.cardPlus > a > button{
+    width: 116px;
+    height: 30px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    background: #4876EF;
+    border: none;
+
+    color: #FFF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 19.864px */
+    letter-spacing: 1.3px;
+
+    margin-top: 21px;
 }
