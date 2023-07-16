@@ -10,8 +10,8 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/header.jsp" %>
     
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
 
     <div id="wrap">
@@ -24,12 +24,22 @@
                         이미지
                     </div>
                     <div class="profile-info">
-                        정보
+                            <div>a</div>
+                            <div>b</div>
+                            <div class="profile-btns">
+                                d
+                            </div>
                     </div>
                 </div>
                 <div class="area calender">캘린더</div>
                 <div class="area weather">날씨</div>
-                <div class="area news">뉴스</div>
+                <div class="area news">
+                    
+                        <div class="news-header">뉴스 / 최신글</div>
+                        <div class="news-news"></div>
+                        <div class="news-newpost"></div>
+
+                </div>
             </div>
     
             <div class="grid area-gird-2">
