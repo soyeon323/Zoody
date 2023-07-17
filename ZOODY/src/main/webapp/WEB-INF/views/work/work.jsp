@@ -8,8 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- cdn -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<!-- fullcalendar CDN -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+<!-- fullcalendar 언어 CDN -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 
 <!-- <link rel="stylesheet" href="${root}/resources/css/work/work.css"> -->
 <meta charset="UTF-8">
@@ -35,15 +38,31 @@
     justify-content: space-evenly;
     }
 
-    .column {
+    .column1 {
     flex-basis: 20%;
-    background: #ffffff;
+    background: #d5dffc;
     min-height: 50vh;
     padding: 5px;
     border-radius: 6px;
     }
 
-    .column h1 {
+    .column2 {
+    flex-basis: 20%;
+    background: #d5dffc;
+    min-height: 50vh;
+    padding: 5px;
+    border-radius: 6px;
+    }
+
+    .column3 {
+    flex-basis: 20%;
+    background: #d5dffc;
+    min-height: 50vh;
+    padding: 5px;
+    border-radius: 6px;
+    }
+
+    .column1,.column2,.column3 h1 {
     text-align: center;
     font-size: 22px;
     margin-top: 20px;
@@ -51,15 +70,14 @@
 
     .list-group-item {
     background: #fff;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 10px;
     }
 
     .list-group-item:hover {
         border: 1px solid black;
     }
+
 
     #enroll{
     margin-top: 40px;
@@ -89,7 +107,6 @@
         margin-bottom: 10px;
     }
 
-
     
     /* 모달1 */
 
@@ -101,6 +118,7 @@
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
+        overflow: scroll;
     }
 
     #my_modal .modal_close_btn {
@@ -131,7 +149,6 @@
 
     /* 모달 2 */
      
-
      #my_modal2 {
         display: none;
         width: 600px;
@@ -140,6 +157,7 @@
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
+        overflow: scroll;
     }
 
     #my_modal2 .modal_close_btn {
@@ -158,7 +176,6 @@
         height: 300px;
     }
 
-
     fieldset {
     border: 3px solid #ccc;
     padding: 10px;
@@ -166,17 +183,11 @@
     border-radius: 4px;
     display: grid;
     row-gap: 20px;
-}
-
+    }
 
     #btn-area{
         box-sizing: border-box;
         margin-left: 20px;
-    }
-
-    /* 캘린더 */
-    #calendar{
-        width: 200px;    
     }
 
 </style>
@@ -192,8 +203,8 @@
 
         <div class="container">
            
-            <div class="column">
-               <h1>To-Do</h1>
+            <div class="column1">
+                <h1>To-Do</h1>
                <div class="list-group-item" draggable="true">Wash Clothes</div>
                <div class="list-group-item" draggable="true">Take a stroll outside</div>
                <div class="list-group-item" draggable="true">Design Thumbnail</div>
@@ -204,15 +215,14 @@
                <div class="list-group-item" draggable="true">Visit the zoo</div>        
             </div>
 
-            <div class="column">
+            <div class="column2">
                <h1>Doing</h1>
             </div>
 
-            <div class="column">
+            <div class="column3">
                <h1>Done</h1>
             </div>
          </div>
-
 
          <!-- 모달창1 -->
          <div id="my_modal">
@@ -229,13 +239,15 @@
                <fieldset>
                 <legend>업무 내용</legend>
                 
-            </fieldset>
+               </fieldset>
             <div id="date">
                 마감날짜
-                <div id="calendar"></div>
+                <div id='calendar-container'>
+                    <div id='calendar'></div>
+                  </div>
             </div>
             <div id="btn-area"> 
-                <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="추가">
+                <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="button" value="추가">
                 <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="취소">
             </div>
             </div>
@@ -271,7 +283,7 @@
 <script>
 
     // 드래그 앤 드롭
-    const columns = document.querySelectorAll(".column");
+    const columns = document.querySelectorAll(".column1,.column2");
     columns.forEach((column) => {
     new Sortable(column, {
         group: "shared",
@@ -332,7 +344,6 @@
         modal('my_modal');
     });
 
-
     // input +
     document.getElementById('plusBtn').addEventListener('click', function() {
         var fieldset = document.querySelector('fieldset');
@@ -347,7 +358,6 @@
         fieldset.appendChild(inputText);
     });
 
-
     // input -
     document.getElementById('minusBtn').addEventListener('click', function() {
         var fieldset = document.querySelector('fieldset');
@@ -358,10 +368,24 @@
         if (inputText) {
             fieldset.removeChild(inputText);
         }
-
-        
     });
 
+    //추가 버튼 누르면 colum 에 추가됨 근데
+    const addBtn = document.querySelector('#addBtn');
+    let divTagCnt = 1; // Initialize the divTagCnt variable
+    
+    addBtn.addEventListener('click', function() {
+        var result = confirm('업무를 추가 하시겠습니까??');
+        
+        if (result) {
+            let column = document.querySelector('.column1');
+            let newDivTag = document.createElement('div');
+            newDivTag.setAttribute('class', 'list-group-item');
+            newDivTag.innerHTML = "추가된 업무들 " + divTagCnt;
+            column.appendChild(newDivTag);
+            divTagCnt++;
+        }
+    });
 
     //modal 2
     function handleListItemClick() {
@@ -369,12 +393,10 @@
         modal('my_modal2');
     }
 
-
     var listItems = document.querySelectorAll('.list-group-item');
     listItems.forEach(function(item) {
         item.addEventListener('click', handleListItemClick);
     });
-
 
     // callender
     document.addEventListener('DOMContentLoaded', function() {
@@ -385,5 +407,51 @@
         calendar.render();
       });
 
+    //   캘린더
+    (function(){
+    $(function(){
+      // calendar element 취득
+      var calendarEl = $('#calendar')[0];
+      // full-calendar 생성하기
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        height: '400px', // calendar 높이 설정
+       
+        // 해더에 표시할 툴바
+        headerToolbar: {
+        
+        },
+        initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+        editable: true, // 수정 가능?
+        selectable: true, // 달력 일자 드래그 설정가능
+        nowIndicator: true, // 현재 시간 마크
+        dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+        locale: 'ko', // 한국어 설정
+        eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
+          console.log(obj);
+        },
+        eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
+          console.log(obj);
+        },
+        eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
+          console.log(obj);
+        },
+        select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
+          var title = prompt('Event Title:');
+          if (title) {
+            calendar.addEvent({
+              title: title,
+              start: arg.start,
+              end: arg.end,
+              allDay: arg.allDay
+            })
+          }
+          calendar.unselect()
+        }
+       
+      });
+      // 캘린더 랜더링
+      calendar.render();
+    });
+  })();
 
 </script>
