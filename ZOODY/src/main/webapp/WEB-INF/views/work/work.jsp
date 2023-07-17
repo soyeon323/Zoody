@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- cdn -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
 <!-- <link rel="stylesheet" href="${root}/resources/css/work/work.css"> -->
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -87,7 +91,7 @@
 
 
     
-    /* 모달 */
+    /* 모달1 */
 
     #my_modal {
         display: none;
@@ -121,17 +125,60 @@
     padding: 10px;
     width: 300px;
     border-radius: 4px;
+    display: grid;
+    row-gap: 20px;
+}
+
+    /* 모달 2 */
+     
+
+     #my_modal2 {
+        display: none;
+        width: 600px;
+        padding: 20px 60px;
+        height: 700px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
     }
 
-    fieldset > legend  input{
-        size: 200px;
+    #my_modal2 .modal_close_btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
+    
+    #modal-area{
+        display: grid;
+        grid-row-gap: 20px;
+    }
+
+    #textarea{
+        resize: none;
+        height: 300px;
+    }
+
+
+    fieldset {
+    border: 3px solid #ccc;
+    padding: 10px;
+    width: 300px;
+    border-radius: 4px;
+    display: grid;
+    row-gap: 20px;
+}
 
 
     #btn-area{
         box-sizing: border-box;
         margin-left: 20px;
     }
+
+    /* 캘린더 */
+    #calendar{
+        width: 200px;    
+    }
+
 </style>
 </head>
 <body>
@@ -167,7 +214,7 @@
          </div>
 
 
-         <!-- 모달창 -->
+         <!-- 모달창1 -->
          <div id="my_modal">
            <h1>업무 할당</h1>
            <br>
@@ -181,8 +228,12 @@
                
                <fieldset>
                 <legend>업무 내용</legend>
-          
+                
             </fieldset>
+            <div id="date">
+                마감날짜
+                <div id="calendar"></div>
+            </div>
             <div id="btn-area"> 
                 <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="추가">
                 <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="취소">
@@ -191,6 +242,27 @@
            
             <a class="modal_close_btn">닫기</a>
         </div>
+
+
+        <!-- 모달 창 2 -->
+        <div id="my_modal2">
+            <h1>업무 할당</h1>
+            <br>
+            <div id="modal-area">
+                <input type="text" name="" placeholder="업무 명">
+                <input type="text" name="" placeholder="직원 명">
+               
+                
+                <fieldset>
+                 <legend>업무 내용</legend>
+                 
+             </fieldset>
+             <div>마감 일시</div>
+
+             </div>
+            
+             <a class="modal_close_btn">닫기</a>
+         </div>
 
     </div>
 </body>
@@ -273,7 +345,6 @@
         inputCheckbox.setAttribute('type', 'checkbox');
 
         fieldset.appendChild(inputText);
-        fieldset.appendChild(inputCheckbox);
     });
 
 
@@ -288,9 +359,31 @@
             fieldset.removeChild(inputText);
         }
 
-        if (inputCheckbox) {
-            fieldset.removeChild(inputCheckbox);
-        }
+        
     });
+
+
+    //modal 2
+    function handleListItemClick() {
+        // Show the modal
+        modal('my_modal2');
+    }
+
+
+    var listItems = document.querySelectorAll('.list-group-item');
+    listItems.forEach(function(item) {
+        item.addEventListener('click', handleListItemClick);
+    });
+
+
+    // callender
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
 
 </script>
