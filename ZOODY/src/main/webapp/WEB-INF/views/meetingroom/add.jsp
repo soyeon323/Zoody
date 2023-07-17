@@ -40,35 +40,71 @@
                 <table class="board_view">
                     <colgroup>
                         <col width="15%">
-                        <col width="40%">
-                        <col width="15%">
                         <col width="*">
                     </colgroup>
                     <tbody>
                         <tr>
                             <th>회의실명</th>
-                            <td colspan="4"><input type="text"></td>
+                            <td>
+                                <input type="text" class="form-control" id="formGroupExampleInput">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>개방시간</th>
+                            <td>
+                                <input class="form-control" type="text" placeholder="오전 9:00 - 오후 6:00" aria-label="Disabled input example" disabled>
+                            </td>
                         </tr>
                         <tr>
                             <th>수용가능인원</th>
                             <td><input type="number" name="" id=""></td>
-                            <th>개방시간</th>
-                            <td><input type="time" name="" id=""> ~ <input type="time" name="" id=""></td>
                         </tr>
-                        <!-- 후기게시판과 큐엔에이 게시판에만 보임 -->
                         <tr>
                             <th>정보</th>
-                            <td colspan="4" style="height: 500px;"></td>
-                        </tr>
-                        <tr>
-                            <th>첨부파일</th>
-                            <td colspan="4"></td>
+                            <td style="height: 500px;">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">회의실 사진 등록</label>
+                    <input class="form-control form-control-sm" type="file" id="formFileSm">
+                </div>
+                <div class="add-btn">
+                    <input type="submit" value="등록완료">
+                </div>
             </div>
         </div>
     </div>
+
     
 </body>
 </html>
+<script>
+    const timeInput = document.getElementById("timeInput");
+    
+    timeInput.addEventListener("input", function() {
+        const timeValue = timeInput.value.split(":");
+        const hours = timeValue[0];
+        const formattedTime = hours + ":00";
+    
+        timeInput.value = formattedTime;
+    });
+
+    const timeInput2 = document.getElementById("timeInput2");
+
+    timeInput2.addEventListener("focus", function() {
+    timeInput2.stepUp();
+    });
+
+    timeInput2.addEventListener("blur", function() {
+    const timeValue = timeInput2.value.split(":");
+    const hours = timeValue[0];
+    const formattedTime = hours + ":00";
+
+    timeInput2.value = formattedTime;
+    });
+</script>
