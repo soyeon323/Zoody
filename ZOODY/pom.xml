@@ -195,6 +195,13 @@
 		    <version>${org.aspectj-version}</version>
 		</dependency>
 
+		<!-- GSON -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.10.1</version>
+		</dependency>
+		
 		<!-- 파일 업로드 -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
