@@ -1,21 +1,30 @@
+body {
+    background-color: #F4F7FD;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 #wrap{
     width: 1920;
     height: 921;
     display: flex;
 }
 
-
 #document-wrap {
-    width: 100%;
-    height: 100%;
+    width: 1633;
+    height: 852px;
     display: grid;
     grid-template-columns: 2fr 8fr;
-    grid-template-rows: 2fr 8fr;
+    grid-template-rows: 1fr 8fr;
     gap: 30px;
+    margin: 20px;
 }
 
 #document-wrap > div {
+    height: 95%;
     border-radius: 5px;
+    
 }
 
 #document-wrap > div:nth-child(n+2) {
@@ -25,11 +34,143 @@
 
 .document-header {
     grid-column: span 2;
-    background-color: brown;
+    margin-top: 10;
+    font-size: 22;
+    font-weight: 600;
 }
 
 .document-side {
-    
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+}
+
+.document-side > div {
+    width: 70%;
+    margin-top: 25;
+}
+
+.document-side > div:first-child {
+    margin-top: 50;
+}
+
+.document-side > div > div {
+    margin: 20;
 }
 
 .document-body {
+    display: grid;
+    grid-template-rows: 0.7fr 2.3fr 7fr;
+    justify-items: center;
+}
+
+.document-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.document-body > div {
+    width: 95%;
+    align-self: center;
+    font-weight: 500;
+}
+
+.search-area {
+    display: flex;
+    height: 30;
+}
+
+.search-area > select {
+    width: 180;
+    outline: none;
+    background: transparent;
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    align-content: center;
+}
+
+.search-area-search {
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.search-area-search > input {
+    outline: none;
+    border: none; 
+    background: transparent;
+    width: 78%;
+    margin-left: 5px;
+}
+
+/* 테이블 설정 */
+th {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+td {
+    height: 64;
+    color: #3A3A3A;
+    font-weight: 300;
+}
+
+.list-table {
+    width: 100%;
+    height: 100%;
+}
+
+.list-table > thead{
+    height: 65;
+}
+
+.list-table > thead > tr {
+    border: 3px solid #D7D7D7;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    height: 65;
+    display: grid;
+    grid-template-columns: 2fr 1fr 8fr 1fr 2fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.list-table > tbody {
+    height: 405;
+    display: block;
+    overflow: auto;
+    -ms-overflow-style: none; /* 익스플로러, 앳지 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+
+.list-table > tbody::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라 */
+}
+
+.list-table > tbody > tr {
+    height: 45;
+    display: grid;
+    grid-template-columns: 2fr 1fr 8fr 1fr 2fr;
+    justify-items: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.list-table > tbody  td {
+    height: 100%;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    font-weight: 400;
+    color: #454545;
+    font-size: 15;
+}

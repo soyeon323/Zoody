@@ -73,82 +73,56 @@
 
                         <tbody>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
-                                <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
-                                <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
-                                <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
-                                <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
-                                <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
-                                <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>이미지</td>
+                                <td>부서</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
-                                <td>1</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
+                            
+                            
                         </tbody>
                     </table>
 
