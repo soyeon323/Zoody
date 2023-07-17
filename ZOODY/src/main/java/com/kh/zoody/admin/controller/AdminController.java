@@ -21,7 +21,21 @@ public class AdminController {
 	@GetMapping("notice/edit")
 	public void edit() {}
 	
+	//공지사항 수정
+	
+	//공지사항 상세조회
+	@RequestMapping("notice/detail")
+	public void noticeDetail() {}
+	
 	//공지사항 목록
 	@RequestMapping("notice/list")
 	public void noticeList() {}
+	
+	//건의사항 목록
+	@RequestMapping("suggestion/list")
+	public void suggestionList() {}
+	
+	//건의사항 상세조회
+	@RequestMapping("suggestion/detail")
+	public void suggestionDetail() {}
 }
