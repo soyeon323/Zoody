@@ -71,14 +71,15 @@
         <li>
             <a href="#">커뮤니티</a>
             <ul>
-            <li><a href="#">text1</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
+            <li><a href="${root}/community/board/freeBoard/">게시판</a></li>
+            <li><a href="${root}/community/vote/">투표</a></li>
+            <li><a href="${root}/community/survey/">설문 조사</a></li>
+            <li><a href=""></a></li>
             </ul>
         </li>
         </ul>
-        <div id="storage"> &nbsp;&nbsp;&nbsp; 현재용량 500MB</div>
+        <a href="${root}/document/"> <div id="storage"> &nbsp;&nbsp;&nbsp; 현재용량 500MB</div> </a>
+       
     </aside>
 
 </body>
