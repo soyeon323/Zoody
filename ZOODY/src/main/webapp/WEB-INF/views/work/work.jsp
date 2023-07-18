@@ -295,24 +295,8 @@
         var zIndex = 9999;
         var modal = document.getElementById(id);
 
-        // 모달 div 뒤에 희끄무레한 레이어
-        var bg = document.createElement('div');
-        bg.setStyle({
-            position: 'fixed',
-            zIndex: zIndex,
-            left: '0px',
-            top: '0px',
-            width: '100%',
-            height: '100%',
-            overflow: 'auto',
-            // 레이어 색갈은 여기서 바꾸면 됨
-            backgroundColor: 'rgba(0,0,0,0.4)'
-        });
-        document.body.append(bg);
-
         // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
         modal.querySelector('.modal_close_btn').addEventListener('click', function() {
-            bg.remove();
             modal.style.display = 'none';
         });
 
@@ -370,33 +354,50 @@
         }
     });
 
-    //추가 버튼 누르면 colum 에 추가됨 근데
-    const addBtn = document.querySelector('#addBtn');
-    let divTagCnt = 1; // Initialize the divTagCnt variable
-    
-    addBtn.addEventListener('click', function() {
-        var result = confirm('업무를 추가 하시겠습니까??');
-        
-        if (result) {
-            let column = document.querySelector('.column1');
-            let newDivTag = document.createElement('div');
-            newDivTag.setAttribute('class', 'list-group-item');
-            newDivTag.innerHTML = "추가된 업무들 " + divTagCnt;
-            column.appendChild(newDivTag);
-            divTagCnt++;
-        }
-    });
-
     //modal 2
     function handleListItemClick() {
         // Show the modal
         modal('my_modal2');
+
     }
 
     var listItems = document.querySelectorAll('.list-group-item');
     listItems.forEach(function(item) {
         item.addEventListener('click', handleListItemClick);
     });
+
+    // 추가 버튼 누르면 colum 에 추가됨 근데   /* 백엔드 작업할때 AJAX로 처리*/
+    const addBtn = document.querySelector('#addBtn');
+    let divTagCnt = 1; // Initialize the divTagCnt variable
+    
+    addBtn.addEventListener('click', function() {
+        let column = document.querySelector('.column1');
+        let newDivTag = document.createElement('div');
+        alert('추가 완료');
+            newDivTag.setAttribute('class', 'list-group-item');
+            newDivTag.innerHTML = "추가된 업무들 " + divTagCnt;
+            column.appendChild(newDivTag);
+            divTagCnt++;
+
+        // 확인 버튼 누르고 모달창 닫히게하기
+        var modal = document.getElementById('my_modal');
+                    modal.style.display = 'none';
+
+        });
+
+        // 추가 된 모달 클릭시 나오게 해야함 학원에서 처리하자
+        newDivTag.addEventListener('click', function() {
+        var modal2 = document.getElementById('my_modal2');
+        modal2.style.display = 'block';
+        modal2.style.top = '50%';
+        modal2.style.left = '65%';
+        modal2.style.transform = 'translate(-50%, -50%)';
+        modal2.style.msTransform = 'translate(-50%, -50%)';
+        modal2.style.webkitTransform = 'translate(-50%, -50%)';
+         //////////////////////////////////////////////////////////
+           
+    });
+
 
     // callender
     document.addEventListener('DOMContentLoaded', function() {
