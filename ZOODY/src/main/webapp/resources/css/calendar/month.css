@@ -20,11 +20,6 @@
 #calendar-wrap{
     background-color: #fff;
     border: 1px solid #f1f1f1;
-}
-
-#calendar-wrap{
-    background-color: #fff;
-    border: 1px solid #f1f1f1;
     display: grid;
     align-items: center;
   }
