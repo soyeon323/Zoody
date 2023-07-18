@@ -20,4 +20,12 @@
 #calendar-wrap{
     background-color: #fff;
     border: 1px solid #f1f1f1;
-}
+    display: grid;
+    align-items: center;
+  }
+
+  #calendar1 {
+      max-width: 1100px;
+      height: 80%;
+      margin-left: 100px;
+  }
