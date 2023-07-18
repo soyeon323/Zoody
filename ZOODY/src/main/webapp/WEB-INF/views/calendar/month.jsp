@@ -10,18 +10,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="${root}/resources/css/calendar/month.css">
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-<link rel="stylesheet" href="${root}/resources/css/calendar/month.css">
 <!-- //fullcalendar css -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <!-- //fullcalendar 언어 설정관련 script -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 <title>Document</title>
 <style>
+
+  
     /* 드래그 박스의 스타일 */
   #external-events {
     height: 50%;
@@ -53,12 +54,9 @@
     margin: 0;
     vertical-align: middle;
   }
- 
-  #calendar1 {
-    max-width: 1100px;
-    margin: 0 auto;
-    height: 80%;
-  }
+
+  
+
 </style>
 </head>
 <body>
@@ -78,7 +76,7 @@
             </div>
             <!-- calendar 태그 -->
             <div id='calendar-wrap'>
-            <div id='calendar1'></div>
+              <div id='calendar1'></div>
             </div>
         </div>
     </div>
@@ -127,5 +125,6 @@
     });
   })();
 </script>
+
 </body>
 </html>
