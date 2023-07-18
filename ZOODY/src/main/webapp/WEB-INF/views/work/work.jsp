@@ -14,7 +14,6 @@
 <!-- fullcalendar 언어 CDN -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 
-<!-- <link rel="stylesheet" href="${root}/resources/css/work/work.css"> -->
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
@@ -28,169 +27,7 @@
 <!-- 드래그 앤 드롭 API-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 
-<style>
-
-/* 드래그 앤 드롭 */
-    .container {
-    font-family: "Trebuchet MS", sans-serif;
-    display: flex;
-    gap: 100px;
-    justify-content: space-evenly;
-    }
-
-    .column1 {
-    flex-basis: 20%;
-    background: #d5dffc;
-    min-height: 50vh;
-    padding: 5px;
-    border-radius: 6px;
-    }
-
-    .column2 {
-    flex-basis: 20%;
-    background: #d5dffc;
-    min-height: 50vh;
-    padding: 5px;
-    border-radius: 6px;
-    }
-
-    .column3 {
-    flex-basis: 20%;
-    background: #d5dffc;
-    min-height: 50vh;
-    padding: 5px;
-    border-radius: 6px;
-    }
-
-    .column1,.column2,.column3 h1 {
-    text-align: center;
-    font-size: 22px;
-    margin-top: 20px;
-    }
-
-    .list-group-item {
-    background: #fff;
-    border-radius: 2px;
-    margin-top: 10px;
-    }
-
-    .list-group-item:hover {
-        border: 1px solid black;
-    }
-
-
-    #enroll{
-    margin-top: 40px;
-    margin-left: 80px;
-    font-size: 20px;
-    font-weight: 600;
-    }
-
-    #wrap{
-        width: 1663px;
-        height: 93vh;
-        position: absolute;
-        top: 65px;
-        left: 255px;
-    }
-
-    .btn{
-        font-size: 0.3em;
-        padding: 0;
-        block-size: 30px;
-        background-color: rgb(45, 99, 216);
-        margin: auto;
-    }
-
-    #popup_open_btn{
-        margin-left: 480px;
-        margin-bottom: 10px;
-    }
-
-    
-    /* 모달1 */
-
-    #my_modal {
-        display: none;
-        width: 600px;
-        padding: 20px 60px;
-        height: 700px;
-        background-color: #fefefe;
-        border: 1px solid #888;
-        border-radius: 3px;
-        overflow: scroll;
-    }
-
-    #my_modal .modal_close_btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
-    
-    #modal-area{
-        display: grid;
-        grid-row-gap: 20px;
-    }
-
-    #textarea{
-        resize: none;
-        height: 300px;
-    }
-
-
-    fieldset {
-    border: 3px solid #ccc;
-    padding: 10px;
-    width: 300px;
-    border-radius: 4px;
-    display: grid;
-    row-gap: 20px;
-}
-
-    /* 모달 2 */
-     
-     #my_modal2 {
-        display: none;
-        width: 600px;
-        padding: 20px 60px;
-        height: 700px;
-        background-color: #fefefe;
-        border: 1px solid #888;
-        border-radius: 3px;
-        overflow: scroll;
-    }
-
-    #my_modal2 .modal_close_btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
-    
-    #modal-area{
-        display: grid;
-        grid-row-gap: 20px;
-    }
-
-    #textarea{
-        resize: none;
-        height: 300px;
-    }
-
-    fieldset {
-    border: 3px solid #ccc;
-    padding: 10px;
-    width: 300px;
-    border-radius: 4px;
-    display: grid;
-    row-gap: 20px;
-    }
-
-    #btn-area{
-        box-sizing: border-box;
-        margin-left: 20px;
-    }
-
-</style>
+<link rel="stylesheet" href="${root}/resources/css/work/work.css">
 </head>
 <body>
     
@@ -205,14 +42,7 @@
            
             <div class="column1">
                 <h1>To-Do</h1>
-               <div class="list-group-item" draggable="true">Wash Clothes</div>
-               <div class="list-group-item" draggable="true">Take a stroll outside</div>
-               <div class="list-group-item" draggable="true">Design Thumbnail</div>
-               <div class="list-group-item" draggable="true">Attend Meeting</div>
-               <div class="list-group-item" draggable="true">Fix workshop</div>
-               <div class="list-group-item" draggable="true">Visit the zoo</div>
-               <div class="list-group-item" draggable="true">Visit the zoo</div>
-               <div class="list-group-item" draggable="true">Visit the zoo</div>        
+              
             </div>
 
             <div class="column2">
@@ -273,7 +103,7 @@
 
              </div>
             
-             <a class="modal_close_btn">닫기</a>
+             <a class="modal_close_btn2">닫기</a>
          </div>
 
     </div>
@@ -281,16 +111,8 @@
 </html>
 
 <script>
-
-    // 드래그 앤 드롭
-    const columns = document.querySelectorAll(".column1,.column2");
-    columns.forEach((column) => {
-    new Sortable(column, {
-        group: "shared",
-    });
-    });
-
-    // 모달
+  
+    // 모달1
     function modal(id) {
         var zIndex = 9999;
         var modal = document.getElementById(id);
@@ -304,9 +126,6 @@
             position: 'fixed',
             display: 'block',
             boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-
-            // 시꺼먼 레이어 보다 한칸 위에 보이기
-            zIndex: zIndex + 1,
 
             // div center 정렬
             top: '50%',
@@ -328,37 +147,11 @@
         modal('my_modal');
     });
 
-    // input +
-    document.getElementById('plusBtn').addEventListener('click', function() {
-        var fieldset = document.querySelector('fieldset');
-
-        var inputText = document.createElement('input');
-        inputText.setAttribute('type', 'text');
-        inputText.setAttribute('name', '');
-
-        var inputCheckbox = document.createElement('input');
-        inputCheckbox.setAttribute('type', 'checkbox');
-
-        fieldset.appendChild(inputText);
-    });
-
-    // input -
-    document.getElementById('minusBtn').addEventListener('click', function() {
-        var fieldset = document.querySelector('fieldset');
-
-        var inputText = fieldset.querySelector('input[type="text"]');
-        var inputCheckbox = fieldset.querySelector('input[type="checkbox"]');
-
-        if (inputText) {
-            fieldset.removeChild(inputText);
-        }
-    });
 
     //modal 2
     function handleListItemClick() {
         // Show the modal
         modal('my_modal2');
-
     }
 
     var listItems = document.querySelectorAll('.list-group-item');
@@ -375,27 +168,44 @@
         let newDivTag = document.createElement('div');
         alert('추가 완료');
             newDivTag.setAttribute('class', 'list-group-item');
-            newDivTag.innerHTML = "추가된 업무들 " + divTagCnt;
+            newDivTag.innerHTML = "추가된 업무들<br>마감일시" + divTagCnt;
             column.appendChild(newDivTag);
             divTagCnt++;
 
         // 확인 버튼 누르고 모달창 닫히게하기
         var modal = document.getElementById('my_modal');
-                    modal.style.display = 'none';
-
+            modal.style.display = 'none';
         });
 
-        // 추가 된 모달 클릭시 나오게 해야함 학원에서 처리하자
-        newDivTag.addEventListener('click', function() {
+        var closeButton2 = document.querySelector('.modal_close_btn2');
+        closeButton2.addEventListener('click', function() {
+            // Hide the modal
+            var modal2 = document.getElementById('my_modal2');
+            modal2.style.display = 'none';
+        });
+
+
+
+
+    function handleDivClick() {
         var modal2 = document.getElementById('my_modal2');
         modal2.style.display = 'block';
-        modal2.style.top = '50%';
-        modal2.style.left = '65%';
-        modal2.style.transform = 'translate(-50%, -50%)';
-        modal2.style.msTransform = 'translate(-50%, -50%)';
-        modal2.style.webkitTransform = 'translate(-50%, -50%)';
-         //////////////////////////////////////////////////////////
-           
+    }
+
+    var column = document.querySelector('.column1');
+    column.addEventListener('click', function(event) {
+        var clickedElement = event.target;
+        if (clickedElement.classList.contains('list-group-item')) {
+            handleDivClick();
+        }
+    });
+
+    var column2 = document.querySelector('.column2');
+    column2.addEventListener('click', function(event) {
+        var clickedElement = event.target;
+        if (clickedElement.classList.contains('list-group-item')) {
+            handleDivClick();
+        }
     });
 
 
@@ -408,7 +218,7 @@
         calendar.render();
       });
 
-    //   캘린더
+    //캘린더
     (function(){
     $(function(){
       // calendar element 취득
@@ -454,5 +264,43 @@
       calendar.render();
     });
   })();
+  
+
+
+ // 드래그 앤 드롭
+ const columns = document.querySelectorAll(".column1,.column2,.column3");
+    columns.forEach((column) => {
+    new Sortable(column, {
+        group: "shared",
+    });
+    });
+
+
+   // input +
+   document.getElementById('plusBtn').addEventListener('click', function() {
+        var fieldset = document.querySelector('fieldset');
+
+        var inputText = document.createElement('input');
+        inputText.setAttribute('type', 'text');
+        inputText.setAttribute('name', '');
+
+        var inputCheckbox = document.createElement('input');
+        inputCheckbox.setAttribute('type', 'checkbox');
+
+        fieldset.appendChild(inputText);
+    });
+
+    // input -
+    document.getElementById('minusBtn').addEventListener('click', function() {
+        var fieldset = document.querySelector('fieldset');
+
+        var inputText = fieldset.querySelector('input[type="text"]');
+        var inputCheckbox = fieldset.querySelector('input[type="checkbox"]');
+
+        if (inputText) {
+            fieldset.removeChild(inputText);
+        }
+    });
+
 
 </script>

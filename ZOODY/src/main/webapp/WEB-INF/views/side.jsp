@@ -42,10 +42,10 @@
             </ul>
         </li>
         <li>
-            <a href="#">동물 관리</a>
+            <a href="${root}/animal/list">동물 관리</a>
             <ul>
-            <li><a href="/zoody/animal/enroll">동물 등록</a></li>
-            <li><a href="#">text2</a></li>
+            <li><a href="${root}/animal/enroll">동물 등록</a></li>
+            <li><a href="${root}/animal/list">동물 목록</a></li>
             <li><a href="#">text3</a></li>
             <li><a href="#">text4</a></li>
             </ul>
@@ -98,6 +98,4 @@
         });
         });
 
-
-        
     </script>
