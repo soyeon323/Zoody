@@ -29,4 +29,9 @@ public class UserVo {
 	private String leaveCount;
 	private String capacity;
 	
+	private String departmentName;
+	private String rankName;
+	private String positionName;
+	private String stateName;
+	private String divisionName;
 }
