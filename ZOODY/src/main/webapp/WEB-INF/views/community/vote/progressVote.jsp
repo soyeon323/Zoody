@@ -93,15 +93,54 @@
     
     <%@ include file="/WEB-INF/views/common/modal.jsp" %>
         
-        <div class="modal-header">
-            <span>❌</span>
-        </div>
 
         <div class="modal-body">
-            <div>1</div>
-            <div>2</div>
+            <div class="modal-body-top">
+                <div class="modal-body-top-title">투표제목 ${vote.title}</div>
+                <div class="modal-body-top-info">
+                    <div>이름 ${vote.witer}</div>
+                    <div>부서 ${vote.department}</div>
+                </div>
+                <div class="modal-body-top-guide">안내 메세지 ${vote.guide}</div>
+            </div >
+            <div class="modal-body-bottom">
+                d
+
+            </div>
         </div>
 
     </div>
     
+
 </body>
+
+<script>
+    // 투표 아이템 선택
+    $(".list-div-item").on("click" , function(){
+        
+        openModal();
+
+    })
+    
+    // 모달 닫기 
+    $(".modal-close, .modal-header").on("click" , function (){
+        
+        closeModal()
+
+    })
+
+    
+    // 모달 열기
+    function openModal() {
+
+        $(".modal").css("display" , "flex");
+
+    }
+
+    // 모달 닫기
+    function closeModal() {
+        $(".modal").css("display" , "none");
+    }
+
+</script>
+
