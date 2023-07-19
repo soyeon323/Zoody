@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${root}/resources/css/common/header.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
 
     <nav>
@@ -46,3 +47,5 @@
 
     
 </body>
+
+
