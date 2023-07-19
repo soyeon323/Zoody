@@ -12,3 +12,7 @@
 	<div class="modal">
     
         <div class="modal-window">
+
+        <div class="modal-header">
+        <span><img class="modal-close" src="${root}/resources/svg/icons/close.svg" alt=""></span>
+        </div>

@@ -72,6 +72,98 @@ main {
 .list-tree-area {
     width: 100%;
     height: 720px;
+
+    overflow-y: scroll;
+}
+
+.extends-list { 
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 17px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+
+    border: 0px;
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+.extend-btn-icon {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #4876EF;
+
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.link-line {
+    margin-left: 8px;
+
+    font-size: 17px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+.name-rank {
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    cursor: pointer;
+}
+.user-no {
+    display: none;
+}
+.user-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: rgb(53, 54, 54);
+}
+.user-rank {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+}
+
+.list-box-area {
+    margin-left: 45px;
+
+    border-left: 1px solid rgb(53, 54, 54);
+    box-sizing: border-box;
+
+    display: none;
+}
+.list-box-area-extend {
+    display: block;
+}
+
+.first-box {
+    margin-left: 0px;
+    border: 0px;
+}
+
+.layer {
+    margin-left: 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 17px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
 }
 
 
@@ -117,6 +209,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
 }
 
 
@@ -124,8 +218,27 @@ main {
     width: 1135px;
     height: 720px;
 
+    margin: auto;
+
+    display: flex;
+}
+
+.profile-area {
+    width: 145px;
+    height: 176px;
+
+    margin-top: 20px;
+
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    border : 1px solid #D7D7D7;
+}
+
+.detail-profile-img {
+    width: 126px;
+    height: 150px;
 }
 
 /* 상세내용 표 */
@@ -134,10 +247,12 @@ main {
     height: 176px;
 
     margin-top: 20px;
+
+    border : 1px solid #D7D7D7;
 }
 
 table, td, th {
-    border : 1px solid black;
+    border : 1px solid #D7D7D7;
     border-collapse : collapse;
  }
 
@@ -154,6 +269,8 @@ table, td, th {
 .data-cell {
     width: 242px;
     height: 44px;
+
+    padding-left: 15px;
 
     font-size: 14px;
     font-weight: 400;

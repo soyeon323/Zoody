@@ -29,3 +29,15 @@
 	
 </body>
 </html>
+
+<script>
+$(document).ready(function(){
+
+    $(".btn-write").on("click", function () {
+        console.log(123);
+        $(location).attr("href","${root}/community/vote/write")
+
+    })
+
+})
+</script>

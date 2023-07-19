@@ -1,11 +1,14 @@
 package com.kh.zoody.api.weather.controller;
 
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.kh.zoody.api.weather.service.WeatherService;
+import com.kh.zoody.api.weather.vo.WeatherVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,45 +25,63 @@ import oracle.jdbc.proxy.annotation.Post;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+@RestController
+@RequestMapping("/api")
 @Slf4j
-//@RestController
-//@RequestMapping("/api")
-@RequiredArgsConstructor
 public class WeatherApiController {
 	
-	public static final String SERVICE_KEY = "kSsayJw1QBDC5zyNu%2FxgOVQQfrnF5qpx4bIbcrii82hA5GxKe%2FF%2Bx1Fy7Y7xHd0JRekCwY%2BEDKVeNTXnDqZpvQ%3D%3D";
-	
-	
-//	private final WeatherService ws;
-	private final Gson gson;
-	
-	
-	// 클라이언트 url 매핑
-	@PostMapping(value = "/weather", produces = "lication/json; charset=utf8")
-	public String weather() {
-			
-		// 요청 변수
-		int	numOfRows = 10;		// 한 페이지 결과 수
-		String dataType	= "JSON";	// 요청자료형식(XML/JSON)
-		LocalDate base_date	= LocalDate.now(); // 예보 발표 일자 (Default: 오늘날짜)	
-		LocalTime base_time = LocalTime.now(); // 예보 발표 시간 (Default: 현재시간)	
-		int nx = 61; // (Default: 역삼1동)
-		int ny = 125; // (Default: 역삼1동)
+	@GetMapping("/weather")
+	public List weatherInfo() throws Exception {
+		
+		WeatherVo vo = new WeatherVo(null, null, 0, null, null, null, 0, 0);
 		
 		
-		// url 생성
-		String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst\r\n"
-				+ "?serviceKey= "+ SERVICE_KEY
-				+ "&numOfRows=" + numOfRows
-				+ "&pageNo=1"
-				+ "&base_date=" + base_date
-				+ "&base_time=" + base_time
-				+ "&dataType=" + dataType
-				+ "&nx=" + 61
-				+ "&ny=" + 125
-				; 
 		
-		return null;
+		//날씨정보 얻기
+		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"); /*URL*/
+        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") +"=" + vo.getServiceKey() ); /*Service Key*/
+        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8") ); /*페이지번호*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(vo.getPageNo(), "UTF-8") ); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8") ); /*요청자료형식(XML/JSON) Default: XML*/
+        urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(vo.getBaseDate(), "UTF-8") ); /*‘21년 6월 28일발표*/
+        urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode(vo.getBaseTime(), "UTF-8") ); /*05시 발표*/
+        urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode("55", "UTF-8") ); /*예보지점의 X 좌표값*/
+        urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode("127", "UTF-8") ); /*예보지점의 Y 좌표값*/
+        URL url = new URL(urlBuilder.toString());
+        
+        log.info(url.toString());
+        
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+        BufferedReader rd;
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+        
+        // 데이터 정제
+        String jsonStr = sb.toString();
+        
+        
+        Gson gson = new Gson();
+        Map jsonMap = gson.fromJson(jsonStr, Map.class);
+        Map response = (Map) jsonMap.get("response");
+        Map body = (Map) response.get("body");
+        Map itmes = (Map) body.get("items");
+        List itemList = (List) itmes.get("item");
+        
+        log.info("itemList : "+itemList.toString());
+		
+		return itemList;
 	}
 	
    

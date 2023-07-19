@@ -1,0 +1,30 @@
+#wrap{
+    width: 1920;
+    height: 921;
+    display: flex;
+}
+
+#write-wrap{ 
+
+    width: calc(100% - 60px - 270px);
+    height: calc(100% - 60px - 48px);
+    /* margin: 30; */
+    display: grid;
+    grid-template-rows: 1fr 8.5fr 0.5fr;
+    position: absolute;
+    left: 300px;
+    top: 78;
+    align-items: end;
+    justify-items: stretch;
+    align-content: stretch;
+
+
+}
+
+#write-wrap > div {
+    width: 90%;
+}
+
+#write-wrap > div:nth-child(n+1) {
+    background-color: #ffffff;
+}

@@ -22,18 +22,18 @@
             <div id="nav-alert">
 
                 <div class="mail-alert">
-                    <img src="${root}/resources/svg/icon/mail_default.svg" alt="메일 아이콘">
+                    <img src="${root}/resources/svg/icons/mail-default.svg" alt="메일 아이콘">
                 </div>
 
                 <div class="alret-alert">
-                    <img src="${root}/resources/svg/icon/alert_default.svg" alt="메일 아이콘">
+                    <img src="${root}/resources/svg/icons/alert_default.svg" alt="알람 아이콘">
                 </div>
             </div>
 
             <div id="nav-profile">
                 
                 <div class="img-profile">
-                    <img src="" alt=" ">
+                    <img src="${root}/resources/svg/profile/Group 223.svg" alt=" ">
                 </div>
 
                 <div class="box-profile">

@@ -10,7 +10,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: -20px;
+
+    
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+    
 }
 
 .community-side-header {
@@ -41,6 +47,13 @@
 
     font-weight: 600;
     font-size: 18;
+
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-write:hover {
+    background-color: #c2d2f3;
+    cursor:pointer; /* 마우스 올렸을 때 손모양 마우스 */
 }
 
 .body-list {
@@ -50,7 +63,7 @@
     font-size: 17px;
 }
 
-ul {
+.community-side-body > ul {
     margin-top: 30;
 }
 
