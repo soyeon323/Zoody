@@ -16,3 +16,9 @@
 <!-- css 기본 세팅 -->
 <link rel="stylesheet" href="${root}/resources/css/common/setup.css">
 
+<!-- js 기본설정 -->
+<script>
+    // root 설정 || 사용 예제  url : root + "/api/weather"
+    const hostIndex = location.href.indexOf( location.host ) + location.host.length;
+    const root = location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+</script>

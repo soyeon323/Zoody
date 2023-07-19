@@ -1,25 +1,21 @@
-function weather() {
-    jQuery.ajax({
-        url : "/api/weather",
+// 날씨 정보 가져오기
+function getWeatherInfo() {
+    $.ajax({
+        url : root + "/api/weather",
         type : "get",
-        timeout: 30000,
-        contentType: "application/json",
         dataType : "json",
-        success : function(data, status, xhr) {
+        success : function(data) {
+            
+            alert(123);
 
-            let dataHeader = data.result.response.header.resultCode;
-
-            if (dataHeader == "00") {
-               console.log("success == >");
-               console.log(data);
-            } else {
-               console.log("fail == >");
-               console.log(data);               
-            }
         },
-        error : function(e, status, xhr, data) {
-            console.log("error == >");
-            console.log(e);
+        error : function(data) {
+            alert("fail");
         }
     });
 }
+
+// // 5 초마다 날씨 정보 가져오기
+// setInterval(() => {
+//     getWeatherInfo();
+// }, 5000);
