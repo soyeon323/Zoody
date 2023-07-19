@@ -14,5 +14,8 @@ public interface AddressbookDao {
 	
 	// 모든 사원 정보 가져오기
 	List<UserVo> getUserList(SqlSessionTemplate sqlSessionTemplate);
+
+	// 해당 번호의 사원 상세 정보
+	UserVo getDetailUserInfo(String userNo, SqlSessionTemplate sqlSessionTemplate);
 	
 }

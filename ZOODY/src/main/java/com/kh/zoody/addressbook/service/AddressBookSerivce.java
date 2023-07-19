@@ -12,5 +12,8 @@ public interface AddressBookSerivce {
 	
 	// 모든 사원 정보 가져오기
 	List<UserVo> getUserList();
+
+	// 해당 번호의 사원 상세 정보
+	UserVo getDetailUserInfo(String userNo);
 	
 }

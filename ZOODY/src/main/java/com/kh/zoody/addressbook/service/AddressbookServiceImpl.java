@@ -32,4 +32,10 @@ public class AddressbookServiceImpl implements AddressBookSerivce {
 		return addressbookDao.getUserList(sqlSessionTemplate);
 	}
 
+	// 해당 번호의 사원 상세 정보
+	@Override
+	public UserVo getDetailUserInfo(String userNo) {
+		return addressbookDao.getDetailUserInfo(userNo, sqlSessionTemplate);
+	}
+
 }
