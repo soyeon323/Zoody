@@ -49,7 +49,7 @@
 							
 								<c:forEach items="${userList}" var="userVo">
 									<c:if test="${departmentList[0].no eq userVo.departmentNo }">
-										<div class="second-layer">
+										<div class="layer">
 											<div class="link-line">┠</div>
 											<div class="name-rank">
 												<div class="user-no">${userVo.no }</div>
@@ -66,7 +66,7 @@
 								
 									<c:if test="${departmentList[0].no eq departmentVo.upperDepartmentNo}">
 									
-									<button class="extends-list second-layer">
+									<button class="extends-list layer">
 										<div class="extend-btn-icon">
 											<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
 										</div>
@@ -78,7 +78,7 @@
 									
 										<c:forEach items="${userList}" var="userVo">
 											<c:if test="${departmentVo.no eq userVo.departmentNo }">
-												<div class="third-layer">
+												<div class="layer">
 													<div class="link-line">┠</div>
 													<div class="name-rank">
 														<div class="user-no">${userVo.no }</div>
@@ -93,7 +93,7 @@
 									
 											<c:if test="${departmentVo.no eq departmentLowerVo.upperDepartmentNo}">
 											
-											<button class="extends-list third-layer">
+											<button class="extends-list layer">
 												<div class="extend-btn-icon">
 													<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
 												</div>
@@ -105,7 +105,7 @@
 											
 												<c:forEach items="${userList}" var="userVo">
 													<c:if test="${departmentLowerVo.no eq userVo.departmentNo }">
-														<div class="fourth-layer">
+														<div class="layer">
 															<div class="link-line">┠</div>
 															<div class="name-rank">
 																<div class="user-no">${userVo.no }</div>
@@ -120,7 +120,7 @@
 										
 													<c:if test="${departmentLowerVo.no eq departmentLowerVo2.upperDepartmentNo}">
 													
-													<button class="extends-list fourth-layer">
+													<button class="extends-list layer">
 														<div class="extend-btn-icon">
 															<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
 														</div>
@@ -132,7 +132,7 @@
 													
 														<c:forEach items="${userList}" var="userVo">
 															<c:if test="${departmentLowerVo2.no eq userVo.departmentNo }">
-																<div class="fifth-layer">
+																<div class="layer">
 																	<div class="link-line">┠</div>
 																	<div class="name-rank">
 																		<div class="user-no">${userVo.no }</div>
@@ -172,7 +172,7 @@
 	
 					<div class="detail-header">
 						<div class="detail-title">직원 상세</div>
-						<button class="send-mail-shortcuts" onclick="window.open('${root}/mail/write');">메일 보내기</button>
+						<button class="send-mail-shortcuts">메일 보내기</button>
 					</div>
 	
 					<div class="detail-table-area">
