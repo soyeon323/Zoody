@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/home.css">
+<script src="${root}/resources/js/common/weather.js"></script>
 </head>
 <body>
 
@@ -39,7 +40,10 @@
                 <div class="area calender">
                     <%@ include file="/WEB-INF/views/common/fullcalendar.jsp" %>
                 </div>
-                <div class="area weather">날씨</div>
+                <div class="area weather">
+                    <button onclick="getWeatherInfo()">skfTl</button>
+
+                </div>
                 <div class="area news">
                     
                         <div class="news-header">뉴스 / 최신글</div>
@@ -62,3 +66,4 @@
     </div>
 
 </body>
+

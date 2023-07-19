@@ -33,3 +33,5 @@
 	
 </body>
 </html>
+
+<script src="${root}/resources/js/community/communitySide.js"></script>

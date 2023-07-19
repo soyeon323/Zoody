@@ -1,6 +1,7 @@
 package com.kh.zoody.community.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,11 @@ public class BoardController {
 	@RequestMapping("anonymousBoard")
 	public String anonymousBoard() {
 		return "community/board/anonymousBoard";
+	}
+	
+	@RequestMapping("write")
+	public String write() {
+		return "community/board/write";
 	}
 	
 }
