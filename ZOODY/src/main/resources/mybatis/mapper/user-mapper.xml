@@ -36,5 +36,50 @@
 		WHERE NOT STATE_NO = 3
 	
 	</select>
+	
+	<insert id="enroll">
+		
+		INSERT INTO USER
+		(
+		    NO
+		    , DEPARTMENT_NO
+		    , RANK_NO
+		    , POSITION_NO
+		    , STATE_NO
+		    , DIVISION_NO
+		    , ID
+		    , NAME
+		    , GENDER
+		    , BIRTH_DATE
+		    , PROFILE
+		    , ADDRESS
+		    , PHONE
+		    , MAIL
+		    , REGISTRATION_DATE
+		    , OFFICE_NUMBER
+		    , LEAVE_COUNT
+		)
+		VALUES
+		(
+		    SEQ_USER_NO.NEXTVAL
+		    , #{departmentNo}
+		    , #{rankNo}
+		    , #{positionNo}
+		    , #{stateNo}
+		    , #{divisionNo}
+		    , #{id}
+		    , #{name}
+		    , #{gender}
+		    , #{birthDate}
+		    , #{profile}
+		    , #{address}
+		    , #{phone}
+		    , #{mail}
+		    , #{registartionDate}
+		    , #{officeNumber}
+		    , #{leaveCount}
+		)
+		
+	</insert>
   
 </mapper>
