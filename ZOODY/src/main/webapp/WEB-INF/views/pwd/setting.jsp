@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    /* html ,body{
+    html ,body{
         background-color: #f4f7fd;
     }
 
@@ -35,7 +35,7 @@
 
     .btn btn-primary{
         color: rgb(105, 105, 204);
-    } */
+    }
     
 </style>
 </head>

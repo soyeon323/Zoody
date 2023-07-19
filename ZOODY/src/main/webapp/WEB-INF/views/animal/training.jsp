@@ -37,7 +37,8 @@
                 </div>
                 <div id="btn-area">
                         <div class="btn-upload">등록</div>
-                        <div class="btn-upload">닫기</div>
+                        <a href="${root}/animal/list"><div class="btn-upload">닫기</div></a>
+                        
                 </div>
               
             </form>
