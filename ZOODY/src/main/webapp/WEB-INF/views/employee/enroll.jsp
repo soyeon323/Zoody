@@ -37,15 +37,15 @@
                     <tr id="chart-2">
                         <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
                         <td>사번</td>
-                        <td><input type="text" name="userNo" placeholder="사번입력" maxlength="6"></td>
+                        <td><input type="text" name="id" placeholder="사번입력" maxlength="6"></td>
                         <td>핸드폰번호</td>
                         <td><input type="tel" name="phone" placeholder="핸드폰번호입력" maxlength="13" oninput="formatPhoneNumber(this)"></td>
                     </tr>
                     <tr id="chart-3">
                         <td>이메일</td>
-                        <td><input type="email" name="email" placeholder="이메일입력"></td>
+                        <td><input type="email" name="mail" placeholder="이메일입력"></td>
                         <td>내선번호</td>
-                        <td><input type="tel" name="companyTel" placeholder="내선번호입력" maxlength="11" oninput="formatCompanyNumber(this)"></td>
+                        <td><input type="tel" name="officeNumber" placeholder="내선번호입력" maxlength="11" oninput="formatCompanyNumber(this)"></td>
                     </tr>
                     <tr id="chart-4">
                         <td>직위/직책</td>
@@ -112,13 +112,19 @@
                         <td id="salary"></td>
                     </tr>
                     <tr id="content-4">
-                        <td>직무</td>
-                        <td><input type="text" name="job" placeholder="직무입력"></td>
-                        <td>프로젝트 참여여부</td>
+                        <td>잔여휴가일</td>
+                        <td><input type="text" name="leaveCount" placeholder="잔여휴가일입력"></td>
+                        <td>부서</td>
                         <td>
-                            <select name="projectYn" id="projectYn">
-                                <option value="">참여</option>
-                                <option value="">미참여</option>
+                            <select name="department" id="department">
+                                <option value="111">총무과</option>
+                                <option value="112">운영과</option>
+                                <option value="113">시설과</option>
+                                <option value="114">조경과</option>
+                                <option value="121">동물기획과</option>
+                                <option value="122">동물복지1과</option>
+                                <option value="123">동물복지2과</option>
+                                <option value="124">종보전 연구실</option>
                             </select> 
                         </td>
                         <td>직원구분</td>

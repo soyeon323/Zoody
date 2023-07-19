@@ -115,13 +115,19 @@
                         <td id="salary"></td>
                     </tr>
                     <tr id="content-4">
-                        <td>직무</td>
-                        <td><input type="text" name="job" placeholder="현장직"></td>
-                        <td>프로젝트 참여여부</td>
+                        <td>잔여휴가일</td>
+                        <td><input type="text" name="leaveCount" placeholder="잔여휴가일입력"></td>
+                        <td>부서</td>
                         <td>
-                            <select name="projectYn" id="projectYn">
-                                <option value="">참여</option>
-                                <option value="">미참여</option>
+                            <select name="department" id="department">
+                                <option value="111">총무과</option>
+                                <option value="112">운영과</option>
+                                <option value="113">시설과</option>
+                                <option value="114">조경과</option>
+                                <option value="121">동물기획과</option>
+                                <option value="122">동물복지1과</option>
+                                <option value="123">동물복지2과</option>
+                                <option value="124">종보전 연구실</option>
                             </select> 
                         </td>
                         <td>직원구분</td>
