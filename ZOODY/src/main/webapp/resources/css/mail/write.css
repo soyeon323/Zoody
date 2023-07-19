@@ -200,7 +200,35 @@ main {
      width: 130px;
      height: 30px;
 }
+.elems-area {
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+}
 .setting-input-area {
+    width: 100%;
+    height: 30px;
+
+    border-bottom: 1.5px solid rgb(53, 54, 54);
+    border-top: 1px solid rgba(53, 54, 54, 0.5);
+    border-left: 1px solid rgba(53, 54, 54, 0.5);
+    border-right: 1px solid rgba(53, 54, 54, 0.5);
+    box-sizing: border-box;
+}
+
+.receivers-area, .cc-area, .bcc-area {
+    width: 800px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+}
+
+.title-input-area {
     width: 800px;
     height: 30px;
 
@@ -210,6 +238,7 @@ main {
     border-right: 1px solid rgba(53, 54, 54, 0.5);
     box-sizing: border-box;
 }
+
 .addressbook-btn {
     width: 100px;
     height: 30px;
@@ -227,7 +256,76 @@ main {
 
     cursor: pointer;
 }
-.attachment-add-btn {
+
+.attachment-list-area {
+    width: 800px;
+    height: 90px;
+
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1.5px solid rgb(53, 54, 54);
+    border-top: 1px solid rgba(53, 54, 54, 0.5);
+    border-left: 1px solid rgba(53, 54, 54, 0.5);
+    border-right: 1px solid rgba(53, 54, 54, 0.5);
+    box-sizing: border-box;
+
+    overflow-y: scroll;
+}
+
+.complete-email-box {
+    height: 30px;
+
+    padding: 0 5px;
+    margin: 0 2px;
+
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+
+    background-color: #F4F7FD;
+
+    border: 2px solid rgb(72, 118, 239);
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+.wrong-email-address {
+    height: 30px;
+
+    padding: 0 5px;
+    margin: 0 2px;
+
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
+
+    background-color: rgba(255, 66, 66, 0.7);
+
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.email-data {
+    display: none;
+}
+.email-data:focus {
+    outline: none;
+}
+
+.elem-delete-btn {
+    cursor: pointer;
+}
+
+
+.attachment-label {
     width: 100px;
     height: 30px;
 
@@ -239,24 +337,30 @@ main {
     border: 1px solid rgb(53, 54, 54);
     border-radius: 10px;
     box-sizing: border-box;
-}
-.attachment-list-area {
-    width: 800px;
-    height: 90px;
 
-    background-color: rgb(255, 255, 255);
-    border-bottom: 1.5px solid rgb(53, 54, 54);
-    border-top: 1px solid rgba(53, 54, 54, 0.5);
-    border-left: 1px solid rgba(53, 54, 54, 0.5);
-    border-right: 1px solid rgba(53, 54, 54, 0.5);
-    box-sizing: border-box;
+    cursor: pointer;
 }
 
-#smarteditor{
-    width: 1276px;
-    height: 300px;
+.add-attachment-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 }
-.content-smart-editor {
-    width: 1275px;
-    height: 300px;
+
+.attachment-elem {
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+}
+
+.attachment-name {
+    height: 20px;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(53, 54, 54);
 }

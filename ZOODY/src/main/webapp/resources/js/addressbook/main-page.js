@@ -42,6 +42,8 @@ function FillTable(data) {
     
     document.querySelector('.position-cell').innerText = data.positionName;
 
+    mailBtnSetting();
+
 }
 
 
@@ -53,18 +55,45 @@ function FillTable(data) {
 const extendsBtns = document.querySelectorAll('.extends-list')
 
 extendsBtns.forEach(extendsBtn => {
-    extendsBtn.addEventListener('click', event => extendList(event) );
+    extendsBtn.addEventListener('click', event => toggleExtendList(event) );
 });
 
 
-function extendList(event) {
+function toggleExtendList(event) {
     const currentTarget = event.currentTarget;
 
     const listBoxArea = currentTarget.nextElementSibling;
 
-    listBoxArea.classList.add('list-box-area-extend');
+    listBoxArea.classList.toggle('list-box-area-extend');
 
-    const btnIcon = currentTarget.firstElementChild;
-    const iconImg = btnIcon.firstElementChild;
-    iconImg.src = contextPath + '/resources/svg/icon/small-minus.svg';
+    if(listBoxArea.classList.contains('list-box-area-extend')) {
+        const btnIcon = currentTarget.firstElementChild;
+        const iconImg = btnIcon.firstElementChild;
+        iconImg.src = contextPath + '/resources/svg/icon/small-minus.svg';
+    } else {
+        const btnIcon = currentTarget.firstElementChild;
+        const iconImg = btnIcon.firstElementChild;
+        iconImg.src = contextPath + '/resources/svg/icon/small-plus.svg';
+    }
+    
 }
+
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+function mailBtnSetting() {
+    const sendMailBtn = document.querySelector('.send-mail-shortcuts');
+
+    sendMailBtn.addEventListener('click', ()=>{
+
+        let mailAddress = document.querySelector('.email-cell').innerText;
+
+        console.log(mailAddress);
+
+        window.open(contextPath + '/mail/write?receiver=' + mailAddress, "_black");
+    })
+}
+
