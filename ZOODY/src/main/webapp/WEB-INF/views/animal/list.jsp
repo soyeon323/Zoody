@@ -40,7 +40,7 @@
             </div>
 
             <div id="newEmployee">
-                <a href="" class="btn btn-primary">새로운 동물 등록</a>
+                <a href="${root}/animal/enroll" class="btn btn-primary">새로운 동물 등록</a>
             </div>
             <div>
                 <table id="content">

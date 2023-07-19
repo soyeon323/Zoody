@@ -33,6 +33,12 @@
             </ul>
         </li>
         <li>
+            <a href="#">업무 할당</a>
+            <ul>
+            <li><a href="${root}/work/work">업무 할당</a></li>
+            </ul>
+        </li>
+        <li>
             <a href="#">인사 관리</a>
             <ul>
             <li><a href="#">text1</a></li>
@@ -46,17 +52,17 @@
             <ul>
             <li><a href="${root}/animal/enroll">동물 등록</a></li>
             <li><a href="${root}/animal/list">동물 목록</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
             </ul>
         </li>
         <li>
             <a href="#">전자 결제</a>
             <ul>
-            <li><a href="#">text1</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
+            <li><a href="${root}/addressbook/main-page">주소록(조직도)</a></li>
+            <li><a href="${root}/mail/folder/receive">메일 목록</a></li>
+            <li><a href="${root}/mail/write">메일 작성</a></li>
+            <li><a href="${root}/mail/detail">메일 상세 </a></li>
+            <li><a href="${root}/approval/main-page">전자메일 목록 </a></li>
+            <li><a href="${root}/approval/write/letter-of-approval">전자결재 작성 </a></li>
             </ul>
         </li>
         <li>
