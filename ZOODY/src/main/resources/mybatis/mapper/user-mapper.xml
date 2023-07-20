@@ -159,30 +159,33 @@
 	
 	<select id="list" resultType="UserVo">
 		SELECT
-			NO
-			, DEPARTMENT_NO
-			, RANK_NO
-			, POSITION_NO
-			, STATE_NO
-			, AGENT
-			, DIVISION_NO
-			, ID
-			, PWD
-			, NAME
-			, GENDER
-			, BIRTH_DATE
-			, PROFILE
-			, LINE_INTRO
-			, ADDRESS
-			, PHONE
-			, MAIL
-			, REGISTRATION_DATE
-			, LEAVE_REASON
-			, LEAVE_DATE
-			, OFFICE_NUMBER
-			, LEAVE_COUNT
-			, CAPACITY
-		FROM "USER"
+			U.NO
+			, U.DEPARTMENT_NO
+            , D.NAME AS DEPARTMENT_NAME
+			, U.RANK_NO
+            , R.NAME AS RANK_NAME
+			, U.POSITION_NO
+			, U.STATE_NO
+			, U.AGENT
+			, U.DIVISION_NO
+			, U.ID
+			, U.PWD
+			, U.NAME
+			, U.GENDER
+			, U.BIRTH_DATE
+			, U.PROFILE
+			, U.LINE_INTRO
+			, U.ADDRESS
+			, U.PHONE
+			, U.MAIL
+			, U.REGISTRATION_DATE
+			, U.LEAVE_REASON
+			, U.LEAVE_DATE
+			, U.OFFICE_NUMBER
+			, U.LEAVE_COUNT
+			, U.CAPACITY
+		FROM "USER" U JOIN DEPARTMENT D ON U.DEPARTMENT_NO = D.NO
+        JOIN RANK R ON U.RANK_NO = R.NO
 		WHERE STATE_NO = '1'
 	</select>
   

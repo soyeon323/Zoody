@@ -1,6 +1,7 @@
 package com.kh.zoody.employee.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,9 +70,15 @@ public class EmployeeController {
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
+		int EmployeListCnt = es.getEmployeeListCnt();
+		
 		List<UserVo> voList = es.list(pv);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("voList", voList);
+		map.put("EmployeListCnt", EmployeListCnt);
 
-		model.addAttribute("voList", voList);
+		model.addAttribute("map", map);
 		
 		return "employee/list";
 	}
