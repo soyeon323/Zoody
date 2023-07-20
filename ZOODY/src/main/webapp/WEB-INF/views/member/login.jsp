@@ -14,7 +14,7 @@
 
     #wrap{
         margin: auto;
-        margin-top: 130px;
+        margin-top: 150px;
         width: 400px;
         height: 500px;
         background-color: white;
@@ -31,6 +31,7 @@
 
     #login-form{
         display: grid;
+        margin-top: 100px;
         grid-template-rows: 3fr 1fr 1fr 1fr;
         grid-gap: 50px;
         place-content: center center;
@@ -49,10 +50,10 @@
 </head>
 <body>
 		<div id="wrap">
-            <form id="login-form" action="" method="POST">
+            <form id="login-form" action="${root}/login" method="POST">
             <img src="/zoody/resources/img/logo/logo.svg" alt="로고 이미지">
-                <input type="text" name="" placeholder="ID">
-                <input type="text" name="" placeholder="PWD">
+                <input type="text" name="id" placeholder="ID">
+                <input type="text" name="pwd" placeholder="PWD">
                 <input class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인"> 
             </form>
 		</div>
