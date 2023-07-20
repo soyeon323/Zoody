@@ -43,5 +43,60 @@
 	
 	</select>
 
+	<insert id="enroll">
+		INSERT INTO "USER"
+		(
+		   	NO
+		    , DEPARTMENT_NO
+		    , RANK_NO
+		    , POSITION_NO
+		    , STATE_NO
+		    , AGENT
+		    , DIVISION_NO
+		    , ID
+		    , PWD
+		    , NAME
+		    , GENDER
+		    , BIRTH_DATE
+		    , PROFILE
+		    , LINE_INTRO
+		    , ADDRESS
+		    , PHONE
+		    , MAIL
+		    , REGISTRATION_DATE
+		    , OFFICE_NUMBER
+		    , LEAVE_COUNT
+		    , LEAVE_DATE
+		    , LEAVE_REASON
+		    , CAPACITY
+		)
+		VALUES
+		(
+		    SEQ_USER_NO.NEXTVAL
+		    , #{departmentNo}
+		    , #{rankNo}
+		    , #{positionNo}
+		    , #{stateNo}
+		    , #{agent}
+		    , #{divisionNo}
+		    , #{id}
+		    , #{pwd}
+		    , #{name}
+		    , #{gender}
+		    , #{birthDate}
+		    , #{profile}
+		    , #{lineIntro}
+		    , #{address}
+		    , #{phone}
+		    , #{mail}
+		    , #{registrationDate}
+		    , #{officeNumber}
+		    , #{leaveCount}
+		    , #{leaveDate}
+		    , #{leaveReason}
+		    , 500
+		)
+		
+	</insert>
   
 </mapper>
