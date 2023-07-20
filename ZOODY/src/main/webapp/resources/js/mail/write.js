@@ -1,4 +1,4 @@
-const hostIndex = location.href.indexOf( location.host ) + location.host.length;
+// const hostIndex = location.href.indexOf( location.host ) + location.host.length;
 const contextPath = location.href.substring( hostIndex, location.href.indexOf( '/', hostIndex + 1 ));
 
 /* ---------------------------------------------------------------------------------------------------------- */
@@ -15,8 +15,9 @@ document.addEventListener('keydown', function(event) {
 
 // URL에 받는사람을 가져오면 자동으로 추가
 const receiver = new URLSearchParams(location.search).get('receiver');
-
-addElementInputArea(receiver, '.reciver-elems');
+if(receiver != null) {
+	addElementInputArea(receiver, '.reciver-elems');
+}
 
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
@@ -50,7 +51,7 @@ function addElementInputArea(email, areaClassName) {
 
 
     const deleteBtn = document.createElement('img');
-    deleteBtn.src = contextPath + '/resources/svg/icon/small-cross.svg';
+    deleteBtn.src = contextPath + '/resources/img/icon/svg/small-cross.svg';
     deleteBtn.classList.add('elem-delete-btn');
 
     emailElem.append(emailData);
@@ -123,7 +124,7 @@ attachmentFileInput.addEventListener('change', (event) => {
         attachmentInfo.classList.add('attachment-name');
 
         const deleteBtn = document.createElement('img');
-        deleteBtn.src = contextPath + '/resources/svg/icon/small-cross.svg';
+        deleteBtn.src = contextPath + '/resources/img/icon/svg/small-cross.svg';
         deleteBtn.classList.add('elem-delete-btn');
 
         attachmentElem.append(attachmentInfo);
@@ -176,4 +177,46 @@ sendMailBtn.addEventListener('click', () => {
 
 })
 
+/* ---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------- */
 
+$(document).ready(function() {
+    $('#summernote').summernote({
+    enterToBr: true,
+    codeviewFilter: true,
+    codeviewIframeFilter: true,
+    disableXSSProtection: true,
+    width: 1200,
+    height: 240,
+    minHeight: 240,
+    maxHeight: 240,
+    focus: false,
+    lang: 'ko-KR',
+    toolbar: [
+        // 스타일 관련 기능
+        ['style', ['style']],
+        // 글자 크기 설정
+        ['fontsize', ['fontsize']],
+        // 글꼴 스타일
+        ['font', ['bold', 'underline', 'clear']],
+        // 글자 색상
+        ['color', ['color']],
+        // 테이블 삽입
+        ['table', ['table']],
+        // 문단 스타일
+        ['para', ['paragraph']],
+        // 에디터 높이 설정
+        ['height', ['height']],
+        // 이미지, 링크, 동영상 삽입
+        ['insert', ['picture', 'link', 'video']],
+        // 코드 보기, 전체화면, 도움말
+        ['view', ['codeview', 'fullscreen', 'help']],
+    ],
+    fontSizes: [
+        // 글자 크기 선택 옵션
+        '8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'
+    ],
+    });
+});

@@ -1,4 +1,4 @@
-const hostIndex = location.href.indexOf( location.host ) + location.host.length;
+// const hostIndex = location.href.indexOf( location.host ) + location.host.length;
 
 const contextPath = location.href.substring( hostIndex, location.href.indexOf( '/', hostIndex + 1 ));
 
@@ -26,7 +26,7 @@ function getDetailInfo(event) {
 
 function FillTable(data) {
 
-    document.querySelector('.detail-profile-img').src = contextPath + '/resources/png/profile/' + data.profile;
+    document.querySelector('.detail-profile-img').src = contextPath + '/resources/img/employee/' + data.profile;
 
     document.querySelector('.name-cell').innerText = data.name;
     
@@ -69,11 +69,11 @@ function toggleExtendList(event) {
     if(listBoxArea.classList.contains('list-box-area-extend')) {
         const btnIcon = currentTarget.firstElementChild;
         const iconImg = btnIcon.firstElementChild;
-        iconImg.src = contextPath + '/resources/svg/icon/small-minus.svg';
+        iconImg.src = contextPath + '/resources/img/icon/svg/small-minus.svg';
     } else {
         const btnIcon = currentTarget.firstElementChild;
         const iconImg = btnIcon.firstElementChild;
-        iconImg.src = contextPath + '/resources/svg/icon/small-plus.svg';
+        iconImg.src = contextPath + '/resources/img/icon/svg/small-plus.svg';
     }
     
 }

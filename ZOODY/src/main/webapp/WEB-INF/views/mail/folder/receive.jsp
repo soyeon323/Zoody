@@ -12,7 +12,7 @@
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	
-	<main>
+	<div class="main-wrap">
 	
 		<%@ include file="/WEB-INF/views/side.jsp" %>
 		
@@ -30,45 +30,45 @@
 							안읽음 {7}
 						</div>
 						<button class="my-important-btn">
-							<img src="${root}/resources/svg/icon/star.svg" alt="즐겨찾기">
+							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
 							중요
 						</button>
 					</div>
 
 					<div class="default-folder-list">
 						<button class="folder-btn all-mail-btn">
-							<img src="${root}/resources/svg/icon/all-mail.svg" alt="전체메일">
+							<img src="${root}/resources/img/icon/svg/all-mail.svg" alt="전체메일">
 							전체메일
 						</button>
 						<button class="folder-btn selected-folder-btn receive-mail-btn">
-							<img src="${root}/resources/svg/icon/receive-mail-selected.svg" alt="받은메일">
+							<img src="${root}/resources/img/icon/svg/receive-mail-selected.svg" alt="받은메일">
 							받은 메일함
 						</button>
 						<button class="folder-btn send-mail-list">
-							<img src="${root}/resources/svg/icon/send-mail.svg" alt="보낸메일">
+							<img src="${root}/resources/img/icon/svg/send-mail.svg" alt="보낸메일">
 							보낸 메일함
 						</button>
 						<button class="folder-btn tome-mail-btn">
-							<img src="${root}/resources/svg/icon/to-me-mail.svg" alt="내게쓴메일">
+							<img src="${root}/resources/img/icon/svg/to-me-mail.svg" alt="내게쓴메일">
 							내게 쓴 메일함
 						</button>
 						<button class="folder-btn dump-mail-btn">
-							<img src="${root}/resources/svg/icon/dump-mail.svg" alt="휴지통">
+							<img src="${root}/resources/img/icon/svg/dump-mail.svg" alt="휴지통">
 							휴지통
 						</button>
 					</div>
 
 					<div class="custom-list-header">
 						내 메일함
-						<img src="${root}/resources/svg/icon/small-plus.svg" alt="추가">
+						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가">
 					</div>
 					<div class="custom-folder-list">
 						<div class="custom-folder">
-							<img src="${root}/resources/svg/icon/folder.svg" alt="내폴더">
+							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
 							{폴더명}
 						</div>
 						<div class="custom-folder">
-							<img src="${root}/resources/svg/icon/folder.svg" alt="내폴더">
+							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
 							{새폴더2}
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 							<div class="search-input-area">
 								<input type="text" class="search-input">
 							</div>
-							<img class="search-icon" src="${root}/resources/svg/icon/search.svg" alt="검색">
+							<img class="search-icon" src="${root}/resources/img/icon/svg/search.svg" alt="검색">
 						</div>
 
 					</div>
@@ -112,14 +112,14 @@
 							</div>
 							<div class="add-bookmark-area">
 								<button class="add-bookmark-btn">
-									<img src="${root}/resources/svg/icon/small-star.svg" alt="즐겨찾기">
+									<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
 								</button>
 							</div>
 							<div class="read-check-icon">
-								<img src="${root}/resources/svg/icon/unread-mail.svg" alt="안읽음">
+								<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
 							</div>
 							<div class="attachment-check-icon">
-								<img src="${root}/resources/svg/icon/attachment.svg" alt="안읽음">
+								<img src="${root}/resources/img/icon/svg/attachment.svg" alt="안읽음">
 							</div>
 							<div class="mail-sender">
 								{이지은}
@@ -138,14 +138,14 @@
 							</div>
 							<div class="add-bookmark-area">
 								<button class="add-bookmark-btn">
-									<img src="${root}/resources/svg/icon/small-star.svg" alt="즐겨찾기">
+									<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
 								</button>
 							</div>
 							<div class="read-check-icon">
-								<img src="${root}/resources/svg/icon/read-mail.svg" alt="읽음">
+								<img src="${root}/resources/img/icon/svg/read-mail.svg" alt="읽음">
 							</div>
 							<div class="attachment-check-icon">
-								<img src="${root}/resources/svg/icon/attachment.svg" alt="첨부파일">
+								<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
 							</div>
 							<div class="mail-sender">
 								{유지민}

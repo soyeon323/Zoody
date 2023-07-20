@@ -12,7 +12,7 @@
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	
-	<main>
+	<div class="main-wrap">
 	
 		<%@ include file="/WEB-INF/views/side.jsp" %>
 		
@@ -30,45 +30,45 @@
 							안읽음 {7}
 						</div>
 						<button class="my-important-btn">
-							<img src="${root}/resources/svg/icon/star.svg" alt="즐겨찾기">
+							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
 							중요
 						</button>
 					</div>
 
 					<div class="default-folder-list">
 						<button class="folder-btn all-mail-btn">
-							<img src="${root}/resources/svg/icon/all-mail.svg" alt="전체메일">
+							<img src="${root}/resources/img/icon/svg/all-mail.svg" alt="전체메일">
 							전체메일
 						</button>
 						<button class="folder-btn selected-folder-btn receive-mail-btn">
-							<img src="${root}/resources/svg/icon/receive-mail-selected.svg" alt="받은메일">
+							<img src="${root}/resources/img/icon/svg/receive-mail-selected.svg" alt="받은메일">
 							받은 메일함
 						</button>
 						<button class="folder-btn send-mail-list">
-							<img src="${root}/resources/svg/icon/send-mail.svg" alt="보낸메일">
+							<img src="${root}/resources/img/icon/svg/send-mail.svg" alt="보낸메일">
 							보낸 메일함
 						</button>
 						<button class="folder-btn tome-mail-btn">
-							<img src="${root}/resources/svg/icon/to-me-mail.svg" alt="내게쓴메일">
+							<img src="${root}/resources/img/icon/svg/to-me-mail.svg" alt="내게쓴메일">
 							내게 쓴 메일함
 						</button>
 						<button class="folder-btn dump-mail-btn">
-							<img src="${root}/resources/svg/icon/dump-mail.svg" alt="휴지통">
+							<img src="${root}/resources/img/icon/svg/dump-mail.svg" alt="휴지통">
 							휴지통
 						</button>
 					</div>
 
 					<div class="custom-list-header">
 						내 메일함
-						<img src="${root}/resources/svg/icon/small-plus.svg" alt="추가">
+						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가">
 					</div>
 					<div class="custom-folder-list">
 						<div class="custom-folder">
-							<img src="${root}/resources/svg/icon/folder.svg" alt="내폴더">
+							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
 							{폴더명}
 						</div>
 						<div class="custom-folder">
-							<img src="${root}/resources/svg/icon/folder.svg" alt="내폴더">
+							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
 							{새폴더2}
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 						<div class="list-header-left">
 							<div class="list-header-title">
 								<button class="back-btn">
-									<img src="${root}/resources/svg/icon/right-direction.svg" alt="뒤로">
+									<img src="${root}/resources/img/icon/svg/right-direction.svg" alt="뒤로">
 								</button>
 								받은 메일함
 							</div>
@@ -100,13 +100,13 @@
 							<div class="unread-btn">안읽음</div>
 							<div class="move-btn">
 								이동
-								<img src="${root}/resources/svg/icon/down-direction.svg" alt="확장">
+								<img src="${root}/resources/img/icon/svg/down-direction.svg" alt="확장">
 							</div>
 						</div>
 
 						<div class="detail-title-area">
 							<button class="bookmark-btn">
-								<img src="${root}/resources/svg/icon/star.svg" alt="중요">
+								<img src="${root}/resources/img/icon/svg/star.svg" alt="중요">
 							</button>
 							<div class="mail-title">
 								{ [보고] 2023 하반기 퇴직희망자 명단 }
@@ -136,7 +136,7 @@
 							<div class="attachment-text">첨부 파일</div>
 							<div class="attachment-elem">
 								<button class="download-attachment-btn">
-									<img src="${root}/resources/svg/icon/small-plus.svg" alt="다운로드">
+									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
 								</button>
 								<div class="attachment-name">
 									{ 2023년 하반기 퇴직희망자 명단.xlsx }
@@ -144,7 +144,7 @@
 							</div>
 							<div class="attachment-elem">
 								<button class="download-attachment-btn">
-									<img src="${root}/resources/svg/icon/small-plus.svg" alt="다운로드">
+									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
 								</button>
 								<div class="attachment-name">
 									{ 2023년 하반기 퇴직희망자 명단.hwp }
