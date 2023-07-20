@@ -28,6 +28,7 @@
     min-height: 50vh;
     padding: 5px;
     border-radius: 6px;
+    margin: 20px 0px 0px;
     }
 
     .column1,.column2,.column3 h1 {
@@ -71,8 +72,8 @@
     }
 
     #popup_open_btn{
-        margin-left: 600px;
-        margin-bottom: 0px;
+        margin-left: 520px;
+        margin-top: 20px;
     }
 
     
@@ -107,16 +108,18 @@
 
 
     fieldset {
-    /* border: 3px solid #ccc;
+    border: 3px solid #ccc;
     padding: 10px;
-    width: 300px;
+    width: 480px;
     border-radius: 4px;
-    display: flex;
-    row-gap: 20px; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    margin-top: 15px;
+    }
+
+    fieldset input{
+        margin-top: 15px;
+        width: 450px;
+    }
+
 
     /* 모달 2 */
      #my_modal2 {
@@ -142,10 +145,6 @@
         right: 10px;
     }
     
-    #modal-area{
-        display: grid;
-        grid-row-gap: 20px;
-    }
 
     #textarea{
         resize: none;
@@ -153,13 +152,21 @@
     }
 
     fieldset {
-    border: 3px solid #ccc;
-    padding: 10px;
-    width: 300px;
-    border-radius: 4px;
-    display: grid;
-    row-gap: 20px;
-    }
+        border: 3px solid #ccc;
+        padding: 10px;
+        width: 480px;
+        border-radius: 4px;
+        margin-top: 15px;
+        }
+    
+        fieldset input{
+            margin-top: 15px;
+            width: 430px;
+        }
+        fieldset input[type="checkbox"]{
+            width: 25px;
+            height: 20px;
+        }
 
     #btn-area{
         box-sizing: border-box;

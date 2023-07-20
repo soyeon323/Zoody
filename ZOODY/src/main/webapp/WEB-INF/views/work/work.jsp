@@ -68,8 +68,10 @@
                
                <fieldset>
                 <legend>업무 내용</legend>
-                <input type="text"> <input type="checkbox">
-               </fieldset>
+
+               <!-- 여기에 들어가야함 -->
+               
+                </fieldset>
             <div id="date">
                 마감날짜
                 <div id='calendar-container'>
@@ -90,16 +92,19 @@
             <h1>업무 할당</h1>
             <br>
             <div id="modal-area">
-                <input type="text" name="" placeholder="업무 명">
-                <input type="text" name="" placeholder="직원 명">
-               
-                <fieldset>
+                <input type="text" placeholder="업무 명">
+                <input type="text" placeholder="직원 명">
+                <fieldset id="fieldset">
                  <legend>업무 내용</legend>
-                 <input type="text" name="sadf"> <input type="checkbox">
+                 <input type="text"> <input type="checkbox">
+                 <input type="text"> <input type="checkbox">
+                 <input type="text"> <input type="checkbox">
+                 <input type="text"> <input type="checkbox">
+                 <input type="text"> <input type="checkbox">
              </fieldset>
-             <div>마감 일시</div>
-
+             
             </div>
+            <div>마감 일시</div>
             
              <a class="modal_close_btn2">닫기</a>
          </div>
@@ -274,7 +279,7 @@
     });
 
 
-   // input +
+//    input +
    document.getElementById('plusBtn').addEventListener('click', function() {
         var fieldset = document.querySelector('fieldset');
 
@@ -284,10 +289,13 @@
 
         var inputCheckbox = document.createElement('input');
         inputCheckbox.setAttribute('type', 'checkbox');
+        // inputCheckbox.setAttribute('style', '25px');
+        inputCheckbox.style.width = "25px";
 
         fieldset.appendChild(inputText);
         fieldset.appendChild(inputCheckbox);
     });
+
 
     // input -
     document.getElementById('minusBtn').addEventListener('click', function() {
