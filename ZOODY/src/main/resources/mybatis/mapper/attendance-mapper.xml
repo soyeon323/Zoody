@@ -6,25 +6,31 @@
   
 <mapper namespace="attendance">
 
-	<select id="attMyList" resultType="com.kh.zoody.attendance.vo.AttendanceVo">
+	<select id="getMyAttendanceCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM ATTENDANCE
+		WHERE NO=1
+	</select>
+
+	<select id="selectList" resultType="AttendanceVo">
 		
 		SELECT 
 		    A.NO
 		    ,A.USER_NO
 		    ,A.CURRENT_NO
-		    ,A.ENROLLDATE
-		    ,A.CHECK_IN_TIME
-		    ,A.CHECK_OUT_TIME
-		    ,A.PLUS_WORK_TIME
-		    ,A.TOTAL_WORK_TIME
+		    ,TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS') AS CHECK_IN_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS') AS CHECK_OUT_TIME
+		    ,TO_CHAR(A.PLUS_WORK_TIME, 'HH24:MI:SS') AS PLUS_WORK_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
 		    ,A.OBJECTION_REASON
 		    ,A.APPROVAL_STATUS
-		    ,AC.TYPE
-		    ,U.NAME
+		    ,AC.TYPE AS TYPE
+		    ,U.NAME AS NAME
 		FROM ATTENDANCE A
-		INNER JOIN "USER" U
+		JOIN "USER" U
 		ON A.USER_NO = U.NO
-		INNER JOIN ATTENDANCE_CURRENT AC
+		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
 		WHERE U.NO = 1
 		

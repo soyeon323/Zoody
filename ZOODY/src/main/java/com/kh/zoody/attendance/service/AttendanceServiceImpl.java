@@ -23,14 +23,14 @@ public class AttendanceServiceImpl implements AttendanceService{
 	
 	//(서브메뉴) 근무현황 목록 조회	
 	@Override
-	public List<AttendanceVo> attMyList(PageVo myListPv) {
-		return dao.attMyList(sst, myListPv);
+	public List<AttendanceVo> list(PageVo pv) {
+		return dao.list(sst, pv);
 	}
 
 
 	@Override
 	public int getMyAttendanceCnt() {
-		return 0;
+		return dao.getMyAttendanceCnt(sst);
 	}
 	
 	
