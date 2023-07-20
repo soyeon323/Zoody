@@ -19,6 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private final SqlSessionTemplate sst;
 	private final EmployeeDao dao;
 
+	//직원등록
 	@Override
 	public int enroll(UserVo vo) {
 		return dao.enroll(sst, vo);
@@ -26,14 +27,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int edit(UserVo vo) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	//직원목록조회
 	@Override
 	public List<UserVo> list(PageVo pv) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.list(sst, pv);
+	}
+
+	//페이징처리를 위한 게시글 갯수 조회
+	@Override
+	public int getEmployeeListCnt() {
+		return dao.getEmployeeListCnt(sst);
 	}
 
 }

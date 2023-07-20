@@ -1,11 +1,21 @@
 package com.kh.zoody.employee.controller;
 
+import java.io.File;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.employee.service.EmployeeService;
+import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
@@ -22,12 +32,21 @@ public class EmployeeController {
 	
 	//직원등록
 	@PostMapping("enroll")
-	public String enroll(UserVo vo) {
+	public String enroll(UserVo vo, MultipartFile f, HttpServletRequest req) throws Exception {
 		int result = es.enroll(vo);
 		
-		if(result != 1) {
+		if(result != 1 && f.isEmpty()) {
 			throw new RuntimeException();
 		}
+		
+		String savePath = req.getServletContext().getRealPath("/resources/img/employee/");
+	    String originalFilename = f.getOriginalFilename();
+	    String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	    String fileName = UUID.randomUUID().toString() + extension;
+	    String path = savePath + fileName;
+	    File target = new File(path);
+		
+		f.transferTo(target);
 		
 		return "redirect:list";
 	}
@@ -40,7 +59,21 @@ public class EmployeeController {
 	
 	//직원목록 화면
 	@GetMapping("list")
-	public void list() {}
+	public String list(Integer page, Model model) {
+		
+		int listCount = es.getEmployeeListCnt();
+		int currentPage = (page != null) ? page : 1;
+		int pageLimit = ConstPool.PAGE_LIMIT;
+		int boardLimit = ConstPool.BOARD_LIMIT;
+		
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		List<UserVo> voList = es.list(pv);
+
+		model.addAttribute("voList", voList);
+		
+		return "employee/list";
+	}
 	
-	//직원목록 
 }

@@ -1,3 +1,4 @@
+/* 전체 */
 #wrap{
     width: 1663px;
     height: 93vh;
@@ -16,6 +17,7 @@
     font-weight: 600;
 }
 
+/* 뒷배경 */
 #back{
     width: 1500px;
     height: 700px;
@@ -50,7 +52,7 @@
 }
 
 #back div:first-child input[type="submit"]{
-    background-image: url("/zoody/resources/img/search.png");
+    background-image: url("/zoody/resources/img/icon/png/search.png");
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0);
     color: rgba(255, 255, 255, 0);
@@ -68,6 +70,7 @@
     font-weight: 300;
 }
 
+/* 내용영역 */
 #content{
     width: 1500px;
     margin-top: 20px;
@@ -96,10 +99,11 @@
 }
 
 #content>tbody tr{
-    height: 48px;
-    margin-top: 20px;
+    height: 60px;
+    margin-top: 8px;
 }
 
+/* 페이지영역 */
 #page{
     width: 1500px;
     display: flex;
@@ -131,7 +135,8 @@
 }
 
 table tbody tr:hover{
-    background-color: #00CBA4;
+    background-color: #4876EF;
+    color: white;
     cursor: pointer;
 }
 

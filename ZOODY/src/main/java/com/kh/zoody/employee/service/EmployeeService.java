@@ -15,6 +15,9 @@ public interface EmployeeService {
 	
 	//직원목록 
 	List<UserVo> list(PageVo pv);
+
+	//페이징처리를 위한 전체 게시글 갯수 조회
+	int getEmployeeListCnt();
 	
 
 }
