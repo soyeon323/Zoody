@@ -17,5 +17,8 @@ public interface EmployeeDao {
 	
 	//직원목록 
 	List<UserVo> list(SqlSessionTemplate sst, PageVo pv);
+
+	//페이징처리를 위한 게시글 갯수 조회
+	int getEmployeeListCnt(SqlSessionTemplate sst);
 	
 }

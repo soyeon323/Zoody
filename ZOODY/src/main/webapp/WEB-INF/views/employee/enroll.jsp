@@ -29,7 +29,7 @@
                 
                 <table>
                     <tr id="chart-1">
-                        <td rowspan="4"><img src="${root}/resources/img/employee/profile.png" alt="프로필기본사진"></td>
+                        <td rowspan="4" id="image_container"><img src="${root}/resources/img/employee/profile.png" alt="프로필기본사진"></td>
                         <td>이름</td>
                         <td>소속</td>
                         <td colspan="3">주디 동물원</td>
@@ -68,7 +68,7 @@
                     <label for="file">
                         <div class="btn-upload">프로필 등록</div>
                     </label>
-                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
+                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg" onchange="imgUpload(event)">
                 </div>
 
                 <table id="chart-content"> 
@@ -210,5 +210,20 @@
         const position = document.querySelector("#position");
         const selectedText = position.options[position.selectedIndex].innerText;
         document.querySelector("#salary").innerText = selectedText;
+    }
+
+    //이미지 미리보기
+    function imgUpload(event){
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+        var originImg = document.querySelector("#image_container>img");
+        var img = document.createElement("img");
+        originImg.style.display = 'none';
+        img.setAttribute("src", event.target.result);
+        document.querySelector("#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
     }
 </script>

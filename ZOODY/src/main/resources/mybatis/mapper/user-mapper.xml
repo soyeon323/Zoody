@@ -98,5 +98,40 @@
 		)
 		
 	</insert>
+	
+	<select id="getEmployeeListCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM "USER"
+		WHERE STATE_NO = '1'
+	</select>
+	
+	<select id="list" resultType="UserVo">
+		SELECT
+			NO
+			, DEPARTMENT_NO
+			, RANK_NO
+			, POSITION_NO
+			, STATE_NO
+			, AGENT
+			, DIVISION_NO
+			, ID
+			, PWD
+			, NAME
+			, GENDER
+			, BIRTH_DATE
+			, PROFILE
+			, LINE_INTRO
+			, ADDRESS
+			, PHONE
+			, MAIL
+			, REGISTRATION_DATE
+			, LEAVE_REASON
+			, LEAVE_DATE
+			, OFFICE_NUMBER
+			, LEAVE_COUNT
+			, CAPACITY
+		FROM "USER"
+		WHERE STATE_NO = '1'
+	</select>
   
 </mapper>

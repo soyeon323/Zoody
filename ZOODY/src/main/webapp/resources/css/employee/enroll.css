@@ -141,3 +141,9 @@ select{
     height: 15px;
 }
 #guideMent01{color: #C5C5C5; font-weight: 300;}
+
+/* 프로필이미지 크기조정 */
+#image_container>img{
+    width: 200px;
+    height: 200px;
+}
