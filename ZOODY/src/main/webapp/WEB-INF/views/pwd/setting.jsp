@@ -12,7 +12,7 @@
         background-color: #f4f7fd;
     }
 
-    #wrap{
+    /* #wrap{
         margin: auto;
         margin-top: 130px;
         width: 500px;
@@ -24,7 +24,7 @@
 
     form{
         display: grid;
-        grid-template-rows: 3fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
         grid-gap: 50px;
         place-content: center center;      
     }
@@ -35,14 +35,14 @@
 
     .btn btn-primary{
         color: rgb(105, 105, 204);
-    }
+    } */
     
 </style>
 </head>
 <body>
 		<div id="wrap">
             <form action="" method="POST">
-                <input type="text" name="id" placeholder="ID">
+                <input type="text" name="mail" placeholder="e mail">
                 <input class="btn btn-primary" style="color: whitesmoke;" type="submit" value="비밀번호 설정하기"> 
                 <input type="text" name="" placeholder="ID">
                 <input type="text" name="" placeholder="ID">
