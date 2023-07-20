@@ -1,0 +1,31 @@
+/* 사이드바랑 메인 영역 나누기 */
+
+#cal_wrap{
+    display: grid;
+    grid-template-columns: 264px auto;
+}
+
+#cal_main{
+    /* background-color: red; */
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+
+    display: grid;
+    grid-template-columns: 0.2fr auto;
+    column-gap: 15px;
+}
+
+#calendar-wrap{
+    background-color: #fff;
+    border: 1px solid #f1f1f1;
+    display: grid;
+    align-items: center;
+  }
+
+  #calendar {
+      max-width: 1100px;
+      height: 80%;
+      margin-left: 100px;
+  }

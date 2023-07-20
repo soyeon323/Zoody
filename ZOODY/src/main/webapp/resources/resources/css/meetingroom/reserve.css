@@ -1,0 +1,195 @@
+/* 사이드바랑 메인 영역 나누기 */
+
+#mt_wrap{
+    display: grid;
+    grid-template-columns: 264px auto;
+}
+
+#mt_main{
+    /* background-color: red; */
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+/* 링크 이어주기 */
+.mt_link{
+    color: #BDBDBD;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 18.336px */
+    letter-spacing: 0.96px;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0;
+    margin-bottom: 1rem;
+    list-style: none;
+    justify-content: flex-end;
+}
+
+/* 검색바 */
+.mt_search{
+    margin-top: 40px;
+    margin-bottom: 15px;
+
+    width: 181px;
+    height: 46px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    border: 1px solid #F1F1F1;
+    background: #FFF;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 13px;
+}
+
+.mt_search > span{
+    color: #8C8C8C;
+    font-family: 'Spoqa Han Sans Neo';
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.mt_search > input{
+    width: 114px;
+    height: 28px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    border: 1.2px solid #ECECEC;
+    background: #F6F6F6;
+
+    color: #848484;
+    font-family: 'Spoqa Han Sans Neo';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 22.92px */
+
+    padding-left: 5px;
+}
+
+/* 회의실 목록 - 갤러리 형태 */
+.mt_box{
+    width: 100%;
+    height: 580px;
+    /* background-color: aqua; */
+
+    display: grid;
+    grid-template-columns: 330px 330px 330px 330px;
+    grid-template-rows: 243px 243px;
+
+    row-gap: 94px;
+    column-gap: 17px;
+
+    position: relative;
+}
+
+.card-img, .card-img-bottom, .card-img-top {
+    width: 100%;
+    height: 159px;
+    filter: brightness(40%); 
+}
+
+.card-title {
+    text-align: center;
+    margin-top: -108px;
+    margin-left: 101px;
+
+    color: #FFF;
+    font-family: 'Spoqa Han Sans Neo';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 24.448px */
+    letter-spacing: 1.28px;
+
+    position: absolute;
+    
+}
+
+.btn {
+    margin-left: 106px;
+    color: #EFF5FF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13px;
+    letter-spacing: 0.42px;
+    text-transform: capitalize;
+
+    background: #00CBA4;
+    width: 82px;
+    height: 26px;
+    flex-shrink: 0;
+
+    position: absolute;
+    bottom: 118px;
+}
+
+.btn-primary {
+    color: #fff;
+    border-color: #00CBA4;
+}
+
+.card-text{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    row-gap: 8px;
+}
+
+.card-text > span{
+    color: #555;
+    font-family: Poppins;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 152.8%; /* 16.808px */
+    letter-spacing: 0.385px;
+    text-transform: capitalize;
+}
+
+.card-text > p{
+    color: #A8A8A8;
+    font-family: Poppins;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 15.28px */
+    letter-spacing: 0.35px;
+    text-transform: capitalize;
+}
+
+/* 회의실 추가 버튼 */
+.cardPlus > a > button{
+    width: 116px;
+    height: 30px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    background: #4876EF;
+    border: none;
+
+    color: #FFF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 19.864px */
+    letter-spacing: 1.3px;
+
+    margin-top: 21px;
+}

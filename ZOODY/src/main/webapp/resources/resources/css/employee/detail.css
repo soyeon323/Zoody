@@ -2,14 +2,21 @@
     width: 1663px;
     height: 93vh;
     position: absolute;
-    top: 50px;
+    top: 65px;
     left: 255px;
 }
 #enroll{
-    font-size: 20px;
-    font-weight: 600;
     margin-top: 40px;
     margin-left: 80px;
+}
+#enroll>a:first-child{
+    font-size: 20px;
+    font-weight: 600;
+}
+#enroll>a:nth-child(2){
+    font-size: 15px;
+    color: #4B4B4B;
+    margin-left: 30px;
 }
 #chart table,#chart td,#chart th {
     border: 1px solid #D7D7D7;
@@ -59,7 +66,7 @@
     margin-top: 10px;
     margin-left: 105px;
 }
-input::placeholder {color:#c5c5c5; font-weight: 300;}
+input::placeholder {color:#383838; font-weight: 500;}
 #file {display: none;}
 input{
     border: none;
@@ -95,7 +102,7 @@ select{
     align-items: center;
 }
 #chart #optionRadio div:nth-child(4){grid-column: span 3;}
-#hr01>hr{width: 1500px; border: 1px solid #9b9b9b;}
+#hr01>hr{width: 1500px;}
 #chart #optionRadio div:first-child, #chart #optionRadio div:nth-child(5){
     font-size: 17px;
     margin-left: 25px;
@@ -141,3 +148,7 @@ select{
     height: 15px;
 }
 #guideMent01{color: #C5C5C5; font-weight: 300;}
+
+#chart-3 input[type="email"]{
+    width: 270px;
+}
