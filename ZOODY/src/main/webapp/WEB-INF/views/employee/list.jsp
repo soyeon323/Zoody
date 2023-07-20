@@ -16,7 +16,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>${voList}</h1>
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
@@ -31,7 +30,7 @@
         
             <form action="${root}/employee/list" method="get">
                 <div id="firstDiv">
-                    <a>전체직원 3명</a>
+                    <a>전체직원 ${map.EmployeListCnt}명</a>
                     <select name="searchType" id="department">
                         <option value="">부서</option>
                         <option value="">이름</option>
@@ -47,31 +46,32 @@
                 <img src="${root}/resources/img/icon/png/employee.png" alt="직원아이콘">
                 <a href="${root}/employee/enroll">인사등록</a>
             </div>
-            <div>
-                <table id="content">
+            <div id="content">
+                <table class="table">
                     <thead>
-                        <tr>
-                            <td>부서</td>
-                            <td>사번</td>
-                            <td>이름</td>
-                            <td>직위</td>
-                            <td>이메일</td>
-                            <td>내선번호</td>
-                        </tr>
+                      <tr>
+                        <td scope="col">부서</td>
+                        <td scope="col">사번</td>
+                        <td scope="col">이름</td>
+                        <td scope="col">직위</td>
+                        <td scope="col">이메일</td>
+                        <td scope="col">내선번호</td>
+                      </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${voList}" var="vo">
+                        <c:forEach items="${map.voList}" var="vo">
                         	<tr>
-	                            <td>${vo.departmentNo}</td>
+	                            <td>${vo.departmentName}</td>
 	                            <td>${vo.id}</td>
 	                            <td>${vo.name}</td>
-	                            <td>${vo.rankNo}</td>
+	                            <td>${vo.rankName}</td>
 	                            <td>${vo.mail}</td>
 	                            <td>${vo.officeNumber}</td>
                         	</tr>
                         </c:forEach>
                     </tbody>
                 </table>
+
             </div>
             
         </div>
