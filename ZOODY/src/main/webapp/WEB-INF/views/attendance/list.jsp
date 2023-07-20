@@ -180,6 +180,7 @@
               <table class="table">
                 <thead>
                   <tr>
+                    <th scope="col"></th>
                     <th scope="col">#</th>
                     <th scope="col">날짜</th>
                     <th scope="col">출근시간</th>
@@ -192,11 +193,22 @@
                 <tbody>
                   <c:forEach items="${attVoList}" var="att">	
                       <tr>
+                        <td><input type="checkbox" name="" id=""></td>
                         <th scope="row">${att.no}</th>
                         <td>${att.enrolldate}</td>
                         <td>${att.checkInTime}</td>
                         <td>${att.checkOutTime }</td>
-                        <td>${att.plusWorkTime}</td>
+                        <c:choose> 
+							<c:when test="${att.plusWorkTime eq '일 시 분 초'}">
+		                        <td>-</td>
+							</c:when>
+							<c:when test="${att.plusWorkTime eq '0일 0시 0분 0초'}">
+		                        <td>-</td>
+							</c:when>
+							<c:otherwise>
+		                        <td>${att.plusWorkTime}</td>
+							</c:otherwise> 
+						</c:choose> 
                         <td>${att.type}</td>
                       </tr>
                   </c:forEach>
@@ -248,30 +260,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
+	                  <c:forEach items="${leVoList}" var="levo">
+	                    <tr>
+	                      <th scope="row">${levo.no}</th>
+	                      <td>${levo.startTime} ~ ${levo.endTime}</td>
+	                      <td>${levo.type}</td>
+	                      <c:if test="${levo.status eq 0}">
+		                      <td>대기</td>
+	                      </c:if>
+	                      <c:if test="${levo.status eq 1}">
+		                      <td>승인</td>
+	                      </c:if>
+	                      <c:if test="${levo.status eq 2}">
+		                      <td>반려</td>
+	                      </c:if>
+	                    </tr>
+	                  </c:forEach>
                   </tbody>
                 </table>
               </div>
