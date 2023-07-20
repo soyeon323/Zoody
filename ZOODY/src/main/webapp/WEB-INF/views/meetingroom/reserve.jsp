@@ -44,7 +44,7 @@
             </div>
             <div class="mt_box">
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>
@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="${root}/resources/img/test.jpg" class="card-img-top" alt="...">
+                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">101호 회의실</h5>
                       <a href="#" class="btn btn-primary">예약하기</a>

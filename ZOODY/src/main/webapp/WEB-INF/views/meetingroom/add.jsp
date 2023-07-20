@@ -67,12 +67,16 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <th>회의실 썸네일</th>
+                            <td>
+                                <div class="mb-3">
+                                    <input class="form-control form-control-sm" type="file" id="formFileSm">
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <div class="mb-3">
-                    <label for="formFileSm" class="form-label">회의실 사진 등록</label>
-                    <input class="form-control form-control-sm" type="file" id="formFileSm">
-                </div>
                 <div class="add-btn">
                     <input type="submit" value="등록완료">
                 </div>
