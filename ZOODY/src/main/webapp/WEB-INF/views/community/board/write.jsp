@@ -29,8 +29,8 @@
                 </div>
 
                 <div class="write-body-meddle">
-                    <div>제목</div> <input type="text">
-                    <div>파일 첨부</div> <input type="file">
+                    <div>제목</div> <input class="title" type="text">
+                    <div>파일 첨부</div> <input class="file" type="file">
                 </div>
 
 

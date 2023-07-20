@@ -34,3 +34,44 @@ $(document).ready(function() {
     ],
     });
 });
+
+
+$(".registration-btn").on("click" , function () {
+    
+    const title = $(".title").val();
+    const summernoteCode = $('#summernote').summernote('code');
+
+    
+    $.ajax({
+        url : root + "/community/board/write",
+        type : "post",
+        dataType : "json",
+        data : {
+            title : title ,
+            file : "1.text" ,
+            contnet : summernoteCode,
+            catNo : 1 ,//임시 수정 해야됨
+            userNo : 1 ,//임시 수정 해야됨
+        },
+        success : function(data) {
+            
+            alert("작성성공")
+
+        },
+        error : function(data) {
+            alert("작성실패");
+        },
+    });
+
+})
+
+
+
+// 파일 업로드마다 변수 변경
+
+let uploadFile;
+$(".file").on("change" , function(e) {
+    uploadFile = e.target.files[0];
+
+    console.log(uploadFile);
+})
