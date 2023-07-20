@@ -68,7 +68,7 @@
                
                <fieldset>
                 <legend>업무 내용</legend>
-                
+                <input type="text"> <input type="checkbox">
                </fieldset>
             <div id="date">
                 마감날짜
@@ -78,7 +78,6 @@
             </div>
             <div id="btn-area"> 
                 <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="button" value="추가">
-                <input class="btn btn-primary" style="font-size: 1.3em;" type="button" value="취소">
             </div>
             </div>
            
@@ -94,14 +93,13 @@
                 <input type="text" name="" placeholder="업무 명">
                 <input type="text" name="" placeholder="직원 명">
                
-                
                 <fieldset>
                  <legend>업무 내용</legend>
-                 
+                 <input type="text" name="sadf"> <input type="checkbox">
              </fieldset>
              <div>마감 일시</div>
 
-             </div>
+            </div>
             
              <a class="modal_close_btn2">닫기</a>
          </div>
@@ -288,6 +286,7 @@
         inputCheckbox.setAttribute('type', 'checkbox');
 
         fieldset.appendChild(inputText);
+        fieldset.appendChild(inputCheckbox);
     });
 
     // input -
@@ -299,6 +298,7 @@
 
         if (inputText) {
             fieldset.removeChild(inputText);
+            fieldset.removeChild(inputCheckbox);
         }
     });
 

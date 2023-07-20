@@ -1,0 +1,36 @@
+body{
+    background-color: #f4f7fd;
+}
+
+#wrap{
+    margin: auto;
+    margin-top: 130px;
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+img{
+    width: 200px;
+    height: 120px;
+    margin-top: 20px;
+}
+
+#login-form{
+    display: grid;
+    grid-template-rows: 3fr 1fr 1fr 1fr;
+    grid-gap: 50px;
+    place-content: center center;
+   
+}
+
+#login-form input{
+    row-gap: 20px;
+}
+
+.btn btn-primary{
+    color: rgb(105, 105, 204);
+}
+

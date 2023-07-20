@@ -1,0 +1,25 @@
+ html ,body{
+        background-color: #f4f7fd;
+    }
+
+    #wrap{
+        margin: auto;
+        margin-top: 130px;
+        width: 500px;
+        height: 600px;
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 20px;
+    }
+
+    form{
+        display: grid;
+        margin-top: 30px;   
+        justify-content: center;  
+    }
+
+    form input{
+        width: 300px;
+    }   
+
+
