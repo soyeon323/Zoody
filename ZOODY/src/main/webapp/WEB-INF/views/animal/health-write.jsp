@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/resources/css/animal/detail.css">
-  
+<link rel="stylesheet" href="${root}/resources/css/animal/health.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -23,9 +22,10 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 상세 조회</div>
+        <div id="enroll">동물 건강 정보</div>
+
         <div id="chart">
-            <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
+            <form action="/app/animal/health/write" method="post" enctype="multipart/form-data">
                 
                 <table>
                     <tr id="chart-1">
@@ -76,17 +76,17 @@
                         <td><input type="date" name="enrollDate"></td>
                         <td>서식지</td>
                         <td><input type="text" name="" placeholder="서식지"></td>
-                        
                     </tr>
+                    
                 </table>
                 
                 <div id="enroll-btn">
-                        <div class="btn-upload"><a href="${root}/animal/health/write">건강검진 작성</a></div>
+                    <label for="file">
+                    </label>
+                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
                 </div>
-
-
                 <div id="content-area">
-                    <div>건강검진 종합 소견</div>
+                    <div>건강검진 종합 소견 작성</div>
                     <br>
                     <span>유질환</span>
                     <textarea name="" id="t1" cols="30" rows="10"></textarea>
@@ -98,33 +98,18 @@
                     <textarea name="" id="t3" cols="30" rows="10"></textarea>
                 </div>
 
-
                 <div id="btn-area">
-                        <div class="btn-upload">훈련 일지 작성</div>
-                        <div class="btn-upload">건강 정보 조회</div>
+                        <div class="btn-upload">작성</div>
                         <div class="btn-upload">닫기</div>
                 </div>
               
             </form>
         </div>
+
     </div>
+
 </body>
 </html>
 <script>
-    
-    var healthBtn = document.querySelector('.btn-upload:nth-child(2)');
-
-    var contentArea = document.getElementById('content-area');
-
-    contentArea.style.display = 'none';
-
-    healthBtn.addEventListener('click', function() {
-
-        if (contentArea.style.display === 'none') {
-            contentArea.style.display = 'grid';
-        } else {
-            contentArea.style.display = 'none';
-        }
-    });
-
+  
 </script>
