@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.zoody.attendance.service.AttendanceService;
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class AttendanceController {
 	public String list(Integer page, Model model) {
 
 	    int listCount = attService.getMyAttendanceCnt();
+	    int leaveListCount = attService.getLeaveCnt();
 	    int currentPage = (page != null) ? page: 1;
 //	    int pageLimit = 5;
 //	    int boardLimit = 10;
@@ -43,7 +45,9 @@ public class AttendanceController {
 	    model.addAttribute("attVoList", attVoList);
 	    
 	    //휴가 요청 조회
-	    PageVo leavePv = new PageVo(listCount, currentPage, 4, currentPage);
+	    PageVo leavePv = new PageVo(leaveListCount, currentPage, 2, 4);
+	    List<LeaveVo> leVoList = attService.leaveList(leavePv);
+	    model.addAttribute("leVoList", leVoList);
 
 	    return "attendance/list";
 	}

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.zoody.attendance.dao.AttendanceDao;
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	@Override
 	public int getMyAttendanceCnt() {
 		return dao.getMyAttendanceCnt(sst);
+	}
+
+
+	@Override
+	public List<LeaveVo> leaveList(PageVo leavePv) {
+		return dao.leaveList(sst, leavePv);
+	}
+
+
+	@Override
+	public int getLeaveCnt() {
+		return dao.getLeaveCnt(sst);
 	}
 	
 	
