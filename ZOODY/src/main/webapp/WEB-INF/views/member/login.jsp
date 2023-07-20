@@ -50,7 +50,7 @@
 </head>
 <body>
 		<div id="wrap">
-            <form id="login-form" action="${root}/login" method="POST">
+            <form id="login-form" action="${root}/member/login" method="POST">
             <img src="/zoody/resources/img/logo/logo.svg" alt="로고 이미지">
                 <input type="text" name="id" placeholder="ID">
                 <input type="text" name="pwd" placeholder="PWD">
