@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 </head>
 <body>
     
@@ -69,7 +70,10 @@
                         </div>
                         <div id="prjProgress">
                             <div>프로젝트 진행도</div>
-                            <div></div>
+                            <div class="progress" style="width: 280px;">
+                                <div class="progress-bar" role="progressbar" aria-label="Example 40px high" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                              
                         </div>
                     </div>
                 </div>
@@ -86,6 +90,6 @@
 </body>
 </html>
 <script>
-
+ 
 
 </script>
