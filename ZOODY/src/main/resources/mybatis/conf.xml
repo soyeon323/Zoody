@@ -8,6 +8,8 @@
 
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- SQL NULL값 있는 칼럼 NULL 값 허용해주는 설정 -->
+        <setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	
 	<typeAliases>

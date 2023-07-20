@@ -29,7 +29,7 @@
                 
                 <table>
                     <tr id="chart-1">
-                        <td rowspan="4"><img src="${root}/resources/img/profile.png" alt="프로필기본사진"></td>
+                        <td rowspan="4"><img src="${root}/resources/img/employee/profile.png" alt="프로필기본사진"></td>
                         <td>이름</td>
                         <td>소속</td>
                         <td colspan="3">주디 동물원</td>
@@ -74,25 +74,25 @@
                 <table id="chart-content"> 
                     <tr id="content-1">
                         <td>입사일</td>
-                        <td><input type="date" name="enrollDate"></td>
+                        <td><input type="text" name="registrationDate" placeholder="예)20230710"></td>
                         <td>생년월일</td>
-                        <td><input type="date" name="birthday"></td>
+                        <td><input type="text" name="birthDate" placeholder="예)20230710"></td>
                         <td>퇴사일</td>
-                        <td><input type="date" name="leaveday"></td>
+                        <td><input type="text" name="leaveDate" placeholder="예)20230710"></td>
                     </tr>
                     <tr id="content-2">
                         <td>채용구분</td>
                         <td>
-                            <select name="userSelect" id="userSelect">
-                                <option value="">신입</option>
-                                <option value="">경력</option>
+                            <select name="divisionNo" id="userSelect">
+                                <option value="1">신입</option>
+                                <option value="2">경력</option>
                             </select>
                         </td>
                         <td>성별</td>
                         <td>
                             <select name="gender" id="gender">
-                                <option value="">남</option>
-                                <option value="">여</option>
+                                <option value="1">남</option>
+                                <option value="2">여</option>
                             </select>
                         </td>
                         <td>퇴직사유</td>
@@ -101,22 +101,22 @@
                     <tr id="content-3"> 
                         <td>상태</td>
                         <td>
-                            <select name="status" id="status">
-                                <option value="">재직</option>
-                                <option value="">퇴사</option>
+                            <select name="stateNo" id="status">
+                                <option value="1">재직</option>
+                                <option value="3">퇴사</option>
                             </select>
                         </td>
                         <td>주소</td>
-                        <td><input type="text" name="leaveReason" placeholder="주소입력"></td>
+                        <td><input type="text" name="address" placeholder="주소입력"></td>
                         <td>급여구분</td>
                         <td id="salary"></td>
                     </tr>
                     <tr id="content-4">
                         <td>잔여휴가일</td>
-                        <td><input type="text" name="leaveCount" placeholder="잔여휴가일입력"></td>
+                        <td><input type="number" name="leaveCount" placeholder="잔여휴가일입력"></td>
                         <td>부서</td>
                         <td>
-                            <select name="department" id="department">
+                            <select name="departmentNo" id="department">
                                 <option value="111">총무과</option>
                                 <option value="112">운영과</option>
                                 <option value="113">시설과</option>
@@ -150,13 +150,13 @@
                         <label for="InfoNo2">허용안함</label>
                     </div>
                     <div id="guideMent01">
-                        <img src="${root}/resources/img/icon01.png" alt="아이콘">
+                        <img src="${root}/resources/img/icon/png/icon01.png" alt="아이콘">
                         <a>허용 : 임원에게 부서장의 인사정보를 공개함</a>
                     </div>
                 </div>
 
                 <div id="explanEnroll">
-                    <img src="${root}/resources/img/icon01.png" alt="아이콘">
+                    <img src="${root}/resources/img/icon/png/icon01.png" alt="아이콘">
                     <a>허위정보 기입 시 제재를 받을 수 있습니다.</a>
                 </div>
 
