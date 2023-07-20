@@ -34,16 +34,16 @@ public class AttendanceController {
 
 	    int listCount = attService.getMyAttendanceCnt();
 	    int currentPage = (page != null) ? page: 1;
-	    int pageLimit = 5;
-	    int boardLimit = 10;
+//	    int pageLimit = 5;
+//	    int boardLimit = 10;
 
-	    PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
-
+	    //내 출결 조회
+	    PageVo pv = new PageVo(listCount, currentPage, 5, 10);
 	    List<AttendanceVo> attVoList = attService.list(pv);
-	    
-	    System.out.println(attVoList);
-	    
 	    model.addAttribute("attVoList", attVoList);
+	    
+	    //휴가 요청 조회
+	    PageVo leavePv = new PageVo(listCount, currentPage, 4, currentPage);
 
 	    return "attendance/list";
 	}
