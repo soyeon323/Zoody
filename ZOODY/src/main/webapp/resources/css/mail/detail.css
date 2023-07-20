@@ -1,4 +1,6 @@
-main {
+.main-wrap {
+    width: 1920px;
+
 	display: flex;
 }
 
@@ -8,6 +10,7 @@ main {
     
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .wrap-header {

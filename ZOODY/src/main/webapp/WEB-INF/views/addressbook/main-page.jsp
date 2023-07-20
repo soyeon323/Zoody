@@ -13,7 +13,7 @@
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 
-	<main>
+	<div class="main-wrap">
 	
 	    <%@ include file="/WEB-INF/views/side.jsp" %>
 		
@@ -29,7 +29,7 @@
 					<div class="serch-area">
 						<input type="text" name="search-input" class="search-input-box">
 						<button class="serach-btn">
-							<img src="${root}/resources/svg/icon/search.svg" alt="검색" class="search-btn-icon"></img>
+							<img src="${root}/resources/img/icon/svg/search.svg" alt="검색" class="search-btn-icon"></img>
 						</button>
 					</div>
 	
@@ -38,7 +38,7 @@
 							<button class="extends-list">
 	
 								<div class="extend-btn-icon">
-									<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
+									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 								</div>
 	
 								${departmentList[0].name }
@@ -68,7 +68,7 @@
 									
 									<button class="extends-list layer">
 										<div class="extend-btn-icon">
-											<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
+											<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 										</div>
 			
 										${departmentVo.name }
@@ -95,7 +95,7 @@
 											
 											<button class="extends-list layer">
 												<div class="extend-btn-icon">
-													<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
+													<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 												</div>
 					
 												${departmentLowerVo.name }
@@ -122,7 +122,7 @@
 													
 													<button class="extends-list layer">
 														<div class="extend-btn-icon">
-															<img src="${root}/resources/svg/icon/small-plus.svg" alt="확장">
+															<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 														</div>
 							
 														${departmentLowerVo2.name }
@@ -178,7 +178,7 @@
 					<div class="detail-table-area">
 
 						<div class="profile-area">
-							<img class="detail-profile-img" src="${root}/resources/png/profile/test-profile.png" alt="프로필 사진">
+							<img class="detail-profile-img" src="${root}/resources/img/employee/test-profile.png" alt="프로필 사진">
 						</div>
 
 						<table class="detail-table">

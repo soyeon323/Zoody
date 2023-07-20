@@ -12,7 +12,7 @@
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	
-	<main>
+	<div class="main-wrap">
 	
 		<%@ include file="/WEB-INF/views/side.jsp" %>
 		
@@ -29,45 +29,45 @@
 							안읽음 {7}
 						</div>
 						<button class="my-important-btn">
-							<img src="${root}/resources/svg/icon/star.svg" alt="즐겨찾기">
+							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
 							중요
 						</button>
 					</div>
 
 					<div class="default-folder-list">
 						<button class="folder-btn all-mail-btn">
-							<img src="${root}/resources/svg/icon/all-mail.svg" alt="전체메일">
+							<img src="${root}/resources/img/icon/svg/all-mail.svg" alt="전체메일">
 							전체메일
 						</button>
 						<button class="folder-btn selected-folder-btn receive-mail-btn">
-							<img src="${root}/resources/svg/icon/receive-mail-selected.svg" alt="받은메일">
+							<img src="${root}/resources/img/icon/svg/receive-mail-selected.svg" alt="받은메일">
 							받은 메일함
 						</button>
 						<button class="folder-btn send-mail-list">
-							<img src="${root}/resources/svg/icon/send-mail.svg" alt="보낸메일">
+							<img src="${root}/resources/img/icon/svg/send-mail.svg" alt="보낸메일">
 							보낸 메일함
 						</button>
 						<button class="folder-btn tome-mail-btn">
-							<img src="${root}/resources/svg/icon/to-me-mail.svg" alt="내게쓴메일">
+							<img src="${root}/resources/img/icon/svg/to-me-mail.svg" alt="내게쓴메일">
 							내게 쓴 메일함
 						</button>
 						<button class="folder-btn dump-mail-btn">
-							<img src="${root}/resources/svg/icon/dump-mail.svg" alt="휴지통">
+							<img src="${root}/resources/img/icon/svg/dump-mail.svg" alt="휴지통">
 							휴지통
 						</button>
 					</div>
 
 					<div class="custom-list-header">
 						내 메일함
-						<img src="${root}/resources/svg/icon/small-plus.svg" alt="추가">
+						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가">
 					</div>
 					<div class="custom-folder-list">
 						<div class="custom-folder">
-							<img src="${root}/resources/svg/icon/folder.svg" alt="내폴더">
+							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
 							{폴더명}
 						</div>
 						<div class="custom-folder">
-							<img src="${root}/resources/svg/icon/folder.svg" alt="내폴더">
+							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
 							{새폴더2}
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 
 				<div class="mail-write-area">
 
-					<form action="${root}/mail/send" method="post" enctype="multipart/form-data">
+					<form class="mail-send-form" action="${root}/mail/send" method="post" enctype="multipart/form-data">
 
 						<div class="write-area-header">
 							<div class="header-title">메일 쓰기</div>
@@ -112,7 +112,7 @@
 	
 							<div class="receiver-setting">
 								<div class="setting-name">제목</div>
-								<input type="text" name="mailTitle" class="title-input-area">
+								<input type="text" name="title" class="title-input-area">
 							</div>
 	
 							<div class="receiver-setting">
@@ -131,7 +131,9 @@
 
 
 						<!-- 메일 본문 -->
-
+						<div class="mail-content-area">
+							<textarea id="summernote" name="content"></textarea>
+						</div>
 
 					</form>
 

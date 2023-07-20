@@ -13,7 +13,7 @@
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	
-	<main>
+	<div class="main-wrap">
 	
 		<%@ include file="/WEB-INF/views/side.jsp" %>
 		

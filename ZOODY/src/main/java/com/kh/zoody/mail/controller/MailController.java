@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.mail.vo.MailVo;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,17 +38,18 @@ public class MailController {
 	}
 	
 	@PostMapping("send")
-	public String mailSend(String receiverEmailAddress, String ccEmailAddress, String bccEmailAddress, List<MultipartFile> attachmentFileList, String mailTitle, String mailContent) {
+	public String mailSend(String receiverEmailAddress, String ccEmailAddress, String bccEmailAddress, List<MultipartFile> attachmentFileList, MailVo mailVo) {
 		
 		log.info("받는사람 : {}", receiverEmailAddress);
 		log.info("참조 : {}", ccEmailAddress);
 		log.info("숨은참조 : {}", bccEmailAddress);
 		
-		MultipartFile f = attachmentFileList.get(0);
-		log.info("첨부파일 : {}", f);
+		for (MultipartFile mailAttachment : attachmentFileList) {
+			log.info("첨부파일 : {}", mailAttachment);
+		}
 		
-		log.info("제목 : {}", mailTitle);
-		log.info("내용 : {}", mailContent);
+		log.info("제목 : {}", mailVo.getTitle());
+		log.info("내용 : {}", mailVo.getContent());
 		
 		return "";
 	}

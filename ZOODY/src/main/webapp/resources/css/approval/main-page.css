@@ -1,10 +1,12 @@
-main {
+.main-wrap {
+    width: 1920px;
+
 	display: flex;
 }
 
 .wrap {
     width: 1650px;
-    height: 905px;
+    height: 100%;
     
     display: flex;
     flex-direction: column;
