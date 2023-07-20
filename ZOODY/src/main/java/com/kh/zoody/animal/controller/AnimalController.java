@@ -32,8 +32,17 @@ public class AnimalController {
 		return "animal/training";
 	}
 	
+	//동물 리스트
 	@GetMapping("list")
 	public String animalList() {
 		return "animal/list";
 	}
+	
+	//동물 건강 상태 작성
+	@GetMapping("health/write")
+	public String animalHealthWrite() {
+		return "animal/health-write";
+	}
+	
+	
 }

@@ -38,6 +38,12 @@
             <li><a href="${root}/work/work">업무 할당</a></li>
             </ul>
         </li>
+         <li>
+            <a href="#">부패도 조사</a>
+            <ul>
+            <li><a href="${root}/corrupt/survey/score/">부패도 점수 보기</a></li>
+            </ul>
+        </li>
         <li>
             <a href="#">인사 관리</a>
             <ul>
@@ -81,6 +87,12 @@
             <li><a href="${root}/community/vote/">투표</a></li>
             <li><a href="${root}/community/survey/">설문 조사</a></li>
             <li><a href=""></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">지도</a>
+            <ul>
+            <li><a href="${root}/guidance/guidance">지도 보기</a></li>
             </ul>
         </li>
         </ul>
