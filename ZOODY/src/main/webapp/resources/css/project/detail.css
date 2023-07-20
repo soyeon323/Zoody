@@ -145,12 +145,26 @@
     color: #646464;
 }
 
-#back #todo #prjProgress>div{
+#back #todo #prjProgress>div:first-child{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #back #todo #prjProgress>div:first-child{
+    margin-left: 80px;
+    margin-top: 50px;
+}
+
+#back #todo #prjProgress>div:nth-child(2){
+    width: 300px;
+    height: 40px;
     margin-left: 30px;
+    margin-top: 60px;
+}
+
+/* 진행도 progress */
+#prjProgress>.progress>.progress-bar{
+    height: 40px;
+    background-color: #00CBA4;
 }

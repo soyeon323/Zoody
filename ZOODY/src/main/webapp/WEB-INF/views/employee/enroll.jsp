@@ -48,15 +48,15 @@
                         <td><input type="tel" name="officeNumber" placeholder="내선번호입력" maxlength="11" oninput="formatCompanyNumber(this)"></td>
                     </tr>
                     <tr id="chart-4">
-                        <td>직위/직책</td>
+                        <td>직위/직급</td>
                         <td>
-                            <select name="position" id="position" onchange="updateMoney()">
-                                <option value="">사원</option>
-                                <option value="">주임</option>
-                                <option value="">대리</option>
-                                <option value="">과장</option>
-                                <option value="">차장</option>
-                                <option value="">부장</option>
+                            <select name="rankNo" id="position" onchange="updateMoney()">
+                                <option value="5">사원</option>
+                                <option value="4">팀장</option>
+                                <option value="32">실장</option>
+                                <option value="31">과장</option>
+                                <option value="2">부장</option>
+                                <option value="1">동물원장</option>
                             </select>
                         </td>
                         <td>대표전화</td>
