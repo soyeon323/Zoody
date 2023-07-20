@@ -6,12 +6,12 @@ import lombok.Data;
 public class BoardVo {
 	
 	private String no;
-	private String user_no;
-	private String no2;
+	private String userNo;
+	private String catNo;
 	private String title;
 	private String content;
-	private String enoll_date;
-	private String modify_date;
+	private String enollDate;
+	private String modifyDate;
 	private String status;
 	private String file;
 	
