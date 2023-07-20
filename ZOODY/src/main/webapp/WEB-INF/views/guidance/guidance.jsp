@@ -66,8 +66,8 @@
      
     <div id="container" class="view_map">
         <div id="mapWrapper" style="width:100%;height:00px;position:relative;">
-            <div id="map" style="width:100%;height:800px"></div> <!-- 지도를 표시할 div 입니다 -->
-            <!-- <input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰"> -->
+            <div id="map" style="width:100%;height:900px"></div> <!-- 지도를 표시할 div 입니다 -->
+            <input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰">
         </div>
         <div id="rvWrapper" style="width:100%;height:300px;position:absolute;top:0;left:0;">
             <div id="roadview" style="height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
