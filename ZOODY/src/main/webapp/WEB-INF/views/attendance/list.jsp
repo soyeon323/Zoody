@@ -186,89 +186,21 @@
                     <th scope="col">퇴근시간</th>
                     <th scope="col">초과근무시간</th>
                     <th scope="col">상태</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
+                  <c:forEach items="${attVoList}" var="att">	
+                      <tr>
+                        <th scope="row">${att.no}</th>
+                        <td>${att.enrolldate}</td>
+                        <td>${att.checkInTime}</td>
+                        <td>${att.checkOutTime }</td>
+                        <td>${att.plusWorkTime}</td>
+                        <td>${att.type}</td>
+                      </tr>
+                  </c:forEach>
+                  
                 </tbody>
               </table>
               <div class="list-page">

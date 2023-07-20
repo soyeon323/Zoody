@@ -30,17 +30,22 @@ public class AttendanceController {
 	
 	//(서브메뉴) 근무현황 목록 조회
 	@GetMapping("list")
-	public String attMyList(int page, Model model) {
-		
-		//내 출결 조회 페이징
-		int listCount = attService.getMyAttendanceCnt();
-		int currentPage = page;
-		
-		PageVo myListPv = new PageVo(listCount, currentPage, 5, 10);
-		
-		List<AttendanceVo> attVoList = attService.attMyList(myListPv);
-		
-		return "attendance/detail";
+	public String list(Integer page, Model model) {
+
+	    int listCount = attService.getMyAttendanceCnt();
+	    int currentPage = (page != null) ? page: 1;
+	    int pageLimit = 5;
+	    int boardLimit = 10;
+
+	    PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+
+	    List<AttendanceVo> attVoList = attService.list(pv);
+	    
+	    System.out.println(attVoList);
+	    
+	    model.addAttribute("attVoList", attVoList);
+
+	    return "attendance/list";
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회

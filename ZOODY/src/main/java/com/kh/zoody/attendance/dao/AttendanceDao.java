@@ -9,6 +9,9 @@ import com.kh.zoody.page.vo.PageVo;
 
 public interface AttendanceDao {
 
-	List<AttendanceVo> attMyList(SqlSessionTemplate sst, PageVo myListPv);
+	List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv);
+
+	int getMyAttendanceCnt(SqlSessionTemplate sst);
+
 
 }

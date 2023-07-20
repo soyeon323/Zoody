@@ -15,5 +15,8 @@ public class AttendanceVo {
 	private String totalWorkTime;
 	private String objectionReason;
 	private String approvalStatus;
+	
+	private String type;
+	private String name;
 
 }
