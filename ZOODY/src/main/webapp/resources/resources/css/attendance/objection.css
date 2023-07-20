@@ -1,0 +1,244 @@
+/* 사이드바랑 메인 영역 나누기 */
+#att_wrap{
+    display: grid;
+    grid-template-columns: 264px auto;
+}
+
+#obj_main{
+    /* background-color: red; */
+    /* height: 922px; */
+    width: 90%;
+    margin: 0 auto;
+    /* margin-top: 15px; */
+    /* margin-left: 24px; */
+
+    display: grid;
+    grid-template-rows: 100px 46px 621px;
+    gap: 15px;
+    margin-top: 50px;
+}
+
+
+/* 컨텐츠 채우기----------------------------------------------------*/
+
+/* 건수 표시 */
+.btn-secondary:hover{
+    color: #fff;
+    background-color: #5189FA;
+    border-color: #5189FA;
+}
+
+/* 검색바 영역 */
+.obj_search{
+    display: grid;
+    grid-template-columns: 0.7fr 4fr 1.5fr;
+    align-items: end;
+}
+
+.search-area{
+    width: 353px;
+    height: 46px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    border: 1px solid #F1F1F1;
+    background: #FFF;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 50px;
+
+    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    align-items: center;
+    
+}
+
+.search-area > p{
+    color: #8C8C8C;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 22.92px */
+
+    /* padding-left: 14px; */
+}
+
+.search-area > input{
+    width: 114px;
+    height: 28px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    border: 1.2px solid #ECECEC;
+    background: #F6F6F6;
+
+    color: #9b9b9b;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%; 
+
+    padding-left: 5px;
+    letter-spacing: 1px;
+}
+
+.search-area > p:nth-child(3){
+    text-align: center;
+}
+
+.search-flex{
+    display: flex;
+    position: relative;
+    gap: 9px;
+    justify-content: flex-end;
+}
+
+.search-input > input{
+    border-radius: 5px;
+    border: 1px solid #D7D7D7;
+    background: #FFF;
+
+    color: #3a3a3a;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+
+    width: 213px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.search-input > input::placeholder{
+    color: #B0B0B0;
+    padding-left: 5px;
+    font-weight: 300;
+}
+
+.search-input > svg{
+    position: absolute;
+    right: 8px;
+    top: 5px;
+}
+
+.form-select {
+    height: 26px;
+}
+
+.form-select-sm {
+    color: #5F5F5F;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%;
+    
+    padding-top: 0.2rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+}
+
+/* 목록 조회 테이블 */
+.obj_table{
+    border-radius: 5px;
+    border: 1px solid #F1F1F1;
+    background: #FFF;
+}
+
+/* 목록 조회 */
+.obj_table{
+    display: grid;
+    grid-template-rows: auto 59px;
+}
+
+.obj_table > .table{
+    border-spacing: 0;
+    margin: 0 auto;
+    border-collapse: initial;
+    text-align: center;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.obj_table > .table > thead{
+    color: #585858;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 152.8%; /* 22.92px */
+    /* border-radius: 8px; */
+}
+
+.obj_table > .table > thead > tr{
+    background: #F4F7FD;
+}
+
+.obj_table > .table > tbody{
+    color: #868686;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 152.8%; /* 21.392px */
+    letter-spacing: 0.28px;
+}
+
+.obj_table > .table>:not(caption)>*>* {
+    padding: 0.7rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.obj-btn{
+    border-radius: 5px;
+    background: #00CBA4;
+
+    width: 77px;
+    height: 24px;
+    flex-shrink: 0;
+
+    border: none;
+
+    color: #EFF5FF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 152.8%; /* 19.864px */
+    letter-spacing: 0.26px;
+}
+
+/* 목록 페이징 */
+.list-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.list-page > a > button{
+    border: none;
+    background-color: #fff;
+
+    color: #5B5B5B;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.list-page > a > button.active{
+    background-color: #1B91FF;
+    color: #fff;
+
+    border-radius: 3px;
+}
