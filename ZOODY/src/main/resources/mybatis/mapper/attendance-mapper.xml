@@ -71,5 +71,51 @@
 		WHERE U.NO = 1
 		ORDER BY L.NO DESC
 	</select>
+	
+	<!-- 모든 회원 근태 조회 목록 페이징 -->
+	<select id="getAllAttendanceCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM ATTENDANCE
+	</select>
+	
+	<!-- 모든 회원 근태 목록 조회 -->
+	<select id="selectAllList" resultType="AttendanceVo">
+		SELECT 
+		    A.NO
+		    ,A.USER_NO
+		    ,A.CURRENT_NO
+		    ,TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
+		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
+		    ,TRUNC(
+		    EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 ' ||
+		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시 ' ||
+		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
+		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
+		    ,A.OBJECTION_REASON
+		    ,A.APPROVAL_STATUS
+		    ,AC.TYPE AS TYPE
+		    ,U.NAME AS NAME
+            ,D.NAME AS DEPARTMENT_NAME
+            ,P.NAME AS POSITION_NAME
+            ,R.NAME AS RANK_NAME
+            ,US.NAME AS USER_STATE_NAME
+		FROM ATTENDANCE A
+		JOIN "USER" U
+		ON A.USER_NO = U.NO
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+        JOIN DEPARTMENT D 
+        ON U.DEPARTMENT_NO = D.NO
+        JOIN RANK R
+        ON R.NO = U.RANK_NO
+        JOIN USER_STATE US
+        ON US.NO = U.STATE_NO
+        JOIN POSITION P
+        ON P.NO = U.POSITION_NO
+		WHERE U.NO = 1
+		ORDER BY ENROLLDATE DESC
+	</select>
   
 </mapper>

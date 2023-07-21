@@ -19,4 +19,8 @@ public interface AttendanceService {
 
 	int getLeaveCnt();
 
+	int getAllAttendanceCnt();
+
+	List<AttendanceVo> allList(PageVo allPv);
+
 }

@@ -45,6 +45,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public int getLeaveCnt() {
 		return dao.getLeaveCnt(sst);
 	}
+
+
+	@Override
+	public int getAllAttendanceCnt() {
+		return dao.getAllAttendanceCnt(sst);
+	}
+
+
+	@Override
+	public List<AttendanceVo> allList(PageVo allPv) {
+		return dao.allList(sst, allPv);
+	}
 	
 	
 
