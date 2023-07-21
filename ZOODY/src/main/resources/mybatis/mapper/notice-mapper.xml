@@ -13,13 +13,20 @@
 	    ,CATEGORY_NO
 	    ,TITLE
 	    ,CONTENT
-	    ,ENROLL_DATE
+	    ,TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE 
 	    ,STATUS
 	    ,ORIGIN_NAME
 	    ,CHANGE_NAME
 	    ,RIGHTCLICK_YN
 	    ,COMMNET_YN
 	    ,BOARD_LIMIT
+	    ,HIT
 	FROM NOTICE
+  </select>
+  
+  <select id="getNoticeListCnt" resultType="int">
+  	SELECT COUNT(NO)
+	FROM NOTICE
+	WHERE STATUS = 'O'
   </select>
 </mapper>

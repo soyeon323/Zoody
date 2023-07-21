@@ -35,10 +35,8 @@
         <li>
             <a href="#">인사 관리</a>
             <ul>
-            <li><a href="#">text1</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
+            <li><a href="${root}/employee/enroll">인사등록</a></li>
+            <li><a href="${root}/employee/list">인사목록</a></li>
             </ul>
         </li>
         <li>
@@ -84,7 +82,7 @@
     <aside class="mini-side">
         <div><a>커뮤니티</a></div>
         <div>
-            <button>글쓰기</button>
+            <button onclick="goWrite();">글쓰기</button>
         </div>
         <div><a>관리자게시판</a></div>
         <div><a href="">공지사항</a></div>
@@ -98,17 +96,22 @@
 </head>
 <body>
 
-    <script>
-        // side-bar토글형식
-        document.addEventListener('DOMContentLoaded', function() {
-        var menuItems = document.querySelectorAll('.side-bar > ul > li > a');
+<script>
+    // side-bar토글형식
+    document.addEventListener('DOMContentLoaded', function() {
+    var menuItems = document.querySelectorAll('.side-bar > ul > li > a');
 
-        menuItems.forEach(function(item) {
-            item.addEventListener('click', function(e) {
-            e.preventDefault();
-            var listItem = this.parentNode;
-            listItem.classList.toggle('active');
-            });
+    menuItems.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+        e.preventDefault();
+        var listItem = this.parentNode;
+        listItem.classList.toggle('active');
         });
-        });
-    </script>
+    });
+    });
+
+    //글쓰기 주소 걸기
+    function goWrite(){
+        location.href = "${root}/admin/notice/write";
+    }
+</script>
