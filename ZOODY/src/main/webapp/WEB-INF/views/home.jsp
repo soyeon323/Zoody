@@ -41,7 +41,7 @@
                     <%@ include file="/WEB-INF/views/common/fullcalendar.jsp" %>
                 </div>
                 <div class="area weather">
-                    <button onclick="getWeatherInfo()">skfTl</button>
+                    <button onclick="getWeatherInfo()">날씨정보</button>
 
                 </div>
                 <div class="area news">

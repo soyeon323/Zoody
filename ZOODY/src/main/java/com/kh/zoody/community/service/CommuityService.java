@@ -1,13 +1,15 @@
 package com.kh.zoody.community.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.zoody.community.vo.BoardVo;
 
 public interface CommuityService {
 	
-	// 게시판 목록
-	BoardVo Commuitylist();
+	// 자유게시판 목록 가져오기
+	List<BoardVo> getBoardList(int catNo);
 	
 	// 게시판 글쓰기
 	int write(BoardVo vo);

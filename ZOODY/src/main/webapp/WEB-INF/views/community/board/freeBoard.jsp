@@ -72,6 +72,16 @@
                         </thead>
 
                         <tbody>
+                            <c:forEach items="${ freeBoardList }" var="list">
+                            	<tr>
+	                                <td>${ list.no }</td>
+	                                <td>${ list.title }</td>
+	                                <td>${ list.no }</td>
+	                                <td>${ list.no }</td>
+	                                <td>${ list.enrollDate }</td>
+	                            </tr>
+                            </c:forEach>
+                            
                             <tr>
                                 <td>1</td>
                                 <td>제목입니다</td>

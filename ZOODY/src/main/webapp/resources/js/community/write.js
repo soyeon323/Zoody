@@ -35,31 +35,52 @@ $(document).ready(function() {
     });
 });
 
+$("select[name=Big-Category]").on("change", function () {
+    
+    console.log($("select[name=Big-Category]").val());
+
+})
 
 $(".registration-btn").on("click" , function () {
-    
+
     const title = $(".title").val();
     const summernoteCode = $('#summernote').summernote('code');
+    const selectCategory = $("select[name=Big-Category]").val();
 
+ 
+
+    console.log(title);
+    
+    if (title == null || title == '') {
+        alert("제목을 작성해주세요")
+        return;
+    }
+    else if (summernoteCheck(summernoteCode)) {
+        alert("내용을 입력하세요")
+        return;
+    }
     
     $.ajax({
         url : root + "/community/board/write",
         type : "post",
-        dataType : "json",
         data : {
             title : title ,
             file : "1.text" ,
-            contnet : summernoteCode,
-            catNo : 1 ,//임시 수정 해야됨
+            content : summernoteCode,
+            catNo : 4 ,//임시 수정 해야됨
             userNo : 1 ,//임시 수정 해야됨
         },
         success : function(data) {
             
             alert("작성성공")
 
+            window.location.replace(root+"/community/board/freeBoard/");
+
         },
         error : function(data) {
+
             alert("작성실패");
+
         },
     });
 
@@ -75,3 +96,17 @@ $(".file").on("change" , function(e) {
 
     console.log(uploadFile);
 })
+
+
+// 썸머노트 공백 체크
+function summernoteCheck(summernoteCode) {
+
+    summernoteCode = summernoteCode.replace(/&nbsp;/gi,"");
+    summernoteCode = summernoteCode.replace(/<br>/gi,"");
+    summernoteCode = summernoteCode.replace(/gi/,"");
+
+    if (summernoteCode == "<p><\/p>" || Text == "") {
+        return true;
+    }
+    return false;
+}
