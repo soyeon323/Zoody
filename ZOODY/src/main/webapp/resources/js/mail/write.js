@@ -34,16 +34,16 @@ function addElementInputArea(email, areaClassName) {
     emailData.readOnly = true;
     emailData.classList.add('email-data');
 
-    if(areaClassName == '.reciver-elems') {
-        emailData.name = 'receiverEmailAddress'
-    } else if(areaClassName == '.cc-elems') {
-        emailData.name = 'ccEmailAddress'
-    } else if(areaClassName == '.bcc-elems') {
-        emailData.name = 'bccEmailAddress'
-    }
-
     let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     if(regex.test(email)){
+        if(areaClassName == '.reciver-elems') {
+            emailData.name = 'receiverEmailAddress'
+        } else if(areaClassName == '.cc-elems') {
+            emailData.name = 'ccEmailAddress'
+        } else if(areaClassName == '.bcc-elems') {
+            emailData.name = 'bccEmailAddress'
+        }
+
         emailElem.classList.add('complete-email-box');
     } else {
         emailElem.classList.add('wrong-email-address');
@@ -70,8 +70,10 @@ const receiverInputArea = document.querySelector('.receiver-input-area');
 receiverInputArea.addEventListener('keyup', (event) => {
     if(event.keyCode === 13 || event.keyCode === 32){
         const receiver = receiverInputArea.value;
-        receiverInputArea.value = '';
-        addElementInputArea(receiver, '.reciver-elems')
+        if(receiver != '') {
+        	receiverInputArea.value = '';
+        	addElementInputArea(receiver, '.reciver-elems');
+    	}
     }
 })
 
@@ -80,8 +82,10 @@ const ccInputArea = document.querySelector('.cc-input-area');
 ccInputArea.addEventListener('keyup', (event) => {
     if(event.keyCode === 13 || event.keyCode === 32){
         const receiver = ccInputArea.value;
-        ccInputArea.value = '';
-        addElementInputArea(receiver, '.cc-elems')
+        if(receiver != '') {
+        	ccInputArea.value = '';
+        	addElementInputArea(receiver, '.cc-elems');
+    	}
     }
 })
 
@@ -90,8 +94,10 @@ const bccInputArea = document.querySelector('.bcc-input-area');
 bccInputArea.addEventListener('keyup', (event) => {
     if(event.keyCode === 13 || event.keyCode === 32){
         const receiver = bccInputArea.value;
-        bccInputArea.value = '';
-        addElementInputArea(receiver, '.bcc-elems')
+        if(receiver != '') {
+            bccInputArea.value = '';
+            addElementInputArea(receiver, '.bcc-elems');
+        }
     }
 })
 
