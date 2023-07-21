@@ -10,7 +10,7 @@ public class BoardVo {
 	private String catNo;
 	private String title;
 	private String content;
-	private String enollDate;
+	private String enrollDate;
 	private String modifyDate;
 	private String status;
 	private String file;

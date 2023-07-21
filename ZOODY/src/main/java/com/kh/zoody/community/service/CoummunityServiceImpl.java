@@ -1,5 +1,7 @@
 package com.kh.zoody.community.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +20,20 @@ public class CoummunityServiceImpl implements CommuityService{
 	private final CommunityDao dao;
 	
 	@Override
-	public BoardVo Commuitylist() {
-		return dao.Commuitylist();
+	public List<BoardVo> getBoardList(int catNo) {
+		return dao.getBoardList(sst, catNo);
 	}
+
 	
 	@Override
 	public int write(BoardVo vo) {
 		return dao.write(sst, vo);
 	}
+
+
+
+	
+	
 	
 	
 	
