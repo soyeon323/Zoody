@@ -6,27 +6,44 @@
   
 <mapper namespace="coummunity">
 
-	<select id="write">
-		
-		INSERT INTO BOARD
-		(
-			NO 
-			, USER_NO
-			, CAT_NO
-			, TITLE
-			, CONTENT
-			, FILE
-		)
-		VALUES
-		(
-			SEQ_BOARD_NO.NEXTVAL
-			, #{userNo}
-			, #{catNo}
-			, #{title}
-			, #{content}
-			, #{file}
-		)
+	<select id="getBoardList" resultType="BoardVo">
+		SELECT 
+			NO
+			,USER_NO
+			,CAT_NO
+			,TITLE
+			,CONTENT
+			,ENROLL_DATE
+			,MODIFY_DATE
+			,FILE_PATH
+		FROM BOARD
+		WHERE STATUS = 'O'
+		AND CAT_NO = #{catNo}
 		
 	</select>
+
+
+	<insert id="write" >
+	    INSERT INTO BOARD (
+	        NO,
+	        USER_NO,
+	        CAT_NO,
+	        TITLE,
+	        CONTENT
+	        <if test="file != null and !file.equals('')">
+	            , FILE_PATH
+	        </if>
+	    ) VALUES (
+	        SEQ_BOARD_NO.NEXTVAL,
+	        #{userNo},
+	        #{catNo},
+	        #{title},
+	        #{content}
+	        <if test="file != null and !file.equals('')">
+	            , #{file}
+	        </if>
+	    )
+	</insert>
+
   
 </mapper>

@@ -33,7 +33,7 @@
     margin-bottom: 20;
     font-size: 20;
     font-weight: 500;
-    padding-top: 50px;
+    /* padding-top: 50px; */
     color: #505050;
 }
 
@@ -96,7 +96,7 @@
     width: 99%;
     
     border: 1px solid #D7D7D7;
-    border-radius: 7px;
+    border-radius: 5px;
     background-color: #f9f9f9;
 }
 .write-body-meddle > input:nth-child(4) {

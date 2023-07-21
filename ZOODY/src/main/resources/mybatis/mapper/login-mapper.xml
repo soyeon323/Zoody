@@ -6,6 +6,8 @@
   
 <mapper namespace="login">
 	
+	
+	<!-- 로그인 -->
 	<select id="login" resultType="UserVo">
 		
 		SELECT 
@@ -34,14 +36,23 @@
 			CAPACITY
 		FROM "USER"
 		WHERE ID = #{id}
-		AND PWD = #{pwd}
+		
 		
 	</select>
 	
-	<select id="pwdSetting">
+	
+	<!-- JAAX 로 아이디 인증 -->
+	<select id="idCheck" resultType="Integer">
 		SELECT COUNT(*) 
 		FROM "USER" 
 		WHERE ID = #{id}
 	</select>
-  
+	
+	<!--지 아이디로 비밀번호 설정 -->
+	<update id="pwdSetting">
+		UPDATE "USER" 
+		SET PWD = #{pwd}
+		WHERE ID = #{id}
+	</update>
+  	
 </mapper>
