@@ -13,4 +13,6 @@ public class MailVo {
 	private String content;
 	private String sendDate;
 	
+	private String senderName;
+	private String senderMail;
 }

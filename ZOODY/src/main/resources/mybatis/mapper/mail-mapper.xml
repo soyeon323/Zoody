@@ -6,6 +6,73 @@
   
 <mapper namespace="mail">
 
+	<insert id="insertMail">
+		<selectKey resultType="String" keyProperty="no" order="BEFORE">
+			SELECT SEQ_MAIL_NO.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		
+		INSERT INTO MAIL
+		(
+			NO,
+			SENDER,
+			PREV_NO,
+			MAILBOX_NO,
+			TITLE,
+			CONTENT,
+			SEND_DATE
+		)
+		VALUES
+		(
+			#{no},
+			#{sender},
+			#{prevNo},
+			#{mailboxNo},
+			#{title},
+			#{content},
+			DEFAULT
+		)
+		
+	</insert>
 	
+	
+	<insert id="insertRecipient" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" " >
+		INTO MAIL_RECIPIENT
+		(
+		    MAIL_NO,
+		    RECEIVER_EMAIL,
+		    READ_CHECK,
+		    BOOKMARK_CHECK,
+		    DELETE_CHECK
+		)
+		VALUES
+		(
+		    #{item.mailNo},
+		    #{item.receiverEmail},
+		    DEFAULT,
+		    DEFAULT,
+		    DEFAULT
+		)
+		</foreach>
+	</insert>
+	
+	<select id="getReceiveMailList" resultType="MailVo">
+		SELECT
+		    MAIL.NO,
+		    "USER".NAME AS SENDER_NAME,
+    		"USER".MAIL AS SENDER_MAIL,
+		    PREV_NO,
+		    MAILBOX_NO,
+		    TITLE,
+		    CONTENT,
+		    SEND_DATE
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		WHERE MAIL.NO IN ( SELECT MAIL.NO
+		            FROM MAIL_RECIPIENT
+		            WHERE RECEIVER_EMAIL = #{receiverEmail}
+		            )
+	</select>
   
 </mapper>

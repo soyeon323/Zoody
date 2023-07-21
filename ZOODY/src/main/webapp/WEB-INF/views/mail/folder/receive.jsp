@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Zoody</title>
 <link rel="stylesheet" href="${root}/resources/css/mail/folder/receive.css">
+<script defer src="${root}/resources/js/mail/folder/receive.js"></script>
 </head>
 <body>
 
@@ -106,57 +107,34 @@
 								<button class="header-btn">삭제</button>
 							</div>
 						</div>
-						<div class="table-data">
-							<div class="check-btn-area">
-								<input type="checkbox" class="small-check-btn">
+						
+						<c:forEach items="${mailVoList }" var="mailVo">
+							<div class="table-data">
+								<div class="check-btn-area">
+									<input type="checkbox" class="small-check-btn">
+								</div>
+								<div class="add-bookmark-area">
+									<button class="add-bookmark-btn">
+										<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
+									</button>
+								</div>
+								<div class="read-check-icon">
+									<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
+								</div>
+								<div class="attachment-check-icon">
+									<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
+								</div>
+								<div class="mail-sender">
+									${mailVo.senderName} &lt ${mailVo.senderMail } &gt
+								</div>
+								<div class="mail-title">
+									${mailVo.title}
+								</div>
+								<div class="send-date">
+									${mailVo.sendDate}
+								</div>
 							</div>
-							<div class="add-bookmark-area">
-								<button class="add-bookmark-btn">
-									<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
-								</button>
-							</div>
-							<div class="read-check-icon">
-								<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
-							</div>
-							<div class="attachment-check-icon">
-								<img src="${root}/resources/img/icon/svg/attachment.svg" alt="안읽음">
-							</div>
-							<div class="mail-sender">
-								{이지은}
-							</div>
-							<div class="mail-title">
-								{[협업요청] 23년8월12일 맹수팀 연간 건강점검간 남미팀에 인력충원 요청합니다.}
-							</div>
-							<div class="send-date">
-								{2023-07-10 14:25}
-							</div>
-						</div>
-
-						<div class="table-data selected-table-data">
-							<div class="check-btn-area">
-								<input type="checkbox" class="small-check-btn">
-							</div>
-							<div class="add-bookmark-area">
-								<button class="add-bookmark-btn">
-									<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
-								</button>
-							</div>
-							<div class="read-check-icon">
-								<img src="${root}/resources/img/icon/svg/read-mail.svg" alt="읽음">
-							</div>
-							<div class="attachment-check-icon">
-								<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
-							</div>
-							<div class="mail-sender">
-								{유지민}
-							</div>
-							<div class="mail-title">
-								{[휴가계획서] 23년 하반기 동물복지2과 인원 휴가계획서.}
-							</div>
-							<div class="send-date">
-								{2023-07-10 16:30}
-							</div>
-						</div>
+						</c:forEach>
 
 					</div>
 

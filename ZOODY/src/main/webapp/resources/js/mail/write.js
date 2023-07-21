@@ -76,6 +76,13 @@ receiverInputArea.addEventListener('keyup', (event) => {
     	}
     }
 })
+receiverInputArea.addEventListener('focusout', (event) => {
+    const receiver = receiverInputArea.value;
+    if(receiver != '') {
+    	receiverInputArea.value = '';
+    	addElementInputArea(receiver, '.reciver-elems');
+	}
+})
 
 // 참조 이메일 완성시 감싸기
 const ccInputArea = document.querySelector('.cc-input-area');
@@ -88,6 +95,13 @@ ccInputArea.addEventListener('keyup', (event) => {
     	}
     }
 })
+ccInputArea.addEventListener('focusout', (event) => {
+    const receiver = ccInputArea.value;
+    if(receiver != '') {
+    	ccInputArea.value = '';
+    	addElementInputArea(receiver, '.cc-elems');
+	}
+})
 
 // 숨은 참조 이메일 완성시 감싸기
 const bccInputArea = document.querySelector('.bcc-input-area');
@@ -98,6 +112,13 @@ bccInputArea.addEventListener('keyup', (event) => {
             bccInputArea.value = '';
             addElementInputArea(receiver, '.bcc-elems');
         }
+    }
+})
+bccInputArea.addEventListener('focusout', (event) => {
+    const receiver = bccInputArea.value;
+    if(receiver != '') {
+        bccInputArea.value = '';
+        addElementInputArea(receiver, '.bcc-elems');
     }
 })
 
