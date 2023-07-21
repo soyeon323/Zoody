@@ -43,126 +43,31 @@
                 <input type="date" name="" id="">
             </div>
             <div class="mt_box">
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
+            	<c:forEach items="${list}" var="vo">
+	                <div class="card">
+	                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
+	                    <div class="card-body">
+	                      <h5 class="card-title">${vo.name} 회의실</h5>
+	                      <a href="#" class="btn btn-primary">예약하기</a>
+	                      <div class="card-text">
+	                        <span>Capacity</span>
+	                        <span>Conference</span>
+	                        <span>EnrollDate</span>
+	                        <p>${vo.capacity} people</p>
+	                        <c:choose> 
+	                           <c:when test="${vo.status eq 'O'}">
+	                             <p style="color: #00CBA4;">Available</p>
+	                           </c:when>
+	                           <c:otherwise>
+	                             <p>Available</p>
+	                           </c:otherwise> 
+                         	</c:choose> 
+                          	<p>${vo.enrolldate}</p>
+                       	</div>
                       </div>
-                    </div>
                 </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">101호 회의실</h5>
-                      <a href="#" class="btn btn-primary">예약하기</a>
-                      <div class="card-text">
-                        <span>Capacity</span>
-                        <span>Conference</span>
-                        <span>EnrollDate</span>
-                        <p>10 people</p>
-                        <p>Available</p>
-                        <p>2021</p>
-                      </div>
-                    </div>
-                </div>
+                                  
+              </c:forEach>
             </div>
             <div class="cardPlus">
                 <a href="${root}/meetingroom/add">

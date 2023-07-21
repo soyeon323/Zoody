@@ -18,5 +18,12 @@ public class AttendanceVo {
 	
 	private String type;
 	private String name;
+	
+	private String departmentName;
+	private String positionName;
+	private String rankName;
+	private String userStateName;
+	
+
 
 }

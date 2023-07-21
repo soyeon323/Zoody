@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="meetingroom">
+
+	<!-- 회의실 리스트 -->
+	<select id="selectList" resultType="com.kh.zoody.meetingroom.vo.MeetingroomVo">
+		SELECT            
+		    NO
+		    ,NAME
+		    ,INFO
+		    ,TO_CHAR(ENROLLDATE, 'YYYY') AS ENROLLDATE
+		    ,TO_CHAR(MODIFYDATE, 'YYYY') AS MODIFYDATE
+		    ,STATUS
+		    ,ORIGIN_NAME
+		    ,CHANGE_NAME
+		    ,CAPACITY
+		FROM MEETINGROOM
+		WHERE STATUS = 'O'
+	</select>
+	
+	<!-- 회의실 추가 -->
+	<insert id="addMeetingroom">
+		INSERT INTO MEETINGROOM (NO, NAME, INFO,ORIGIN_NAME, CAPACITY) 
+    		VALUES (SEQ_MEETINGROOM_NO.NEXTVAL, #{name}, #{info},#{originName}, #{capacity})
+	</insert>
+  
+</mapper>

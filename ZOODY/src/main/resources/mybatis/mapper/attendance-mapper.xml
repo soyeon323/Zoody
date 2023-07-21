@@ -15,7 +15,6 @@
 
 	<!-- 내 출퇴근 목록 -->
 	<select id="selectList" resultType="AttendanceVo">
-		
 		SELECT 
 		    A.NO
 		    ,A.USER_NO
@@ -24,8 +23,12 @@
 		    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
 		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
 		    ,TRUNC(
-		    EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 ' ||
-		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시 ' ||
+		    CASE 
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+	                END
+	            ) ||
+		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
 		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
 		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
 		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
@@ -81,6 +84,64 @@
 	<!-- 모든 회원 근태 목록 조회 -->
 	<select id="selectAllList" resultType="AttendanceVo">
 		SELECT 
+			    A.NO
+			    ,A.USER_NO
+			    ,A.CURRENT_NO
+			    ,TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+			    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
+			    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
+			    ,TRUNC(
+	                    CASE 
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+	                END
+	            ) ||
+			    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
+			    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
+			    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
+			    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
+			    ,A.OBJECTION_REASON
+			    ,A.APPROVAL_STATUS
+			    ,AC.TYPE AS TYPE
+			    ,U.NAME AS NAME
+	            ,D.NAME AS DEPARTMENT_NAME
+	            ,P.NAME AS POSITION_NAME
+	            ,R.NAME AS RANK_NAME
+	            ,US.NAME AS USER_STATE_NAME
+		FROM ATTENDANCE A
+		JOIN "USER" U
+		ON A.USER_NO = U.NO
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+        JOIN DEPARTMENT D 
+        ON U.DEPARTMENT_NO = D.NO
+        JOIN RANK R
+        ON R.NO = U.RANK_NO
+        JOIN USER_STATE US
+        ON US.NO = U.STATE_NO
+        JOIN POSITION P
+        ON P.NO = U.POSITION_NO
+        WHERE US.NAME = '정상'
+		ORDER BY ENROLLDATE DESC
+	</select>
+	
+	<!-- 메인 내 출결 조회 페이징 -->
+	<select id="getMainAttCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM ATTENDANCE
+		WHERE USER_NO=1
+	</select>
+	
+	<!-- 메인 내 휴가 조회 페이징 -->
+	<select id="getMainLeaveCnt" resultType="int">
+	 	SELECT COUNT(NO)
+	 	FROM LEAVE
+	 	WHERE USER_NO=1
+	</select>
+	
+	<!-- 메인 내 출결 조회 -->
+	<select id="selectMainAttlist" resultType="AttendanceVo">
+		SELECT 
 		    A.NO
 		    ,A.USER_NO
 		    ,A.CURRENT_NO
@@ -88,8 +149,66 @@
 		    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
 		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
 		    ,TRUNC(
-		    EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 ' ||
-		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시 ' ||
+		    CASE 
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+	                END
+	            ) ||
+		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
+		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
+		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
+		    ,A.OBJECTION_REASON
+		    ,A.APPROVAL_STATUS
+		    ,AC.TYPE AS TYPE
+		    ,U.NAME AS NAME
+		FROM ATTENDANCE A
+		JOIN "USER" U
+		ON A.USER_NO = U.NO
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		WHERE U.NO = 1
+		ORDER BY ENROLLDATE DESC
+	</select>
+	
+	<!-- 메인 내 휴가 요청 조회 -->
+	<select id="selectMainLeList" resultType="com.kh.zoody.attendance.vo.LeaveVo">
+		SELECT 
+		    L.NO
+		    ,L.USER_NO
+		    ,L.LEAVE_NO
+		    ,L.PROXY_NO
+		    ,TO_CHAR(L.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,L.REASON_CONTENT
+		    ,TO_CHAR(L.START_TIME, 'YYYY-MM-DD') AS START_TIME
+		    ,TO_CHAR(L.END_TIME, 'YYYY-MM-DD') AS END_TIME
+		    ,L.STATUS
+		    ,LT.TYPE
+		FROM LEAVE L
+		JOIN "USER" U
+		ON U.NO = L.USER_NO
+		JOIN LEAVE_TYPE LT
+		ON LT.NO = L.LEAVE_NO
+		WHERE U.NO = 1
+		ORDER BY L.NO DESC
+	</select>
+	
+	<!-- 관리자 이의신청 목록 조회 -->
+	<select id="selectObjList" resultType="AttendanceVo">
+		SELECT 
+		    A.NO
+		    ,A.USER_NO
+		    ,A.CURRENT_NO
+		    ,TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
+		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
+		    ,TRUNC(
+                    CASE 
+                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+                END
+            ) ||
+		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
 		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
 		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
 		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
@@ -114,8 +233,39 @@
         ON US.NO = U.STATE_NO
         JOIN POSITION P
         ON P.NO = U.POSITION_NO
-		WHERE U.NO = 1
+        WHERE US.NAME = '정상'
+        AND A.OBJECTION_REASON IS NOT NULL
 		ORDER BY ENROLLDATE DESC
+	</select>
+	
+	<!-- 이의신청 목록 페이징 -->
+	<select id="getObjCnt" resultType="int">
+        SELECT
+            COUNT(A.NO) AS NO
+        FROM ATTENDANCE A
+        JOIN "USER" U
+        ON A.USER_NO = U.NO
+        JOIN USER_STATE US
+        ON US.NO = U.STATE_NO
+        WHERE US.NAME = '정상'
+        AND A.OBJECTION_REASON IS NOT NULL
 	</select>
   
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

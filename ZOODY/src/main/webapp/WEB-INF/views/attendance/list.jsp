@@ -152,7 +152,7 @@
 
             <!-- 두번째 줄 : 검색바 부분 -->
             <div class="search_area">
-              <div><button>이의신청</button></div>
+              <div><button onclick="toggleCheckboxes()">이의신청</button></div>
               <div></div>
               <div class="search-flex">
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
@@ -190,19 +190,19 @@
                     
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="checkboxContainer">
                   <c:forEach items="${attVoList}" var="att">	
                       <tr>
-                        <td><input type="checkbox" name="" id=""></td>
+                        <td><input type="checkbox" name="" id=""  style="display: none;"></td>
                         <th scope="row">${att.no}</th>
                         <td>${att.enrolldate}</td>
                         <td>${att.checkInTime}</td>
                         <td>${att.checkOutTime }</td>
                         <c:choose> 
-							<c:when test="${att.plusWorkTime eq '일 시 분 초'}">
+							<c:when test="${att.plusWorkTime eq '시간 분 초'}">
 		                        <td>-</td>
 							</c:when>
-							<c:when test="${att.plusWorkTime eq '0일 0시 0분 0초'}">
+							<c:when test="${att.plusWorkTime eq '0시간 0분 0초'}">
 		                        <td>-</td>
 							</c:when>
 							<c:otherwise>
@@ -283,6 +283,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+      function toggleCheckboxes() {
+        var checkboxContainer = document.getElementById('checkboxContainer');
+        var checkboxes = checkboxContainer.getElementsByTagName('input');
+    
+        for (var i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].style.display = checkboxes[i].style.display === 'none' ? 'table-cell' : 'none';
+        }
+      }
+    </script>
     
 </body>
 </html>
