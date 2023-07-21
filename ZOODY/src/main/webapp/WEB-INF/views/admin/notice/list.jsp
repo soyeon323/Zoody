@@ -43,30 +43,30 @@
 
             <div id="alertArea">
                 <div>
-                    <div><img src="${root}/resources/img/alert.png" alt="확성기이미지"></div>
+                    <div><img src="${root}/resources/img/icon/png/alert.png" alt="확성기이미지"></div>
                     <div>공지사항 임시 제목입니다111</div>
                 </div>
                 <div>
-                    <div><img src="${root}/resources/img/alert.png" alt="확성기이미지"></div>
+                    <div><img src="${root}/resources/img/icon/png/alert.png" alt="확성기이미지"></div>
                     <div>공지사항 임시 제목입니다222</div>
                 </div>
             </div>
 
             <div id="iconArea">
                 <div>
-                    <img src="${root}/resources/img/newPencil.png" alt="새글작성">
+                    <img src="${root}/resources/img/icon/png/newPencil.png" alt="새글작성">
                     <a href="">새글쓰기</a>
                 </div>
                 <div>
-                    <img src="${root}/resources/img/copy.png" alt="복제">
+                    <img src="${root}/resources/img/icon/png/copy.png" alt="복제">
                     <a href="">복제</a>
                 </div>
                 <div>
-                    <img src="${root}/resources/img/delete.png" alt="삭제">
+                    <img src="${root}/resources/img/icon/png/delete.png" alt="삭제">
                     <a href="">삭제</a>
                 </div>
                 <div>
-                    <img src="${root}/resources/img/edit.png" alt="수정">
+                    <img src="${root}/resources/img/icon/png/edit.png" alt="수정">
                     <a href="">수정</a>
                 </div>
                 <div>
@@ -155,13 +155,13 @@
         </div>
         
         <div id="page">
-            <a href=""><img src="${root}/resources/img/left.png" alt="왼쪽화살표"></a>
+            <a href=""><img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표"></a>
             <a href="">1</a>
             <a href="">2</a>
             <a href="">3</a>
             <a href="">4</a>
             <a href="">5</a>
-            <a href=""><img src="${root}/resources/img/right.png" alt="오른쪽화살표"></a>
+            <a href=""><img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표"></a>
         </div>
     </div>
 

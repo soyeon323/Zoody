@@ -1,8 +1,14 @@
 package com.kh.zoody.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.zoody.admin.service.AdminService;
+import com.kh.zoody.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("admin")
 @RequiredArgsConstructor
 public class AdminController {
+	private final AdminService as;
 
 	//공지사항 작성 화면
 	@GetMapping("notice/write")
@@ -29,7 +36,9 @@ public class AdminController {
 	
 	//공지사항 목록
 	@RequestMapping("notice/list")
-	public void noticeList() {}
+	public void noticeList() {
+		List<NoticeVo> voList = as.list();
+	}
 	
 	//건의사항 목록
 	@RequestMapping("suggestion/list")

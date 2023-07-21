@@ -1,3 +1,4 @@
+/* 전체영역 */
 #wrap{
     width: 1633px;
     height: 112vh;
@@ -19,6 +20,7 @@
     font-weight: 600;
 }
 
+/* select박스 */
 #selectArea{
     margin-left: 80px;
     margin-top: 70px;
@@ -51,6 +53,7 @@
     border: 1px solid #80808024;
 }
 
+/* 제목 */
 #title{
     margin-left: 80px;
     margin-top: 60px;
@@ -140,6 +143,7 @@
     align-items: end;
 }
 
+/* 하단버튼 */
 #btnArea{
     display: flex;
     justify-content: center;

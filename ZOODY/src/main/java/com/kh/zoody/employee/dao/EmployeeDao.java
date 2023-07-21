@@ -12,13 +12,18 @@ public interface EmployeeDao {
 	//직원등록
 	int enroll(SqlSessionTemplate sst, UserVo vo);
 	
-	//직원상세조회 및 수정
-	int edit(SqlSessionTemplate sst, UserVo vo);
-	
+	//직원상세조회
+	UserVo detail(SqlSessionTemplate sst, String id);
+
 	//직원목록 
 	List<UserVo> list(SqlSessionTemplate sst, PageVo pv);
 
 	//페이징처리를 위한 게시글 갯수 조회
 	int getEmployeeListCnt(SqlSessionTemplate sst);
+
+	//직원정보수정
+	int edit(SqlSessionTemplate sst, UserVo vo);
+
+
 	
 }

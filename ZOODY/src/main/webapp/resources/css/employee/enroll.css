@@ -147,3 +147,7 @@ select{
     width: 200px;
     height: 200px;
 }
+
+#addressInput{
+    width: 350px;
+}

@@ -51,7 +51,7 @@
                 <div><a>공지사항 알려드립니다.</a></div>
                 <div id="contentDetail">
                     <div>
-                        <img src="${root}/resources/img/comment.png" alt="댓글아이콘">
+                        <img src="${root}/resources/img/icon/png/comment.png" alt="댓글아이콘">
                         <a>댓글 1개</a>
                     </div>
                     <div>|</div>
@@ -60,7 +60,7 @@
             </div>
             <div id="comment">
                 <div id="commentArea">
-                    <img src="${root}/resources/img/profileImg.png" alt="프로필사진">
+                    <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
                    
                     <form action="${root}/notice/detail" method="post">
                         <div id="commentZone">
@@ -70,7 +70,7 @@
                     </form>
                 </div>
                 <div id="commentOk">
-                    <div><img src="${root}/resources/img/profileImg.png" alt="프로필사진"></div>
+                    <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진"></div>
                     <div><a>@김영희 대리</a></div>
                     <div><a>확인해주세요</a></div>
                     <div><a>23-07-01</a></div>

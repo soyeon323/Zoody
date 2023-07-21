@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/resources/css/suggestion/write.css">
+<link rel="stylesheet" href="${root}/resources/css/suggestion/edit.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
 
     <div id="wrap">
 
-        <form action="${root}/suggestion/write" method="post" enctype="multipart/form-data">
+        <form action="${root}/suggestion/edit" method="post" enctype="multipart/form-data">
 
             <div id="suggestionWrite">
                 <a>건의사항</a>
@@ -57,7 +57,7 @@
             </div>
 
             <div id="tempSave">
-                <button><img src="${root}/resources/img/tempsave.png" alt="임시저장이미지"> 임시저장</button>
+                <button><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
             </div>
 
             <div id="contentArea">
