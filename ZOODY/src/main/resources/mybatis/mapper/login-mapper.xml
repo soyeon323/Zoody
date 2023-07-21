@@ -37,5 +37,11 @@
 		AND PWD = #{pwd}
 		
 	</select>
+	
+	<select id="pwdSetting">
+		SELECT COUNT(*) 
+		FROM "USER" 
+		WHERE ID = #{id}
+	</select>
   
 </mapper>
