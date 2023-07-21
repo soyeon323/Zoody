@@ -28,7 +28,7 @@
     border: 1px solid #d7d7d7ba;
     border-radius: 7px;
     display: grid;
-    grid-template-rows: 80px 140px 60px 380px;
+    grid-template-rows: 80px 100px 60px 380px;
 }
 
 /* 내용영역 상단 */
@@ -127,6 +127,7 @@
 #iconArea{
     display: grid;
     grid-template-columns: 170px 80px 80px 80px 110px;
+    margin-bottom: 20px;
 }
 
 #iconArea>div{
@@ -151,7 +152,6 @@
 
 /* 테이블 내용 영역 */
 #tableArea{
-    margin-top: 22px;
 }
 
 #tableArea>table{
@@ -218,4 +218,9 @@
     height: 22px;
     background-color: #4876EF;
     color: white;
+}
+
+button{
+    border: none;
+    background: none;
 }

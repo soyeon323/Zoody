@@ -17,4 +17,5 @@ public class NoticeVo {
 	private String rightclickYn;
 	private String commnetYn;
 	private String boardLimit;
+	private String hit;
 }
