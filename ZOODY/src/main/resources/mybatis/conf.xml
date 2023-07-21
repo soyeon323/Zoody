@@ -19,6 +19,7 @@
 		<typeAlias type="com.kh.zoody.mail.vo.MailVo" alias="MailVo"/>
 		<typeAlias type="com.kh.zoody.community.vo.BoardVo" alias="BoardVo"/>
 		<typeAlias type="com.kh.zoody.notice.vo.NoticeVo" alias="NoticeVo"/>
+		<typeAlias type="com.kh.zoody.animal.vo.AnimalVo" alias="AnimalVo"/>
 	</typeAliases>
 
   
