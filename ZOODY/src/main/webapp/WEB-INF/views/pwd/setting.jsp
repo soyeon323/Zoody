@@ -15,20 +15,17 @@
 </head>
 <body>
 		<div id="wrap">
-            <form action="" method="POST">
-                <span>아이디 (사번)</span>
-                <input type="text" name="" placeholder="사번">
-                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="submit" value="사번 확인"> 
+
                 <br><br><br>
                 <span>초기 비밀번호</span>
-                <input type="text" name="" placeholder="초기 비밀번호" id="pwdSet1">
+                <input type="text"  placeholder="초기 비밀번호" id="pwdSet1">
                 <br>
                 <span>초기 비밀번호</span>
-                <input type="text" name="" placeholder="초기 비밀번호" id="pwdSet2">
-                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em;" type="submit" value="비밀번호 일치 확인"> 
+                <input type="text" name="pwd" placeholder="초기 비밀번호" id="pwdSet2">
+                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em;" type="button" id="pwdCheck" value="비밀번호 일치 확인"> 
                 <br><br>
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="submit" value="비밀번호 설정 하기"> 
             </form>
 		</div>
 </body>
-</html>
+
