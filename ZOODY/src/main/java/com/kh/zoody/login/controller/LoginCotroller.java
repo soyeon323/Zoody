@@ -28,11 +28,9 @@ public class LoginCotroller {
 	public String login(UserVo vo , HttpSession session) {
 		
 		UserVo loginMember = ls.login(vo);
-		log.info("loginMember : {}" , loginMember);
 		if(loginMember == null) {
 			throw new RuntimeException();
 		}
-		log.info("loginMember : {}" , loginMember);
 		session.setAttribute("loginMember", loginMember);
 		return "redirect:/";
 	}

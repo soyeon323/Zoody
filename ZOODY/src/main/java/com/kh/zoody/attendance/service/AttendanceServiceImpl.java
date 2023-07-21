@@ -57,6 +57,44 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public List<AttendanceVo> allList(PageVo allPv) {
 		return dao.allList(sst, allPv);
 	}
+
+
+	@Override
+	public int getMainAttCnt() {
+		return dao.getMainAttCnt(sst);
+	}
+
+
+	@Override
+	public int getMainLeaveCnt() {
+		return dao.getMainLeaveCnt(sst);
+	}
+
+
+	@Override
+	public List<AttendanceVo> mainAttlist(PageVo mPv) {
+		return dao.mainAttlist(sst, mPv);
+	}
+
+
+	@Override
+	public List<LeaveVo> mainLeList(PageVo mPv) {
+		return dao.mainLeList(sst, mPv);
+	}
+
+
+	@Override
+	public int getObjCnt() {
+		return dao.getObjCnt(sst);
+	}
+
+
+	@Override
+	public List<AttendanceVo> objList(PageVo objPv) {
+		return dao.objList(sst, objPv);
+	}
+
+
 	
 	
 

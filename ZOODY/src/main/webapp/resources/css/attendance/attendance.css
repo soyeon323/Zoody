@@ -404,7 +404,7 @@
 
 .att_leave > hr{
     width: 387px;
-    background: #a8a8a8;
+    /* background: #a8a8a8; */
     margin: 0.5rem 0 1rem 12px;
 }
 
@@ -445,7 +445,7 @@
 
 .att_work > hr{
     width: 337px;
-    background: #a8a8a8;
+    /* background: #a8a8a8; */
     margin: 0.5rem 0 1rem 12px;
 }
 
@@ -479,13 +479,13 @@
     padding-bottom: 13px;
 }
 
-.att_department > table{
+.aoverflow-auto > table{
     margin: 0 auto;
     width: 723px;
     margin-bottom: 4px;
 }
 
-.att_department > table > thead{
+.overflow-auto > table > thead{
     width: 723px;
     height: 30px;
     flex-shrink: 0;
@@ -503,7 +503,7 @@
     text-align: center;
 }
 
-.att_department > table > tbody{
+.overflow-auto > table > tbody{
     color: #868686;
     font-family: Spoqa Han Sans Neo;
     font-size: 13px;
@@ -531,7 +531,7 @@
 
 .att_my > hr{
     width: 769px;
-    background: #a8a8a8;
+    /* background: #b9b9b9 !important; */
     margin: 0.5rem 0 0.7rem 12px;
 }
 
@@ -564,10 +564,11 @@
 .table>tfoot>tr>th,
 .table>thead>tr>td,
 .table>thead>tr>th {
-    padding-left: 18px !important; /* 패딩 제거 */ 
+    padding-left: 17px !important; /* 패딩 제거 */ 
     line-height: 1.42857143;
-    vertical-align: top;
+    vertical-align: middle;
     border: none !important; /* 테두리 제거 */ 
+    text-align: center;
 }
 
 

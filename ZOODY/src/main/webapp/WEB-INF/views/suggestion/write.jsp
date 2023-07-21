@@ -57,7 +57,7 @@
             </div>
 
             <div id="tempSave">
-                <button><img src="${root}/resources/img/tempsave.png" alt="임시저장이미지"> 임시저장</button>
+                <button><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
             </div>
 
             <div id="contentArea">

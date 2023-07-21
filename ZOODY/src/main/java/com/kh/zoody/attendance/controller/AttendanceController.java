@@ -25,7 +25,23 @@ public class AttendanceController {
 	
 	//(서브메뉴) 근무현황 화면
 	@GetMapping("main")
-	public String workStatus() {
+	public String workStatus(Integer page, Model model) {
+		
+		//휴가,출결,초과근무 목록 조회
+		int listCount = attService.getMainAttCnt();
+		int leaveListCount = attService.getMainLeaveCnt();
+		
+		int currentPage = (page != null) ? page: 1;
+		
+		PageVo mPv = new PageVo(listCount, currentPage, 2, 3);
+		List<AttendanceVo> mainAttList = attService.mainAttlist(mPv);
+		List<LeaveVo> mainLeList = attService.mainLeList(mPv);
+		
+		model.addAttribute("mainAttList", mainAttList);
+		model.addAttribute("mainLeList", mainLeList);
+		
+		//부서별 목록 조회
+		
 		return "attendance/workStatus";
 	}
 	
@@ -68,7 +84,16 @@ public class AttendanceController {
 	}
 	
 	@GetMapping("admin/objection")
-	public String adminObjection(){
+	public String adminObjection(Integer page, Model model){
+		
+		int listCount = attService.getObjCnt();
+		int currentPage = (page != null) ? page: 1;
+		
+		PageVo objPv = new PageVo(listCount, currentPage, 5, 10);
+		List<AttendanceVo> objVoList = attService.objList(objPv);
+		
+		model.addAttribute("objVoList", objVoList);
+		
 		return "attendance/adminObjection";
 	}
 

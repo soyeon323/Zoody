@@ -25,38 +25,83 @@
         <div id="enroll">동물 등록</div>
 
         <div id="chart">
-            <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
+            <form action="${root}/animal/enroll" method="post" enctype="multipart/form-data">
                 
                 <table>
                     <tr id="chart-1">
-                        <td rowspan="4"><img src="/zoody/resources/img/profile.png" alt="동물사진"></td>
+                        <td rowspan="4" id="image_container"><img ></td>
                         <td>이름</td>
                         <td>계 통</td>
                         <td colspan="3">
-                            <select name="position" id="position">
+                            <select name="animalClassificationNo" id="position">
                                 <option value="">양서류</option>
                                 <option value="">포유류</option>
                                 <option value="">조류</option>
+                                <option value="">파충류</option>
+                                <option value="">어류</option>
                             </select>
                         </td>
                     </tr>
                     <tr id="chart-2">
-                        <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
-                        <td>담당자</td>
-                        <td><input type="text" name="" placeholder="담당자" maxlength="6"></td>
+                        <td rowspan="2"><input type="text" name="name" placeholder="이름입력"></td>
                         <td>담당 부서</td>
-                        <td><input type="tel" name="" placeholder="담당 부서" maxlength="13" oninput="formatPhoneNumber(this)"></td>
+                        <td>
+                             <select name="departmentNo" id="position">
+                            <option value="">자연학습</option>
+                            <option value="">조류팀</option>
+                            <option value="">남미팀</option>
+                            <option value="">맹수팀</option>
+                            <option value="">동양팀</option>
+                            <option value="">대동물</option>
+                            <option value="">어린이동물</option>
+                            <option value="">아프리카</option>
+                            <option value="">유인원</option>
+                            <option value="">생태연구</option>
+                            <option value="">분석연구</option>
+                            </select>
+                        </td>
+                        <td>식 성</td>
+                        <td>
+                            <select name="tasteNo" id="position">
+                                <option value="">초식</option>
+                                <option value="">육식</option>
+                                <option value="">잡식</option>
+                            </select>
+                        </td>
+
                     </tr>
+
                     <tr id="chart-3">
-                        <td>애칭</td>
-                        <td><input type="email" name="" placeholder="애칭"></td>
                         <td>방사장</td>
-                        <td><input type="tel" name="" placeholder="방사장" maxlength="11" oninput="formatCompanyNumber(this)"></td>
+                        <td><input name="feild" placeholder="방사장" ></td>
+
+
+                        <td>서식지 </td>
+                        <td>
+                            <select name="habitatNo" id="position">
+                                <option value="">아프리카</option>
+                                <option value="">유럽</option>
+                                <option value="">중동</option>
+                                <option value="">아시아</option>
+                                <option value="">북아메리카</option>
+                                <option value="">북아메리카</option>
+                                <option value="">북아메리카</option>
+                                
+                            </select>
+                        </td>
+                       
                     </tr>
+
                     <tr id="chart-4">
+                    
+                    </tr>
+                      <tr id="chart-4">
+                        <td>등록 일시</td>
+                        <td><input type="date" name="date"></td>
+
                         <td>멸종 위기</td>
                         <td>
-                            <select name="position" id="position">
+                            <select name="endangeredRatingNo" id="position">
                                 <option value="">절멸(EX)</option>
                                 <option value="">야생절멸(EW)</option>
                                 <option value="">위급(CR)</option>
@@ -68,14 +113,10 @@
                                 <option value="">미평가(NE)</option>
                             </select>
                         </td>
-                        <td>식 성</td>
-                        <td><input type="text" name="" placeholder="식성" maxlength="11" oninput="formatRepresentNumber(this)"></td>
-                    </tr>
-                      <tr id="chart-4">
-                        <td>등록 일시</td>
-                        <td><input type="date" name="enrollDate"></td>
-                        <td>서식지</td>
-                        <td><input type="text" name="" placeholder="서식지"></td>
+
+                        <td>애칭</td>
+                        <td><input name="nickName" placeholder="애칭" ></td>
+
                     </tr>
                 </table>
                 <div style="margin-left: 80px; color:gray">※허위 사실 기제시 제제를 받습니다.</div>
@@ -83,12 +124,12 @@
                     <label for="file">
                         <div class="btn-upload">프로필 등록</div>
                     </label>
-                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
+                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg" onchange="imgUpload(event)">
                 </div>
 
                 <div id="btn-area">
-                        <div class="btn-upload">등록</div>
-                        <div class="btn-upload">취소</div>
+                        <input type="submit" class="btn btn-primary" value="등록">
+                        <input type="button" class="btn btn-primary" value="취소" onclick="list();">
                 </div>
               
             </form>
@@ -100,4 +141,25 @@
 </html>
 <script>
   
+     //이미지 미리보기
+     function imgUpload(event){
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+        var originImg = document.querySelector("#image_container>img");
+        var img = document.createElement("img");
+        img.style.width = '208px';
+        img.style.height ='198px';
+        originImg.style.display = 'none';
+        img.setAttribute("src", event.target.result);
+        document.querySelector("#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function list(){
+        location.href = "${root}/animal/list";
+    }
+
 </script>

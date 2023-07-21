@@ -8,19 +8,34 @@ import com.kh.zoody.page.vo.PageVo;
 
 public interface AttendanceService {
 
-	//페이징
+	//유저 개별 조회 영역
 	int getMyAttendanceCnt();
 	
-	//(서브메뉴) 근무현황 목록 조회
 	List<AttendanceVo> list(PageVo pv);
 
-	//휴가 요청 목록 조회
 	List<LeaveVo> leaveList(PageVo leavePv);
 
 	int getLeaveCnt();
 
+	//관리자 전체 조회 영역	
 	int getAllAttendanceCnt();
 
 	List<AttendanceVo> allList(PageVo allPv);
+
+	//메인영역	
+	int getMainAttCnt();
+
+	int getMainLeaveCnt();
+
+	List<AttendanceVo> mainAttlist(PageVo mPv);
+
+	List<LeaveVo> mainLeList(PageVo mPv);
+
+	//이의신청 조회 영역
+	int getObjCnt();
+
+	List<AttendanceVo> objList(PageVo objPv);
+
+
 
 }

@@ -107,7 +107,7 @@
                             </select>
                         </td>
                         <td>주소</td>
-                        <td><input type="text" name="address" placeholder="주소입력"></td>
+                        <td><input type="text" id="addressInput" name="address" placeholder="주소입력" onclick="openAddress();"></td>
                         <td>급여구분</td>
                         <td id="salary"></td>
                     </tr>
@@ -159,18 +159,19 @@
                     <img src="${root}/resources/img/icon/png/icon01.png" alt="아이콘">
                     <a>허위정보 기입 시 제재를 받을 수 있습니다.</a>
                 </div>
-
+                
                 <div id="userBtn">
                     <input type="submit" value="등록" id="userEnroll">
                     <button id="enrollCancel">취소</button>
                 </div>
             </form>
         </div>
-
+        
     </div>
-
+    
 </body>
 </html>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function formatPhoneNumber(input) {
       var phoneNumber = input.value.replace(/\D/g, '');
@@ -226,4 +227,14 @@
 
         reader.readAsDataURL(event.target.files[0]);
     }
+
+    //주소입력 api열기
+    function openAddress(){
+        new daum.Postcode({
+        oncomplete: function(data) {
+            document.querySelector("#addressInput").value = data.address;
+        }
+    }).open();
+    }
+
 </script>

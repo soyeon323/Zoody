@@ -25,90 +25,69 @@
         <div>
             <%@ include file="/WEB-INF/views/side.jsp" %>
         </div>
-        <div id="mt_main">
-            <!-- 맨 윗 줄 -->
-            <div class="mt_link">
-                <div aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">일정등록</a></li>
-                      <li class="breadcrumb-item"><a href="${root}/meetingroom/reserve">회의실 상세 예약</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">회의실 등록</li>
-                    </ol>
+        <form action="${root}/meetingroom/add" method="POST">
+            <div id="mt_main">
+                <!-- 맨 윗 줄 -->
+                <div class="mt_link">
+                    <div aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">일정등록</a></li>
+                          <li class="breadcrumb-item"><a href="${root}/meetingroom/reserve">회의실 상세 예약</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">회의실 등록</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="add-form">
+                    <table class="board_view">
+                        <colgroup>
+                            <col width="15%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>회의실명</th>
+                                <td>
+                                    <input type="text" class="form-control" id="formGroupExampleInput" name="name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>개방시간</th>
+                                <td>
+                                    <input class="form-control" type="text" placeholder="오전 9:00 - 오후 6:00" aria-label="Disabled input example" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>수용가능인원</th>
+                                <td>
+                                    <input type="number" name="capacity" id="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>정보</th>
+                                <td style="height: 500px;">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="info"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>회의실 썸네일</th>
+                                <td>
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-sm" type="file" id="formFileSm" name="originName">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="add-btn">
+                        <input type="submit" value="등록완료">
+                    </div>
                 </div>
             </div>
-            <div class="add-form">
-                <table class="board_view">
-                    <colgroup>
-                        <col width="15%">
-                        <col width="*">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>회의실명</th>
-                            <td>
-                                <input type="text" class="form-control" id="formGroupExampleInput">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>개방시간</th>
-                            <td>
-                                <input class="form-control" type="text" placeholder="오전 9:00 - 오후 6:00" aria-label="Disabled input example" disabled>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>수용가능인원</th>
-                            <td><input type="number" name="" id=""></td>
-                        </tr>
-                        <tr>
-                            <th>정보</th>
-                            <td style="height: 500px;">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>회의실 썸네일</th>
-                            <td>
-                                <div class="mb-3">
-                                    <input class="form-control form-control-sm" type="file" id="formFileSm">
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="add-btn">
-                    <input type="submit" value="등록완료">
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 
     
 </body>
 </html>
-<script>
-    const timeInput = document.getElementById("timeInput");
-    
-    timeInput.addEventListener("input", function() {
-        const timeValue = timeInput.value.split(":");
-        const hours = timeValue[0];
-        const formattedTime = hours + ":00";
-    
-        timeInput.value = formattedTime;
-    });
-
-    const timeInput2 = document.getElementById("timeInput2");
-
-    timeInput2.addEventListener("focus", function() {
-    timeInput2.stepUp();
-    });
-
-    timeInput2.addEventListener("blur", function() {
-    const timeValue = timeInput2.value.split(":");
-    const hours = timeValue[0];
-    const formattedTime = hours + ":00";
-
-    timeInput2.value = formattedTime;
-    });
-</script>

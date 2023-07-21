@@ -20,10 +20,13 @@ import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 
 @Controller
 @RequestMapping("employee")
 @RequiredArgsConstructor
+@Slf4j
 public class EmployeeController {
 	private final EmployeeService es;
 	
@@ -34,29 +37,53 @@ public class EmployeeController {
 	//직원등록
 	@PostMapping("enroll")
 	public String enroll(UserVo vo, MultipartFile f, HttpServletRequest req) throws Exception {
+		String savePath = req.getServletContext().getRealPath("/resources/img/employee/");
+		String originalFilename = f.getOriginalFilename();
+		
+		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	    String fileName = UUID.randomUUID().toString() + extension;
+	    String path = savePath + fileName;
+	    File target = new File(path);
+	    f.transferTo(target);
+		
+		vo.setProfile(fileName);
 		int result = es.enroll(vo);
 		
 		if(result != 1 && f.isEmpty()) {
 			throw new RuntimeException();
 		}
 		
-		String savePath = req.getServletContext().getRealPath("/resources/img/employee/");
-	    String originalFilename = f.getOriginalFilename();
-	    String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-	    String fileName = UUID.randomUUID().toString() + extension;
-	    String path = savePath + fileName;
-	    File target = new File(path);
-		
-		f.transferTo(target);
-		
 		return "redirect:list";
 	}
 	
-	//직원상세조회 및 수정 화면
+	//직원상세조회
 	@GetMapping("detail")
-	public void detail() {}
+	public void detail(String id, Model model) {
+		UserVo vo = es.detail(id);
+		
+		model.addAttribute("vo", vo);
+	}
 	
 	//직원상세조회 및 수정
+	@PostMapping("detail")
+	public String detail(UserVo vo, MultipartFile f, HttpServletRequest req) throws Exception {
+		String savePath = req.getServletContext().getRealPath("/resources/img/employee/");
+		String originalFilename = f.getOriginalFilename();
+		
+		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	    String fileName = UUID.randomUUID().toString() + extension;
+	    String path = savePath + fileName;
+	    File target = new File(path);
+	    f.transferTo(target);
+		
+		vo.setProfile(fileName);
+		int result = es.edit(vo);
+		
+		if(result != 1) {
+			throw new Exception();
+		}
+		return "redirect:list";
+	}
 	
 	//직원목록 화면
 	@GetMapping("list")
@@ -66,7 +93,7 @@ public class EmployeeController {
 		int currentPage = (page != null) ? page : 1;
 		int pageLimit = ConstPool.PAGE_LIMIT;
 		int boardLimit = ConstPool.BOARD_LIMIT;
-		
+	
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -77,6 +104,7 @@ public class EmployeeController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("voList", voList);
 		map.put("EmployeListCnt", EmployeListCnt);
+		map.put("pv", pv);
 
 		model.addAttribute("map", map);
 		

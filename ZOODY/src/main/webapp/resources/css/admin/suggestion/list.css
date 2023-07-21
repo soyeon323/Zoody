@@ -70,7 +70,7 @@
 }
 
 #topArea>div:nth-child(2)>input[type="submit"]{
-    background-image: url("/zoody/resources/img/search.png");
+    background-image: url("/zoody/resources/img/icon/png/search.png");
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0);
     color: rgba(255, 255, 255, 0);
@@ -178,7 +178,7 @@
     margin-left: 150px;
 }
 
-.table td {
+#tableArea .table td {
     vertical-align: middle;
 }
 
