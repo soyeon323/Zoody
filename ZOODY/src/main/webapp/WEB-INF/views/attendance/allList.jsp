@@ -75,106 +75,28 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
+                	<c:forEach items="${attAllVoList}" var="allVo">
+	                  <tr>
+	                    <th scope="row">${allVo.no}</th>
+	                    <td>${allVo.enrolldate}</td>
+	                    <td>${allVo.departmentName}</td>
+	                    <td>${allVo.name} ${allVo.rankName}</td>
+	                    <td>${allVo.checkInTime}</td>
+	                    <td>${allVo.checkOutTime}</td>
+	                    <c:choose> 
+							<c:when test="${allVo.plusWorkTime eq '시간 분 초'}">
+		                        <td>-</td>
+							</c:when>
+							<c:when test="${allVo.plusWorkTime eq '0시간 0분 0초'}">
+		                        <td>-</td>
+							</c:when>
+							<c:otherwise>
+		                        <td>${allVo.plusWorkTime}</td>
+							</c:otherwise> 
+						</c:choose>
+	                    <td>${allVo.type}</td>
+	                  </tr>
+                	</c:forEach>
                 </tbody>
               </table>
               <div class="list-page">

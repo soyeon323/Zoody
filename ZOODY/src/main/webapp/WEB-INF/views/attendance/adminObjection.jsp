@@ -76,116 +76,62 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td><button class="obj-btn">확인하기</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2023-07-04</td>
-                    <td>총무부</td>
-                    <td>이동욱 대리</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                    <td>반려</td>
-                  </tr>
+                	<c:forEach items="${objVoList}" var="obj">
+	                  <tr>
+	                    <th scope="row">${obj.no}</th>
+	                    <td>${obj.enrolldate}</td>
+	                    <td>${obj.departmentName}</td>
+	                    <td>${obj.name} ${obj.rankName}</td>
+	                    <td>${obj.checkInTime}</td>
+	                    <td>${obj.checkOutTime}</td>
+	                    <c:choose> 
+							<c:when test="${obj.plusWorkTime eq '시간 분 초'}">
+		                        <td>-</td>
+							</c:when>
+							<c:when test="${obj.plusWorkTime eq '0시간 0분 0초'}">
+		                        <td>-</td>
+							</c:when>
+							<c:otherwise>
+		                        <td>${obj.plusWorkTime}</td>
+							</c:otherwise> 
+						</c:choose>
+	                    <td>${obj.type}</td>
+	                    <c:choose> 
+							<c:when test="${obj.approvalStatus == 0}">
+                      <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          확인하기
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">이의신청 사유</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p>${obj.objectionReason}</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+							</c:when>
+							<c:when test="${obj.approvalStatus == 1}">
+		                        <td>승인</td>
+							</c:when>
+							<c:otherwise>
+		                        <td>반려</td>
+							</c:otherwise> 
+						</c:choose>
+	                  </tr>
+                	</c:forEach>
                 </tbody>
               </table>
               <div class="list-page">

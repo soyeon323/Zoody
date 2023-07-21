@@ -418,7 +418,7 @@
 .table>thead>tr>th {
     padding-left: 18px !important; /* 패딩 제거 */ 
     line-height: 1.42857143;
-    vertical-align: top;
+    vertical-align: middle;
     border: none !important; /* 테두리 제거 */ 
     text-align: center;
 }
