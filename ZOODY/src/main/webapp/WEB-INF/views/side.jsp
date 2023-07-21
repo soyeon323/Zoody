@@ -47,10 +47,8 @@
         <li>
             <a href="#">인사 관리</a>
             <ul>
-            <li><a href="#">text1</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
+            <li><a href="${root}/employee/enroll">인사등록</a></li>
+            <li><a href="${root}/employee/list">인사목록</a></li>
             </ul>
         </li>
         <li>

@@ -23,9 +23,15 @@
                 <div class="write-body-top">
                     <div>To.</div>
 
-                    <select name="" id=""></select>
+                    <select name="Big-Category" id="BC">
+                        <option value="1">전사</option>
+                        <option value="2">부서</option>
+                    </select>
 
-                    <select name="" id=""></select>
+                    <select name="Small-Category" id="SC">
+                        <option value="1">자유</option>
+                        <option value="2">익명</option>
+                    </select>
                 </div>
 
                 <div class="write-body-meddle">
@@ -52,7 +58,7 @@
 
                 <div class="write-wrap-foot-btns">
                     <div class="registration-btn">등록</div>
-                    <div class="cancel-btn">취소</div>
+                    <div class="cancel-btn" onclick="history.back()">취소</div>
                 </div>
 
             </div>

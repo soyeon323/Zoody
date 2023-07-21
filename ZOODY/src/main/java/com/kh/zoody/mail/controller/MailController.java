@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.mail.service.MailService;
@@ -41,7 +42,11 @@ public class MailController {
 	}
 	
 	@PostMapping("send")
-	public String mailSend(String receiverEmailAddress, String ccEmailAddress, String bccEmailAddress, List<MultipartFile> attachmentFileList, MailVo mailVo) {
+	public String mailSend(@RequestParam List<String> receiverEmailAddress,
+			@RequestParam(required=false) List<String> ccEmailAddress, 
+			@RequestParam(required=false) List<String> bccEmailAddress,
+			List<MultipartFile> attachmentFileList,
+			MailVo mailVo) {
 		
 		log.info("받는사람 : {}", receiverEmailAddress);
 		log.info("참조 : {}", ccEmailAddress);

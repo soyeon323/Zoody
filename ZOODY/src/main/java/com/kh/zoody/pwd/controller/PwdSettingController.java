@@ -31,13 +31,25 @@ public class PwdSettingController {
 	@PostMapping("setting")
 	@ResponseBody
 	public int pwdSetting(UserVo vo) {
-		
 		int result = ps.idCheck(vo);
 		
 		if(result !=1) {
 			throw new RuntimeException();
 		}
 		log.info("resutl : {}" , result);
+		
 		return result;
+	}
+	
+	//이제 최종 비밀번호 설정 로직 (암호화)
+	@PostMapping("pwdSetting")
+	public String PwdSetting(UserVo vo) {
+		
+		int result = ps.pwdSetting(vo);
+		log.info("result :{}",result);
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "member/login";
 	}
 }

@@ -26,9 +26,9 @@
 
     <div id="wrap">
 
-        <form action="${root}/suggestion/write" method="post" enctype="multipart/form-data">
+        <form action="${root}/admin/notice/write" method="post" enctype="multipart/form-data">
 
-            <div id="suggestionWrite">
+            <div id="write">
                 <a>글쓰기</a>
             </div>
     
@@ -57,7 +57,7 @@
             </div>
 
             <div id="tempSave">
-                <button><img src="${root}/resources/img/tempsave.png" alt="임시저장이미지"> 임시저장</button>
+                <button><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
             </div>
 
             <div id="contentArea">

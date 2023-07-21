@@ -20,9 +20,9 @@
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
-    <div id="wrap">`
+    <div id="wrap">
 
-        <div id="enroll">
+        <div id="suggestion">
             <a>건의사항</a>
         </div>
 
@@ -40,7 +40,7 @@
             </div>
             <div></div>
             <div id="newWrite">
-                <img src="${root}/resources/img/pencil.png" alt="글쓰기아이콘">
+                <img src="${root}/resources/img/icon/png/pencil.png" alt="글쓰기아이콘">
                 <a href="">새글쓰기</a>
             </div>
             <div>
@@ -105,13 +105,13 @@
         </div>
         
         <div id="page">
-            <a href=""><img src="${root}/resources/img/left.png" alt="왼쪽화살표"></a>
+            <a href=""><img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표"></a>
             <a href="">1</a>
             <a href="">2</a>
             <a href="">3</a>
             <a href="">4</a>
             <a href="">5</a>
-            <a href=""><img src="${root}/resources/img/right.png" alt="오른쪽화살표"></a>
+            <a href=""><img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표"></a>
         </div>
     </div>
 

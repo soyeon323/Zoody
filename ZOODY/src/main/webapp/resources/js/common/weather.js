@@ -3,7 +3,7 @@ $(document).ready(function() {
     // 10분 마다 날씨 정보 가져오기
     setInterval(() => {
         getWeatherInfo();
-    }, 100000);
+    }, 60000);
 
 
 

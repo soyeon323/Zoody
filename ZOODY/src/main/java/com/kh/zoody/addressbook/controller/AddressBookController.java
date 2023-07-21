@@ -44,8 +44,6 @@ public class AddressBookController {
 		
 		UserVo detailUserInfo = addressbookService.getDetailUserInfo(userNo);
 		
-		log.info("DetailUserInfo : {}", detailUserInfo );
-		
 		Gson gson = new Gson();
 		
 		String jsonDetailUserInfo = gson.toJson(detailUserInfo);
