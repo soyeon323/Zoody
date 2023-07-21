@@ -6,7 +6,8 @@ import lombok.Data;
 public class AnimalVo {
 
 	private String no;   
-	private String categorNo;
+	private String profile;   
+	private String categoryNo;
 	private String userNo;
 	private String departmentNo;
 	private String name;

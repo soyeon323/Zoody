@@ -1,9 +1,16 @@
 package com.kh.zoody.animal.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.animal.service.AnimalService;
 import com.kh.zoody.animal.vo.AnimalVo;
@@ -27,11 +34,22 @@ public class AnimalController {
 	
 	//동물 등록
 	@PostMapping("enroll")
-	public String animalEnroll(AnimalVo vo) {
+	public String animalEnroll(AnimalVo vo, MultipartFile f , HttpServletRequest req) throws Exception {
+		
+		String savePath = req.getServletContext().getRealPath("/resources/img/animal/");
+		String originalFilename = f.getOriginalFilename();
+		
+		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	    String fileName = UUID.randomUUID().toString() + extension;
+	    String path = savePath + fileName;
+	    File target = new File(path);
+	    f.transferTo(target);
+		
+		vo.setProfile(fileName);
 		
 		int result = as.animalEnroll(vo);
 		
-		if(result !=1) {
+		if(result !=2 && f.isEmpty()) {
 			throw new RuntimeException();
 		}
 		return "animal/list";
