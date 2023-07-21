@@ -15,10 +15,11 @@
 </head>
 <body>
 		<div id="wrap">
-            <form action="" method="POST">
-                <span>아이디 (사번)</span>
-                <input type="text" name="" placeholder="사번">
-                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="submit" value="사번 확인"> 
+            <form>
+                <!-- action="${zoody}/" method="POST" -->
+                <span>아이디 (사번)</span> <span id="span">아이디 인증 완료</span>
+                <input type="text" name="id" id="id" placeholder="사번">
+                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="submit" value="사번 확인" onclick="success();"> 
                 <br><br><br>
                 <span>초기 비밀번호</span>
                 <input type="text" name="" placeholder="초기 비밀번호" id="pwdSet1">
@@ -32,3 +33,36 @@
 		</div>
 </body>
 </html>
+
+<script>
+
+    //아이디 인증시 innerHTML 초록색 글씨로 '인증 완료' 라고 띄울 예정
+    let span = document.getElementById('span');
+    span.style.display = 'none';
+
+
+   function success() {
+
+    let id = document.getElementById('id');
+
+    $.ajax({
+        url : '${root}/pwd/setting',
+        method : 'POST',
+        data : {
+            'id' : id,
+        },
+        success : ()=>{
+            alert('통신 성공');
+           if(result == 1){
+            alert('아이디(사번) 인증 완료');
+           }else{
+            alert('아이디를(사번) 을 다시 확인해 주세요');
+           }
+        },
+        error: (e)=>{
+            alert(e);
+        }
+    });
+   }
+
+</script>

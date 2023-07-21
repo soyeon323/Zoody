@@ -28,7 +28,8 @@ public class LoginCotroller {
 	public String login(UserVo vo , HttpSession session) {
 		
 		UserVo loginMember = ls.login(vo);
-		if(loginMember ==null) {
+		log.info("loginMember : {}" , loginMember);
+		if(loginMember == null) {
 			throw new RuntimeException();
 		}
 		log.info("loginMember : {}" , loginMember);
