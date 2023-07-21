@@ -19,4 +19,21 @@
 
   	</insert>
   	
+  	
+  	<select id="AnimalList" resultType="AnimalVo">
+  		SELECT 
+  		A.*
+		, C.*
+		FROM ANIMAL A
+		JOIN CATEGORY C ON A.CATEGORY_NO = C.CATEGORY_NO
+		WHERE A.STATUS = 'O'
+		
+  	</select>
+  	
+  	<select id="getAnimalListCnt">
+  		 SELECT COUNT(NO)
+		FROM "ANIMAL"
+		WHERE STATUS = 'O';
+  	</select>
+  	
   </mapper>

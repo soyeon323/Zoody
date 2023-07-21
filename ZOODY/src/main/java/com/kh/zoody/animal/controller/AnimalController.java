@@ -2,11 +2,14 @@ package com.kh.zoody.animal.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.animal.service.AnimalService;
 import com.kh.zoody.animal.vo.AnimalVo;
+import com.kh.zoody.constpool.ConstPool;
+import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +86,35 @@ public class AnimalController {
 		return "animal/list";
 	}
 	
+	//동물 리스트
+	@PostMapping("list")
+	public String animalList(int page, AnimalVo vo , Model model) {
+		
+		int listCount = as.getAnimalListCnt();
+		int currentPage = page;
+		int pageLimit = ConstPool.PAGE_LIMIT;
+		int boardLimit = ConstPool.BOARD_LIMIT;
+	
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		List<AnimalVo> animalList = as.AnimalList(pv);
+		int getAnimalListCnt = as.getAnimalListCnt();
+		
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("animalList", animalList);
+		map.put("getAnimalListCnt", getAnimalListCnt);
+		map.put("pv", pv);
+		
+		
+		if(animalList ==null) {
+			throw new RuntimeException();
+		}
+		model.addAttribute("map",map);
+		return "animal/list";
+	}
+
 	//동물 건강 상태 작성
 	@GetMapping("health/write")
 	public String animalHealthWrite() {

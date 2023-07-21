@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
@@ -34,6 +34,8 @@
                     <option value="">조류</option>
                     <option value="">포유류</option>
                     <option value="">양서류</option>
+                    <option value="">파충류</option>
+                    <option value="">어류</option>
                 </select>
                 <input type="text" name="searchValue" placeholder="이름 입력">
                 <input type="submit" value="검색">
@@ -47,7 +49,6 @@
                     <thead>
                         <tr>
                             <td>번호</td>
-                            <td>담당자</td>
                             <td>동물 번호</td>
                             <td>애칭</td>
                             <td>방사장</td>
@@ -59,32 +60,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>번호</td>
-                            <td>담당자</td>
-                            <td>동물 번호</td>
-                            <td>애칭</td>
-                            <td>방사장</td>
-                            <td>식성</td>
-                            <td>서식지</td>
-                            <td>등록 일시</td>
-                            <td><button   onclick="location.href='/zoody/animal/training'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
+                       <!-- <c:forEach items="${animalList}" var="animalList"> -->
+                       	<tr>
+                            <td>${animalList.no}</td>
+                            <td>${animalList.no}</td>
+                            <td>${animalList.nickName}</td>
+                            <td>${animalList.feild}</td>
+                            <td>${animalList.taste}</td>
+                            <td>${animalList.habitat}</td>
+                            <td>${animalList.date}</td>
+                            <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
                         </tr>
+                       <!-- </c:forEach> -->
                     </tbody>
                 </table>
             </div>
             
         </div>
         
-        <div id="page">
-            <a href=""><img src="${root}/resources/img/left.png" alt="왼쪽화살표"></a>
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href=""><img src="${root}/resources/img/right.png" alt="오른쪽화살표"></a>
-        </div>
+            <div id="page">
+                <c:if test="${map.pv.currentPage > 1}">
+                    <a href="${root}/animal/list?page=${map.pv.currentPage - 1}">
+                        <img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표">
+                    </a>
+                </c:if>
+            
+                <c:forEach begin="${pv.startPage}" end="${map.pv.endPage}" step="1" var="i">
+                    <a href="${root}/animal/list?page=${i}">${i}</a>
+                </c:forEach>
+            
+                <c:if test="${map.pv.currentPage < map.pv.maxPage}">
+                    <a href="${root}/animal/list?page=${map.pv.currentPage + 1}">
+                        <img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표">
+                    </a>
+                </c:if>
+            </div>
     </div>
 
 </body>
