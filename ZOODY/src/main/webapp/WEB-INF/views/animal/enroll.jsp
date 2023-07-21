@@ -34,11 +34,11 @@
                         <td>계 통</td>
                         <td colspan="3">
                             <select name="animalClassificationNo" id="position">
-                                <option value="">양서류</option>
-                                <option value="">포유류</option>
-                                <option value="">조류</option>
-                                <option value="">파충류</option>
-                                <option value="">어류</option>
+                                <option value="1">양서류</option>
+                                <option value="2">포유류</option>
+                                <option value="3">조류</option>
+                                <option value="4">파충류</option>
+                                <option value="5">어류</option>
                             </select>
                         </td>
                     </tr>
@@ -47,25 +47,25 @@
                         <td>담당 부서</td>
                         <td>
                              <select name="departmentNo" id="position">
-                            <option value="">자연학습</option>
-                            <option value="">조류팀</option>
-                            <option value="">남미팀</option>
-                            <option value="">맹수팀</option>
-                            <option value="">동양팀</option>
-                            <option value="">대동물</option>
-                            <option value="">어린이동물</option>
-                            <option value="">아프리카</option>
-                            <option value="">유인원</option>
-                            <option value="">생태연구</option>
-                            <option value="">분석연구</option>
+                            <option value="1">자연학습</option>
+                            <option value="2">조류팀</option>
+                            <option value="3">남미팀</option>
+                            <option value="4">맹수팀</option>
+                            <option value="5">동양팀</option>
+                            <option value="6">대동물</option>
+                            <option value="7">어린이동물</option>
+                            <option value="8">아프리카</option>
+                            <option value="9">유인원</option>
+                            <option value="10">생태연구</option>
+                            <option value="11">분석연구</option>
                             </select>
                         </td>
                         <td>식 성</td>
                         <td>
                             <select name="tasteNo" id="position">
-                                <option value="">초식</option>
-                                <option value="">육식</option>
-                                <option value="">잡식</option>
+                                <option value="1">초식</option>
+                                <option value="2">육식</option>
+                                <option value="3">잡식</option>
                             </select>
                         </td>
 
@@ -79,13 +79,13 @@
                         <td>서식지 </td>
                         <td>
                             <select name="habitatNo" id="position">
-                                <option value="">아프리카</option>
-                                <option value="">유럽</option>
-                                <option value="">중동</option>
-                                <option value="">아시아</option>
-                                <option value="">북아메리카</option>
-                                <option value="">북아메리카</option>
-                                <option value="">북아메리카</option>
+                                <option value="1">아프리카</option>
+                                <option value="2">유럽</option>
+                                <option value="3">중동</option>
+                                <option value="4">아시아</option>
+                                <option value="5">북아메리카</option>
+                                <option value="6">북아메리카</option>
+                                <option value="7">북아메리카</option>
                                 
                             </select>
                         </td>
@@ -102,15 +102,15 @@
                         <td>멸종 위기</td>
                         <td>
                             <select name="endangeredRatingNo" id="position">
-                                <option value="">절멸(EX)</option>
-                                <option value="">야생절멸(EW)</option>
-                                <option value="">위급(CR)</option>
-                                <option value="">위기(EN)</option>
-                                <option value="">취약(VU)</option>
-                                <option value="">준위협(NT)</option>
-                                <option value="">최소관심(LC)</option>
-                                <option value="">정보부족(DD)</option>
-                                <option value="">미평가(NE)</option>
+                                <option value="1">절멸(EX)</option>
+                                <option value="2">야생절멸(EW)</option>
+                                <option value="3">위급(CR)</option>
+                                <option value="4">위기(EN)</option>
+                                <option value="5">취약(VU)</option>
+                                <option value="6">준위협(NT)</option>
+                                <option value="7">최소관심(LC)</option>
+                                <option value="8">정보부족(DD)</option>
+                                <option value="9">미평가(NE)</option>
                             </select>
                         </td>
 

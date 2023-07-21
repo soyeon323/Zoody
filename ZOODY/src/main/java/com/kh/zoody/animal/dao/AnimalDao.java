@@ -1,5 +1,7 @@
 package com.kh.zoody.animal.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
