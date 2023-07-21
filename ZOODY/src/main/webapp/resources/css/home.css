@@ -49,6 +49,7 @@
     box-shadow: none;
     display: flex;
     position: relative;
+    
 }
 
 .calender {
@@ -56,6 +57,10 @@
     grid-column: 2 / span 1;
     grid-row: 1 / span 2;
     height: calc(100% - 30px);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .news {
