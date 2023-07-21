@@ -28,8 +28,10 @@ public class LoginService {
 		
 		String userPwd = vo.getPwd();
 		String dbPwd = loginMember.getPwd();
+		
 		log.info("dbPwd : {}",dbPwd);
 		log.info("userPWd : {}",userPwd);
+		
 		boolean isMatch = encoder.matches(userPwd, dbPwd);
 		if(!isMatch) {
 			throw new RuntimeException();
