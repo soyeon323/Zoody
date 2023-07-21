@@ -1,5 +1,7 @@
 package com.kh.zoody.community.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.zoody.community.vo.BoardVo;
@@ -7,10 +9,12 @@ import com.kh.zoody.community.vo.BoardVo;
 public interface CommunityDao {
 	
 	// 게시판 목록
-	BoardVo Commuitylist();
+	List<BoardVo> getBoardList(SqlSessionTemplate sst , int catNo);
 	
 	// 게시판 글쓰기
 	int write(SqlSessionTemplate sst , BoardVo vo);
+
+	
 	
 	// 게시글 상세
 	
