@@ -35,4 +35,15 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return sst.selectOne("attendance.getLeaveCnt");
 	}
 
+	@Override
+	public int getAllAttendanceCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getAllAttendanceCnt");
+	}
+
+	@Override
+	public List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv) {
+		RowBounds rb = new RowBounds(allPv.getOffset(), allPv.getBoardLimit());
+		return sst.selectList("attendance.selectAllList", null, rb);
+	}
+
 }

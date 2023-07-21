@@ -53,9 +53,18 @@ public class AttendanceController {
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회
-	@GetMapping("admin")
-	public String objection() {
-		return "attendance/objection";
+	@GetMapping("allList")
+	public String objection(Integer page, Model model) {
+		
+		int listCount = attService.getAllAttendanceCnt();
+		int currentPage = (page != null) ? page: 1;
+		
+		PageVo allPv = new PageVo(listCount, currentPage, 5, 10);
+		List<AttendanceVo> attAllVoList = attService.allList(allPv);
+		
+		model.addAttribute("attAllVoList", attAllVoList);
+		
+		return "attendance/allList";
 	}
 	
 	@GetMapping("admin/objection")

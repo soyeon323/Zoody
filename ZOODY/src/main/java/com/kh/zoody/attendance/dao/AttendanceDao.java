@@ -18,5 +18,9 @@ public interface AttendanceDao {
 
 	int getLeaveCnt(SqlSessionTemplate sst);
 
+	int getAllAttendanceCnt(SqlSessionTemplate sst);
+
+	List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv);
+
 
 }
