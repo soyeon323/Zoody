@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/employee/list.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -60,9 +61,9 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${map.voList}" var="vo">
-                        	<tr>
+                        	<tr onclick="sendEmployeeId(event);">
 	                            <td>${vo.departmentName}</td>
-	                            <td>${vo.id}</td>
+	                            <td class="employeeId">${vo.id}</td>
 	                            <td>${vo.name}</td>
 	                            <td>${vo.rankName}</td>
 	                            <td>${vo.mail}</td>
@@ -77,15 +78,48 @@
         </div>
         
         <div id="page">
-            <a href=""><img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표"></a>
-            <a href="${root}/employee/list?page=1">1</a>
-            <a href="${root}/employee/list?page=2">2</a>
-            <a href="${root}/employee/list?page=3">3</a>
-            <a href="${root}/employee/list?page=4">4</a>
-            <a href="${root}/employee/list?page=5">5</a>
-            <a href=""><img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표"></a>
+            <c:if test="${map.pv.currentPage > 1}">
+                <a href="${root}/employee/list?page=${map.pv.currentPage - 1}">
+                    <img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표">
+                </a>
+            </c:if>
+        
+            <c:forEach begin="${pv.startPage}" end="${map.pv.endPage}" step="1" var="i">
+                <a href="${root}/employee/list?page=${i}">${i}</a>
+            </c:forEach>
+        
+            <c:if test="${map.pv.currentPage < map.pv.maxPage}">
+                <a href="${root}/employee/list?page=${map.pv.currentPage + 1}">
+                    <img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표">
+                </a>
+            </c:if>
         </div>
     </div>
 
 </body>
 </html>
+<script>
+
+    function sendEmployeeId(event){
+        const clickedTd = event.target;
+        const tr = clickedTd.parentElement;
+
+        const employeeIdValue = tr.querySelector(".employeeId");
+
+        // 해당 데이터를 가져와서 처리합니다.
+        const id = employeeIdValue.innerHTML;
+        $.ajax({
+            url : "${root}/employee/detail",
+            type : "GET",
+            data : {
+                id : id
+            },
+            success : function(data){
+                location.href = "${root}/employee/detail?id=" + id;
+            },
+            eroor : function(err){
+                console.log(err);
+            }
+        })
+    }
+</script>

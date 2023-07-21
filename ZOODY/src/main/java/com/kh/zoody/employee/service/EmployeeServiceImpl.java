@@ -25,10 +25,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return dao.enroll(sst, vo);
 	}
 
+	//직원 상세조회
 	@Override
-	public int edit(UserVo vo) {
-		return 0;
+	public UserVo detail(String id) {
+		return dao.detail(sst, id);
 	}
+
 
 	//직원목록조회
 	@Override
@@ -42,4 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return dao.getEmployeeListCnt(sst);
 	}
 
+	@Override
+	public int edit(UserVo vo) {
+		return dao.edit(sst, vo);
+	}
+
+	
 }

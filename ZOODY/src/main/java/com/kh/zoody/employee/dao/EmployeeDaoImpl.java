@@ -18,9 +18,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return sst.insert("user.enroll", vo);
 	}
 
+	//직원상세조회
 	@Override
-	public int edit(SqlSessionTemplate sst, UserVo vo) {
-		return 0;
+	public UserVo detail(SqlSessionTemplate sst, String id) {
+		return sst.selectOne("user.detail", id);
 	}
 
 	//직원목록
@@ -35,5 +36,12 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public int getEmployeeListCnt(SqlSessionTemplate sst) {
 		return sst.selectOne("user.getEmployeeListCnt");
 	}
+
+	//직원정보수정
+	@Override
+	public int edit(SqlSessionTemplate sst, UserVo vo) {
+		return sst.update("user.edit", vo);
+	}
+
 
 }

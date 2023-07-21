@@ -22,7 +22,7 @@
 
     <div id="wrap">
 
-        <div id="suggestion">
+        <div id="notice">
             <a>공지사항</a>
         </div>
 
@@ -41,19 +41,19 @@
 
         <div id="iconArea">
             <div>
-                <img src="${root}/resources/img/newPencil.png" alt="글쓰기아이콘">
+                <img src="${root}/resources/img/icon/png/newPencil.png" alt="글쓰기아이콘">
                 <a href="">새글쓰기</a>
             </div>
             <div>
-                <img src="${root}/resources/img/copy.png" alt="복사아이콘">
+                <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
                 <a href="">복사</a>
             </div>
             <div>
-                <img src="${root}/resources/img/delete.png" alt="삭제아이콘">
+                <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
                 <a href="">삭제</a>
             </div>
             <div>
-                <img src="${root}/resources/img/edit.png" alt="수정아이콘">
+                <img src="${root}/resources/img/icon/png/edit.png" alt="수정아이콘">
                 <a href="">수정</a>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <div><a>공지사항 알려드립니다.</a></div>
                 <div id="contentDetail">
                     <div>
-                        <img src="${root}/resources/img/comment.png" alt="댓글아이콘">
+                        <img src="${root}/resources/img/icon/png/comment.png" alt="댓글아이콘">
                         <a>댓글 1개</a>
                     </div>
                     <div>|</div>
@@ -79,9 +79,9 @@
             </div>
             <div id="comment">
                 <div id="commentArea">
-                    <img src="${root}/resources/img/profileImg.png" alt="프로필사진">
+                    <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
                    
-                    <form action="${root}/notice/detail" method="post">
+                    <form action="${root}/admin/notice/detail" method="post">
                         <div id="commentZone">
                             <div><input type="text" placeholder="댓글을 남겨보세요."></div>
                             <div><input type="submit" value="등록"></div>
@@ -89,7 +89,7 @@
                     </form>
                 </div>
                 <div id="commentOk">
-                    <div><img src="${root}/resources/img/profileImg.png" alt="프로필사진"></div>
+                    <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진"></div>
                     <div><a>@김영희 대리</a></div>
                     <div><a>확인해주세요</a></div>
                     <div><a>23-07-01</a></div>

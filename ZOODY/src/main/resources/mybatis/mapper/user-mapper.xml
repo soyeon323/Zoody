@@ -61,8 +61,7 @@
 		WHERE NOT STATE_NO = 3
 	
 	</select>
-	
-	
+
 	<select id="getUserDetailInfoByNo" resultType="UserVo">
 	
 		SELECT 
@@ -187,6 +186,66 @@
 		FROM "USER" U JOIN DEPARTMENT D ON U.DEPARTMENT_NO = D.NO
         JOIN RANK R ON U.RANK_NO = R.NO
 		WHERE STATE_NO = '1'
+		ORDER BY U.NO DESC
 	</select>
   
+  	<select id="detail" resultType="UserVo">
+  		SELECT
+			U.NO
+			, U.DEPARTMENT_NO
+            , D.NAME AS DEPARTMENT_NAME
+            , R.NAME AS RANK_NAME
+			, U.POSITION_NO
+			, U.STATE_NO
+			, U.AGENT
+			, U.DIVISION_NO
+			, U.ID
+			, U.PWD
+			, U.NAME
+			, U.GENDER
+			, U.BIRTH_DATE
+			, U.PROFILE
+			, U.LINE_INTRO
+			, U.ADDRESS
+			, U.PHONE
+			, U.MAIL
+			, U.REGISTRATION_DATE
+			, U.LEAVE_REASON
+			, U.LEAVE_DATE
+			, U.OFFICE_NUMBER
+			, U.LEAVE_COUNT
+			, U.CAPACITY
+		FROM "USER" U JOIN DEPARTMENT D ON U.DEPARTMENT_NO = D.NO
+        JOIN RANK R ON U.RANK_NO = R.NO
+		WHERE ID = #{id}
+  	</select>
+  	
+  	<update id="edit">
+		UPDATE "USER"
+		<set>
+	        <if test="departmentNo != null">DEPARTMENT_NO=#{departmentNo},</if>
+	        <if test="rankNo != null">RANK_NO=#{rankNo},</if>
+	        <if test="positionNo != null">POSITION_NO=#{positionNo},</if>
+	        <if test="stateNo != null">STATE_NO=#{stateNo},</if>
+	        <if test="agent != null">AGENT=#{agent},</if>
+	        <if test="divisionNo != null">DIVISION_NO=#{divisionNo},</if>
+	        <if test="id != null">ID=#{id},</if>
+	        <if test="pwd != null">PWD=#{pwd},</if>
+	        <if test="name != null">NAME=#{name},</if>
+	        <if test="gender != null">GENDER=#{gender},</if>
+	        <if test="birthDate != null">BIRTH_DATE=#{birthDate},</if>
+	        <if test="profile != null">PROFILE=#{profile},</if>
+	        <if test="lineIntro != null">LINE_INTRO=#{lineIntro},</if>
+	        <if test="address != null">ADDRESS=#{address},</if>
+	        <if test="phone != null">PHONE=#{phone},</if>
+	        <if test="mail != null">MAIL=#{mail},</if>
+	        <if test="registrationDate != null">REGISTRATION_DATE=#{registrationDate},</if>
+	        <if test="officeNumber != null">OFFICE_NUMBER=#{officeNumber},</if>
+	        <if test="leaveCount != null">LEAVE_COUNT=#{leaveCount},</if>
+	        <if test="leaveDate != null">LEAVE_DATE=#{leaveDate},</if>
+	        <if test="leaveReason != null">LEAVE_REASON=#{leaveReason},</if>
+   		</set>
+		WHERE NO = #{no}
+  	</update>
+
 </mapper>

@@ -152,3 +152,12 @@ select{
 #chart-3 input[type="email"]{
     width: 270px;
 }
+
+table img{
+    width: 200px;
+    height: 200px;
+}
+
+#addressInput{
+    width: 350px;
+}

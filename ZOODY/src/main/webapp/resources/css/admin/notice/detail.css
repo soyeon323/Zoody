@@ -9,13 +9,13 @@
     grid-template-rows: 80px 150px 50px 836px 80px;
 }
 
-/* 건의사항 */
-#suggestion{
+/* 공지사항 */
+#notice{
     margin-top: 40px;
     margin-left: 320px;
 }
 
-#suggestion>a:first-child{
+#notice>a:first-child{
     font-size: 20px;
     font-weight: 600;
 }

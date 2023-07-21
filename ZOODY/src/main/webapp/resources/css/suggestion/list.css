@@ -1,3 +1,4 @@
+/* 전체영역 */
 #wrap{
     width: 1663px;
     height: 93vh;
@@ -6,16 +7,17 @@
     left: 255px;
 }
 
-#enroll{
+#suggestion{
     margin-top: 40px;
     margin-left: 80px;
 }
 
-#enroll>a:first-child{
+#suggestion>a:first-child{
     font-size: 20px;
     font-weight: 600;
 }
 
+/* 뒷배경 */
 #back{
     width: 1500px;
     height: 700px;
@@ -50,7 +52,7 @@
 }
 
 #back div:first-child input[type="submit"]{
-    background-image: url("/zoody/resources/img/search.png");
+    background-image: url("/zoody/resources/img/icon/png/search.png");
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0);
     color: rgba(255, 255, 255, 0);
@@ -59,7 +61,7 @@
     cursor:pointer;
     outline: 0;
     right: 100px;
-    top: 143px;
+    top: 128px;
 }
 
 #back div:first-child input[type="text"]::placeholder{
@@ -68,6 +70,7 @@
     font-weight: 300;
 }
 
+/* 내용영역 */
 #content{
     width: 1500px;
     margin-top: 20px;
@@ -96,10 +99,11 @@
 }
 
 #content>tbody tr{
-    height: 48px;
-    margin-top: 20px;
+    height: 65px;
+    margin-top: 5px;
 }
 
+/* 페이징 */
 #page{
     width: 1500px;
     display: flex;
