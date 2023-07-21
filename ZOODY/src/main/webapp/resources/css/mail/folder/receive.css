@@ -330,14 +330,14 @@
     justify-content: center;
 }
 .mail-sender {
-    width: 100px;
+    width: 250px;
 
     color: rgb(53, 54, 54);
     font-size: 14px;
     font-weight: 400;
 }
 .mail-title {
-    width: 750px;
+    width: 600px;
     height: 25px;
 
     color: rgb(53, 54, 54);

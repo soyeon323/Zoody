@@ -6,9 +6,8 @@ import lombok.Data;
 public class MailRecipient {
 	
 	private String mailNo;
-	private String receiverNo;
+	private String receiverEmail;
 	private String readCheck;
 	private String bookmarkCheck;
 	private String deleteCheck;
-
 }
