@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.mail.service.MailService;
 import com.kh.zoody.mail.vo.MailVo;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class MailController {
+	
+	private final MailService mailService;
 
 	@GetMapping("folder/receive")
 	public String mailList() {
