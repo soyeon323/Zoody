@@ -15,4 +15,7 @@ public interface AdminDao {
 	//공지사항 게시글 갯수 조회
 	int getNoticeListCnt(SqlSessionTemplate sst);
 
+	//복사할 게시글 insert
+	int copy(SqlSessionTemplate sst, List<String> noList);
+
 }

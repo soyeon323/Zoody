@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.zoody.admin.service.AdminService;
 import com.kh.zoody.constpool.ConstPool;
@@ -41,14 +42,13 @@ public class AdminController {
 	public void noticeDetail() {}
 	
 	//공지사항 목록
-	@RequestMapping("notice/list")
+	@GetMapping("notice/list")
 	public String noticeList(Model model, Integer page) {
+	
 		int listCount = as.getNoticeListCnt();
 		int currentPage = (page != null) ? page : 1;
 		int pageLimit = ConstPool.PAGE_LIMIT;
 		int boardLimit = ConstPool.BOARD_LIMIT;
-		
-		log.info("listcount:{}", listCount);
 	
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
@@ -71,10 +71,15 @@ public class AdminController {
 		return "admin/notice/list";
 	}
 	
-	//공지사항 복사
-	@PostMapping("notice/copy")
-	public void copy(String no) {
-		log.info("전달된번호 : {}", no);
+	@PostMapping("notice/list")
+	public String noticeList(@RequestParam("no") List<String> noList) {
+		int result = as.copy(noList);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "admin/notice/list";
 	}
 	
 	//건의사항 목록
