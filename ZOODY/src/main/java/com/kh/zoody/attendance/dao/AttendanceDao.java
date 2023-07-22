@@ -33,10 +33,16 @@ public interface AttendanceDao {
 
 	List<LeaveVo> mainLeList(SqlSessionTemplate sst, PageVo mPv);
 
+	List<AttendanceVo> mainDeList(SqlSessionTemplate sst);
+	
 	//이의신청 조회 영역
 	int getObjCnt(SqlSessionTemplate sst);
 
 	List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv);
+
+	//출퇴근 영
+	int checkInWork(SqlSessionTemplate sst, AttendanceVo vo);
+
 
 
 

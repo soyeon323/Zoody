@@ -31,10 +31,16 @@ public interface AttendanceService {
 
 	List<LeaveVo> mainLeList(PageVo mPv);
 
+	List<AttendanceVo> mainDeList();
+	
 	//이의신청 조회 영역
 	int getObjCnt();
 
 	List<AttendanceVo> objList(PageVo objPv);
+
+	//출근퇴근 영
+	int checkInWork(AttendanceVo vo);
+
 
 
 

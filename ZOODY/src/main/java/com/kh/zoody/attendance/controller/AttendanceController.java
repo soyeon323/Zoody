@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.zoody.attendance.service.AttendanceService;
@@ -23,7 +24,7 @@ public class AttendanceController {
 	
 	private final AttendanceService attService;
 	
-	//(서브메뉴) 근무현황 화면
+	//(서브메뉴) 근무현황 메인 화면
 	@GetMapping("main")
 	public String workStatus(Integer page, Model model) {
 		
@@ -37,10 +38,21 @@ public class AttendanceController {
 		List<AttendanceVo> mainAttList = attService.mainAttlist(mPv);
 		List<LeaveVo> mainLeList = attService.mainLeList(mPv);
 		
+		//부서별 목록 조회
+		List<AttendanceVo> deList = attService.mainDeList();
+		
 		model.addAttribute("mainAttList", mainAttList);
 		model.addAttribute("mainLeList", mainLeList);
 		
-		//부서별 목록 조회
+		model.addAttribute("deList", deList);
+		
+		return "attendance/workStatus";
+	}
+	
+	@PostMapping("main")
+	public String workStatus(AttendanceVo vo) {
+		
+		int result = attService.checkInWork(vo);
 		
 		return "attendance/workStatus";
 	}

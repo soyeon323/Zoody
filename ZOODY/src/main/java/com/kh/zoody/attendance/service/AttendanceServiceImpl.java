@@ -95,6 +95,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 
+	@Override
+	public List<AttendanceVo> mainDeList() {
+		return dao.mainDeList(sst);
+	}
+
+
+	@Override
+	public int checkInWork(AttendanceVo vo) {
+		return dao.checkInWork(sst, vo);
+	}
+
+
 	
 	
 
