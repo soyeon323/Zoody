@@ -30,7 +30,7 @@
             <div class="att_check" >
                 <p>반갑습니다</p>
                 <p>이동욱님</p>
-                <button type="submit" name="check-first">
+                <button type="submit" name="check-first"  onclick="checkInWork();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <g clip-path="url(#clip0_325_6756)">
                           <path d="M15.8045 10.8827C15.6795 10.7577 15.5099 10.6875 15.3331 10.6875C15.1564 10.6875 14.9868 10.7577 14.8618 10.8827L11.1105 14.6347L9.31848 12.866C9.19471 12.7392 9.02561 12.6667 8.84839 12.6645C8.67117 12.6623 8.50034 12.7306 8.37348 12.8544C8.24661 12.9781 8.17411 13.1472 8.17193 13.3244C8.16974 13.5017 8.23804 13.6725 8.36181 13.7994L10.1911 15.5994C10.3059 15.7231 10.4445 15.8223 10.5986 15.891C10.7527 15.9598 10.9191 15.9966 11.0878 15.9994H11.1098C11.2752 15.9999 11.439 15.9676 11.5918 15.9043C11.7446 15.841 11.8833 15.748 11.9998 15.6307L15.8045 11.8254C15.9295 11.7003 15.9997 11.5308 15.9997 11.354C15.9997 11.1772 15.9295 11.0077 15.8045 10.8827Z" fill="#4876EF"/>
@@ -273,96 +273,17 @@
                     </tr>
                   </thead>
                 <tbody>
+                <c:forEach items="${deList}" var="de">
                   <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
+                    <th scope="row">${de.no}</th>
+                    <td>${de.rankName}</td>
+                    <td>${de.name}</td>
+                    <td>${de.checkInTime}</td>
+                    <td>${de.checkOutTime}</td>
+                    <td>${de.plusWorkTime}</td>
+                    <td>${de.type}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>대리</td>
-                    <td>이동욱</td>
-                    <td>08 : 56 : 03</td>
-                    <td>18 : 03 : 56</td>
-                    <td>20 : 05 : 21 ( 2h 40m 3s)</td>
-                    <td>오후 반차</td>
-                  </tr>
+                </c:forEach>
                 </tbody>
               </table>
             </div>
@@ -389,6 +310,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+      function checkInWork(){
+
+        $.ajax({
+          url : "${root}/attendance/main",
+          type : "POST",
+          data : {
+          },
+          success : function (result) {
+            console.log(result);
+          },
+          error : function (error) {
+            
+          },
+        });
+      }
+
+    </script>
     
 </body>
 </html>

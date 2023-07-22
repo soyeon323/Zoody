@@ -24,7 +24,7 @@
 		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
 		    ,TRUNC(
 		    CASE 
-	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
 	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
 	                END
 	            ) ||
@@ -92,7 +92,7 @@
 			    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
 			    ,TRUNC(
 	                    CASE 
-	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
 	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
 	                END
 	            ) ||
@@ -150,7 +150,7 @@
 		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
 		    ,TRUNC(
 		    CASE 
-	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
 	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
 	                END
 	            ) ||
@@ -204,7 +204,7 @@
 		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
 		    ,TRUNC(
                     CASE 
-                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL -- Change '' to NULL
+                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
                     ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
                 END
             ) ||
@@ -250,6 +250,74 @@
         WHERE US.NAME = '정상'
         AND A.OBJECTION_REASON IS NOT NULL
 	</select>
+
+	<!-- 부서별 목록 조 -->	
+	<select id="selectMainDeList" resultType="AttendanceVo">
+		SELECT 
+		    A.NO
+		    ,A.USER_NO
+		    ,A.CURRENT_NO
+		    ,TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
+		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
+		    ,TRUNC(
+		            CASE 
+		            WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
+		            ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+		        END
+		    ) ||
+		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
+		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
+		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
+		    ,A.OBJECTION_REASON
+		    ,A.APPROVAL_STATUS
+		    ,AC.TYPE AS TYPE
+		    ,U.NAME AS NAME
+		    ,D.NAME AS DEPARTMENT_NAME
+		    ,P.NAME AS POSITION_NAME
+		    ,R.NAME AS RANK_NAME
+		    ,US.NAME AS USER_STATE_NAME
+		FROM ATTENDANCE A
+		JOIN "USER" U
+		ON A.USER_NO = U.NO
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		JOIN DEPARTMENT D 
+		ON U.DEPARTMENT_NO = D.NO
+		JOIN RANK R
+		ON R.NO = U.RANK_NO
+		JOIN USER_STATE US
+		ON US.NO = U.STATE_NO
+		JOIN POSITION P
+		ON P.NO = U.POSITION_NO
+		WHERE US.NAME = '정상'
+		AND U.DEPARTMENT_NO = 1
+		AND TRUNC(A.ENROLLDATE) = TRUNC(SYSDATE)
+		ORDER BY ENROLLDATE DESC
+	</select>
+	
+	<!-- 출근 기록 -->
+	<insert id="checkInWork">
+		INSERT INTO ATTENDANCE (
+		    NO, 
+		    USER_NO, 
+		    CURRENT_NO,
+		    CHECK_OUT_TIME, 
+		    OBJECTION_REASON
+		) 
+		VALUES (
+		    SEQ_ATTENDANCE_NO.NEXTVAL,
+		    1,
+		    CASE 
+		        WHEN TO_CHAR(TO_TIMESTAMP(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 'HH24:MI') &gt;= '09:01' 
+		             AND TO_CHAR(TO_TIMESTAMP(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 'HH24:MI') &lt;= '18:00' THEN 6
+		        ELSE 1
+		    END,
+		    null,
+		    null
+		)
+	</insert>
   
 </mapper>
 

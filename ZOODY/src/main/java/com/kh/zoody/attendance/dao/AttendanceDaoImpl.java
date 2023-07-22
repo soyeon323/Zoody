@@ -71,6 +71,11 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return sst.selectList("attendance.selectMainLeList", null, rb);
 	}
 
+	@Override
+	public List<AttendanceVo> mainDeList(SqlSessionTemplate sst) {
+		return sst.selectList("attendance.selectMainDeList");
+	}
+	
 	//이의신청 조회 영역
 	@Override
 	public int getObjCnt(SqlSessionTemplate sst) {
@@ -82,6 +87,13 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		RowBounds rb = new RowBounds(objPv.getOffset(), objPv.getBoardLimit());
 		return sst.selectList("attendance.selectObjList", null, rb);
 	}
+
+	//출퇴근 영역
+	@Override
+	public int checkInWork(SqlSessionTemplate sst, AttendanceVo vo) {
+		return sst.insert("attendance.checkInWork", vo);
+	}
+
 
 
 
