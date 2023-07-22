@@ -25,4 +25,12 @@ public class AdminDaoImpl implements AdminDao{
 		return sst.selectOne("notice.getNoticeListCnt");
 	}
 
+	//복사할 게시글 insert
+	@Override
+	public int copy(SqlSessionTemplate sst, List<String> noList) {
+		return sst.insert("notice.insertCopy", noList);
+	}
+
+
+
 }

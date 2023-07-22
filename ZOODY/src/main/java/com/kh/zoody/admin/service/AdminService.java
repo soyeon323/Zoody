@@ -13,4 +13,9 @@ public interface AdminService {
 	//공지사항 게시글 갯수 조회
 	int getNoticeListCnt();
 
+	//복사할 게시글
+	int copy(List<String> noList);
+
+
+
 }

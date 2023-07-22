@@ -119,6 +119,12 @@
     
     //게시글 복사
     function noticeCopy() {
+        const result = confirm("선택한 게시글을 복제하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
         // 체크된 체크박스들을 가져옵니다.
         var checkedBoxes = document.querySelectorAll('input[name="adminNotice"]:checked');
 
@@ -128,17 +134,29 @@
         }
 
         // 체크된 체크박스들의 '번호' 열 값을 저장할 배열을 생성합니다.
-        var employeeNumbers = [];
+        var no = [];
 
         // 체크된 체크박스들을 순회하며 '번호' 열 값을 배열에 추가합니다.
         for (var i = 0; i < checkedBoxes.length; i++) {
             var tr = checkedBoxes[i].closest('tr');
             var employeeNoCell = tr.querySelector('#employeeNo');
             var employeeNoValue = employeeNoCell.innerText;
-            employeeNumbers.push(employeeNoValue);
+            no.push(employeeNoValue);
         }
 
-        // 배열에 저장된 '번호' 값을 alert 창에 표시합니다.
-        alert("선택된 항목의 번호: " + employeeNumbers.join(', '));
+        $.ajax({
+            url : '${root}/admin/notice/list',
+            type : 'POST',
+            traditional: true,
+            data : {
+                no: no
+            },
+            success : function(){
+                location.reload();
+            },
+            error : function(err){
+                location.reload();
+            }
+        })
     }
 </script>

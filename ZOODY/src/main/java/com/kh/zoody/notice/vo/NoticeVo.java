@@ -1,5 +1,7 @@
 package com.kh.zoody.notice.vo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -15,7 +17,7 @@ public class NoticeVo {
 	private String originName;
 	private String changeName;
 	private String rightclickYn;
-	private String commnetYn;
+	private String commentYn;
 	private String boardLimit;
 	private String hit;
 }

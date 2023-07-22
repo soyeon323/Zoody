@@ -30,5 +30,12 @@ public class AdminServiceImpl implements AdminService{
 	public int getNoticeListCnt() {
 		return dao.getNoticeListCnt(sst);
 	}
+
+	//복사할 게시글 select
+	@Override
+	public int copy(List<String> noList) {
+		return dao.copy(sst, noList);
+	}
+
 	
 }
