@@ -25,12 +25,40 @@ public class AdminDaoImpl implements AdminDao{
 		return sst.selectOne("notice.getNoticeListCnt");
 	}
 
-	//복사할 게시글 insert
+	//게시글 복사
 	@Override
 	public int copy(SqlSessionTemplate sst, List<String> noList) {
 		return sst.insert("notice.insertCopy", noList);
 	}
 
+	//게시글 삭제
+	@Override
+	public int delete(SqlSessionTemplate sst, List<String> noList) {
+		return sst.delete("notice.delete", noList);
+	}
 
+	//게시글 수정
+	@Override
+	public int edit(SqlSessionTemplate sst, NoticeVo vo) {
+		return 0;
+	}
+
+	//공지사항 상세조회
+	@Override
+	public NoticeVo noticeDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("notice.detail", no);
+	}
+
+	//조회수 증가
+	@Override
+	public void increaseHit(SqlSessionTemplate sst, String no) {
+		sst.update("notice.increaseHit", no);
+	}
+
+	//게시글 수정 화면
+	@Override
+	public NoticeVo selectEdit(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("notice.selectEdit", no);
+	}
 
 }

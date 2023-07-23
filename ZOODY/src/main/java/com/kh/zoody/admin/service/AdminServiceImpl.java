@@ -31,11 +31,35 @@ public class AdminServiceImpl implements AdminService{
 		return dao.getNoticeListCnt(sst);
 	}
 
-	//복사할 게시글 select
+	//게시글 복사
 	@Override
 	public int copy(List<String> noList) {
 		return dao.copy(sst, noList);
 	}
 
+	//게시글 삭제
+	@Override
+	public int delete(List<String> noList) {
+		return dao.delete(sst, noList);
+	}
+
+	//게시글 수정
+	@Override
+	public int edit(NoticeVo vo) {
+		return dao.edit(sst, vo);
+	}
+
+	//게시글 상세조회
+	@Override
+	public NoticeVo noticeDetail(String no) {
+		dao.increaseHit(sst, no);
+		return dao.noticeDetail(sst, no);
+	}
+
+	//게시글 수정 화면
+	@Override
+	public NoticeVo selectEdit(String no) {
+		return dao.selectEdit(sst, no);
+	}
 	
 }

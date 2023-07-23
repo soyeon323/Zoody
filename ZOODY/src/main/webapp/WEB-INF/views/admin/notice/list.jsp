@@ -46,16 +46,16 @@
                     <a href="${root}/admin/notice/write">새글쓰기</a>
                 </div>
                 <div>
-                    <img src="${root}/resources/img/icon/png/copy.png" alt="복제">
-                    <button onclick="noticeCopy();">복제</button>
+                    <img src="${root}/resources/img/icon/png/copy.png" alt="복사">
+                    <button onclick="noticeCopy();">복사</button>
                 </div>
                 <div>
                     <img src="${root}/resources/img/icon/png/delete.png" alt="삭제">
-                    <a href="">삭제</a>
+                    <button onclick="noticeDelete();">삭제</button>
                 </div>
                 <div>
                     <img src="${root}/resources/img/icon/png/edit.png" alt="수정">
-                    <a href="">수정</a>
+                    <button onclick="noticeEdit();">수정</button>
                 </div>
             </div>
 
@@ -75,11 +75,11 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${map.voList}" var="voList">
-	                        <tr>
+	                        <tr onclick="detail(event);">
 	                            <td scope="col">
 	                                <input type="checkbox" name="adminNotice">
 	                            </td>
-	                            <td scope="col" id="employeeNo">${voList.no}</td>
+	                            <td scope="col" class="noticeNo">${voList.no}</td>
 	                            <td scope="col">${voList.title}</td>
 	                            <td scope="col">admin</td>
 	                            <td scope="col">${voList.enrollDate}</td>
@@ -119,33 +119,31 @@
     
     //게시글 복사
     function noticeCopy() {
-        const result = confirm("선택한 게시글을 복제하시겠습니까?");
+        var checkedBoxes = document.querySelectorAll('input[name="adminNotice"]:checked');
+
+        if (checkedBoxes.length === 0) {
+            alert("복사할 항목을 선택해주세요.");
+            return;
+        }
+
+        const result = confirm("선택한 게시글을 복사하시겠습니까?");
 
         if(!result){
             return;
         }
 
-        // 체크된 체크박스들을 가져옵니다.
-        var checkedBoxes = document.querySelectorAll('input[name="adminNotice"]:checked');
 
-        if (checkedBoxes.length === 0) {
-            alert("복제할 항목을 선택해주세요.");
-            return;
-        }
-
-        // 체크된 체크박스들의 '번호' 열 값을 저장할 배열을 생성합니다.
         var no = [];
 
-        // 체크된 체크박스들을 순회하며 '번호' 열 값을 배열에 추가합니다.
         for (var i = 0; i < checkedBoxes.length; i++) {
             var tr = checkedBoxes[i].closest('tr');
-            var employeeNoCell = tr.querySelector('#employeeNo');
-            var employeeNoValue = employeeNoCell.innerText;
-            no.push(employeeNoValue);
+            var noticeNo = tr.querySelector('.noticeNo');
+            var noticeNoValue = noticeNo.innerText;
+            no.push(noticeNoValue);
         }
 
         $.ajax({
-            url : '${root}/admin/notice/list',
+            url : '${root}/admin/notice/copy',
             type : 'POST',
             traditional: true,
             data : {
@@ -158,5 +156,88 @@
                 location.reload();
             }
         })
+    };
+
+    //게시글 삭제
+    function noticeDelete() {
+        var checkedBoxes = document.querySelectorAll('input[name="adminNotice"]:checked');
+
+        if (checkedBoxes.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        const result = confirm("선택한 게시글을 삭제하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
+        var no = [];
+
+        for (var i = 0; i < checkedBoxes.length; i++) {
+            var tr = checkedBoxes[i].closest('tr');
+            var noticeNo = tr.querySelector('.noticeNo');
+            var noticeNoValue = noticeNo.innerText;
+            no.push(noticeNoValue);
+        }
+
+        $.ajax({
+            url : '${root}/admin/notice/delete',
+            type : 'POST',
+            traditional: true,
+            data : {
+              no : no  
+            },
+            success : function(){
+                location.reload();
+            },
+            error : function(err){
+                location.reload();
+            }
+        })
+    };
+
+    //게시글 수정
+    function noticeEdit(){
+        var checkedBox = document.querySelectorAll('input[name="adminNotice"]:checked');
+        
+        if (checkedBox.length > 1) {
+            alert("수정할 게시글을 하나만 선택해주세요.");
+            return;
+        }
+        if (checkedBox.length === 0) {
+            alert("수정할 게시글을 선택해주세요.");
+            return;
+        }
+        var tr = checkedBox[0].closest('tr');
+        var noticeNo = tr.querySelector('.noticeNo');
+        var no = noticeNo.innerText;
+
+        $.ajax({
+            url : '${root}/admin/notice/edit',
+            type : 'GET',
+            data : {
+              no : no  
+            },
+            success : function(){
+                location.href = '${root}/admin/notice/edit?no=' + no;
+            },
+            error : function(err){
+                location.href = '${root}/admin/notice/edit?no=' + no;
+            }
+        })
+    };
+
+    //게시글 상세조회
+    function detail(event){
+        const clickedTd = event.target;
+        const tr = clickedTd.parentElement;
+
+        const noticeNo = tr.querySelector(".noticeNo");
+
+        const no = noticeNo.innerHTML;
+
+        location.href = "${root}/admin/notice/detail?no=" + no;
     }
 </script>
