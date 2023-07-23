@@ -49,4 +49,9 @@ public class AnimalService {
 	public int healthWrite(HealthVo vo) {
 		return dao.healthWrite(sst, vo);
 	}
+
+	//동물 상세 조회
+	public AnimalVo animalDetail(AnimalVo vo) {
+		return dao.animalDetail(sst,vo);
+	}
 }

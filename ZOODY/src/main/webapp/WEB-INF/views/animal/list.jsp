@@ -60,9 +60,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                       <!-- <c:forEach items="${animalList}" var="animalList"> -->
+                       <!-- <c:forEach items="${map.animalList}" var="animalList">
                        	<tr>
-                            <td>${animalList.no}</td>
+                            <td>${animal.no}</td>
                             <td>${animalList.no}</td>
                             <td>${animalList.nickName}</td>
                             <td>${animalList.feild}</td>
@@ -71,7 +71,28 @@
                             <td>${animalList.date}</td>
                             <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
                         </tr>
-                       <!-- </c:forEach> -->
+                       </c:forEach> -->
+
+                       <tr>
+                        <td id="td1">1</td>
+                        <td>${animalList.no}</td>
+                        <td>${animalList.nickName}</td>
+                        <td>${animalList.feild}</td>
+                        <td>${animalList.taste}</td>
+                        <td>${animalList.habitat}</td>
+                        <td>${animalList.date}</td>
+                        <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
+                    </tr>
+                    <tr>
+                        <td id="td2">2</td>
+                        <td>${animalList.no}</td>
+                        <td>${animalList.nickName}</td>
+                        <td>${animalList.feild}</td>
+                        <td>${animalList.taste}</td>
+                        <td>${animalList.habitat}</td>
+                        <td>${animalList.date}</td>
+                        <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -99,3 +120,19 @@
 
 </body>
 </html>
+
+<script>
+    
+    //동물 상세조회시 테이블 태그 행의 번호 가져오는 코드
+    const tbody = document.querySelector("tbody");
+
+    tbody.addEventListener("click", function (e) {
+    const noElement = e.target.closest("tr").querySelector("td[id^='td']");
+    if (noElement) {
+    const no = noElement.innerText;
+    console.log(no);
+
+     location.href = "${root}/animal/detail?${animalNo}=" + no;
+    }
+    });
+</script>
