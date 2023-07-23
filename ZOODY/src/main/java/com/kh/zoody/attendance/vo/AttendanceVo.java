@@ -1,11 +1,13 @@
 package com.kh.zoody.attendance.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
 public class AttendanceVo {
 	
-	private String no;
+	private int no;
 	private String userNo;
 	private String currentNo;
 	private String enrolldate;

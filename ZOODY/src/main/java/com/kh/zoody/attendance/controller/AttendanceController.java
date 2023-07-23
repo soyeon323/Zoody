@@ -1,12 +1,20 @@
 package com.kh.zoody.attendance.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.zoody.attendance.service.AttendanceService;
 import com.kh.zoody.attendance.vo.AttendanceVo;
@@ -49,14 +57,51 @@ public class AttendanceController {
 		return "attendance/workStatus";
 	}
 	
-	@PostMapping("main")
-	public String workStatus(AttendanceVo vo) {
-		
-		int result = attService.checkInWork(vo);
-		
-		return "attendance/workStatus";
-	}
+//	@PostMapping("main")
+//	public String workStatus(@RequestParam String loginMemberNo) throws Exception {
+//
+//	    AttendanceVo attendanceVo = new AttendanceVo();
+//	    attendanceVo.setUserNo(loginMemberNo);
+//
+//	    int checkInresult = attService.checkInWork(attendanceVo);
+//	    
+//	    int checkOutresult = attService.checkOutWork(attendanceVo);
+//
+//	    return "attendance/workStatus";
+//	}
 	
+	@PostMapping("checkIn")
+	@ResponseBody
+	public ResponseEntity<String> checkInWork(@RequestParam String loginMemberNo) throws Exception {
+
+	    AttendanceVo attendanceVo = new AttendanceVo();
+	    attendanceVo.setUserNo(loginMemberNo);
+
+	    int checkInResult = attService.checkInWork(attendanceVo);
+
+	    if (checkInResult > 0) {
+	        return ResponseEntity.ok("출근 완료");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("출근 실패");
+	    }
+	}
+
+	@PostMapping("checkOut")
+	@ResponseBody
+	public ResponseEntity<String> checkOutWork(@RequestParam String loginMemberNo) throws Exception {
+
+	    AttendanceVo attendanceVo = new AttendanceVo();
+	    attendanceVo.setUserNo(loginMemberNo);
+
+	    int checkOutResult = attService.checkOutWork(attendanceVo);
+
+	    if (checkOutResult > 0) {
+	        return ResponseEntity.ok("퇴근 완료");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("퇴근 실패");
+	    }
+	}
+
 	//(서브메뉴) 근무현황 목록 조회
 	@GetMapping("list")
 	public String list(Integer page, Model model) {

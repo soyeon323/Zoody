@@ -45,7 +45,7 @@
                     </svg>
                     출근 등록
                 </button>
-                <button type="submit" name="check-second">
+                <button type="submit" name="check-second" onclick="checkOutWork();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <g clip-path="url(#clip0_325_6805)">
                           <path d="M15.805 10.1957C15.68 10.0707 15.5105 10.0005 15.3337 10.0005C15.1569 10.0005 14.9874 10.0707 14.8624 10.1957L13.0004 12.0577L11.1384 10.1957C11.0126 10.0742 10.8442 10.007 10.6694 10.0086C10.4946 10.0101 10.3274 10.0802 10.2038 10.2038C10.0802 10.3274 10.0101 10.4946 10.0086 10.6694C10.0071 10.8442 10.0743 11.0126 10.1957 11.1383L12.0577 13.0003L10.1957 14.8623C10.132 14.9238 10.0813 14.9974 10.0463 15.0787C10.0114 15.1601 9.99298 15.2476 9.99221 15.3361C9.99144 15.4246 10.0083 15.5124 10.0418 15.5943C10.0754 15.6762 10.1249 15.7507 10.1874 15.8133C10.25 15.8759 10.3245 15.9254 10.4064 15.9589C10.4883 15.9924 10.5761 16.0093 10.6646 16.0085C10.7532 16.0077 10.8406 15.9893 10.922 15.9544C11.0033 15.9195 11.0769 15.8687 11.1384 15.805L13.0004 13.943L14.8624 15.805C14.9881 15.9264 15.1565 15.9936 15.3313 15.9921C15.5061 15.9906 15.6733 15.9205 15.7969 15.7969C15.9205 15.6733 15.9906 15.5061 15.9922 15.3313C15.9937 15.1565 15.9265 14.9881 15.805 14.8623L13.943 13.0003L15.805 11.1383C15.93 11.0133 16.0002 10.8438 16.0002 10.667C16.0002 10.4902 15.93 10.3207 15.805 10.1957Z" fill="#00CBA4"/>
@@ -313,21 +313,44 @@
 
     <script>
 
-      function checkInWork(){
-
-        $.ajax({
-          url : "${root}/attendance/main",
-          type : "POST",
-          data : {
-          },
-          success : function (result) {
-            console.log(result);
-          },
-          error : function (error) {
-            
-          },
-        });
+      function checkInWork() {
+          var loginMemberNo = 1; // 클라이언트에서 적절한 회원 번호를 가져와 설정
+          $.ajax({
+              url : "${root}/attendance/checkIn",
+              type : "POST",
+              data : {
+                  loginMemberNo : loginMemberNo,
+                  // currentTime : currentTime.toISOString() // 현재 시간을 ISO 8601 형식으로 변환하여 전달
+              },
+              success : function (result) {
+                  console.log(result);
+                  location.reload();
+                  alert("출근 완료");
+              },
+              error : function (error) {
+                  console.error(error);
+              },
+          });
       }
+
+      function checkOutWork() {
+        var loginMemberNo = 1;
+        $.ajax({
+            url: "${root}/attendance/checkOut", // 수정된 부분: 퇴근 버튼과 연결된 URL 변경
+            type: "POST",
+            data: {
+                loginMemberNo: loginMemberNo,
+            },
+            success: function (result) {
+                console.log(result);
+                alert("퇴근 완료");
+            },
+            error: function (error) {
+                console.error(error);
+                alert("퇴근 실패");
+            },
+        });
+    }
 
     </script>
     
