@@ -8,14 +8,12 @@
  
   	<insert id="enroll">
   	
-  		 <foreach collection="list" item="animal" separator=" ">
-	        INSERT ALL
-	        INTO "ANIMAL" ("NO", "CATEGORY_NO", "DEPARTMENT_NO", "PROFILE", "NICK_NAME", "STATUS", "DATE", "FEILD")
-	        VALUES (SEQ_ANIMAL_NO.NEXTVAL, #{animal.categoryNo}, #{animal.departmentNo}, #{animal.profile}, #{animal.nickName}, #{animal.status}, #{animal.date}, #{animal.feild})
-	        INTO "CATEGORY" ("CATEGORY_NO", "CLASSIFICATION_NO", "TASTE_NO", "HABITAT_NO", "ENDANGERED_RATING_NO", "NAME")
-	        VALUES (SEQ_CATEGORY_NO.NEXTVAL, #{animal.animalClassificationNo}, #{animal.tasteNo}, #{animal.habitatNo}, #{animal.endangeredRatingNo}, #{animal.name})
-   		 </foreach>
-   			 SELECT * FROM DUAL
+  		INSERT ALL
+		INTO "ANIMAL" ("NO", "CATEGORY_NO", "DEPARTMENT_NO", "PROFILE", "NICK_NAME", "FEILD")
+		VALUES (#{no}, #{categoryNo}, #{departmentNo}, #{profile}, #{nickName}, #{feild})
+		INTO "CATEGORY" ("CATEGORY_NO", "CLASSIFICATION_NO", "TASTE_NO", "HABITAT_NO", "ENDANGERED_RATING_NO", "NAME")
+		VALUES (SEQ_CATEGORY_NO.NEXTVAL,#{classificationNo},#{tasteNo},#{habitatNo},#{endangeredRatingNo},#{name})
+		SELECT * FROM DUAL
 
   	</insert>
   	
@@ -35,5 +33,45 @@
 		FROM "ANIMAL"
 		WHERE STATUS = 'O';
   	</select>
+  	
+  	
+  	<insert id="trainingWrite">
+  		INSERT INTO ANIMAL_TRAINING
+			(
+			    TRAINING_NO
+			    , NO
+			    , TITLE
+			    , CONTENT
+			)
+			VALUES
+			(
+			    SEQ_ANIMAL_TRAINING_NO.NEXTVAL
+			    ,#{no}
+			    ,#{title}
+			    ,#{content}
+			)
+  	
+  	</insert>
+  	
+  	<insert id="healthWrite">
+  		INSERT INTO ANIMAL_HEALTH_SCREENING
+			(
+			    NO
+			    ,ANIMAL_NO
+			    ,STATE_OF_HEALTH
+			    ,CONTENT
+			    ,DISEASE
+			    ,LIFE_STYLE_MANAGEMENT
+			)
+			VALUES
+			(
+			    SEQ_ANIMAL_HEALTH_SCREENING_NO.NEXTVAL
+			    ,#{animalNo}
+			    ,#{stateOfHealth}
+			    ,#{content}
+			    ,#{disease}
+			    ,#{lifeStyleManagement}
+			)
+  	</insert>
   	
   </mapper>

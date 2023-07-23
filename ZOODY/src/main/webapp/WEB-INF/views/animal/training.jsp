@@ -30,7 +30,7 @@
                 <div id="content-area">
                     <br>
                     <span>제목</span>
-                    <textarea name="" id="t1" cols="30" rows="10"></textarea>
+                    <textarea name="title" id="t1" cols="30" rows="10"></textarea>
                   
                     <span>훈련 내용</span>
                     <div id="summernote"></div>
