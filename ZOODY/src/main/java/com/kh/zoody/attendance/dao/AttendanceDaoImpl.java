@@ -1,7 +1,11 @@
 package com.kh.zoody.attendance.dao;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -89,10 +93,25 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	//출퇴근 영역
+//	@Override
+//	public int checkInWork(SqlSessionTemplate sst, @Param("loginMemberNo") int loginMemberNo, @Param("parsedTime") Date parsedTime) {
+//	    Map<String, Object> params = new HashMap<>();
+//	    params.put("loginMemberNo", loginMemberNo);
+//	    params.put("parsedTime", parsedTime);
+//	    return sst.insert("attendance.checkInWork", params);
+//	}
+	
 	@Override
-	public int checkInWork(SqlSessionTemplate sst, AttendanceVo vo) {
-		return sst.insert("attendance.checkInWork", vo);
+	public int checkInWork(SqlSessionTemplate sst, AttendanceVo attendanceVo) {
+	    return sst.insert("attendance.checkInWork", attendanceVo);
 	}
+
+	@Override
+	public int checkOutWork(SqlSessionTemplate sst, AttendanceVo attendanceVo) {
+		return sst.update("attendance.checkOutWork", attendanceVo);
+	}
+
+
 
 
 

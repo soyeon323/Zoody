@@ -1,5 +1,6 @@
 package com.kh.zoody.attendance.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
@@ -38,8 +39,10 @@ public interface AttendanceService {
 
 	List<AttendanceVo> objList(PageVo objPv);
 
-	//출근퇴근 영
-	int checkInWork(AttendanceVo vo);
+	//출근퇴근 영역
+	int checkInWork(AttendanceVo attendanceVo);
+
+	int checkOutWork(AttendanceVo attendanceVo);
 
 
 

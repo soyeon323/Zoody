@@ -1,5 +1,6 @@
 package com.kh.zoody.attendance.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,8 +41,10 @@ public interface AttendanceDao {
 
 	List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv);
 
-	//출퇴근 영
-	int checkInWork(SqlSessionTemplate sst, AttendanceVo vo);
+	//출퇴근 영역
+	int checkInWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
+
+	int checkOutWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
 
 
 
