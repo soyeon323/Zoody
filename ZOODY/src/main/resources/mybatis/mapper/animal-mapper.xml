@@ -10,9 +10,9 @@
   	
   		INSERT ALL
 		INTO "ANIMAL" ("NO", "CATEGORY_NO", "DEPARTMENT_NO", "PROFILE", "NICK_NAME", "FEILD")
-		VALUES (#{no}, #{categoryNo}, #{departmentNo}, #{profile}, #{nickName}, #{feild})
+		VALUES (SEQ_ANIMAL_NO.NEXTVAL, SEQ_CATEGORY_NO.NEXTVAL, #{departmentNo}, #{profile}, #{nickName}, #{feild})
 		INTO "CATEGORY" ("CATEGORY_NO", "CLASSIFICATION_NO", "TASTE_NO", "HABITAT_NO", "ENDANGERED_RATING_NO", "NAME")
-		VALUES (SEQ_CATEGORY_NO.NEXTVAL,#{classificationNo},#{tasteNo},#{habitatNo},#{endangeredRatingNo},#{name})
+		VALUES (SEQ_CATEGORY_NO.NEXTVAL,#{animalClassificationNo},#{tasteNo},#{habitatNo},#{endangeredRatingNo},#{name})
 		SELECT * FROM DUAL
 
   	</insert>
@@ -73,5 +73,27 @@
 			    ,#{lifeStyleManagement}
 			)
   	</insert>
+  	
+  	<!-- A.DATE 만 붙히면 실행이 안됨;;; -->
+  	<select id="animalDetail" resultType="AnimalVo">
+  		SELECT 
+		  A.NO
+		, A.CATEGORY_NO
+		, A.PROFILE
+		, A.DEPARTMENT_NO
+		, A.NICK_NAME
+		
+		, A.FEILD
+		, C.CATEGORY_NO 
+		, C.CLASSIFICATION_NO 
+		, C.TASTE_NO
+		, C.HABITAT_NO
+		, C.ENDANGERED_RATING_NO
+		, C.NAME
+		FROM ANIMAL A
+		JOIN CATEGORY C ON A.NO = C.CATEGORY_NO
+		WHERE A.NO =#{no}
+
+  	</select>
   	
   </mapper>

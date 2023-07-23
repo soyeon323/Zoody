@@ -41,4 +41,9 @@ public class AnimalDao {
 		return sst.insert("animal.healthWrite",vo);
 	}
 
+	//동물 상세 조회
+	public AnimalVo animalDetail(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.selectOne("animal.animalDetail",vo);
+	}
+
 }

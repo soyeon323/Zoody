@@ -70,11 +70,17 @@ public class AnimalController {
 		return "animal/detail";
 	}
 	
-	//동물 건강 상태 조회
-	@GetMapping("health")
-	public String animalHealth() {
-		return "animal/health";
+	//동물 상세 조회
+	@PostMapping("detail")
+	public String animalDetail(AnimalVo vo) {
+		
+		AnimalVo animalVo = as.animalDetail(vo);
+		if(animalVo == null) {
+			throw new RuntimeException();
+		}
+		return "animal/detail";
 	}
+
 	
 	//동물 훈련 일지 작성
 	@GetMapping("training")
@@ -136,15 +142,23 @@ public class AnimalController {
 		return "animal/health-write";
 	}
 	
-	//동물 건강 상태 작성
-	@GetMapping("health/write")
-	public String animalHealthWrite(HealthVo vo) {
-		
-		int result = as.healthWrite(vo);
-		if(result !=1) {
-			throw new RuntimeException();
-		}
-		return "animal/list";
+//	//동물 건강 상태 작성
+//	@PostMapping("health/write")
+//	public String animalHealthWrite(HealthVo vo) {
+//		
+//		int result = as.healthWrite(vo);
+//		if(result !=1) {
+//			throw new RuntimeException();
+//		}
+//		return "animal/list";
+//	}
+	
+	
+	
+	//동물 건강 상태 조회
+	@GetMapping("health")
+	public String animalHealth() {
+		return "animal/health";
 	}
 
 	
