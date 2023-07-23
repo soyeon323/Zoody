@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.animal.health.vo.HealthVo;
 import com.kh.zoody.animal.service.AnimalService;
+import com.kh.zoody.animal.training.vo.TrainingVo;
 import com.kh.zoody.animal.vo.AnimalVo;
 import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.page.vo.PageVo;
@@ -80,6 +82,19 @@ public class AnimalController {
 		return "animal/training";
 	}
 	
+	//동물 훈련 일지 작성
+	@PostMapping("training")
+	public String animalTraining(TrainingVo vo) {
+		
+		int result = as.trainingWrite(vo);
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		//리다이렉트처리하는지 포워딩 처리하지 갑자기 햇갈림
+		return "redirect:/animal/list";
+	}
+	
+	
 	//동물 리스트
 	@GetMapping("list")
 	public String animalList() {
@@ -121,5 +136,16 @@ public class AnimalController {
 		return "animal/health-write";
 	}
 	
+	//동물 건강 상태 작성
+	@GetMapping("health/write")
+	public String animalHealthWrite(HealthVo vo) {
+		
+		int result = as.healthWrite(vo);
+		if(result !=1) {
+			throw new RuntimeException();
+		}
+		return "animal/list";
+	}
+
 	
 }

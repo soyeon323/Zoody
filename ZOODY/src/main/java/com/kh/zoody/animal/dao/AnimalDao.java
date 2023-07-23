@@ -6,6 +6,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.zoody.animal.health.vo.HealthVo;
+import com.kh.zoody.animal.training.vo.TrainingVo;
 import com.kh.zoody.animal.vo.AnimalVo;
 import com.kh.zoody.page.vo.PageVo;
 
@@ -27,6 +29,16 @@ public class AnimalDao {
 	public int getAnimalListCnt(SqlSessionTemplate sst) {
 		
 		return sst.selectOne("animal.getAnimalListCnt");
+	}
+
+	//동물 훈련 일지 작성
+	public int trainingWrite(SqlSessionTemplate sst, TrainingVo vo) {
+		return sst.insert("animal.trainingWrite",vo);
+	}
+
+	//동물 건강 상태 작성
+	public int healthWrite(SqlSessionTemplate sst, HealthVo vo) {
+		return sst.insert("animal.healthWrite",vo);
 	}
 
 }
