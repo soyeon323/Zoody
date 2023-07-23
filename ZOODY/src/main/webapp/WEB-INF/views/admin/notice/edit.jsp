@@ -48,7 +48,7 @@
             
             <div id="title">
                 <a>제목</a>
-                <input type="text" name="title" value="공지사항 제목111">
+                <input type="text" name="title" value="${vo.title}">
             </div>
     
             <div id="fileArea">
@@ -61,22 +61,22 @@
             </div>
 
             <div id="contentArea">
-                <textarea id="summernote" name="content">내용내용</textarea>  
+                <textarea id="summernote" name="content">${vo.content}</textarea>  
             </div>
 
             <div id="radioArea">
                 <div>
                     <a>우클릭 허용</a>
-                    <input type="radio" checked name="rightBtn" value="" id="radio01">
+                    <input type="radio"  ${vo.rightclickYn == 'Y' ? 'checked' : ''} name="rightclickYn" value="Y" id="radio01">
                     <label for="radio01">허용</label>
-                    <input type="radio" name="rightBtn" value="" id="radio02">
+                    <input type="radio"  ${vo.rightclickYn == 'N' ? 'checked' : ''} name="rightclickYn" value="N" id="radio02">
                     <label for="radio02">허용안함</label>
                 </div>
                 <div>
                     <a>댓글 작성</a>
-                    <input type="radio" checked name="openOption" value="" id="radio03">
+                    <input type="radio" ${vo.commentYn == 'Y' ? 'checked' : ''} name="commentYn" value="Y" id="radio03">
                     <label for="radio03">허용</label>
-                    <input type="radio" name="openOption" value="" id="radio04">
+                    <input type="radio" ${vo.commentYn == 'N' ? 'checked' : ''} name="commentYn" value="N" id="radio04">
                     <label for="radio04">허용안함</label>
                 </div>
             </div>

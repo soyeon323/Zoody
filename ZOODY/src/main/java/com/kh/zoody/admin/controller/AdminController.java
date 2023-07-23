@@ -33,16 +33,39 @@ public class AdminController {
 	
 	//공지사항 수정 화면
 	@GetMapping("notice/edit")
-	public void edit() {}
+	public void edit(String no, Model model) {
+		NoticeVo vo = as.selectEdit(no);
+		
+		if(vo == null) {
+			throw new RuntimeException();
+		}
+		
+		model.addAttribute("vo", vo);
+	}
 	
 	//공지사항 수정
+	@PostMapping("notice/edit")
+	public String edit(NoticeVo vo) {
+		int result = as.edit(vo);
+		
+		return "";
+	}
 	
 	//공지사항 상세조회
 	@RequestMapping("notice/detail")
-	public void noticeDetail() {}
+	public void noticeDetail(String no, Model model) {
+		NoticeVo vo = as.noticeDetail(no);
+		
+		if(vo == null) {
+			throw new RuntimeException();
+		}
+		model.addAttribute("vo", vo);
+		
+		return;
+	}
 	
 	//공지사항 목록
-	@GetMapping("notice/list")
+	@RequestMapping("notice/list")
 	public String noticeList(Model model, Integer page) {
 	
 		int listCount = as.getNoticeListCnt();
@@ -71,15 +94,24 @@ public class AdminController {
 		return "admin/notice/list";
 	}
 	
-	@PostMapping("notice/list")
-	public String noticeList(@RequestParam("no") List<String> noList) {
+	//게시글 복사
+	@PostMapping("notice/copy")
+	public void noticeCopy(@RequestParam("no") List<String> noList) {
 		int result = as.copy(noList);
 		
-		if(result != 1) {
+		if(result == 0) {
 			throw new RuntimeException();
 		}
+	}
+	
+	//게시글 삭제
+	@PostMapping("notice/delete")
+	public void noticeDelete(@RequestParam("no") List<String> noList) {
+		int result = as.delete(noList);
 		
-		return "admin/notice/list";
+		if(result == 0) {
+			throw new RuntimeException();
+		}
 	}
 	
 	//건의사항 목록

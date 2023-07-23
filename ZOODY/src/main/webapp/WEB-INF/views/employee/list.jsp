@@ -106,7 +106,6 @@
 
         const employeeIdValue = tr.querySelector(".employeeId");
 
-        // 해당 데이터를 가져와서 처리합니다.
         const id = employeeIdValue.innerHTML;
         $.ajax({
             url : "${root}/employee/detail",

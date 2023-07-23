@@ -13,9 +13,19 @@ public interface AdminService {
 	//공지사항 게시글 갯수 조회
 	int getNoticeListCnt();
 
-	//복사할 게시글
+	//게시글 복사
 	int copy(List<String> noList);
 
+	//게시글 삭제
+	int delete(List<String> noList);
 
+	//게시글 수정
+	int edit(NoticeVo vo);
+
+	//게시글 상세조회
+	NoticeVo noticeDetail(String no);
+
+	//게시글 수정 화면
+	NoticeVo selectEdit(String no);
 
 }

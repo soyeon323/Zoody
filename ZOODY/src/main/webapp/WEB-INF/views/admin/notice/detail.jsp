@@ -16,10 +16,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-    
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/admin/longside.jsp" %>
-
+    
     <div id="wrap">
 
         <div id="notice">
@@ -30,12 +29,20 @@
             <div>
                 <a>▶</a>
                 <a>게시글 주소 : </a>
-                <a>http://www.naver.com/1123555498</a>
+                <a>127.0.0.1:8888/zoody/admin/notice/detail?no=${vo.no}</a>
             </div>
             <div>
                 <a>▶</a>
                 <a>게시글 공개 설정 : </a>
-                <a>전체공개</a>
+                <c:if test="${vo.boardLimit == 0}">
+                    <a>전체공개</a>
+                </c:if>
+                <c:if test="${vo.boardLimit == 1}">
+                    <a>관리자공개</a>
+                </c:if>
+                <c:if test="${vo.boardLimit == 2}">
+                    <a>비공개</a>
+                </c:if>
             </div>
         </div>
 
@@ -60,21 +67,21 @@
 
         <div id="contentArea">
             <div id="title">
-                <div>공지사항입니다&nbsp&nbsp [1]</div>
+                <div>${vo.title}&nbsp&nbsp [1]</div>
             </div>
             <div id="info">
-                <div>김철수&nbsp대리</div>
-                <div>2023-07-01 14:27</div>
+                <div>관리자</div>
+                <div>${vo.enrollDate}</div>
             </div>
             <div id="content">
-                <div><a>공지사항 알려드립니다.</a></div>
+                <div><a>${vo.content}</a></div>
                 <div id="contentDetail">
                     <div>
                         <img src="${root}/resources/img/icon/png/comment.png" alt="댓글아이콘">
                         <a>댓글 1개</a>
                     </div>
                     <div>|</div>
-                    <div>조회&nbsp 3</div>
+                    <div>조회&nbsp ${vo.hit}</div>
                 </div>
             </div>
             <div id="comment">
@@ -100,10 +107,15 @@
 
         <div id="btnArea">
             <div id="btn02">
-                <button>목록</button>
+                <button onclick="goHome();">목록</button>
             </div>
         </div>
     </div>
 
 </body>
 </html>
+<script>
+    function goHome(){
+        location.href = '${root}/admin/notice/list';
+    }
+</script>
