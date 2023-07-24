@@ -25,7 +25,7 @@
 
         <div id="enroll">동물 상세 조회</div>
         <div id="chart">
-            <form action="/app/animal/enroll" method="post" enctype="multipart/form-data">
+            <form action="${root}/animal/enroll" method="post" enctype="multipart/form-data">
                 
                 <table>
                     <tr id="chart-1">
@@ -45,13 +45,13 @@
                         <td>담당자</td>
                         <td><input type="text" name="" placeholder="담당자" maxlength="6"></td>
                         <td>담당 부서</td>
-                        <td><input type="tel" name="" placeholder="담당 부서" maxlength="13" oninput="formatPhoneNumber(this)"></td>
+                        <td><input type="tel" name="" placeholder="담당 부서" maxlength="13"></td>
                     </tr>
                     <tr id="chart-3">
                         <td>애칭</td>
                         <td><input type="email" name="" placeholder="애칭"></td>
                         <td>방사장</td>
-                        <td><input type="tel" name="" placeholder="방사장" maxlength="11" oninput="formatCompanyNumber(this)"></td>
+                        <td><input type="tel" name="" placeholder="방사장" maxlength="11" ></td>
                     </tr>
                     <tr id="chart-4">
                         <td>멸종 위기</td>
@@ -69,7 +69,7 @@
                             </select>
                         </td>
                         <td>식 성</td>
-                        <td><input type="text" name="" placeholder="식성" maxlength="11" oninput="formatRepresentNumber(this)"></td>
+                        <td><input type="text" name="" placeholder="식성" maxlength="11"></td>
                     </tr>
                       <tr id="chart-4">
                         <td>등록 일시</td>
@@ -89,19 +89,19 @@
                     <div>건강검진 종합 소견</div>
                     <br>
                     <span>유질환</span>
-                    <textarea name="" id="t1" cols="30" rows="10"></textarea>
+                    <textarea name="" id="t1" cols="30" rows="10">유질환내용</textarea>
                     <br>
                     <span>생활 습관 관리</span>
-                    <textarea name="" id="t2" cols="30" rows="9"></textarea>
+                    <textarea name="" id="t2" cols="30" rows="9">생활습관 관리 내용</textarea>
                     <br>
                     <span>의사 소견</span>
-                    <textarea name="" id="t3" cols="30" rows="10"></textarea>
+                    <textarea name="" id="t3" cols="30" rows="10">의사 소견 내용1</textarea>
                 </div>
 
 
                 <div id="btn-area">
                         <div class="btn-upload">훈련 일지 작성</div>
-                        <div class="btn-upload">건강 정보 조회</div>
+                        <div class="btn-upload" id="healthDetail">건강 정보 조회</div>
                         <div class="btn-upload">닫기</div>
                 </div>
               
@@ -126,5 +126,27 @@
             contentArea.style.display = 'none';
         }
     });
+
+
+    //건강 정보 조회
+    const healthDetail = document.querySelector('#healthDetail');
+    healthDetail.addEventListener('click' ,()=>{
+
+        $.ajax({
+        url :'${root}/animal/health',
+        method :'post',
+        data:{},
+        success : ()=>{
+            console.log('success');
+        },
+        error : (e)=>{
+            alert('false..');
+        }
+
+    });
+
+    });
+
+    
 
 </script>

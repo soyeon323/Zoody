@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.zoody.animal.health.vo.HealthVo;
 import com.kh.zoody.animal.service.AnimalService;
 import com.kh.zoody.animal.training.vo.TrainingVo;
@@ -150,16 +151,26 @@ public class AnimalController {
 //		if(result !=1) {
 //			throw new RuntimeException();
 //		}
-//		return "animal/list";
+//		return "redirect:/animal/list";
 //	}
 	
 	
 	
-	//동물 건강 상태 조회
-	@GetMapping("health")
-	public String animalHealth() {
-		return "animal/health";
-	}
+//	//동물 건강 상태 조회
+//	@GetMapping("health")
+//	public String animalHealth(AnimalVo vo , Model model) {
+//		
+//		HealthVo hvo = as.animalHealth(vo);
+//		
+//		if(hvo ==null) {
+//			throw new RuntimeException();
+//		}
+//		
+//		Gson gson = new Gson();
+//		String str = gson.toJson(hvo);
+//		model.addAttribute("hvo",str);
+//		return "animal/health";
+//	}
 
 	
 }

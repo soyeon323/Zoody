@@ -46,4 +46,9 @@ public class AnimalDao {
 		return sst.selectOne("animal.animalDetail",vo);
 	}
 
+	//동물건강 상태 조회
+	public HealthVo animalHealth(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.selectOne("animal.animalHealth",vo);
+	}
+
 }

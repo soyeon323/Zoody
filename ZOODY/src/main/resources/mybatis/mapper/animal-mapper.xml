@@ -76,6 +76,7 @@
   	
   	<!-- A.DATE 만 붙히면 실행이 안됨;;; -->
   	<select id="animalDetail" resultType="AnimalVo">
+  		
   		SELECT 
 		  A.NO
 		, A.CATEGORY_NO
@@ -94,6 +95,12 @@
 		JOIN CATEGORY C ON A.NO = C.CATEGORY_NO
 		WHERE A.NO =#{no}
 
+  	</select>
+  	
+  	<select id="animalHealth">
+  		SELECT * 
+		FROM ANIMAL_HEALTH_SCREENING
+		WHERE ANIMAL_NO = #{no}
   	</select>
   	
   </mapper>
