@@ -31,10 +31,16 @@ import java.io.IOException;
 @Slf4j
 public class WeatherApiController {
 	
-	@GetMapping("/weather")
-	public List weatherInfo() throws Exception {
+	@PostMapping("/weather")
+	public List weatherInfo(WeatherVo vo) throws Exception {
 		
-		WeatherVo vo =  new WeatherVo();
+		
+		if (vo == null) {
+			return null;
+		}
+		
+		log.info(vo.getNx());
+		log.info(vo.getNy());
 		
 		//날씨정보 얻기
 		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"); /*URL*/
@@ -44,11 +50,11 @@ public class WeatherApiController {
         urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode(WeatherSetting.DATA_TYPE, "UTF-8") ); /*요청자료형식(XML/JSON) Default: XML*/
         urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(WeatherSetting.BASE_DATE, "UTF-8") ); /*‘21년 6월 28일발표*/
         urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode(WeatherSetting.BASE_TIME, "UTF-8") ); /*05시 발표*/
-        urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode(Integer.toString(WeatherSetting.NX), "UTF-8") ); /*예보지점의 X 좌표값*/
-        urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode(Integer.toString(WeatherSetting.NY), "UTF-8") ); /*예보지점의 Y 좌표값*/
+        urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode(vo.getNx(), "UTF-8") ); /*예보지점의 X 좌표값*/
+        urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode(vo.getNy(), "UTF-8") ); /*예보지점의 Y 좌표값*/
         URL url = new URL(urlBuilder.toString());
         
-//        log.info(url.toString())
+        log.info("url : " + url.toString());
         
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -79,7 +85,7 @@ public class WeatherApiController {
         List itemList = (List) itmes.get("item");
         
         
-        System.out.println(itemList.toString());
+
 //        log.info("itemList : "+itemList.toString());
 		
 		return itemList;
