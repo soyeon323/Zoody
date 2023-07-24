@@ -54,4 +54,9 @@ public class AnimalService {
 	public AnimalVo animalDetail(AnimalVo vo) {
 		return dao.animalDetail(sst,vo);
 	}
+
+	//동물 건강 상태 조회
+	public HealthVo animalHealth(AnimalVo vo) {
+		return dao.animalHealth(sst,vo);
+	}
 }
