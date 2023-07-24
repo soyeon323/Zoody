@@ -68,7 +68,7 @@
                             <td>${animalList.habitat}</td>
                             <td>${animalList.date}</td>
                             
-                            <td><button onclick="location.href='${root}/animal/training?animalNo=${animalList.no}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
+                            <td><button onclick="location.href='${root}/animal/training?no=${animalList.no}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
                         </tr>
                        </c:forEach>
                       
