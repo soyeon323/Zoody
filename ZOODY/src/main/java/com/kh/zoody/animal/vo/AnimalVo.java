@@ -19,4 +19,21 @@ public class AnimalVo {
 	private String habitatNo;
 	private String animalClassificationNo;
 	private String endangeredRatingNo;
+	
+	
+	private String taste;
+	
+	
+	private String animalNo;
+	private String stateOfHealth;
+	private String checkupDate;
+	private String content;
+	private String disease;
+	private String lifeStyleManagement;
+	
+	
+	private String endangered;
+	
+	private String habitat;
+	
 }

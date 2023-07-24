@@ -7,6 +7,55 @@
   <mapper namespace="animal">
  
  
+ <resultMap id="AnimalVoResultMap" type="com.kh.zoody.animal.vo.AnimalVo">
+    <id property="no" column="NO"/>
+    <result property="profile" column="PROFILE"/>
+    <result property="categoryNo" column="CATEGORY_NO"/>
+    <result property="userNo" column="USER_NO"/> <!-- 사용자 번호 추가 -->
+    <result property="departmentNo" column="DEPARTMENT_NO"/>
+    <result property="name" column="NAME"/>
+    <result property="nickName" column="NICK_NAME"/>
+    <result property="status" column="STATUS"/>
+    <result property="date" column="DATE"/>
+    <result property="feild" column="FEILD"/>
+    <result property="tasteNo" column="TASTE_NO"/>
+    <result property="habitatNo" column="HABITAT_NO"/>
+    <result property="animalClassificationNo" column="ANIMAL_CLASSIFICATION_NO"/>
+    <result property="endangeredRatingNo" column="ENDANGERED_RATING_NO"/>
+</resultMap>
+
+<!-- CategoryVo 클래스에 대한 resultMap -->
+<resultMap id="CategoryVoResultMap" type="com.kh.zoody.admin.category.vo.CategoryVo">
+    <id property="no" column="CATEGORY_NO"/>
+    <result property="name" column="NAME"/>
+</resultMap>
+
+<!-- AnimalClassificationVo 클래스에 대한 resultMap -->
+<resultMap id="AnimalClassificationVoResultMap" type="com.kh.zoody.animal.animalclassification.vo.AnimalClassificationVo">
+    <id property="no" column="NO"/>
+    <result property="name" column="NAME"/>
+</resultMap>
+
+<!-- HabitatVo 클래스에 대한 resultMap -->
+<resultMap id="HabitatVoResultMap" type="com.kh.zoody.animal.habitat.vo.HabitatVo">
+    <id property="habitatNo" column="HABITAT_NO"/>
+    <result property="habitat" column="HABITAT"/>
+</resultMap>
+
+<!-- EndangeredVo 클래스에 대한 resultMap -->
+<resultMap id="EndangeredVoResultMap" type="com.kh.zoody.animal.endangered.vo.EndangeredVo">
+    <id property="endangeredRatingNo" column="ENDANGERED_RATING_NO"/>
+    <result property="endangered" column="ENDANGERED"/>
+</resultMap>
+
+<!-- TasteVo 클래스에 대한 resultMap -->
+<resultMap id="TasteVoResultMap" type="com.kh.zoody.animal.taste.vo.TasteVo">
+    <id property="tasteNo" column="TASTE_NO"/>
+    <result property="taste" column="TASTE"/>
+</resultMap>
+ 
+ 
+ 
   	<insert id="enroll">
   	
   		INSERT ALL
@@ -18,21 +67,13 @@
 
   	</insert>
   	
-  	
-  	<select id="AnimalList" resultMap="TasteVo ,AnimalVo , CategoryVo, AnimalClassificationVo,HabitatVo,EndangeredVo ">
+  	<!--  parameterType="AnimalVo"   resultMap="AnimalVoResultMap, CategoryVoResultMap, AnimalClassificationVoResultMap, HabitatVoResultMap, EndangeredVoResultMap, TasteVoResultMap" -->
+  	<select id="AnimalList" resultType="AnimalVo" >
   	   SELECT
 		    A.NO,
-		    
-		    
-		    
 		    A.NICK_NAME,
-		    
 		    TO_CHAR(A."DATE",'YYYY-MM-DD') AS"DATE",
 		    A.FEILD,
-		    
-		    
-		    
-		    
 		    C.NAME AS NAME,
 		    T.TASTE,
 		    H.HABITAT,
@@ -54,7 +95,7 @@
 		
   	</select>
   	
-  	<select id="getAnimalListCnt">
+  	<select id="getAnimalListCnt" resultType="int">
   		 SELECT COUNT(NO)
 		FROM "ANIMAL"
 		WHERE STATUS = 'O'

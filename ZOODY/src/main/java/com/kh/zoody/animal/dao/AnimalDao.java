@@ -1,5 +1,6 @@
 package com.kh.zoody.animal.dao;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -27,7 +28,6 @@ public class AnimalDao {
 	
 	//동물 리스트 조회(총 갯수)
 	public int getAnimalListCnt(SqlSessionTemplate sst) {
-		
 		return sst.selectOne("animal.getAnimalListCnt");
 	}
 

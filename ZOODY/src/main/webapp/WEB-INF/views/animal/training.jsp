@@ -26,18 +26,18 @@
     <div id="wrap">
 
         <div id="enroll">훈련 일지 작성 </div>
-
+            <form action="${root}/animal/training" method="POST">
                 <div id="content-area">
                     <br>
                     <span>제목</span>
                     <textarea name="title" id="t1" cols="30" rows="10"></textarea>
                   
-                    <span>훈련 내용</span>
-                    <div id="summernote"></div>
+                    <span>훈련 내용</span >
+                    <textarea name="content" id="summernote" cols="30" rows="10"></textarea>
                 </div>
                 <div id="btn-area">
                         <div class="btn-upload">등록</div>
-                        <a href="${root}/animal/list"><div class="btn-upload">닫기</div></a>
+                        <a href="${root}/animal/list?page=1"><div class="btn-upload">닫기</div></a>
                         
                 </div>
               
@@ -80,7 +80,7 @@
         }
 
         $.ajax({
-            url :'' ,
+            url :'${}' ,
             type : 'post',
             data : fd,
             processData : false,

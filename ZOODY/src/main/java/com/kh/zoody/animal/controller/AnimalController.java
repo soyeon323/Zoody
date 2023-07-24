@@ -102,21 +102,16 @@ public class AnimalController {
 		return "redirect:/animal/list";
 	}
 	
-	
-//	//동물 리스트
-//	@GetMapping("list")
-//	public String animalList() {
-//		return "animal/list";
-//	}
+
 	
 	//동물 리스트
 	@RequestMapping("list")
-	public String animalList(Integer page, AnimalVo vo , Model model) {
+	public String animalList(Integer page, Model model) {
 		
 		int listCount = as.getAnimalListCnt();
 		int currentPage = page;
-		int pageLimit = ConstPool.PAGE_LIMIT;
-		int boardLimit = ConstPool.BOARD_LIMIT;
+		int pageLimit = 5;
+		int boardLimit = 7;
 	
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
@@ -124,7 +119,7 @@ public class AnimalController {
 		int getAnimalListCnt = as.getAnimalListCnt();
 		
 		List<AnimalVo> animalList = as.AnimalList(pv);
-		
+		log.info("animalList = {}",animalList);
 		if(animalList ==null) {
 			throw new RuntimeException();
 		}
