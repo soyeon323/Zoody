@@ -312,7 +312,7 @@
 	        SEQ_ATTENDANCE_NO.NEXTVAL,
 	        #{loginMemberNo},
 	        CASE 
-	            WHEN TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI') &gt;= '09:01' AND TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI') &lt;= '23:00' THEN 6
+	            WHEN TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI') &gt;= '09:01' AND TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI') &lt;= '23:59' THEN 6
 	            ELSE 1
 	        END,
 	        CURRENT_TIMESTAMP,
@@ -330,16 +330,16 @@
 	    AND CHECK_OUT_TIME IS NULL
 	</update>
   
-  	<!-- <select id="getTotalWorkTimeData" resultType="AttendanceVo">
+  	<select id="selectChartList" resultType="AttendanceVo">
   		SELECT 
         TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE,
         TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
         FROM ATTENDANCE A
         JOIN "USER" U ON A.USER_NO = U.NO
         JOIN ATTENDANCE_CURRENT AC ON A.CURRENT_NO = AC.NO
-        WHERE U.NO = ${userNo}
+        WHERE U.NO = 1
         ORDER BY A.CHECK_IN_TIME DESC
-  	</select> -->
+  	</select>
   
   
 </mapper>

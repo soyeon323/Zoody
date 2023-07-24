@@ -46,6 +46,8 @@ public interface AttendanceDao {
 
 	int checkOutWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
 
+	List<AttendanceVo> mainChartList(SqlSessionTemplate sst);
+
 
 
 

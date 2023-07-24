@@ -111,6 +111,11 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return sst.update("attendance.checkOutWork", attendanceVo);
 	}
 
+	@Override
+	public List<AttendanceVo> mainChartList(SqlSessionTemplate sst) {
+		return sst.selectList("attendance.selectChartList");
+	}
+
 
 
 

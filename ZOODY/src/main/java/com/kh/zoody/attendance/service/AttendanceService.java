@@ -2,6 +2,7 @@ package com.kh.zoody.attendance.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
@@ -43,6 +44,9 @@ public interface AttendanceService {
 	int checkInWork(AttendanceVo attendanceVo);
 
 	int checkOutWork(AttendanceVo attendanceVo);
+
+	List<AttendanceVo> mainChartList();
+
 
 
 

@@ -13,7 +13,63 @@
 <!-- CSS only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/attendance/attendance.css">
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <title>Document</title>
+
+<style>
+
+
+  /* 캘린더 조상 */
+  .fc {
+    font-size: 16px;
+  }
+  
+  
+  
+  .fc-theme-standard td {
+    border: none;
+    
+  }
+  
+  .fc .fc-daygrid-day-top {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* 오늘 날짜 */
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: rgba(72, 119, 239, 0.171);
+    border-radius: 5px;
+  }
+  
+    td.fc-day.fc-day-fri.fc-day-today.fc-daygrid-day:hover {
+      background-color: #4877efc4;
+      color: #fff;
+    }
+  
+  .fc-day-today > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner >.fc-daygrid-day-top {
+    box-sizing: border-box;
+  }
+  
+  /* items */
+  .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    min-height: 10;
+  }
+  
+  /* table */
+  .fc .fc-scrollgrid-liquid {
+      height: 100%;
+      border: none;
+  }
+  
+  
+  /* table header items*/
+  table td[class*=col-], table th[class*=col-] {
+      border: none;
+  }
+  
+  </style>
 </head>
 <body>
     <!-- JavaScript Bundle with Popper -->
@@ -170,7 +226,9 @@
             </div>
 
             <!-- 두번째 줄 -->
-            <div class="att_calendar"></div>
+            <div class="att_calendar">
+              <div id='calendar'></div>
+            </div>
             <div class="att_grap">
               <div class="grap-title">
                 <p>주간 근무 현황</p>
@@ -230,7 +288,7 @@
             <div class="att_work">
               <div class="work-flex">
                 <p>표준 외 근무 요청 현황</p>
-                <a href="">
+                <a href="${root}/attendance/list">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M8.9831 5.76339L6.3056 3.08589C6.1963 2.97724 6.04845 2.91626 5.89435 2.91626C5.74024 2.91626 5.59239 2.97724 5.4831 3.08589C5.42842 3.14012 5.38502 3.20463 5.35541 3.27572C5.32579 3.3468 5.31055 3.42305 5.31055 3.50006C5.31055 3.57706 5.32579 3.65331 5.35541 3.72439C5.38502 3.79548 5.42842 3.85999 5.4831 3.91422L8.16643 6.58589C8.2211 6.64012 8.2645 6.70463 8.29412 6.77572C8.32373 6.8468 8.33898 6.92305 8.33898 7.00006C8.33898 7.07706 8.32373 7.15331 8.29412 7.22439C8.2645 7.29548 8.2211 7.35999 8.16643 7.41422L5.4831 10.0859C5.37325 10.195 5.31124 10.3432 5.31069 10.498C5.31014 10.6528 5.37111 10.8015 5.48018 10.9113C5.58925 11.0212 5.73749 11.0832 5.89228 11.0837C6.04708 11.0843 6.19575 11.0233 6.3056 10.9142L8.9831 8.23672C9.31081 7.9086 9.49489 7.46381 9.49489 7.00006C9.49489 6.5363 9.31081 6.09152 8.9831 5.76339Z" fill="white"/>
                   </svg>
@@ -314,12 +372,38 @@
         </div>
     </div>
 
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          width: 100 + '%',
+          height: 90 + '%' ,
+          aspectRatio: 1,
+          
+          titleFormat : { year: 'numeric', month: 'long' }, 
+    
+        });
+        
+        calendar.render();
+        
+      });
+      
+      
+    
+     
+      
+    
+      
+    
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <script>
+    <!-- <script>
     // 이번주 월요일부터 일요일까지의 데이터
-    const data = [12, 19, 3, 5, 2, 15, 8];
+    const data = [12, 19, 3, 5, 2];
     // 이번주 월요일부터 일요일까지의 라벨
     const labels = ['24일', '25일', '26일', '27일', '28일'];
 
@@ -369,6 +453,56 @@
       }
     });
 
+    </script> -->
+
+    
+
+    <script>
+      // JSP에서 데이터를 JSON 형식의 문자열로 변환하도록 수정
+      const enrolldateArr = JSON.parse('${enrolldateData}');
+            const totalWorkTimeArr = JSON.parse('${totalWorkTimeData}');
+
+            // Chart.js code
+            const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: enrolldateArr,
+                    datasets: [{
+                        label: '일별 총 근무시간',
+                        data: totalWorkTimeArr,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                autoSkip: false, // 모든 라벨을 보여줍니다.
+                                maxRotation: 0, // 라벨을 90도로 회전하여 긴 라벨도 표시합니다.
+                                minRotation: 0
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
     </script>
 
 
