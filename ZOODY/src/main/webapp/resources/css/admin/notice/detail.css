@@ -86,12 +86,22 @@
     font-weight: 300;
 }
 
+#content a p{
+    color: black;
+    font-size: 18px;
+    margin-left: 50px;
+}
+
 #content a{
     color: black;
     font-size: 18px;
     margin-left: 50px;
 }
 
+button{
+    border: none;
+    background: none;
+}
 #content{
     border-bottom: 1px solid #E0E0E0;
     display: grid;
@@ -130,6 +140,11 @@
     color: #6f6f6f;
 }
 
+#imageArea{
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
 /* 댓글작성영역 */
 #commentArea{
     display: grid;
@@ -146,6 +161,20 @@
     border-radius: 5px;
     display: grid;
     grid-template-rows: 2.5fr 1fr;
+}
+
+#noComment{
+    width: 1260px;
+    height: 355px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#noComment a{
+    font-size: 20px;
+    font-weight: 500;
+    color: #4876EF;
 }
 
 #commentArea #commentZone input[type='text']{

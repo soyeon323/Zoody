@@ -62,7 +62,7 @@
 	    , RIGHTCLICK_YN
 	    , COMMENT_YN
 	    , BOARD_LIMIT
-	    , HIT
+	    , 0
 	  FROM NOTICE
 	  WHERE NO IN
 	  <foreach collection="list" item="no" separator="," open="(" close=")">
@@ -122,4 +122,50 @@
 		FROM NOTICE
 		WHERE NO = #{no}
 	</select>
+	
+	<update id="edit">
+		UPDATE NOTICE
+		<set>
+			<if test="title != null">TITLE = #{title},</if>
+			<if test="content != null">CONTENT = #{content},</if>
+			<if test="enrollDate != null">ENROLL_DATE = #{enrollDate},</if>
+			<if test="status != null">STATUS = #{status},</if>
+			<if test="originName != null">ORIGIN_NAME = #{originName},</if>
+			<if test="changeName != null">CHANGE_NAME = #{changeName},</if>
+			<if test="rightclickYn != null">RIGHTCLICK_YN = #{rightclickYn},</if>
+			<if test="commentYn != null">COMMENT_YN = #{commentYn},</if>
+			<if test="boardLimit != null">BOARD_LIMIT = #{boardLimit},</if>
+			<if test="hit != null">HIT = #{hit},</if>
+		</set>
+		WHERE NO = #{no}
+	</update>
+	
+	<insert id="write">
+		INSERT INTO NOTICE
+		(
+			NO
+			, ADMIN_NO
+			, CATEGORY_NO
+			, TITLE
+			, CONTENT
+			, CHANGE_NAME
+			, RIGHTCLICK_YN
+			, COMMENT_YN
+			, BOARD_LIMIT
+			, HIT
+		)
+		VALUES
+		(
+			SEQ_NOTICE_NO.NEXTVAL
+			, 1
+			, 1
+			, #{title}
+			, #{content}
+			, #{changeName}
+			, #{rightclickYn}
+			, #{commentYn}
+			, #{boardLimit}
+			, 0
+		)
+	</insert>
 </mapper>

@@ -1,7 +1,5 @@
 package com.kh.zoody.notice.vo;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Data

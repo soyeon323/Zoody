@@ -18,6 +18,16 @@
 <body>
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/admin/longside.jsp" %>
+    <c:if test="${vo.rightclickYn == 'N'}">
+        <script>
+            function handleContextMenu(event) {
+                event.preventDefault();
+    
+                alert("우클릭을 사용할 수 없습니다.");
+            }
+            document.addEventListener('contextmenu', handleContextMenu);
+        </script>
+    </c:if>
     
     <div id="wrap">
 
@@ -49,19 +59,19 @@
         <div id="iconArea">
             <div>
                 <img src="${root}/resources/img/icon/png/newPencil.png" alt="글쓰기아이콘">
-                <a href="">새글쓰기</a>
+                <a href="${root}/admin/notice/write">새글쓰기</a>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
-                <a href="">복사</a>
+                <button onclick="noticeCopy('${vo.no}');">복사</ㅍ>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
-                <a href="">삭제</a>
+                <button onclick="noticeDelete('${vo.no}');">삭제</button>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/edit.png" alt="수정아이콘">
-                <a href="">수정</a>
+                <button onclick="noticeEdit('${vo.no}');">수정</button>
             </div>
         </div>
 
@@ -74,7 +84,12 @@
                 <div>${vo.enrollDate}</div>
             </div>
             <div id="content">
-                <div><a>${vo.content}</a></div>
+                <div>
+                    <a>${vo.content}</a>
+                    <c:if test="${!empty vo.changeName}">
+                        <div id="imageArea"><img src="${root}/resources/img/notice/${vo.changeName}" alt="" width="200px" height="200px"></div>
+                    </c:if>
+                </div>
                 <div id="contentDetail">
                     <div>
                         <img src="${root}/resources/img/icon/png/comment.png" alt="댓글아이콘">
@@ -85,23 +100,30 @@
                 </div>
             </div>
             <div id="comment">
-                <div id="commentArea">
-                    <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
-                   
-                    <form action="${root}/admin/notice/detail" method="post">
-                        <div id="commentZone">
-                            <div><input type="text" placeholder="댓글을 남겨보세요."></div>
-                            <div><input type="submit" value="등록"></div>
-                        </div>
-                    </form>
-                </div>
-                <div id="commentOk">
-                    <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진"></div>
-                    <div><a>@김영희 대리</a></div>
-                    <div><a>확인해주세요</a></div>
-                    <div><a>23-07-01</a></div>
-                    <div><a href="">삭제</a></div>
-                </div>
+                <c:if test="${vo.commentYn == 'N'}">
+                    <div id="noComment">
+                        <div><a>댓글기능이 비활성화 되었습니다.</a></div>
+                    </div>
+                </c:if>
+                <c:if test="${vo.commentYn == 'Y'}">
+                    <div id="commentArea">
+                        <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
+                       
+                        <form action="${root}/admin/notice/detail" method="post">
+                            <div id="commentZone">
+                                <div><input type="text" placeholder="댓글을 남겨보세요."></div>
+                                <div><input type="submit" value="등록"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="commentOk">
+                        <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진"></div>
+                        <div><a>@김영희 대리</a></div>
+                        <div><a>확인해주세요</a></div>
+                        <div><a>23-07-01</a></div>
+                        <div><a href="">삭제</a></div>
+                    </div>
+                </c:if>
             </div>
         </div>
 
@@ -118,4 +140,71 @@
     function goHome(){
         location.href = '${root}/admin/notice/list';
     }
+
+    //게시글 복사
+    function noticeCopy(no) {
+        const result = confirm("해당 게시글을 복사하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+       
+        $.ajax({
+            url : '${root}/admin/notice/copy',
+            type : 'POST',
+            traditional: true,
+            data : {
+                no: no
+            },
+            success : function(){
+                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+            },
+            error : function(err){
+                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+            }
+        })
+    };
+
+    //게시글 삭제
+    function noticeDelete(no) {
+        const result = confirm("선택한 게시글을 삭제하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
+        $.ajax({
+            url : '${root}/admin/notice/delete',
+            type : 'POST',
+            traditional: true,
+            data : {
+              no : no  
+            },
+            success : function(){
+                alert("게시글이 삭제되었습니다.");
+                location.href = '${root}/admin/notice/list'
+            },
+            error : function(err){
+                alert("게시글이 삭제되었습니다.");
+                location.href = '${root}/admin/notice/list'
+            }
+        })
+    };
+
+    //게시글 수정
+    function noticeEdit(no){
+        $.ajax({
+            url : '${root}/admin/notice/edit',
+            type : 'GET',
+            data : {
+              no : no  
+            },
+            success : function(){
+                location.href = '${root}/admin/notice/edit?no=' + no;
+            },
+            error : function(err){
+                location.href = '${root}/admin/notice/edit?no=' + no;
+            }
+        })
+    };
 </script>

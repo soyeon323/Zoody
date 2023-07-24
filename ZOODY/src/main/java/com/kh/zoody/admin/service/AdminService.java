@@ -19,13 +19,16 @@ public interface AdminService {
 	//게시글 삭제
 	int delete(List<String> noList);
 
+	//게시글 상세조회
+	NoticeVo noticeDetail(String no);
+	
 	//게시글 수정
 	int edit(NoticeVo vo);
 
-	//게시글 상세조회
-	NoticeVo noticeDetail(String no);
-
 	//게시글 수정 화면
 	NoticeVo selectEdit(String no);
+
+	//게시글 작성
+	int write(NoticeVo vo);
 
 }

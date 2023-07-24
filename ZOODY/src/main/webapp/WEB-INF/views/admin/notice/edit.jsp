@@ -26,8 +26,8 @@
 
     <div id="wrap">
 
-        <form action="${root}/admin/notice/edit" method="post" enctype="multipart/form-data">
-
+        <form action="${root}/admin/notice/edit" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="no" value="${vo.no}">
             <div id="write">
                 <a>글쓰기</a>
             </div>
@@ -53,7 +53,10 @@
     
             <div id="fileArea">
                 <a>파일첨부</a>
-                <input type="file" name="f" multiple accept=".jpg, .png, .jpeg">
+                <input type="file" name="f" multiple accept=".jpg, .jpeg, .png" onchange="imgUpload(event)">
+                <div id="image_container">
+                    <img src="${root}/resources/img/notice/${vo.changeName}" width="25px" alt="">
+                </div>
             </div>
 
             <div id="tempSave">
@@ -93,42 +96,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#summernote').summernote({
-            codeviewFilter: false,
-            codeviewIframeFilter: false,
-            disableXSSProtection: true,
+        $('#summernote').summernote({
+            tabsize: 2,
             height: 400,
-            minHeight: 400,
             maxHeight: 400,
-            focus: true,
-            lang: 'ko-KR',
+            minHeight: 400,
             toolbar: [
-                // 스타일 관련 기능
                 ['style', ['style']],
-                // 글자 크기 설정
-                ['fontsize', ['fontsize']],
-                // 글꼴 스타일
                 ['font', ['bold', 'underline', 'clear']],
-                // 글자 색상
                 ['color', ['color']],
-                // 테이블 삽입
+                ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
-                // 문단 스타일
-                ['para', ['paragraph']],
-                // 에디터 높이 설정
-                ['height', ['height']],
-                // 이미지, 링크, 동영상 삽입
-                ['insert', ['picture', 'link', 'video']],
-                // 코드 보기, 전체화면, 도움말
-                ['view', ['codeview', 'fullscreen', 'help']],
-            ],
-            fontSizes: [
-                // 글자 크기 선택 옵션
-                '8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'
-            ],
-            });
-        });
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+      });
+
+    //이미지 미리보기
+    function imgUpload(event){
+        var files = event.target.files;
+        var container = document.querySelector("#image_container");
+        container.innerHTML = ""; 
+
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            var img = new Image();
+
+            reader.onload = (function (img) {
+                return function (e) {
+                    img.src = e.target.result;
+                    img.style.width = '30px';
+                    img.style.height = '30px'; 
+                    container.appendChild(img);
+                };
+            })(img);
+
+            reader.readAsDataURL(files[i]);
+        }
+     }
     </script>
 
 </body>
