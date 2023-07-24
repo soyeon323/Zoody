@@ -26,14 +26,29 @@
                     </div>
                     <div class="profile-info">
                             <div class="profile-content">
-                                <div><img src="${root}/resources/svg/icons/edit.svg" alt=""></div>
-                                <div>2</div>
-                                <div>3</div>
-                                <div>4</div>
-                                <div>5</div>
+
+                                <c:if test="${empty loginMember}">
+                                    <div><img src="${root}/resources/svg/icons/edit.svg" alt=""></div>
+                                    <div>메세지</div>
+                                    <div>부서</div>
+                                    <div>이메일</div>
+                                    <div>이름</div>
+                                </c:if>
+
+                                <c:if test="${not empty loginMember}">
+
+                                    <div><img src="${root}/resources/svg/icons/edit.svg" alt=""></div>
+                                    <div>${loginMember.lineIntro}</div>
+                                    <div>부서 추가 ㄱ</div>
+                                    <div>${loginMember.mail}</div>
+                                    <div>${loginMember.name}</div>
+
+                                </c:if>
+
                             </div>
                             <div class="profile-btns">
-                                d
+                                <a href="">메일쓰기</a>
+                                <a href="">로그아웃</a>
                             </div>
                     </div>
                 </div>
@@ -43,7 +58,7 @@
                 <div class="area weather">
                     <button onclick="getWeatherInfo()">날씨</button>
                     <button onclick="getPosition()"> 현재위치 </button>
-
+                    <%@ include file="/WEB-INF/views/common/weather.jsp" %>
                 </div>
                 <div class="area news">
                     
