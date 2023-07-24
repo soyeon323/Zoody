@@ -109,15 +109,10 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
     @Override
-    public int checkOutWork(AttendanceVo attendanceVo) {
-        int attendanceNo = dao.checkInWork(sst, attendanceVo);
+	public int checkOutWork(AttendanceVo attendanceVo) {
+		return dao.checkOutWork(sst, attendanceVo);
+	}
 
-        // 출근 기록이 인서트된 행의 no 값을 attendanceVo에 설정
-        attendanceVo.setNo(attendanceNo);
-
-        // 퇴근 기록을 업데이트
-        return dao.checkOutWork(sst, attendanceVo);
-    }
 
 
 

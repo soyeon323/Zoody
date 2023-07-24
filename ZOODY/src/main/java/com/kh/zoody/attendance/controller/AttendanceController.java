@@ -57,51 +57,26 @@ public class AttendanceController {
 		return "attendance/workStatus";
 	}
 	
-//	@PostMapping("main")
-//	public String workStatus(@RequestParam String loginMemberNo) throws Exception {
-//
-//	    AttendanceVo attendanceVo = new AttendanceVo();
-//	    attendanceVo.setUserNo(loginMemberNo);
-//
-//	    int checkInresult = attService.checkInWork(attendanceVo);
-//	    
-//	    int checkOutresult = attService.checkOutWork(attendanceVo);
-//
-//	    return "attendance/workStatus";
-//	}
+	//메인화면 출퇴근 등록
+	@PostMapping("main")
+	public String workStatus(@RequestParam String loginMemberNo, @RequestParam String action) throws Exception {
+
+	    AttendanceVo attendanceVo = new AttendanceVo();
+	    attendanceVo.setLoginMemberNo(loginMemberNo);
+
+	    //클라이언트에서 전달된 action 값에 따라 출근 또는 퇴근 작업 수행
+	    if ("check-in".equals(action)) {
+	        int checkInresult = attService.checkInWork(attendanceVo);
+	    } else if ("check-out".equals(action)) {
+	        int checkOutresult = attService.checkOutWork(attendanceVo);
+	    }
+
+	    return "attendance/workStatus";
+	}
 	
-	@PostMapping("checkIn")
-	@ResponseBody
-	public ResponseEntity<String> checkInWork(@RequestParam String loginMemberNo) throws Exception {
-
-	    AttendanceVo attendanceVo = new AttendanceVo();
-	    attendanceVo.setUserNo(loginMemberNo);
-
-	    int checkInResult = attService.checkInWork(attendanceVo);
-
-	    if (checkInResult > 0) {
-	        return ResponseEntity.ok("출근 완료");
-	    } else {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("출근 실패");
-	    }
-	}
-
-	@PostMapping("checkOut")
-	@ResponseBody
-	public ResponseEntity<String> checkOutWork(@RequestParam String loginMemberNo) throws Exception {
-
-	    AttendanceVo attendanceVo = new AttendanceVo();
-	    attendanceVo.setUserNo(loginMemberNo);
-
-	    int checkOutResult = attService.checkOutWork(attendanceVo);
-
-	    if (checkOutResult > 0) {
-	        return ResponseEntity.ok("퇴근 완료");
-	    } else {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("퇴근 실패");
-	    }
-	}
-
+	//메인화면 주간 차트
+	
+	
 	//(서브메뉴) 근무현황 목록 조회
 	@GetMapping("list")
 	public String list(Integer page, Model model) {

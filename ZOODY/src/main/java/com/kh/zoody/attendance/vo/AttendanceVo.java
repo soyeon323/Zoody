@@ -26,6 +26,7 @@ public class AttendanceVo {
 	private String rankName;
 	private String userStateName;
 	
+	private String loginMemberNo;
 
 
 }
