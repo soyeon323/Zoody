@@ -40,13 +40,7 @@ public class AdminDaoImpl implements AdminDao{
 	//게시글 수정
 	@Override
 	public int edit(SqlSessionTemplate sst, NoticeVo vo) {
-		return 0;
-	}
-
-	//공지사항 상세조회
-	@Override
-	public NoticeVo noticeDetail(SqlSessionTemplate sst, String no) {
-		return sst.selectOne("notice.detail", no);
+		return sst.update("notice.edit", vo);
 	}
 
 	//조회수 증가
@@ -54,11 +48,23 @@ public class AdminDaoImpl implements AdminDao{
 	public void increaseHit(SqlSessionTemplate sst, String no) {
 		sst.update("notice.increaseHit", no);
 	}
+	
+	//공지사항 상세조회
+	@Override
+	public NoticeVo noticeDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("notice.detail", no);
+	}
 
 	//게시글 수정 화면
 	@Override
 	public NoticeVo selectEdit(SqlSessionTemplate sst, String no) {
 		return sst.selectOne("notice.selectEdit", no);
+	}
+
+	//게시글 작성
+	@Override
+	public int write(SqlSessionTemplate sst, NoticeVo vo) {
+		return sst.insert("notice.write", vo);
 	}
 
 }

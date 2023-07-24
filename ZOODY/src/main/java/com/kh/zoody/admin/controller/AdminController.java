@@ -1,7 +1,11 @@
 package com.kh.zoody.admin.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.admin.service.AdminService;
 import com.kh.zoody.constpool.ConstPool;
@@ -30,12 +35,39 @@ public class AdminController {
 	public void noticeWrite() {}
 	
 	//공지사항 작성
+	@PostMapping("notice/write")
+	public String noticeWrite(NoticeVo vo, @RequestParam(value = "f", required = false) List<MultipartFile> fList, HttpServletRequest req) throws Exception{
+		MultipartFile firstFile = fList.get(0);
+		String fileName = null;
+		String extension = "";
+		  // 파일 첨부가 있을 때만 처리
+	    if (!firstFile.isEmpty()) {
+	        for (MultipartFile f : fList) {
+	            String savePath = req.getServletContext().getRealPath("/resources/img/notice/");
+	            String originalFilename = f.getOriginalFilename();
+	            if (originalFilename != null && originalFilename.contains(".")) {
+	                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	            }
+	            fileName = UUID.randomUUID().toString() + extension;
+	            String path = savePath + fileName;
+	            File target = new File(path);
+	            f.transferTo(target);
+	            break;
+	        }
+	        vo.setChangeName(fileName);
+	    }
+		int result = as.write(vo);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "redirect:/admin/notice/list";
+	}
 	
 	//공지사항 수정 화면
 	@GetMapping("notice/edit")
 	public void edit(String no, Model model) {
 		NoticeVo vo = as.selectEdit(no);
-		
 		if(vo == null) {
 			throw new RuntimeException();
 		}
@@ -45,10 +77,31 @@ public class AdminController {
 	
 	//공지사항 수정
 	@PostMapping("notice/edit")
-	public String edit(NoticeVo vo) {
+	public String edit(NoticeVo vo,@RequestParam(value = "f", required = false) List<MultipartFile> fList, HttpServletRequest req) throws Exception{
+		MultipartFile firstFile = fList.get(0);
+		String fileName = null;
+		String extension = "";
+		  // 파일 첨부가 있을 때만 처리
+	    if (!firstFile.isEmpty()) {
+	        for (MultipartFile f : fList) {
+	            String savePath = req.getServletContext().getRealPath("/resources/img/notice/");
+	            String originalFilename = f.getOriginalFilename();
+	            if (originalFilename != null && originalFilename.contains(".")) {
+	                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	            }
+	            fileName = UUID.randomUUID().toString() + extension;
+	            String path = savePath + fileName;
+	            File target = new File(path);
+	            f.transferTo(target);
+	        }
+	        vo.setChangeName(fileName);
+	    } 
 		int result = as.edit(vo);
 		
-		return "";
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "redirect:/admin/notice/detail?no=" + vo.getNo();
 	}
 	
 	//공지사항 상세조회

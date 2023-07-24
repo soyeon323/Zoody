@@ -81,7 +81,7 @@
 	                            </td>
 	                            <td scope="col" class="noticeNo">${voList.no}</td>
 	                            <td scope="col">${voList.title}</td>
-	                            <td scope="col">admin</td>
+	                            <td scope="col">관리자</td>
 	                            <td scope="col">${voList.enrollDate}</td>
 	                            <td scope="col">${voList.hit}</td>
 	                        </tr>

@@ -26,7 +26,7 @@
 
     <div id="wrap">
 
-        <form action="${root}/admin/notice/write" method="post" enctype="multipart/form-data">
+        <form action="${root}/admin/notice/write" method="POST" enctype="multipart/form-data">
 
             <div id="write">
                 <a>글쓰기</a>
@@ -53,11 +53,12 @@
     
             <div id="fileArea">
                 <a>파일첨부</a>
-                <input type="file" name="f" multiple accept=".jpg, .png, .jpeg">
+                <input type="file" name="f" multiple accept=".jpg, .png, .jpeg" onchange="imgUpload(event)">
+                <div id="image_container"></div>
             </div>
 
             <div id="tempSave">
-                <button><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
+                <button onclick="tempSave();" type="button"><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
             </div>
 
             <div id="contentArea">
@@ -67,16 +68,16 @@
             <div id="radioArea">
                 <div>
                     <a>우클릭 허용</a>
-                    <input type="radio" checked name="rightBtn" value="" id="radio01">
+                    <input type="radio" checked name="rightclickYn" value="Y" id="radio01">
                     <label for="radio01">허용</label>
-                    <input type="radio" name="rightBtn" value="" id="radio02">
+                    <input type="radio" name="rightclickYn" value="N" id="radio02">
                     <label for="radio02">허용안함</label>
                 </div>
                 <div>
                     <a>댓글 작성</a>
-                    <input type="radio" checked name="openOption" value="" id="radio03">
+                    <input type="radio" checked name="commentYn" value="Y" id="radio03">
                     <label for="radio03">허용</label>
-                    <input type="radio" name="openOption" value="" id="radio04">
+                    <input type="radio" name="commentYn" value="N" id="radio04">
                     <label for="radio04">허용안함</label>
                 </div>
             </div>
@@ -129,6 +130,50 @@
             ],
             });
         });
+
+        //이미지 미리보기
+        function imgUpload(event){
+            var files = event.target.files;
+            var container = document.querySelector("#image_container");
+            container.innerHTML = ""; 
+
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+                var img = new Image();
+
+                reader.onload = (function (img) {
+                    return function (e) {
+                        img.src = e.target.result;
+                        img.style.width = '30px'; 
+                        img.style.height = '30px'; 
+                        container.appendChild(img); 
+                    };
+                })(img);
+
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        //임시저장
+        function tempSave(){
+            const textArea = document.querySelector("#summernote");
+
+            console.log(textarea.value);
+            localStorage.setItem("textArea", textarea.value);
+
+            window.onload = () => {
+                if(localStorage.getItem("textArea")){
+                    if(confirm("임시저장된 글이 있습니다. 불러오시겠습니까?")){
+                        console.log(localStorage.getItem("textArea"));
+
+                        document.querySelector("#summernote").innerHTML
+                        = localStorage.getItem("textArea");
+                    }else{
+                        localStorage.removeItem("textArea");
+                    }
+                }
+            }
+        }
     </script>
 
 </body>

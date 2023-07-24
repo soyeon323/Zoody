@@ -137,7 +137,7 @@ public class AnimalController {
 	}
 	
 	//동물 건강 상태 작성
-	@GetMapping("health/write")
+	@PostMapping("health/write")
 	public String animalHealthWrite(HealthVo vo) {
 		
 		int result = as.healthWrite(vo);
