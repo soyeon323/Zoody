@@ -55,7 +55,7 @@ public class AnimalController {
 	    f.transferTo(target);
 		
 		vo.setProfile(fileName);
-		
+		log.info(fileName);
 		int result = as.animalEnroll(vo);
 		
 		if(result !=2 && f.isEmpty()) {
@@ -65,17 +65,13 @@ public class AnimalController {
 	}
 	
 	
-	//동물 상세 조회 페이지
-	@GetMapping("detail")
-	public String animalDetail() {
-		return "animal/detail";
-	}
-	
 	//동물 상세 조회
-	@PostMapping("detail")
+	@GetMapping("detail")
 	public String animalDetail(AnimalVo vo , Model model) {
 		
 		AnimalVo animalVo = as.animalDetail(vo);
+		log.info("animalVo = {}",animalVo);
+		log.info(vo.getName());
 		if(animalVo == null) {
 			throw new RuntimeException();
 		}

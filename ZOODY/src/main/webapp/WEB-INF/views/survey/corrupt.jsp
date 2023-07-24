@@ -42,7 +42,7 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>동물원 내에서 부당한 업무 알선 및 청탁행위를 목격한 적이 있다.</td>
+                        <td></td>
                         <td> <input type="radio"  name="q1"  value="10"></td>
                         <td> <input type="radio"  name="q1"  value="20"></td>
                         <td> <input type="radio"  name="q1"  value="30"></td>

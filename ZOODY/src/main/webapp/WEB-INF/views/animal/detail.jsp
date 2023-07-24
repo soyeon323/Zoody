@@ -25,55 +25,40 @@
 
         <div id="enroll">동물 상세 조회</div>
         <div id="chart">
-            <form action="${root}/animal/enroll" method="post" enctype="multipart/form-data">
                 
                 <table>
                     <tr id="chart-1">
-                        <td rowspan="4"><img src="/zoody/resources/img/profile.png" alt="동물사진"></td>
+                        <td rowspan="4"><img src="${root}/resources/img/animal/${animalVo.profile}" alt="${animalVo.profile}" style="width: 208px; height: 198px;"></td>
                         <td>이름</td>
                         <td>계 통</td>
                         <td colspan="3">
-                            <select name="animalClassificationNo" id="position">
-                                <option value="">양서류</option>
-                                <option value="">포유류</option>
-                                <option value="">조류</option>
-                            </select>
+                            ${animalVo.animalClassificationName}
                         </td>
                     </tr>
                     <tr id="chart-2">
-                        <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
+                        <td rowspan="3"><input type="text" name="name" placeholder="이름입력" value="${animalVo.name}"></td>
                         <td>담당 부서</td>
                         <td><input type="tel" name="departmentNo" placeholder="담당 부서" maxlength="13" value="${animalVo.departmentNo}"></td>
                     </tr>
                     <tr id="chart-3">
                         <td>애칭</td>
-                        <td><input type="email" name="nickName" placeholder="애칭"></td>
+                        <td><input type="email" name="nickName" value="${animalVo.nickName}"></td>
                         <td>방사장</td>
-                        <td><input type="tel" name="feild" placeholder="방사장" maxlength="11" ></td>
+                        <td><input type="tel" name="feild" placeholder="방사장" value="${animalVo.feild}"></td>
                     </tr>
                     <tr id="chart-4">
                         <td>멸종 위기</td>
                         <td>
-                            <select name="endangeredRatingNo" id="position">
-                                <option value="">절멸(EX)</option>
-                                <option value="">야생절멸(EW)</option>
-                                <option value="">위급(CR)</option>
-                                <option value="">위기(EN)</option>
-                                <option value="">취약(VU)</option>
-                                <option value="">준위협(NT)</option>
-                                <option value="">최소관심(LC)</option>
-                                <option value="">정보부족(DD)</option>
-                                <option value="">미평가(NE)</option>
-                            </select>
+                           ${animalVo.endangered}
                         </td>
                         <td>식 성</td>
-                        <td><input type="text" name="tasteNo" placeholder="식성" maxlength="11"></td>
+                        <td><input type="text" name="tasteNo" placeholder="식성" maxlength="11" value="${animalVo.taste}"></td>
                     </tr>
                       <tr id="chart-4">
                         <td>등록 일시</td>
-                        <td><input type="date" name="date"></td>
+                        <td><input value="${animalVo.date}"></td>
                         <td>서식지</td>
-                        <td><input type="text" name="habitatNo" placeholder="서식지"></td>
+                        <td><input type="text" value="${animalVo.habitat}"></td>
                         
                     </tr>
                 </table>
@@ -84,27 +69,26 @@
 
 
                 <div id="content-area">
-                    <div>검진 날짜 ${hvo.checkupDate}</div>
+                    <div>검진 날짜 : ${animalVo.checkupDate}</div>
                     <div>건강검진 종합 소견</div>
                     <br>
                     <span>유질환</span>
-                    <textarea name="disease" id="t1" cols="30" rows="10">유질환내용</textarea>
+                    <textarea name="disease" id="t1" cols="30" rows="10">${animalVo.disease}</textarea>
                     <br>
                     <span>생활 습관 관리</span>
-                    <textarea name="lifeStyleManagement" id="t2" cols="30" rows="9">생활습관 관리 내용</textarea>
+                    <textarea name="lifeStyleManagement" id="t2" cols="30" rows="9">${animalVo.lifeStyleManagement}</textarea>
                     <br>
                     <span>의사 소견</span>
-                    <textarea name="content" id="t3" cols="30" rows="10">의사 소견 내용1</textarea>
+                    <textarea name="content" id="t3" cols="30" rows="10">${animalVo.content}</textarea>
                 </div>
 
 
                 <div id="btn-area">
-                        <div class="btn-upload" onclick="trainingWrite();">훈련 일지 작성</div>
+                        <div class="btn-upload" onclick="trainingWrite('${animalVo.no}');">훈련 일지 작성</div>
                         <div class="btn-upload" id="healthDetail">건강 정보 조회</div>
                         <div class="btn-upload">닫기</div>
                 </div>
               
-            </form>
         </div>
     </div>
 </body>
@@ -128,27 +112,25 @@
 
 
     //건강 정보 조회
-    const healthDetail = document.querySelector('#healthDetail');
-    healthDetail.addEventListener('click' ,()=>{
-
-        $.ajax({
-        url :'${root}/animal/health',
-        method :'post',
-        data:{},
-        success : ()=>{
-            console.log('success');
-        },
-        error : (e)=>{
-            alert('false..');
-        }
-
-    });
-
-    });
 
     function trainingWrite() {
-        location.href = "${zoody}/animal/training/write?no='${animalNo}'"
+        var animalNo = '${animalVo.no}';
+        $.ajax({
+            url : '${root}/animal/training',
+            method : 'GET',
+            data : {
+                animalNo : 'animalNo'
+            },
+            success : ()=>{
+                location.href = '${root}/animal/training?no='+animalNo;
+            },
+            error : (e)=>{
+                location.href = '${root}/animal/training?no='+animalNo;
+            }
+        });
     }
+    
+
     
 
 </script>
