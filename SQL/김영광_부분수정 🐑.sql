@@ -42,3 +42,6 @@ INSERT ALL
     INTO BOARD_CATEGORY (NO, NAME, CATEGORY_GROUP) VALUES (10000, '자유' , 1)
     INTO BOARD_CATEGORY (NO, NAME, CATEGORY_GROUP) VALUES (10000, '익명' , 1)
 SELECT 1 FROM DUAL;
+
+/*=================================================================================================================================================*/
+commit;
