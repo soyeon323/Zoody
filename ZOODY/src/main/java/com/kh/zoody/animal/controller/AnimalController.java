@@ -61,7 +61,7 @@ public class AnimalController {
 		if(result !=2 && f.isEmpty()) {
 			throw new RuntimeException();
 		}
-		return "animal/list";
+		return "redirect:/animal/list?page=1";
 	}
 	
 	
@@ -98,8 +98,8 @@ public class AnimalController {
 		if(result != 1) {
 			throw new RuntimeException();
 		}
-		//리다이렉트처리하는지 포워딩 처리하지 갑자기 햇갈림
-		return "redirect:/animal/list";
+
+		return "redirect:/animal/list?page=1";
 	}
 	
 

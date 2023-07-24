@@ -10,32 +10,43 @@
 	<!-- 로그인 -->
 	<select id="login" resultType="UserVo">
 		
-		SELECT 
-			NO,
-			DEPARTMENT_NO,
-			RANK_NO,
-			POSITION_NO,
-			STATE_NO,
-			AGENT,
-			DIVISION_NO,
-			ID,
-			PWD,
-			NAME,
-			GENDER,
-			BIRTH_DATE,
-			PROFILE,
-			LINE_INTRO,
-			ADDRESS,
-			PHONE,
-			MAIL,
-			REGISTRATION_DATE,
-			LEAVE_REASON,
-			LEAVE_DATE,
-			OFFICE_NUMBER,
-			LEAVE_COUNT,
-			CAPACITY
-		FROM "USER"
-		WHERE ID = #{id}
+	SELECT
+    u.NO,
+    u.DEPARTMENT_NO,
+    d.NAME AS DEPARTMENT_NAME,
+    u.RANK_NO,
+    r.NAME AS RANK_NAME,
+    r.GRADE AS RANK_GRADE,
+    u.POSITION_NO,
+    p.NAME AS POSITION_NAME,
+    u.STATE_NO,
+    us.NAME AS STATE_NAME,
+    u.AGENT,
+    u.DIVISION_NO,
+    ed.EMPLOY_DIVISION AS EMPLOY_DIVISION_NAME,
+    u.ID,
+    u.PWD,
+    u.NAME,
+    u.GENDER,
+    u.BIRTH_DATE,
+    u.PROFILE,
+    u.LINE_INTRO,
+    u.ADDRESS,
+    u.PHONE,
+    u.MAIL,
+    u.REGISTRATION_DATE,
+    u.LEAVE_REASON,
+    u.LEAVE_DATE,
+    u.OFFICE_NUMBER,
+    u.LEAVE_COUNT,
+    u.CAPACITY
+	FROM "USER" u
+	LEFT JOIN "DEPARTMENT" d ON u.DEPARTMENT_NO = d.NO
+	LEFT JOIN "RANK" r ON u.RANK_NO = r.NO
+	LEFT JOIN "POSITION" p ON u.POSITION_NO = p.NO
+	LEFT JOIN "USER_STATE" us ON u.STATE_NO = us.NO
+	LEFT JOIN "EMPLOY_DIVISION" ed ON u.DIVISION_NO = ed.NO
+	WHERE u.ID = #{id}
 		
 		
 	</select>
