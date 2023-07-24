@@ -65,7 +65,7 @@ public class AnimalController {
 	}
 	
 	
-	//동물 상세 조회
+	//동물 상세 조회 페이지
 	@GetMapping("detail")
 	public String animalDetail() {
 		return "animal/detail";
@@ -73,12 +73,13 @@ public class AnimalController {
 	
 	//동물 상세 조회
 	@PostMapping("detail")
-	public String animalDetail(AnimalVo vo) {
+	public String animalDetail(AnimalVo vo , Model model) {
 		
 		AnimalVo animalVo = as.animalDetail(vo);
 		if(animalVo == null) {
 			throw new RuntimeException();
 		}
+		model.addAttribute("animalVo",animalVo); 
 		return "animal/detail";
 	}
 
@@ -102,15 +103,15 @@ public class AnimalController {
 	}
 	
 	
-	//동물 리스트
-	@GetMapping("list")
-	public String animalList() {
-		return "animal/list";
-	}
+//	//동물 리스트
+//	@GetMapping("list")
+//	public String animalList() {
+//		return "animal/list";
+//	}
 	
 	//동물 리스트
-	@PostMapping("list")
-	public String animalList(int page, AnimalVo vo , Model model) {
+	@RequestMapping("list")
+	public String animalList(Integer page, AnimalVo vo , Model model) {
 		
 		int listCount = as.getAnimalListCnt();
 		int currentPage = page;
@@ -120,9 +121,13 @@ public class AnimalController {
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
-		List<AnimalVo> animalList = as.AnimalList(pv);
 		int getAnimalListCnt = as.getAnimalListCnt();
 		
+		List<AnimalVo> animalList = as.AnimalList(pv);
+		
+		if(animalList ==null) {
+			throw new RuntimeException();
+		}
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("animalList", animalList);
@@ -130,9 +135,6 @@ public class AnimalController {
 		map.put("pv", pv);
 		
 		
-		if(animalList ==null) {
-			throw new RuntimeException();
-		}
 		model.addAttribute("map",map);
 		return "animal/list";
 	}
@@ -143,34 +145,33 @@ public class AnimalController {
 		return "animal/health-write";
 	}
 	
-//	//동물 건강 상태 작성
-//	@PostMapping("health/write")
-//	public String animalHealthWrite(HealthVo vo) {
-//		
-//		int result = as.healthWrite(vo);
-//		if(result !=1) {
-//			throw new RuntimeException();
-//		}
-//		return "redirect:/animal/list";
-//	}
+	//동물 건강 상태 작성
+	@PostMapping("health/write")
+	public String animalHealthWrite(HealthVo vo) {
+		
+		int result = as.healthWrite(vo);
+		if(result !=1) {
+			throw new RuntimeException();
+		}
+		return "redirect:/animal/list";
+	}
 	
 	
-	
-//	//동물 건강 상태 조회
-//	@GetMapping("health")
-//	public String animalHealth(AnimalVo vo , Model model) {
-//		
-//		HealthVo hvo = as.animalHealth(vo);
-//		
-//		if(hvo ==null) {
-//			throw new RuntimeException();
-//		}
-//		
-//		Gson gson = new Gson();
-//		String str = gson.toJson(hvo);
-//		model.addAttribute("hvo",str);
-//		return "animal/health";
-//	}
+	//동물 건강 상태 조회
+	@GetMapping("health")
+	public String animalHealth(AnimalVo vo , Model model) {
+		
+		HealthVo hvo = as.animalHealth(vo);
+		log.info("hvo = {}",hvo);
+		if(hvo ==null) {
+			throw new RuntimeException();
+		}
+		
+		Gson gson = new Gson();
+		String str = gson.toJson(hvo);
+		model.addAttribute("hvo",str);
+		return "animal/health";
+	}
 
 	
 }

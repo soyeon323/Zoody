@@ -6,6 +6,7 @@
   
   <mapper namespace="animal">
  
+ 
   	<insert id="enroll">
   	
   		INSERT ALL
@@ -18,20 +19,45 @@
   	</insert>
   	
   	
-  	<select id="AnimalList" resultType="AnimalVo">
-  		SELECT 
-  		A.*
-		, C.*
-		FROM ANIMAL A
-		JOIN CATEGORY C ON A.CATEGORY_NO = C.CATEGORY_NO
-		WHERE A.STATUS = 'O'
+  	<select id="AnimalList" resultMap="TasteVo ,AnimalVo , CategoryVo, AnimalClassificationVo,HabitatVo,EndangeredVo ">
+  	   SELECT
+		    A.NO,
+		    
+		    
+		    
+		    A.NICK_NAME,
+		    
+		    TO_CHAR(A."DATE",'YYYY-MM-DD') AS"DATE",
+		    A.FEILD,
+		    
+		    
+		    
+		    
+		    C.NAME AS NAME,
+		    T.TASTE,
+		    H.HABITAT,
+		    E.ENDANGERED
+		FROM
+		    ANIMAL A
+		JOIN
+		    CATEGORY C ON A.CATEGORY_NO = C.CATEGORY_NO
+		JOIN
+		    ANIMAL_CLASSIFICATION AC ON C.CLASSIFICATION_NO = AC.NO
+		JOIN
+		    TASTE T ON C.TASTE_NO = T.TASTE_NO
+		JOIN
+		    HABITAT H ON C.HABITAT_NO = H.HABITAT_NO
+		JOIN
+		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
+		    WHERE A.STATUS = 'O'
+		    ORDER BY A.NO DESC
 		
   	</select>
   	
   	<select id="getAnimalListCnt">
   		 SELECT COUNT(NO)
 		FROM "ANIMAL"
-		WHERE STATUS = 'O';
+		WHERE STATUS = 'O'
   	</select>
   	
   	
@@ -74,33 +100,54 @@
 			)
   	</insert>
   	
-  	<!-- A.DATE 만 붙히면 실행이 안됨;;; -->
   	<select id="animalDetail" resultType="AnimalVo">
   		
-  		SELECT 
-		  A.NO
-		, A.CATEGORY_NO
-		, A.PROFILE
-		, A.DEPARTMENT_NO
-		, A.NICK_NAME
-		
-		, A.FEILD
-		, C.CATEGORY_NO 
-		, C.CLASSIFICATION_NO 
-		, C.TASTE_NO
-		, C.HABITAT_NO
-		, C.ENDANGERED_RATING_NO
-		, C.NAME
-		FROM ANIMAL A
-		JOIN CATEGORY C ON A.NO = C.CATEGORY_NO
-		WHERE A.NO =#{no}
+  		    SELECT
+		    A.NO,
+		    A.CATEGORY_NO,
+		    A.PROFILE,
+		    A.DEPARTMENT_NO,
+		    A.NICK_NAME,
+		    A.STATUS,
+		    A."DATE",
+		    A.FEILD,
+		    C.CLASSIFICATION_NO,
+		    T.TASTE_NO,
+		    H.HABITAT_NO,
+		    E.ENDANGERED_RATING_NO,
+		    C.NAME AS CATEGORY_NAME,
+		    T.TASTE,
+		    H.HABITAT,
+		    E.ENDANGERED
+		FROM
+		    ANIMAL A
+		JOIN
+		    CATEGORY C ON A.CATEGORY_NO = C.CATEGORY_NO
+		JOIN
+		    ANIMAL_CLASSIFICATION AC ON C.CLASSIFICATION_NO = AC.NO
+		JOIN
+		    TASTE T ON C.TASTE_NO = T.TASTE_NO
+		JOIN
+		    HABITAT H ON C.HABITAT_NO = H.HABITAT_NO
+		JOIN
+		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
+		    WHERE A.NO = #{no}
 
   	</select>
   	
-  	<select id="animalHealth">
-  		SELECT * 
+  	<select id="animalHealth" resultType="com.kh.zoody.animal.health.vo.HealthVo">
+  		SELECT 
+		NO
+		,ANIMAL_NO
+		,STATE_OF_HEALTH
+		, TO_CHAR(CHECKUP_DATE, 'YYYY-MM-DD') AS CHECKUP_DATE
+		,CONTENT
+		,DISEASE
+		,LIFE_STYLE_MANAGEMENT
 		FROM ANIMAL_HEALTH_SCREENING
 		WHERE ANIMAL_NO = #{no}
   	</select>
+  	
+  	
   	
   </mapper>

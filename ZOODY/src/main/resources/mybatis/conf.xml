@@ -20,7 +20,11 @@
 		<typeAlias type="com.kh.zoody.community.vo.BoardVo" alias="BoardVo"/>
 		<typeAlias type="com.kh.zoody.notice.vo.NoticeVo" alias="NoticeVo"/>
 		<typeAlias type="com.kh.zoody.animal.vo.AnimalVo" alias="AnimalVo"/>
-		<typeAlias type="com.kh.zoody.animal.health.vo.HealthVo" alias="HealthVo"/>
+		<typeAlias type="com.kh.zoody.admin.category.vo.CategoryVo" alias="CategoryVo"/>
+		<typeAlias type="com.kh.zoody.animal.animalclassification.vo.AnimalClassificationVo" alias="AnimalClassificationVo"/>
+		<typeAlias type="com.kh.zoody.animal.endangered.vo.EndangeredVo" alias="EndangeredVo"/>
+		<typeAlias type="com.kh.zoody.animal.habitat.vo.HabitatVo" alias="HabitatVo"/>
+		<typeAlias type="com.kh.zoody.animal.taste.vo.TasteVo" alias="TasteVo"/>
 	</typeAliases>
 
   

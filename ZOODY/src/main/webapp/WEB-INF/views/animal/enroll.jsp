@@ -84,8 +84,8 @@
                                 <option value="3">중동</option>
                                 <option value="4">아시아</option>
                                 <option value="5">북아메리카</option>
-                                <option value="6">북아메리카</option>
-                                <option value="7">북아메리카</option>
+                                <option value="6">남아메리카</option>
+                                <option value="7">오세아니아</option>
                                 
                             </select>
                         </td>
