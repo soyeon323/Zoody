@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
 
 public interface AdminDao {
 
@@ -35,5 +36,14 @@ public interface AdminDao {
 
 	//게시글 작성
 	int write(SqlSessionTemplate sst, NoticeVo vo);
+
+	//댓글 작성
+	int reply(SqlSessionTemplate sst, ReplyVo vo);
+
+	//댓글 조회
+	List<ReplyVo> selectReply(SqlSessionTemplate sst, String no);
+
+	//댓글 삭제
+	int replyDelete(SqlSessionTemplate sst, ReplyVo vo);
 
 }

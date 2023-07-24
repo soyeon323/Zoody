@@ -19,9 +19,11 @@ import com.kh.zoody.admin.service.AdminService;
 import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("admin")
@@ -105,16 +107,31 @@ public class AdminController {
 	}
 	
 	//공지사항 상세조회
-	@RequestMapping("notice/detail")
+	@GetMapping("notice/detail")
 	public void noticeDetail(String no, Model model) {
 		NoticeVo vo = as.noticeDetail(no);
+		List<ReplyVo> voList = as.selectReply(no);
 		
-		if(vo == null) {
+		if(vo == null || voList == null) {
 			throw new RuntimeException();
 		}
+		
 		model.addAttribute("vo", vo);
+		model.addAttribute("voList", voList);
 		
 		return;
+	}
+	
+	//공지사항 댓글달기
+	@PostMapping("notice/detail")
+	public String noticeReply(ReplyVo vo) {
+		int result = as.reply(vo);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/admin/notice/detail?no=" + vo.getNoticeNo();
 	}
 	
 	//공지사항 목록
@@ -174,4 +191,15 @@ public class AdminController {
 	//건의사항 상세조회
 	@RequestMapping("suggestion/detail")
 	public void suggestionDetail() {}
+	
+	//댓글 삭제
+	@PostMapping("notice/replyDelete")
+	public String replyDelete(ReplyVo vo) {
+		int result = as.replyDelete(vo);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "";
+	}
 }

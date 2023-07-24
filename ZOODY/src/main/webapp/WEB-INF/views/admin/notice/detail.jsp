@@ -44,15 +44,7 @@
             <div>
                 <a>▶</a>
                 <a>게시글 공개 설정 : </a>
-                <c:if test="${vo.boardLimit == 0}">
-                    <a>전체공개</a>
-                </c:if>
-                <c:if test="${vo.boardLimit == 1}">
-                    <a>관리자공개</a>
-                </c:if>
-                <c:if test="${vo.boardLimit == 2}">
-                    <a>비공개</a>
-                </c:if>
+                <a>전체공개</a>
             </div>
         </div>
 
@@ -109,19 +101,22 @@
                     <div id="commentArea">
                         <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
                        
-                        <form action="${root}/admin/notice/detail" method="post">
+                        <form action="${root}/admin/notice/detail" method="POST">
+                            <input type="hidden" value="${vo.no}" name="noticeNo">
                             <div id="commentZone">
-                                <div><input type="text" placeholder="댓글을 남겨보세요."></div>
+                                <div><input type="text" placeholder="댓글을 남겨보세요." name="content"></div>
                                 <div><input type="submit" value="등록"></div>
                             </div>
                         </form>
                     </div>
                     <div id="commentOk">
-                        <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진"></div>
-                        <div><a>@김영희 대리</a></div>
-                        <div><a>확인해주세요</a></div>
-                        <div><a>23-07-01</a></div>
-                        <div><a href="">삭제</a></div>
+                        <c:forEach items="${voList}" var="voList">
+                            <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진" width="28px" height="28px"></div>
+                            <div id="userName"><a>${voList.name}&nbsp ${voList.rankName}</a></div>
+                            <div id="reply"><a>${voList.content}</a></div>
+                            <div id="date"><a>${voList.enrollDate}</a></div>
+                            <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
+                        </c:forEach>
                     </div>
                 </c:if>
             </div>
@@ -207,4 +202,26 @@
             }
         })
     };
+
+    //댓글 삭제
+    function deleteReply(no, noticeNo){
+        if(confirm("댓글을 삭제하시겠습니까?")){
+            $.ajax({
+                url : "${root}/admin/notice/replyDelete",
+                type : "POST",
+                data : {
+                    no : no,
+                    noticeNo : noticeNo
+                },
+                success : function(){
+                    location.reload();
+                },
+                error : function(){
+                    location.reload();
+                }
+            })
+        }
+        return;
+    }
+
 </script>

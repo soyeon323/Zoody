@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -65,6 +66,24 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int write(SqlSessionTemplate sst, NoticeVo vo) {
 		return sst.insert("notice.write", vo);
+	}
+
+	//댓글 작성
+	@Override
+	public int reply(SqlSessionTemplate sst, ReplyVo vo) {
+		return sst.insert("notice.reply", vo);
+	}
+
+	//댓글 조회
+	@Override
+	public List<ReplyVo> selectReply(SqlSessionTemplate sst, String no) {
+		return sst.selectList("notice.selectReply", no);
+	}
+
+	//댓글 삭제
+	@Override
+	public int replyDelete(SqlSessionTemplate sst, ReplyVo vo) {
+		return sst.update("notice.replyDelete", vo);
 	}
 
 }

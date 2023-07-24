@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.zoody.admin.dao.AdminDao;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -66,6 +67,24 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int write(NoticeVo vo) {
 		return dao.write(sst, vo);
+	}
+
+	//댓글작성
+	@Override
+	public int reply(ReplyVo vo) {
+		return dao.reply(sst, vo);
+	}
+
+	//댓글 조회
+	@Override
+	public List<ReplyVo> selectReply(String no) {
+		return dao.selectReply(sst, no);
+	}
+
+	//댓글 삭제
+	@Override
+	public int replyDelete(ReplyVo vo) {
+		return dao.replyDelete(sst, vo);
 	}
 	
 }
