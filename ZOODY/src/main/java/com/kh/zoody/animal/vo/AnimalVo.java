@@ -17,8 +17,8 @@ public class AnimalVo {
 	private String feild;
 	private String tasteNo;
 	private String habitatNo;
-	private String animalClassificationNo;
-	private String endangeredRatingNo;
+	private String animalClassificationNo;  //계통 번호
+	private String endangeredRatingNo;  
 	
 	
 	private String taste;
@@ -35,5 +35,6 @@ public class AnimalVo {
 	private String endangered;
 	
 	private String habitat;
+	private String animalClassificationName;
 	
 }

@@ -1,4 +1,4 @@
-package com.kh.zoody.admin.category.vo;
+package com.kh.zoody.animal.category.vo;
 
 import lombok.Data;
 

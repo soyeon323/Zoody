@@ -60,15 +60,14 @@
                     </thead>
                     <tbody>
                        <c:forEach items="${map.animalList}" var="animalList">
-                       	<tr>
+                       	<tr onclick="detail('${animalList.no}')">
                             <td>${animalList.no}</td>
                             <td>${animalList.nickName}</td>
                             <td>${animalList.feild}</td>
                             <td>${animalList.taste}</td>
                             <td>${animalList.habitat}</td>
                             <td>${animalList.date}</td>
-                            
-                            <td><button onclick="location.href='${root}/animal/training?no=${animalList.no}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
+                            <td><button onclick="trainingWrite('${animalList.no}')" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
                         </tr>
                        </c:forEach>
                       
@@ -109,20 +108,39 @@
 </html>
 
 <script>
-    
-    //동물 상세조회시 테이블 태그 행의 번호 가져오는 코드
-    const tbody = document.querySelector("tbody");
 
-    tbody.addEventListener("click", function (e) {
-    const noElement = e.target.closest("tr").querySelector("td[id^='td']");
-    if (noElement) {
-    const no = noElement.innerText;
-    console.log(no);
-
-    //  location.href = "${root}/animal/detail?no=" + no;
+    //훈련일지 작성
+    function trainingWrite(no){
+        $.ajax({
+            url : '${root}/animal/training',
+            method : 'GET',
+            data : {
+                no : 'no'
+            },
+            success : ()=>{
+                location.href = '${root}/animal/training?no='+no;
+            },
+            error : (e)=>{
+                location.href = '${root}/animal/training?no='+no;
+            }
+        });
     }
-    });
 
-
+    //동물 상세 조회
+    function detail(no){
+        $.ajax({
+            url : '${root}/animal/detail',
+            method : 'GET',
+            data : {
+                no : 'no'
+            },
+            success : ()=>{
+                location.href = '${root}/animal/detail?no='+no;
+            },
+            error : (e)=>{
+                location.href = '${root}/animal/detail?no='+no;
+            }
+        });
+    }
   
 </script>

@@ -60,7 +60,6 @@
 
   	</insert>
   	
-  	<!--  parameterType="AnimalVo"   resultMap="AnimalVoResultMap, CategoryVoResultMap, AnimalClassificationVoResultMap, HabitatVoResultMap, EndangeredVoResultMap, TasteVoResultMap" -->
   	<select id="AnimalList" resultType="AnimalVo" >
   	   SELECT
 		    A.NO,
@@ -136,23 +135,30 @@
   	
   	<select id="animalDetail" resultType="AnimalVo">
   		
-  		    SELECT
+  		  SELECT
 		    A.NO,
 		    A.CATEGORY_NO,
 		    A.PROFILE,
 		    A.DEPARTMENT_NO,
 		    A.NICK_NAME,
 		    A.STATUS,
-		    A."DATE",
+		    TO_CHAR( A."DATE",'YYYY-MM-DD')AS "DATE",
 		    A.FEILD,
 		    C.CLASSIFICATION_NO,
+            AC.NAME AS ANIMAL_CLASSIFICATION_NAME,    
 		    T.TASTE_NO,
 		    H.HABITAT_NO,
+            C.NAME AS NAME,
 		    E.ENDANGERED_RATING_NO,
-		    C.NAME AS CATEGORY_NAME,
 		    T.TASTE,
 		    H.HABITAT,
-		    E.ENDANGERED
+		    E.ENDANGERED,
+            AHS.CONTENT,
+            AHS.STATE_OF_HEALTH,
+            AHS.DISEASE,
+            TO_CHAR(AHS.CHECKUP_DATE,'YYYY-MM-DD') AS CHECKUP_DATE,
+            AHS.LIFE_STYLE_MANAGEMENT
+            
 		FROM
 		    ANIMAL A
 		JOIN
@@ -165,8 +171,8 @@
 		    HABITAT H ON C.HABITAT_NO = H.HABITAT_NO
 		JOIN
 		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
+            JOIN ANIMAL_HEALTH_SCREENING AHS ON A.NO = AHS.ANIMAL_NO
 		    WHERE A.NO = #{no}
-
   	</select>
   	
   	<select id="animalHealth" resultType="com.kh.zoody.animal.health.vo.HealthVo">
