@@ -33,7 +33,7 @@
                         <td>이름</td>
                         <td>계 통</td>
                         <td colspan="3">
-                            <select name="position" id="position">
+                            <select name="animalClassificationNo" id="position">
                                 <option value="">양서류</option>
                                 <option value="">포유류</option>
                                 <option value="">조류</option>
@@ -42,21 +42,19 @@
                     </tr>
                     <tr id="chart-2">
                         <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
-                        <td>담당자</td>
-                        <td><input type="text" name="" placeholder="담당자" maxlength="6"></td>
                         <td>담당 부서</td>
-                        <td><input type="tel" name="" placeholder="담당 부서" maxlength="13"></td>
+                        <td><input type="tel" name="departmentNo" placeholder="담당 부서" maxlength="13" value="${animalVo.departmentNo}"></td>
                     </tr>
                     <tr id="chart-3">
                         <td>애칭</td>
-                        <td><input type="email" name="" placeholder="애칭"></td>
+                        <td><input type="email" name="nickName" placeholder="애칭"></td>
                         <td>방사장</td>
-                        <td><input type="tel" name="" placeholder="방사장" maxlength="11" ></td>
+                        <td><input type="tel" name="feild" placeholder="방사장" maxlength="11" ></td>
                     </tr>
                     <tr id="chart-4">
                         <td>멸종 위기</td>
                         <td>
-                            <select name="position" id="position">
+                            <select name="endangeredRatingNo" id="position">
                                 <option value="">절멸(EX)</option>
                                 <option value="">야생절멸(EW)</option>
                                 <option value="">위급(CR)</option>
@@ -69,13 +67,13 @@
                             </select>
                         </td>
                         <td>식 성</td>
-                        <td><input type="text" name="" placeholder="식성" maxlength="11"></td>
+                        <td><input type="text" name="tasteNo" placeholder="식성" maxlength="11"></td>
                     </tr>
                       <tr id="chart-4">
                         <td>등록 일시</td>
-                        <td><input type="date" name="enrollDate"></td>
+                        <td><input type="date" name="date"></td>
                         <td>서식지</td>
-                        <td><input type="text" name="" placeholder="서식지"></td>
+                        <td><input type="text" name="habitatNo" placeholder="서식지"></td>
                         
                     </tr>
                 </table>
@@ -86,21 +84,22 @@
 
 
                 <div id="content-area">
+                    <div>검진 날짜 ${hvo.checkupDate}</div>
                     <div>건강검진 종합 소견</div>
                     <br>
                     <span>유질환</span>
-                    <textarea name="" id="t1" cols="30" rows="10">유질환내용</textarea>
+                    <textarea name="disease" id="t1" cols="30" rows="10">유질환내용</textarea>
                     <br>
                     <span>생활 습관 관리</span>
-                    <textarea name="" id="t2" cols="30" rows="9">생활습관 관리 내용</textarea>
+                    <textarea name="lifeStyleManagement" id="t2" cols="30" rows="9">생활습관 관리 내용</textarea>
                     <br>
                     <span>의사 소견</span>
-                    <textarea name="" id="t3" cols="30" rows="10">의사 소견 내용1</textarea>
+                    <textarea name="content" id="t3" cols="30" rows="10">의사 소견 내용1</textarea>
                 </div>
 
 
                 <div id="btn-area">
-                        <div class="btn-upload">훈련 일지 작성</div>
+                        <div class="btn-upload" onclick="trainingWrite();">훈련 일지 작성</div>
                         <div class="btn-upload" id="healthDetail">건강 정보 조회</div>
                         <div class="btn-upload">닫기</div>
                 </div>
@@ -147,6 +146,9 @@
 
     });
 
+    function trainingWrite() {
+        location.href = "${zoody}/animal/training/write?no='${animalNo}'"
+    }
     
 
 </script>

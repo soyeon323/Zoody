@@ -20,9 +20,9 @@ public class AnimalDao {
 	}
 
 	//동물 목록 조회
-	public List AnimalList(SqlSessionTemplate sst, PageVo pv) {
+	public List<AnimalVo> AnimalList(SqlSessionTemplate sst, PageVo pv) {
 		RowBounds rb = new RowBounds(pv.getOffset(),pv.getBoardLimit());
-		return sst.selectList("animal.AnimalList",pv);
+		return sst.selectList("animal.AnimalList",null,rb);
 	}
 	
 	//동물 리스트 조회(총 갯수)

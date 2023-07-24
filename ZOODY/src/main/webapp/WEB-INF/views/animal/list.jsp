@@ -29,7 +29,7 @@
         <div id="back">
 
             <div id="firstDiv">
-                <a>현재 보유 동물 수 </a>
+                <a>현재 보유 동물 수 ${map.getAnimalListCnt}</a>
                 <select name="searchType" id="classFication">
                     <option value="">조류</option>
                     <option value="">포유류</option>
@@ -49,7 +49,6 @@
                     <thead>
                         <tr>
                             <td>번호</td>
-                            <td>동물 번호</td>
                             <td>애칭</td>
                             <td>방사장</td>
                             <td>식성</td>
@@ -60,9 +59,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                       <!-- <c:forEach items="${map.animalList}" var="animalList">
+                       <c:forEach items="${map.animalList}" var="animalList">
                        	<tr>
-                            <td>${animal.no}</td>
                             <td>${animalList.no}</td>
                             <td>${animalList.nickName}</td>
                             <td>${animalList.feild}</td>
@@ -71,28 +69,8 @@
                             <td>${animalList.date}</td>
                             <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
                         </tr>
-                       </c:forEach> -->
-
-                       <tr>
-                        <td id="td1">1</td>
-                        <td>${animalList.no}</td>
-                        <td>${animalList.nickName}</td>
-                        <td>${animalList.feild}</td>
-                        <td>${animalList.taste}</td>
-                        <td>${animalList.habitat}</td>
-                        <td>${animalList.date}</td>
-                        <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
-                    </tr>
-                    <tr>
-                        <td id="td2">2</td>
-                        <td>${animalList.no}</td>
-                        <td>${animalList.nickName}</td>
-                        <td>${animalList.feild}</td>
-                        <td>${animalList.taste}</td>
-                        <td>${animalList.habitat}</td>
-                        <td>${animalList.date}</td>
-                        <td><button onclick="location.href='/zoody/animal/training?animalNo=${animlaNo}'" style="font-size: 0.94em;" class="btn btn-primary" id="trainingBtn">훈련 일지 작성</button></td>
-                    </tr>
+                       </c:forEach>
+                      
                     </tbody>
                 </table>
             </div>
@@ -132,7 +110,8 @@
     const no = noElement.innerText;
     console.log(no);
 
-     location.href = "${root}/animal/detail?${animalNo}=" + no;
+    //  location.href = "${root}/animal/detail?no=" + no;
     }
     });
+
 </script>

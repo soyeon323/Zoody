@@ -19,5 +19,4 @@ public class AnimalVo {
 	private String habitatNo;
 	private String animalClassificationNo;
 	private String endangeredRatingNo;
-	
 }

@@ -31,7 +31,7 @@ public class AnimalService {
 	}
 	
 	//동물 목록 조회
-	public List AnimalList(PageVo pv) {
+	public List<AnimalVo> AnimalList(PageVo pv) {
 		return dao.AnimalList(sst,pv);
 	}
 
