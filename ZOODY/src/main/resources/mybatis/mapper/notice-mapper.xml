@@ -168,4 +168,61 @@
 			, 0
 		)
 	</insert>
+	
+	<insert id="reply">
+		INSERT INTO REPLY
+		(
+			NO
+			, SUGGESTION_NO
+			, NOTICE_NO
+			, USER_NO
+			, CONTENT
+			, ENROLL_DATE
+			, MODIFY_DATE
+			, STATUS
+		)	
+		VALUES
+		(
+			SEQ_REPLY_NO.NEXTVAL
+			, #{suggestionNo}
+			, #{noticeNo}
+			, 2
+			, #{content}
+			, SYSDATE
+			, #{modifyDate}
+			, 'O'
+		)
+	</insert>
+	
+	<select id="selectReply" resultType="ReplyVo">
+		SELECT 
+		    R.NO
+		    , U.NAME
+		    , R.SUGGESTION_NO
+		    , K.NAME AS RANK_NAME
+		    , R.NOTICE_NO
+		    , R.USER_NO
+		    , R.CONTENT
+		    , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD') AS MODIFY_DATE
+		    , R.STATUS
+		FROM REPLY R JOIN "USER" U ON R.USER_NO = U.NO
+		JOIN RANK K ON K.NO = U.RANK_NO
+		WHERE 
+		<if test="suggestionNo != null or noticeNo != null">
+        (
+            <if test="suggestionNo != null">SUGGESTION_NO = #{suggestionNo}</if>
+            <if test="noticeNo != null">OR NOTICE_NO = #{noticeNo}</if>
+        )
+        AND STATUS = 'O'
+        ORDER BY R.NO DESC
+    </if>
+	</select>
+	
+	<update id="replyDelete">
+		UPDATE REPLY
+		SET STATUS = 'X'
+		WHERE NOTICE_NO = #{noticeNo}
+		AND NO = #{no}
+	</update>
 </mapper>

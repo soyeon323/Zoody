@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
 
 public interface AdminService {
 
@@ -30,5 +31,14 @@ public interface AdminService {
 
 	//게시글 작성
 	int write(NoticeVo vo);
+
+	//댓글 작성
+	int reply(ReplyVo vo);
+
+	//댓글 조회
+	List<ReplyVo> selectReply(String no);
+
+	//댓글 삭제
+	int replyDelete(ReplyVo vo);
 
 }
