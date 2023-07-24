@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,11 +52,40 @@ public class AttendanceController {
 		
 		model.addAttribute("mainAttList", mainAttList);
 		model.addAttribute("mainLeList", mainLeList);
-		
 		model.addAttribute("deList", deList);
+		
+		// 데이터베이스에서 주간 근무 현황 데이터를 가져와서 배열로 변환
+		List<AttendanceVo> chartList = attService.mainChartList();
+		
+		// JSP에 데이터를 전달하기 위해 Model에 설정
+		model.addAttribute("enrolldateData", convertToEnrolldateArray(chartList));
+		model.addAttribute("totalWorkTimeData", convertToTotalWorkTimeArray(chartList));
+		
 		
 		return "attendance/workStatus";
 	}
+	
+	// enrolldate 데이터를 JavaScript 배열로 변환하는 메서드
+		private String convertToEnrolldateArray(List<AttendanceVo> chartList) {
+			StringBuilder sb = new StringBuilder();
+			for (AttendanceVo attendance : chartList) {
+				sb.append("'").append(attendance.getEnrolldate()).append("',");
+			}
+			// 마지막 쉼표 제거
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
+		}
+		
+		// totalWorkTime 데이터를 JavaScript 배열로 변환하는 메서드
+		private String convertToTotalWorkTimeArray(List<AttendanceVo> chartList) {
+			StringBuilder sb = new StringBuilder();
+			for (AttendanceVo attendance : chartList) {
+				sb.append("'").append(attendance.getTotalWorkTime()).append("',");
+			}
+			// 마지막 쉼표 제거
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
+		}
 	
 	//메인화면 출퇴근 등록
 	@PostMapping("main")

@@ -2,6 +2,7 @@ package com.kh.zoody.attendance.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -112,6 +113,13 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public int checkOutWork(AttendanceVo attendanceVo) {
 		return dao.checkOutWork(sst, attendanceVo);
 	}
+
+
+	@Override
+	public List<AttendanceVo> mainChartList() {
+		return dao.mainChartList(sst);
+	}
+
 
 
 
