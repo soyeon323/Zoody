@@ -60,7 +60,7 @@
             </div>
 
             <div id="tempSave">
-                <button><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
+                <button onclick="tempSaveText();" type="button"><img src="${root}/resources/img/icon/png/tempsave.png" alt="임시저장이미지"> 임시저장</button>
             </div>
 
             <div id="contentArea">
@@ -86,7 +86,7 @@
 
             <div id="btnArea">
                 <input type="submit" value="수정">
-                <button>취소</button>
+                <button onclick="cancel();" type="button">취소</button>
             </div>
         </form>
     
@@ -134,6 +134,46 @@
             reader.readAsDataURL(files[i]);
         }
      }
+
+       // 임시저장
+       function tempSaveText() {
+            
+            const textarea = document.querySelector("#summernote");
+            const textValue = textarea.value;
+            const title = document.querySelector("input[name='title']").value; 
+
+            localStorage.setItem("textArea", textValue);
+            localStorage.setItem("titleArea", title); 
+
+            console.log(localStorage.getItem("textArea"));
+            console.log(localStorage.getItem("titleArea")); 
+
+            const currentTime = new Date();
+            const currentTimeString = currentTime.toLocaleString();
+
+            alert(currentTimeString + " 임시저장 완료");
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem("textArea")) {
+                if (confirm("임시저장된 글이 있습니다. 불러오시겠습니까?")) {
+                    document.querySelector("input[name='title']").value = localStorage.getItem("titleArea");
+                    $("#summernote").summernote("code", localStorage.getItem("textArea"));
+                } else {
+                    localStorage.removeItem("textArea");
+                    localStorage.removeItem("titleArea");
+                }
+            }
+        };
+
+        //게시글작성 취소
+        function cancel(){
+            
+            if(confirm("게시글 작성을 취소하시겠습니까?")){
+                location.href = "${root}/admin/notice/list";
+            }
+            return;
+        };
     </script>
 
 </body>

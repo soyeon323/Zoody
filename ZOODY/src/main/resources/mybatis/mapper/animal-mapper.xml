@@ -20,14 +20,7 @@
     <result property="feild" column="FEILD"/>
     <result property="tasteNo" column="TASTE_NO"/>
     <result property="habitatNo" column="HABITAT_NO"/>
-    <result property="animalClassificationNo" column="ANIMAL_CLASSIFICATION_NO"/>
     <result property="endangeredRatingNo" column="ENDANGERED_RATING_NO"/>
-</resultMap>
-
-<!-- CategoryVo 클래스에 대한 resultMap -->
-<resultMap id="CategoryVoResultMap" type="com.kh.zoody.admin.category.vo.CategoryVo">
-    <id property="no" column="CATEGORY_NO"/>
-    <result property="name" column="NAME"/>
 </resultMap>
 
 <!-- AnimalClassificationVo 클래스에 대한 resultMap -->

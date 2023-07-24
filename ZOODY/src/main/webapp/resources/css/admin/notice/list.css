@@ -188,6 +188,7 @@
 
 #tableArea tbody tr:hover{
     background-color: #5189FA; 
+    cursor: pointer;
 }
 
 #page{
