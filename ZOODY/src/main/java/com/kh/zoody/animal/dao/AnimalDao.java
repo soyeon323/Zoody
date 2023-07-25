@@ -37,8 +37,8 @@ public class AnimalDao {
 	}
 
 	//동물 건강 상태 작성
-	public int healthWrite(SqlSessionTemplate sst, HealthVo vo) {
-		return sst.insert("animal.healthWrite",vo);
+	public int healthWrite(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.insert("animal.healthWrite" , vo);
 	}
 
 	//동물 상세 조회

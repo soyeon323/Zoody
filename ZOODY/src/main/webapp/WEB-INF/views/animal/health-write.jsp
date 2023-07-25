@@ -22,70 +22,15 @@
 
     <div id="wrap">
 
-        <div id="enroll">동물 건강 정보</div>
+        <div id="enroll">동물 건강 검진 작성</div>
 
         <div id="chart">
            
+             
                 
-                <table>
-                    <tr id="chart-1">
-                        <td rowspan="4"><img src="/zoody/resources/img/profile.png" alt="동물사진"></td>
-                        <td>이름</td>
-                        <td>계 통</td>
-                        <td colspan="3">
-                            <select name="position" id="position">
-                                <option value="">양서류</option>
-                                <option value="">포유류</option>
-                                <option value="">조류</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr id="chart-2">
-                        <td rowspan="3"><input type="text" name="name" placeholder="이름입력"></td>
-                        <td>담당자</td>
-                        <td><input type="text" name="" placeholder="담당자" maxlength="6"></td>
-                        <td>담당 부서</td>
-                        <td><input type="tel" name="" placeholder="담당 부서" maxlength="13"></td>
-                    </tr>
-                    <tr id="chart-3">
-                        <td>애칭</td>
-                        <td><input type="email" name="" placeholder="애칭"></td>
-                        <td>방사장</td>
-                        <td><input type="tel" name="" placeholder="방사장" maxlength="11" ></td>
-                    </tr>
-                    <tr id="chart-4">
-                        <td>멸종 위기</td>
-                        <td>
-                            <select name="position" id="position">
-                                <option value="">절멸(EX)</option>
-                                <option value="">야생절멸(EW)</option>
-                                <option value="">위급(CR)</option>
-                                <option value="">위기(EN)</option>
-                                <option value="">취약(VU)</option>
-                                <option value="">준위협(NT)</option>
-                                <option value="">최소관심(LC)</option>
-                                <option value="">정보부족(DD)</option>
-                                <option value="">미평가(NE)</option>
-                            </select>
-                        </td>
-                        <td>식 성</td>
-                        <td><input type="text" name="" placeholder="식성" maxlength="11" ></td>
-                    </tr>
-                      <tr id="chart-4">
-                        <td>등록 일시</td>
-                        <td><input type="date" name="enrollDate"></td>
-                        <td>서식지</td>
-                        <td><input type="text" name="" placeholder="서식지"></td>
-                    </tr>
-                    
-                </table>
                 
-                <div id="enroll-btn">
-                    <label for="file">
-                    </label>
-                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
-                </div>
-                <form action="${root}/animal/health/write" method="post" >
+                <form action="${root}/animal/health/write" method="POST" >
+                    <input type="text" name="no" value="${animalVo.no}">
                 <div id="content-area">
                     <div>건강검진 종합 소견 작성</div>
                     <br>

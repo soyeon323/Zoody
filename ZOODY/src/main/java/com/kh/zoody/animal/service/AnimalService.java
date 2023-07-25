@@ -46,7 +46,7 @@ public class AnimalService {
 	}
 
 	//동물 건강 상태 작성
-	public int healthWrite(HealthVo vo) {
+	public int healthWrite(AnimalVo vo) {
 		return dao.healthWrite(sst, vo);
 	}
 

@@ -115,7 +115,7 @@
             url : '${root}/animal/training',
             method : 'GET',
             data : {
-                no : 'no'
+                no : no
             },
             success : ()=>{
                 location.href = '${root}/animal/training?no='+no;
@@ -132,7 +132,7 @@
             url : '${root}/animal/detail',
             method : 'GET',
             data : {
-                no : 'no'
+                no : no
             },
             success : ()=>{
                 location.href = '${root}/animal/detail?no='+no;

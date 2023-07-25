@@ -138,13 +138,13 @@ public class AnimalController {
 	
 	//동물 건강 상태 작성
 	@PostMapping("health/write")
-	public String animalHealthWrite(HealthVo vo) {
-		
+	public String animalHealthWrite(AnimalVo vo , Model m) {
 		int result = as.healthWrite(vo);
+		log.info("vo : {}",vo);
 		if(result !=1) {
 			throw new RuntimeException();
 		}
-		return "redirect:/animal/list";
+		return "redirect:/animal/list?page=1";
 	}
 	
 	

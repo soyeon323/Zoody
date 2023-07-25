@@ -34,10 +34,10 @@
                         <td>계 통</td>
                         <td colspan="3">
                             <select name="animalClassificationNo" id="position">
-                                <option value="1">양서류</option>
-                                <option value="2">포유류</option>
-                                <option value="3">조류</option>
-                                <option value="4">파충류</option>
+                                <option value="1">포유류</option>
+                                <option value="2">조류</option>
+                                <option value="3">파충류</option>
+                                <option value="4">양서류</option>
                                 <option value="5">어류</option>
                             </select>
                         </td>

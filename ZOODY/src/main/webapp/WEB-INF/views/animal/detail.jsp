@@ -64,7 +64,7 @@
                 </table>
                 
                 <div id="enroll-btn">
-                        <div class="btn-upload"><a href="${root}/animal/health/write">건강검진 작성</a></div>
+                        <div class="btn-upload"><a href="${root}/animal/health/write?no=${animalVo.no}">건강검진 작성</a></div>
                 </div>
 
 
@@ -129,8 +129,6 @@
             }
         });
     }
-    
 
-    
 
 </script>
