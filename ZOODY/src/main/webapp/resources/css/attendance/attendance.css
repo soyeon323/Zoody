@@ -404,7 +404,7 @@
 
 .att_leave > hr{
     width: 387px;
-    /* background: #a8a8a8; */
+    background: #a8a8a8;
     margin: 0.5rem 0 1rem 12px;
 }
 
@@ -445,7 +445,7 @@
 
 .att_work > hr{
     width: 337px;
-    /* background: #a8a8a8; */
+    background: #a8a8a8;
     margin: 0.5rem 0 1rem 12px;
 }
 
@@ -531,7 +531,7 @@
 
 .att_my > hr{
     width: 769px;
-    /* background: #b9b9b9 !important; */
+    background: #a8a8a8;
     margin: 0.5rem 0 0.7rem 12px;
 }
 

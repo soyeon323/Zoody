@@ -340,6 +340,36 @@
         WHERE U.NO = 1
         ORDER BY A.CHECK_IN_TIME DESC
   	</select>
+  	
+  	<select id="selectCalendarList" resultType="AttendanceVo">
+  		SELECT 
+		    A.NO
+		    ,A.USER_NO
+		    ,A.CURRENT_NO
+		    ,TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
+		    ,NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
+		    ,TRUNC(
+		    CASE 
+	                    WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
+	                    ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+	                END
+	            ) ||
+		    EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
+		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
+		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME
+		    ,A.OBJECTION_REASON
+		    ,A.APPROVAL_STATUS
+		    ,AC.TYPE AS TYPE
+		    ,U.NAME AS NAME
+		FROM ATTENDANCE A
+		JOIN "USER" U
+		ON A.USER_NO = U.NO
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		WHERE U.NO = 1
+  	</select>
   
   
 </mapper>
