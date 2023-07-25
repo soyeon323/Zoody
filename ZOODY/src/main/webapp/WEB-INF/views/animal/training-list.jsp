@@ -23,26 +23,17 @@
     <div id="wrap">
 
         <div id="enroll">
-            <a>동물 목록</a>
+            <a>동물 훈련 일지 조회</a>
         </div>
 
         <div id="back">
 
             <div id="firstDiv">
-                <a>현재 보유 동물 수 ${map.getAnimalListCnt}</a>
-                <select name="searchType" id="classFication">
-                    <option value="">조류</option>
-                    <option value="">포유류</option>
-                    <option value="">양서류</option>
-                    <option value="">파충류</option>
-                    <option value="">어류</option>
-                </select>
-                <input type="text" name="searchValue" placeholder="이름 입력">
+                <input type="text" name="searchValue" placeholder="애칭 입력">
                 <input type="submit" value="검색">
             </div>
 
             <div id="newEmployee">
-                <a href="${root}/animal/enroll" class="btn btn-primary">새로운 동물 등록</a>
             </div>
             <div>
                 <table id="content">
@@ -50,23 +41,17 @@
                         <tr>
                             <td>번호</td>
                             <td>애칭</td>
-                            <td>방사장</td>
-                            <td>식성</td>
-                            <td>서식지</td>
-                            <td>등록 일시</td>
-                            
+                            <td>훈련일지 제목</td>
+                            <td>작성 날짜</td>
                         </tr>
                     </thead>
                     <tbody>
-                       <c:forEach items="${map.animalList}" var="animalList">
-                       	<tr onclick="detail('${animalList.no}')">
-                            <td>${animalList.no}</td>
-                            <td>${animalList.nickName}</td>
-                            <td>${animalList.feild}</td>
-                            <td>${animalList.taste}</td>
-                            <td>${animalList.habitat}</td>
-                            <td>${animalList.date}</td>
-                            
+                       <c:forEach items="${map.trainingVo}" var="trainingVo">
+                        <tr onclick="trainingdetail('${trainingVo.no}');">
+                            <td>${trainingVo.trainingNo}</td>
+                            <td>${trainingVo.nickName}</td>
+                            <td>${trainingVo.title}</td>
+                            <td>${trainingVo.date}</td>
                         </tr>
                        </c:forEach>
                       
@@ -78,7 +63,7 @@
         
             <div id="page">
                 <c:if test="${map.pv.currentPage > 1}">
-                    <a href="${root}/animal/list?page=${map.pv.currentPage - 1}">
+                    <a href="${root}/animal/training/list?page=${map.pv.currentPage - 1}">
                         <img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표">
                     </a>
                 </c:if>
@@ -86,7 +71,7 @@
                 <c:forEach begin="${map.pv.startPage}" end="${map.pv.endPage}" step="1" var="i">
                     
                         <c:if test="${map.pv.currentPage ne i}">
-                            <a href="${root}/animal/list?page=${i}">${i}</a>
+                            <a href="${root}/animal/training/list?page=${i}">${i}</a>
                         </c:if>
 
                         <c:if test="${mpa.pv.currentPage == i}">
@@ -96,7 +81,7 @@
                 </c:forEach>
             
                 <c:if test="${map.pv.currentPage < map.pv.maxPage}">
-                    <a href="${root}/animal/list?page=${map.pv.currentPage + 1}">
+                    <a href="${root}/animal/training/list?page=${map.pv.currentPage + 1}">
                         <img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표">
                     </a>
                 </c:if>
@@ -111,7 +96,7 @@
     //훈련일지 작성
     function trainingWrite(no){
 
-        location.href = "${root}/animal/training?no="+no;
+        location.href = "${root}/animal/training?animalNo="+no;
 
         // $.ajax({
         //     url : '${root}/animal/training',
@@ -128,19 +113,20 @@
         // });
     }
 
-    //동물 상세 조회
-    function detail(no){
+    //훈련 일지 상세 조회
+    function trainingdetail(no){
+
         $.ajax({
-            url : '${root}/animal/detail',
+            url : '${root}/animal/training/detail',
             method : 'GET',
-            data : {
-                no : 'no'
-            },
+            // data : {
+            //     no : no
+            // },
             success : ()=>{
-                location.href = '${root}/animal/detail?no='+no;
+                location.href = '${root}/animal/training/detail?no='+no;
             },
-            error : (e)=>{
-                location.href = '${root}/animal/detail?no='+no;
+            error : ()=>{
+                location.href = '${root}/animal/training/detail?no='+no;
             }
         });
     }

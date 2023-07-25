@@ -117,7 +117,6 @@
 			(
 			    NO
 			    ,ANIMAL_NO
-			    ,STATE_OF_HEALTH
 			    ,CONTENT
 			    ,DISEASE
 			    ,LIFE_STYLE_MANAGEMENT
@@ -126,10 +125,9 @@
 			(
 			    SEQ_ANIMAL_HEALTH_SCREENING_NO.NEXTVAL
 			    ,#{animalNo}
-			    ,#{stateOfHealth}
+			    ,#{lifeStyleManagement}
 			    ,#{content}
 			    ,#{disease}
-			    ,#{lifeStyleManagement}
 			)
   	</insert>
   	
@@ -188,6 +186,23 @@
 		WHERE ANIMAL_NO = #{no}
   	</select>
   	
+  	<select id="trainingList" resultType="com.kh.zoody.animal.training.vo.TrainingVo">
+  			 SELECT 
+             AT.TRAINING_NO 
+            ,AT.TITLE
+            ,TO_CHAR(AT."DATE",'YYYY-DD-MM')AS"DATE"
+            ,A.NICK_NAME AS NICK_NAME
+            ,A.NO
+            FROM ANIMAL_TRAINING  AT 
+            JOIN ANIMAL A ON AT.NO = A.NO
+            WHERE AT.STATUS = 'O'
   	
+  	</select>
+  	
+  	<select id="getAnimalTrainingListCnt" resultType="int">
+  		 SELECT COUNT(NO)
+		FROM  ANIMAL_TRAINING
+		WHERE STATUS = 'O'
+  	</select>
   	
   </mapper>

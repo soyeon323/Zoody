@@ -23,9 +23,9 @@ public class CorruptSurveyController {
 	private final CorruptSurveyService css;
 
 	@GetMapping("survey")
-	public String corruptSurvey(SurveyVo vo ,Model m) {
+	public String corruptSurvey(Model m) {
 		
-		List<SurveyVo> svo = css.getSurveyQuestion(vo);
+		List<SurveyVo> svo = css.getSurveyQuestion();
 		log.info("svo : {}",svo);
 		if(svo == null) {
 			throw new RuntimeException();

@@ -71,7 +71,6 @@ public class AnimalController {
 		
 		AnimalVo animalVo = as.animalDetail(vo);
 		log.info("animalVo = {}",animalVo);
-		log.info(vo.getName());
 		if(animalVo == null) {
 			throw new RuntimeException();
 		}
@@ -80,11 +79,35 @@ public class AnimalController {
 	}
 
 	
-	//동물 훈련 일지 작성
-	@GetMapping("training")
-	public String animalTraining() {
-		return "animal/training";
+	//동물 훈련 일지리스트 조회
+	@GetMapping("training/list")
+	public String animalTrainingList(Integer page, TrainingVo vo , Model model) {
+		
+		int listCount = as.getAnimalListCnt();
+		int currentPage = page;
+		int pageLimit = 5;
+		int boardLimit = 7;
+	
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		int getAnimalTrainingListCnt = as.getAnimalTrainingListCnt();
+		
+		List<AnimalVo> trainingVo = as.trainingList(pv);
+		if(trainingVo ==null) {
+			throw new RuntimeException();
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("trainingVo", trainingVo);
+		map.put("getAnimalTrainingListCnt",getAnimalTrainingListCnt);
+		map.put("pv", pv);
+		
+		
+		model.addAttribute("map",map);
+		return "animal/training-list";
 	}
+	
 	
 	//동물 훈련 일지 작성
 	@PostMapping("training")
@@ -96,6 +119,13 @@ public class AnimalController {
 		}
 
 		return "redirect:/animal/list?page=1";
+	}
+	
+	//동물 훈련 일지 상세조회
+	@GetMapping("training/detail")
+	public String animalTrainingDetail() {
+
+		return "animal/training-detail";
 	}
 	
 
@@ -135,6 +165,14 @@ public class AnimalController {
 	public String animalHealthWrite() {
 		return "animal/health-write";
 	}
+	
+	
+	//동물 건강 상태 리스트
+		@GetMapping("health/write")
+		public String animalHealthList() {
+			return "animal/health-write";
+		}
+	
 	
 	//동물 건강 상태 작성
 	@PostMapping("health/write")

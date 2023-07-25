@@ -17,7 +17,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-
+    
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
@@ -40,97 +40,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                            <tr>
-                                <td>${svo.no}</td>
-                                <td>${svo.content}</td>
-                                <td> <input type="radio"  name="q1"  value="10"></td>
-                                <td> <input type="radio"  name="q2"  value="20"></td>
-                                <td> <input type="radio"  name="q3"  value="30"></td>
-                                <td> <input type="radio"  name="q4"  value="40"></td>
-                                <td> <input type="radio"  name="q5"  value="50"></td>
-                            </tr>
-
-                     <!-- <tr>
-                        <td>2</td>
-                        <td>${svo.no}</td>
-                        <td> <input type="radio"  name="q2"  value="10"></td>
-                        <td> <input type="radio"  name="q2"  value="20"></td>
-                        <td> <input type="radio"  name="q2"  value="30"></td>
-                        <td> <input type="radio"  name="q2"  value="40"></td>
-                        <td> <input type="radio"  name="q2"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q3"  value="10"></td>
-                        <td> <input type="radio"  name="q3"  value="20"></td>
-                        <td> <input type="radio"  name="q3"  value="30"></td>
-                        <td> <input type="radio"  name="q3"  value="40"></td>
-                        <td> <input type="radio"  name="q3"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q4"  value="10"></td>
-                        <td> <input type="radio"  name="q4"  value="20"></td>
-                        <td> <input type="radio"  name="q4"  value="30"></td>
-                        <td> <input type="radio"  name="q4"  value="40"></td>
-                        <td> <input type="radio"  name="q4"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q5"  value="10"></td>
-                        <td> <input type="radio"  name="q5"  value="20"></td>
-                        <td> <input type="radio"  name="q5"  value="30"></td>
-                        <td> <input type="radio"  name="q5"  value="40"></td>
-                        <td> <input type="radio"  name="q5"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q6"  value="10"></td>
-                        <td> <input type="radio"  name="q6"  value="20"></td>
-                        <td> <input type="radio"  name="q6"  value="30"></td>
-                        <td> <input type="radio"  name="q6"  value="40"></td>
-                        <td> <input type="radio"  name="q6"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q7"  value="10"></td>
-                        <td> <input type="radio"  name="q7"  value="20"></td>
-                        <td> <input type="radio"  name="q7"  value="30"></td>
-                        <td> <input type="radio"  name="q7"  value="40"></td>
-                        <td> <input type="radio"  name="q7"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q8"  value="10"></td>
-                        <td> <input type="radio"  name="q8"  value="20"></td>
-                        <td> <input type="radio"  name="q8"  value="30"></td>
-                        <td> <input type="radio"  name="q8"  value="40"></td>
-                        <td> <input type="radio"  name="q8"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q9"  value="10"></td>
-                        <td> <input type="radio"  name="q9"  value="20"></td>
-                        <td> <input type="radio"  name="q9"  value="30"></td>
-                        <td> <input type="radio"  name="q9"  value="40"></td>
-                        <td> <input type="radio"  name="q9"  value="50"></td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>${svo}</td>
-                        <td> <input type="radio"  name="q10"  value="10"></td>
-                        <td> <input type="radio"  name="q10"  value="20"></td>
-                        <td> <input type="radio"  name="q10"  value="30"></td>
-                        <td> <input type="radio"  name="q10"  value="40"></td>
-                        <td> <input type="radio"  name="q10"  value="50"></td> 
-                    </tr> -->
+                    <c:forEach items="${svo}" var="svo">
+                        <tr>
+                            <td>${svo.no}</td>
+                            <td>${svo.content}</td>
+                            <td><input type="radio"  name="q${svo.no}"  value="10"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="20"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="30"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="40"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="50"></td> 
+                        </tr>
+                    </c:forEach>
                 </tbody>
               </table>
               <input class="btn btn-primary" style="margin-left: 800px;" type="submit" value="제출"  onclick="score();">
@@ -169,6 +89,7 @@
             for (var i = 0; i < radios.length; i++) {
                 score += parseInt(radios[i].value);
             }
+            alert(score);
             console.log("총 점수: " + score);   //이 점수로 평균치 계산 해야함
         }
     }

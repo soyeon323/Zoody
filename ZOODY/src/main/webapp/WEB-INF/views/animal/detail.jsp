@@ -25,7 +25,7 @@
 
         <div id="enroll">동물 상세 조회</div>
         <div id="chart">
-                
+                <input id="animalNo" type="hidden" value="${animalVo.no}">
                 <table>
                     <tr id="chart-1">
                         <td rowspan="4"><img src="${root}/resources/img/animal/${animalVo.profile}" alt="${animalVo.profile}" style="width: 208px; height: 198px;"></td>
@@ -64,7 +64,7 @@
                 </table>
                 
                 <div id="enroll-btn">
-                        <div class="btn-upload"><a href="${root}/animal/health/write">건강검진 작성</a></div>
+                        <div class="btn-upload"><a onclick="healthWrite()">건강검진 작성</a></div>
                 </div>
 
 
@@ -84,8 +84,8 @@
 
 
                 <div id="btn-area">
-                        <div class="btn-upload" onclick="trainingWrite('${animalVo.no}');">훈련 일지 작성</div>
-                        <div class="btn-upload" id="healthDetail">건강 정보 조회</div>
+                        <div class="btn-upload" onclick="trainingWriteList('${animalVo.no}');">훈련 일지 조회</div>
+                    <div class="btn-upload" id="healthDetail" >건강 정보 조회</div>
                         <div class="btn-upload">닫기</div>
                 </div>
               
@@ -111,26 +111,35 @@
     });
 
 
-    //건강 정보 조회
+    const animalNo = document.querySelector('#animalNo').value;
 
-    function trainingWrite() {
-        var animalNo = '${animalVo.no}';
+    //건강검진 작성
+    function healthWrite() {
+        location.href = '${root}/animal/health/write?no = '+animalNo;
+    }
+
+
+
+
+
+
+    //훈련일지 작성
+    function trainingWriteList(no) {
+
         $.ajax({
-            url : '${root}/animal/training',
+            url : '${root}/animal/training/list',
             method : 'GET',
             data : {
-                animalNo : 'animalNo'
+                no : animalNo
             },
             success : ()=>{
-                location.href = '${root}/animal/training?no='+animalNo;
+                location.href = "${root}/animal/training/list?no="+no;
             },
             error : (e)=>{
-                location.href = '${root}/animal/training?no='+animalNo;
+                location.href = "${root}/animal/training/list?no="+no;
             }
         });
     }
-    
-
     
 
 </script>
