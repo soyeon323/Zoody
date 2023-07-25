@@ -41,4 +41,10 @@ public interface AdminService {
 	//댓글 삭제
 	int replyDelete(ReplyVo vo);
 
+	//댓글 갯수 조회
+	int replyCnt(String no);
+
+	//전체목록 댓글 갯수 조회
+	List<Integer> replyCntAll(List<String> voListNo);
+
 }

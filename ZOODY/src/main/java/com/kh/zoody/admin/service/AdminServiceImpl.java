@@ -86,5 +86,17 @@ public class AdminServiceImpl implements AdminService{
 	public int replyDelete(ReplyVo vo) {
 		return dao.replyDelete(sst, vo);
 	}
+
+	//댓글 갯수 조회
+	@Override
+	public int replyCnt(String no) {
+		return dao.replyCnt(sst, no);
+	}
+
+	//전체 목록 댓글 갯수 조회
+	@Override
+	public List<Integer> replyCntAll(List<String> voListNo) {
+		return dao.replyCntAll(sst, voListNo);
+	}
 	
 }

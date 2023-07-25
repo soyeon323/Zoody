@@ -69,7 +69,7 @@
 
         <div id="contentArea">
             <div id="title">
-                <div>${vo.title}&nbsp&nbsp [1]</div>
+                <div>${vo.title}&nbsp&nbsp [${replyCnt}]</div>
             </div>
             <div id="info">
                 <div>관리자</div>
@@ -85,7 +85,7 @@
                 <div id="contentDetail">
                     <div>
                         <img src="${root}/resources/img/icon/png/comment.png" alt="댓글아이콘">
-                        <a>댓글 1개</a>
+                        <a>댓글 ${replyCnt}개</a>
                     </div>
                     <div>|</div>
                     <div>조회&nbsp ${vo.hit}</div>

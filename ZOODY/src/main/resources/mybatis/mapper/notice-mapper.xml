@@ -225,4 +225,21 @@
 		WHERE NOTICE_NO = #{noticeNo}
 		AND NO = #{no}
 	</update>
+	
+	<select id="replyCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM REPLY
+		WHERE NOTICE_NO = #{no}
+		AND STATUS = 'O'
+	</select>
+	
+	<select id="replyCntAll" resultType="java.lang.Integer">
+		SELECT COUNT(NO)
+		FROM REPLY
+		WHERE NOTICE_NO IN 
+		<foreach collection="list" item="no" separator="," open="(" close=")">
+	   	 #{no}
+	  	</foreach>
+		GROUP BY NOTICE_NO
+	</select>
 </mapper>

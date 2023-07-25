@@ -46,4 +46,10 @@ public interface AdminDao {
 	//댓글 삭제
 	int replyDelete(SqlSessionTemplate sst, ReplyVo vo);
 
+	//댓글 갯수 조회
+	int replyCnt(SqlSessionTemplate sst, String no);
+
+	//전체 목록 댓글 갯수 조회
+	List<Integer> replyCntAll(SqlSessionTemplate sst, List<String> voListNo);
+
 }

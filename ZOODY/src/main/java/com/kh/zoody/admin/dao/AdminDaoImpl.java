@@ -86,4 +86,16 @@ public class AdminDaoImpl implements AdminDao{
 		return sst.update("notice.replyDelete", vo);
 	}
 
+	//댓글 갯수 조회
+	@Override
+	public int replyCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("notice.replyCnt", no);
+	}
+
+	//전체 목록 댓글 갯수 조회
+	@Override
+	public List<Integer> replyCntAll(SqlSessionTemplate sst, List<String> voListNo) {
+		return sst.selectList("notice.replyCntAll", voListNo);
+	}
+
 }
