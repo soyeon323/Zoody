@@ -218,6 +218,11 @@ input[type='text']::placeholder{
     margin-top: 7px;
 }
 
+#userNameLink:hover{
+    cursor: pointer;
+    color: #00CBA4;
+}
+
 #commentOk #userName{
     font-weight: 400;
     font-size: 17px;
