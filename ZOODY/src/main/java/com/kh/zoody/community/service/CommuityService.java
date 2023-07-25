@@ -11,8 +11,12 @@ public interface CommuityService {
 	// 자유게시판 목록 가져오기
 	List<BoardVo> getBoardList(int catNo);
 	
+	List<BoardVo> getBoardListByCount(int num);
+	
 	// 게시판 글쓰기
 	int write(BoardVo vo);
+
+	
 	
 	// 게시글 상세
 	

@@ -10,9 +10,13 @@ public interface CommunityDao {
 	
 	// 게시판 목록
 	List<BoardVo> getBoardList(SqlSessionTemplate sst , int catNo);
+
+	// num 만큼 보드 리스트 가져오기
+	List<BoardVo> getBoardListByCount(SqlSessionTemplate sst, int num);
 	
 	// 게시판 글쓰기
 	int write(SqlSessionTemplate sst , BoardVo vo);
+
 
 	
 	

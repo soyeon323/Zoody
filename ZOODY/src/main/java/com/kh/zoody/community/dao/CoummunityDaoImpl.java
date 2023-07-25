@@ -16,9 +16,15 @@ public class CoummunityDaoImpl implements CommunityDao {
 	}
 	
 	@Override
+	public List<BoardVo> getBoardListByCount(SqlSessionTemplate sst, int num) {
+		return sst.selectList("coummunity.getBoardList", num);
+	}
+	
+	@Override
 	public int write(SqlSessionTemplate sst, BoardVo vo) {
 		return sst.insert("coummunity.write" , vo);
 	}
+
 
 	
 	
