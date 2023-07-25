@@ -59,4 +59,14 @@ public class AnimalService {
 	public HealthVo animalHealth(AnimalVo vo) {
 		return dao.animalHealth(sst,vo);
 	}
+
+	//동물 훈련 일지 조회
+	public List<AnimalVo> trainingList(PageVo pv) {
+		return dao.trainingList(sst,pv);
+	}
+	
+	//동물 훈련일지 리스트 조회(총 갯수)
+	public int getAnimalTrainingListCnt() {
+		return dao.getAnimalTrainingListCnt(sst);
+	}
 }

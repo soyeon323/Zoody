@@ -11,8 +11,8 @@ import com.kh.zoody.survey.vo.SurveyVo;
 public class CorruptSurveyDao {
 
 	//설문조사 문항 가져오기
-	public List<SurveyVo> getSurveyQuestion(SqlSessionTemplate sst, SurveyVo vo) {
-		return sst.selectList("survey.getSurveyQuestion",vo);
+	public List<SurveyVo> getSurveyQuestion(SqlSessionTemplate sst) {
+		return sst.selectList("survey.getSurveyQuestion");
 	}
 
 }

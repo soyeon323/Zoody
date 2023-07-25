@@ -51,4 +51,15 @@ public class AnimalDao {
 		return sst.selectOne("animal.animalHealth",vo);
 	}
 
+	//동물훈련 일지 조회
+	public List<AnimalVo> trainingList(SqlSessionTemplate sst, PageVo pv) {
+		RowBounds rb = new RowBounds(pv.getOffset(),pv.getBoardLimit());
+		return sst.selectList("animal.trainingList",null,rb);
+	}
+
+	//동물 훈련일지 리스트 조회(총 갯수)
+	public int getAnimalTrainingListCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("animal.getAnimalTrainingListCnt");
+	}
+
 }

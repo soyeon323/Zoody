@@ -23,7 +23,7 @@ public class CorruptSurveyService {
 	private final CorruptSurveyDao dao;
 	
 	//설문조사 문항 가져오기
-	public List<SurveyVo> getSurveyQuestion(SurveyVo vo) {
-		return dao.getSurveyQuestion(sst,vo);
+	public List<SurveyVo> getSurveyQuestion() {
+		return dao.getSurveyQuestion(sst);
 	}
 }
