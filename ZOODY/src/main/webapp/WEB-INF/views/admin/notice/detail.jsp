@@ -112,8 +112,11 @@
                     <div id="commentOk">
                         <c:forEach items="${voList}" var="voList">
                             <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진" width="28px" height="28px"></div>
-                            <div id="userName"><a>${voList.name}&nbsp ${voList.rankName}</a></div>
-                            <div id="reply"><a>${voList.content}</a></div>
+                            <div id="userName">
+                                <a id="userNameLink">${voList.name}</a>
+                                <a>&nbsp ${voList.rankName}</a>
+                            </div>
+                            <div id="reply"><a id="replyContent">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>
                             <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
                         </c:forEach>
@@ -224,4 +227,30 @@
         return;
     }
 
+    //댓글 태그기능
+    document.addEventListener('DOMContentLoaded', function () {
+        var userNameLinks = document.querySelectorAll('#userNameLink');
+        var inputField = document.querySelector('input[name="content"]');
+
+        userNameLinks.forEach(function (userNameLink) {
+            userNameLink.addEventListener('click', function () {
+                inputField.value += '@' + userNameLink.innerHTML;
+            });
+        });
+    });
+    
+    //댓글태그 기능달면 글씨 굵게
+    document.addEventListener('DOMContentLoaded', function () {
+        var replyContent = document.querySelector('#replyContent');
+
+        var pattern = /@([^ ]+)/;
+        var matchedText = replyContent.innerText.match(pattern);
+
+        if (matchedText) {
+            var boldText = matchedText[1];
+            var originalText = replyContent.innerText;
+            var updatedText = originalText.replace("@" + boldText, '<span style="font-weight: 600; color: #5189FA;">@' + boldText + '</span>');
+            replyContent.innerHTML = updatedText;
+        }
+    });
 </script>
