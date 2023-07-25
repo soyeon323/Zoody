@@ -13,7 +13,7 @@ function getDetailInfo(event) {
     const userNo = currentTarget.querySelector('.user-no');
     const userNoValue = userNo.innerText;
 
-    fetch(contextPath + "/addressbook/detailUserInfo?userNo=" + userNoValue)
+    fetch(contextPath + "/addressbook/detail?userNo=" + userNoValue)
     .then( (response) => response.json() )
     .then( (data) => {
 
@@ -30,7 +30,15 @@ function FillTable(data) {
 
     document.querySelector('.name-cell').innerText = data.name;
     
-    document.querySelector('.department-cell').innerText = data.departmentName;
+    
+    let departmentInfo = '';
+    if(data.dName1 != null) { departmentInfo += data.dName1 + ' > '; }
+    if(data.dName2 != null) { departmentInfo += data.dName2 + ' > '; }
+    if(data.dName3 != null) { departmentInfo += data.dName3 + ' > '; }
+    departmentInfo += data.dName4;
+    
+    
+    document.querySelector('.department-cell').innerText = departmentInfo;
     
     document.querySelector('.user-no-cell').innerText = data.no;
     
@@ -97,3 +105,29 @@ function mailBtnSetting() {
     })
 }
 
+
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+/*-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+const searchInput = document.querySelector('.search-input');
+const searchIcon = document.querySelector('.search-btn-icon');
+searchIcon.addEventListener('click', (event) => searchEmployee(event));
+
+searchInput.addEventListener('keyup', (event) => {
+    if(event.keyCode === 13){
+        searchEmployee(event);
+    }
+});
+
+function searchEmployee(event) {
+    fetch(contextPath + "/addressbook/search?keyword=" + searchInput.value)
+        .then( (response) => response.json() )
+        .then( (data) => {
+
+            console.log(data);
+
+        })
+        .catch( err => {})
+}

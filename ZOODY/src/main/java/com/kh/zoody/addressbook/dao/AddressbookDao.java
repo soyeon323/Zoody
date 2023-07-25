@@ -18,4 +18,6 @@ public interface AddressbookDao {
 	// 해당 번호의 사원 상세 정보
 	UserVo getDetailUserInfo(String userNo, SqlSessionTemplate sqlSessionTemplate);
 	
+	// 키워드로 이름 검색
+	List<UserVo> getUserInfoByKeyword(String keyword, SqlSessionTemplate sqlSessionTemplate);
 }

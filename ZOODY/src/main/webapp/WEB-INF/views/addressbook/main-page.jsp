@@ -27,7 +27,9 @@
 	
 				<div class="addressbook-list">
 					<div class="serch-area">
-						<input type="text" name="search-input" class="search-input-box">
+						<div class="search-input-box">
+							<input type="text" name="search-input" class="search-input">
+						</div>
 						<button class="serach-btn">
 							<img src="${root}/resources/img/icon/svg/search.svg" alt="검색" class="search-btn-icon"></img>
 						</button>
