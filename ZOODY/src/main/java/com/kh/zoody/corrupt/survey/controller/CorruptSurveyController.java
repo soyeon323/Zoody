@@ -7,28 +7,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.gson.Gson;
 import com.kh.zoody.corrupt.survey.service.CorruptSurveyService;
 import com.kh.zoody.survey.vo.SurveyVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("corrupt")
 @RequiredArgsConstructor
+@Slf4j
 public class CorruptSurveyController {
 	
 	private final CorruptSurveyService css;
 
-	@RequestMapping("survey")
+	@GetMapping("survey")
 	public String corruptSurvey(SurveyVo vo ,Model m) {
 		
 		List<SurveyVo> svo = css.getSurveyQuestion(vo);
-		
-		if(vo == null) {
+		log.info("svo : {}",svo);
+		if(svo == null) {
 			throw new RuntimeException();
 		}
 		
-		m.addAttribute("vo",vo);
+		m.addAttribute("svo",svo);
 		return "survey/corrupt";
 	}
 	
