@@ -160,10 +160,11 @@
 
     display: grid;
     grid-template-rows: 8fr 2fr;
+    overflow: hidden;
 }
 
 .profile-info > .profile-btns {
-    width: 95%;
+    width: 100%;
     border-top: 1px solid #D6D4D4;
     font-weight: 600;
 
@@ -172,10 +173,19 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    font-size: 14px;
 }
 
 .profile-btns > a {
-    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-btns > a:hover {
+    background-color: gray;
 }
 
 
