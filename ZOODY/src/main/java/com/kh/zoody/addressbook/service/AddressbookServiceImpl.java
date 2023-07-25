@@ -38,4 +38,11 @@ public class AddressbookServiceImpl implements AddressBookSerivce {
 		return addressbookDao.getDetailUserInfo(userNo, sqlSessionTemplate);
 	}
 
+	
+	// 키워드로 이름 검색
+	@Override
+	public List<UserVo> getUserInfoByKeyword(String keyword) {
+		return addressbookDao.getUserInfoByKeyword(keyword, sqlSessionTemplate);
+	}
+	
 }

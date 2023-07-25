@@ -26,7 +26,13 @@ public class AddressbookDaoImpl implements AddressbookDao {
 	// 해당 번호의 사원 상세 정보
 	@Override
 	public UserVo getDetailUserInfo(String userNo, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectOne("user.getUserDetailInfoByNo", userNo);
+		return sqlSessionTemplate.selectOne("user.getUserDetailInfoByNo2", userNo);
+	}
+	
+	// 키워드로 이름 검색
+	@Override
+	public List<UserVo> getUserInfoByKeyword(String keyword, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("user.searchUserInfoByKeyword", keyword);
 	}
 	
 }

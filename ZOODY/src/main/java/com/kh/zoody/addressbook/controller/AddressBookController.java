@@ -27,7 +27,9 @@ public class AddressBookController {
 	
 	private final AddressBookSerivce addressbookService;
 	
-	@GetMapping("main-page")
+	private final Gson gson = new Gson();
+	
+	@GetMapping
 	public String mainPage(Model model) {
 		
 		List<DepartmentVo> departmentList = addressbookService.getDepartmentList();
@@ -39,12 +41,10 @@ public class AddressBookController {
 		return "addressbook/main-page";
 	}
 	
-	@GetMapping("detailUserInfo")
+	@GetMapping("detail")
 	public void detailUserInfo(String userNo, HttpServletResponse resp) {
 		
 		UserVo detailUserInfo = addressbookService.getDetailUserInfo(userNo);
-		
-		Gson gson = new Gson();
 		
 		String jsonDetailUserInfo = gson.toJson(detailUserInfo);
 		
@@ -53,6 +53,25 @@ public class AddressBookController {
 			
 			PrintWriter out = resp.getWriter();
 			out.write(jsonDetailUserInfo);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@GetMapping("search")
+	public void searchUserInfo(String keyword, HttpServletResponse resp) {
+		
+		List<UserVo> resultList = addressbookService.getUserInfoByKeyword(keyword);
+		
+		String jsonResultUserInfoList = gson.toJson(resultList);
+		
+		try {
+			resp.setCharacterEncoding("UTF-8");
+			
+			PrintWriter out = resp.getWriter();
+			out.write(jsonResultUserInfoList);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

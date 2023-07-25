@@ -93,6 +93,53 @@
 		WHERE A.NO = #{userNo}
 	
 	</select>
+	
+	<select id="getUserDetailInfoByNo2" resultType="UserVo">
+	
+		SELECT 
+		    A.NO AS NO,
+		    DEPARTMENT_NO,
+		    B.D_NAME1,
+		    B.D_NAME2,
+		    B.D_NAME3,
+		    B.D_NAME4,
+		    C.NAME AS RANK_NAME,
+		    D.NAME AS POSITION_NAME,
+		    E.NAME AS STATE_NAME,
+		    AGENT,
+		    F.EMPLOY_DIVISION AS DIVISION_NAME,
+		    ID,
+		    PWD,
+		    A.NAME AS NAME,
+		    GENDER,
+		    BIRTH_DATE,
+		    PROFILE,
+		    LINE_INTRO,
+		    ADDRESS,
+		    PHONE,
+		    MAIL,
+		    REGISTRATION_DATE,
+		    LEAVE_REASON,
+		    LEAVE_DATE,
+		    OFFICE_NUMBER,
+		    LEAVE_COUNT,
+		    CAPACITY
+		FROM "USER" A
+		    JOIN (
+		        SELECT D.NO AS TOP_MOST_NO, A.NAME AS D_NAME1, B.NAME AS D_NAME2, C.NAME AS D_NAME3, D.NAME AS D_NAME4
+		        FROM DEPARTMENT A
+		            RIGHT JOIN DEPARTMENT B ON A.NO = B.UPPER_DEPARTMENT_NO
+		            RIGHT JOIN DEPARTMENT C ON B.NO = C.UPPER_DEPARTMENT_NO
+		            RIGHT JOIN DEPARTMENT D ON C.NO = D.UPPER_DEPARTMENT_NO
+		    ) B ON A.DEPARTMENT_NO = B.TOP_MOST_NO
+		    JOIN RANK C ON A.RANK_NO = C.NO
+		    JOIN POSITION D ON A.POSITION_NO = D.NO
+		    JOIN USER_STATE E ON A.STATE_NO = E.NO
+		    JOIN EMPLOY_DIVISION F ON A.DIVISION_NO = F.NO
+		WHERE A.NO = #{userNo}
+	
+	</select>
+	
 
 	<insert id="enroll">
 		INSERT INTO "USER"
@@ -247,5 +294,18 @@
    		</set>
 		WHERE NO = #{no}
   	</update>
+
+
+
+	
+	<select id="searchUserInfoByKeyword" resultType="UserVo">
+	
+		SELECT NAME, DEPARTMENT_NO
+		FROM "USER"
+		WHERE NAME LIKE '%'||#{keyword}||'%'
+	
+	</select>
+
+
 
 </mapper>
