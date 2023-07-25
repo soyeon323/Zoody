@@ -25,7 +25,7 @@
 
         <div id="title">부패도 설문 조사</div>
 
-        <form action="" onsubmit="return validateForm();">
+        <form action="${root}/corrupt/survey/score" onsubmit="return validateForm();">
             <table id="table" >
                 <thead>
                     <tr>
@@ -40,18 +40,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td></td>
-                        <td> <input type="radio"  name="q1"  value="10"></td>
-                        <td> <input type="radio"  name="q1"  value="20"></td>
-                        <td> <input type="radio"  name="q1"  value="30"></td>
-                        <td> <input type="radio"  name="q1"  value="40"></td>
-                        <td> <input type="radio"  name="q1"  value="50"></td>
-                    </tr>
-                    <tr>
+                            <tr>
+                                <td>${svo.no}</td>
+                                <td>${svo.content}</td>
+                                <td> <input type="radio"  name="q1"  value="10"></td>
+                                <td> <input type="radio"  name="q2"  value="20"></td>
+                                <td> <input type="radio"  name="q3"  value="30"></td>
+                                <td> <input type="radio"  name="q4"  value="40"></td>
+                                <td> <input type="radio"  name="q5"  value="50"></td>
+                            </tr>
+
+                     <!-- <tr>
                         <td>2</td>
-                        <td>동물원 내에서 일부 직원들에게 특혜를 주기 위한 행동을 하는 경우가 있다고 생각한다</td>
+                        <td>${svo.no}</td>
                         <td> <input type="radio"  name="q2"  value="10"></td>
                         <td> <input type="radio"  name="q2"  value="20"></td>
                         <td> <input type="radio"  name="q2"  value="30"></td>
@@ -60,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>예산을 부정적인 사용을 위해 의도적으로 편성하는 경향이 있다고 생각한다.</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q3"  value="10"></td>
                         <td> <input type="radio"  name="q3"  value="20"></td>
                         <td> <input type="radio"  name="q3"  value="30"></td>
@@ -69,7 +70,7 @@
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>임원들은 직원의 이해관계에 치우치지 않고 공정하게 활동하고 있지 않다고 생각한다.</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q4"  value="10"></td>
                         <td> <input type="radio"  name="q4"  value="20"></td>
                         <td> <input type="radio"  name="q4"  value="30"></td>
@@ -78,7 +79,7 @@
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>동물원 에서 부패 관련 사건에 직접적으로 관여한 적이 있다.</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q5"  value="10"></td>
                         <td> <input type="radio"  name="q5"  value="20"></td>
                         <td> <input type="radio"  name="q5"  value="30"></td>
@@ -87,7 +88,7 @@
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td>동물원 내에서 지년 1년간 금품이나 향응, 편의 제공을 목격한 적이 있다</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q6"  value="10"></td>
                         <td> <input type="radio"  name="q6"  value="20"></td>
                         <td> <input type="radio"  name="q6"  value="30"></td>
@@ -96,7 +97,7 @@
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td>동물원에서는 부정 부패 방지 및 예방을 위해 최선을 다하고 있지 않다고 생각한다.</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q7"  value="10"></td>
                         <td> <input type="radio"  name="q7"  value="20"></td>
                         <td> <input type="radio"  name="q7"  value="30"></td>
@@ -105,7 +106,7 @@
                     </tr>
                     <tr>
                         <td>8</td>
-                        <td>동물원의 부정 부패·청렴 수준이 1 년전에 비해 개선되지 않았다고 생각한다.</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q8"  value="10"></td>
                         <td> <input type="radio"  name="q8"  value="20"></td>
                         <td> <input type="radio"  name="q8"  value="30"></td>
@@ -114,7 +115,7 @@
                     </tr>
                     <tr>
                         <td>9</td>
-                        <td>나는 동물원의 청렴수준을 신뢰하고 있지 있다.</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q9"  value="10"></td>
                         <td> <input type="radio"  name="q9"  value="20"></td>
                         <td> <input type="radio"  name="q9"  value="30"></td>
@@ -123,13 +124,13 @@
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td>동물원 에서 부패 문화나 부패를 조장하는 요인들이 있다</td>
+                        <td>${svo}</td>
                         <td> <input type="radio"  name="q10"  value="10"></td>
                         <td> <input type="radio"  name="q10"  value="20"></td>
                         <td> <input type="radio"  name="q10"  value="30"></td>
                         <td> <input type="radio"  name="q10"  value="40"></td>
-                        <td> <input type="radio"  name="q10"  value="50"></td>
-                    </tr>
+                        <td> <input type="radio"  name="q10"  value="50"></td> 
+                    </tr> -->
                 </tbody>
               </table>
               <input class="btn btn-primary" style="margin-left: 800px;" type="submit" value="제출"  onclick="score();">
@@ -169,8 +170,6 @@
                 score += parseInt(radios[i].value);
             }
             console.log("총 점수: " + score);   //이 점수로 평균치 계산 해야함
-
-
         }
     }
 
