@@ -47,6 +47,8 @@ public interface AttendanceService {
 
 	List<AttendanceVo> mainChartList();
 
+	List<AttendanceVo> mainCalendarList();
+
 
 
 

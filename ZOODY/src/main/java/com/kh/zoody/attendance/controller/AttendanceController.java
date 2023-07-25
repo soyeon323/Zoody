@@ -1,10 +1,16 @@
 package com.kh.zoody.attendance.controller;
 
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +43,8 @@ public class AttendanceController {
 	@GetMapping("main")
 	public String workStatus(Integer page, Model model) {
 		
+		
+		
 		//휴가,출결,초과근무 목록 조회
 		int listCount = attService.getMainAttCnt();
 		int leaveListCount = attService.getMainLeaveCnt();
@@ -54,16 +62,80 @@ public class AttendanceController {
 		model.addAttribute("mainLeList", mainLeList);
 		model.addAttribute("deList", deList);
 		
-		// 데이터베이스에서 주간 근무 현황 데이터를 가져와서 배열로 변환
-		List<AttendanceVo> chartList = attService.mainChartList();
+		//FullCalendar 조회 
+		List<AttendanceVo> calendarList = attService.mainCalendarList();
 		
-		// JSP에 데이터를 전달하기 위해 Model에 설정
-		model.addAttribute("enrolldateData", convertToEnrolldateArray(chartList));
-		model.addAttribute("totalWorkTimeData", convertToTotalWorkTimeArray(chartList));
+//		//FullCalendar 이벤트 형식으로 변환
+//        List<FullCalendarEvent> events = new ArrayList<>();
+//        for (AttendanceVo attendance : calendarList) {
+//            // 출근 시간과 퇴근 시간을 FullCalendar에 출력할 형식으로 변환하여 저장
+//            String title = "출근: " + attendance.getCheckInTime() + ", 퇴근: " + attendance.getCheckOutTime();
+//            String start = attendance.getEnrolldate() + "T" + attendance.getCheckInTime();
+//            String end = attendance.getEnrolldate() + "T" + attendance.getCheckOutTime();
+//
+//            events.add(new FullCalendarEvent(title, start, end));
+//        }
+        
+        List<Map<String, String>> events = new ArrayList<>();
+        for (AttendanceVo attendance : calendarList) {
+            Map<String, String> event = new HashMap<>();
+            event.put("title", "출근: " + attendance.getCheckInTime() + ", 퇴근: " + attendance.getCheckOutTime());
+            event.put("start", attendance.getEnrolldate() + "T" + attendance.getCheckInTime());
+            event.put("end", attendance.getEnrolldate() + "T" + attendance.getCheckOutTime());
+
+            events.add(event);
+        }
+        
+        //FullCalendar 이벤트 목록을 프론트엔드로 전달
+        model.addAttribute("events", events);
+        
+        log.info("mainCalendarList 호출됨. 결과: {}", events);
+		
+		//데이터베이스에서 주간 근무 현황 데이터를 가져와서 배열로 변환
+//		List<AttendanceVo> chartList = attService.mainChartList();
+		
+		//JSP에 데이터를 전달하기 위해 Model에 설정
+//		model.addAttribute("enrolldateData", convertToEnrolldateArray(chartList));
+//		model.addAttribute("totalWorkTimeData", convertToTotalWorkTimeArray(chartList));
 		
 		
 		return "attendance/workStatus";
 	}
+
+	//이벤트 데이터를 담을 클래스 생성
+	private static class FullCalendarEvent {
+	    private final String title;
+	    private final String start;
+	    private final String end;
+	
+	    public FullCalendarEvent(String title, String start, String end) {
+	        this.title = title;
+	        this.start = start;
+	        this.end = end;
+	    }
+	
+	    public String getTitle() {
+	        return title;
+	    }
+	
+	    public String getStart() {
+	        return start;
+	    }
+	
+	    public String getEnd() {
+	        return end;
+	    }
+	    
+	    @Override
+	    public String toString() {
+	        return "FullCalendarEvent{" +
+	                "title='" + title + '\'' +
+	                ", start='" + start + '\'' +
+	                ", end='" + end + '\'' +
+	                '}';
+	    }
+	}
+
 	
 	// enrolldate 데이터를 JavaScript 배열로 변환하는 메서드
 		private String convertToEnrolldateArray(List<AttendanceVo> chartList) {

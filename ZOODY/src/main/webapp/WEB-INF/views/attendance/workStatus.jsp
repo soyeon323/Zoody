@@ -15,17 +15,33 @@
 <link rel="stylesheet" href="${root}/resources/css/attendance/attendance.css">
 
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
+<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
 <title>Document</title>
 
 <style>
 
+element.style {
+    /* width: auto; */
+    height: 266.593px;
+}
+
+#calendar-wrap{
+    border: none;
+    display: grid;
+    align-items: center;
+    padding: 24px;
+  }
 
   /* 캘린더 조상 */
   .fc {
-    font-size: 16px;
+    font-size: 14px;
   }
   
-  
+  .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    min-height: 0.1em;
+    position: relative;
+  }
   
   .fc-theme-standard td {
     border: none;
@@ -227,7 +243,9 @@
 
             <!-- 두번째 줄 -->
             <div class="att_calendar">
-              <div id='calendar'></div>
+              <div id="calendar-wrap">
+                <div id="calendar"></div>
+              </div>
             </div>
             <div class="att_grap">
               <div class="grap-title">
@@ -372,36 +390,75 @@
         </div>
     </div>
 
-    <script>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
 
+    <!-- workStatus.jsp -->
+    <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          width: 100 + '%',
-          height: 90 + '%' ,
-          aspectRatio: 1,
-          
-          titleFormat : { year: 'numeric', month: 'long' }, 
-    
-        });
-        
-        calendar.render();
-        
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    themeSystem: 'bootstrap5',
+    headerToolbar: {
+      left: 'prev,next',
+      center: 'title',
+      right: 'today'
+    },
+    locale: 'ko',
+    eventSources: [
+      {
+        url: '/attendance/main',
+        method: 'GET',
+        dataType: "JSON",
+        color: 'purple',
+        textColor: 'white',
+        success: function(data) {
+          var events = [];
+          for (var i = 0; i < data.length; i++) {
+            var event = {
+              title: "출근: " + data[i].checkInTime + ", 퇴근: " + data[i].checkOutTime,
+              start: data[i].start,
+              end: data[i].end,
+              checkInTime: data[i].checkInTime, // 클릭 이벤트에서 사용하기 위해 추가
+              checkOutTime: data[i].checkOutTime // 클릭 이벤트에서 사용하기 위해 추가
+            };
+            events.push(event);
+          }
+          calendar.addEventSource(events);
+        },
+        error: function() {
+          alert('출퇴근 조회 오류');
+        },
+        data: {
+          start: '${start}', // JSP에서 변수를 바로 사용하도록 변경
+          end: '${end}' // JSP에서 변수를 바로 사용하도록 변경
+        }
+      }
+    ],
+    dateClick: function(info) {
+      var clickedDate = info.dateStr;
+      var eventsOnClickedDate = calendar.getEvents(function(event) {
+        return event.startStr.startsWith(clickedDate);
       });
       
-      
-    
-     
-      
-    
-      
-    
+      var checkInTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkInTime : "출근 기록 없음";
+      var checkOutTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkOutTime : "퇴근 기록 없음";
+
+      alert("클릭한 날짜: " + clickedDate + "\n출근 시간: " + checkInTime + "\n퇴근 시간: " + checkOutTime);
+    }
+  });
+
+  calendar.render();
+});
+
     </script>
+    
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <!-- <script>
+    <script>
     // 이번주 월요일부터 일요일까지의 데이터
     const data = [12, 19, 3, 5, 2];
     // 이번주 월요일부터 일요일까지의 라벨
@@ -453,11 +510,11 @@
       }
     });
 
-    </script> -->
+    </script>
 
     
 
-    <script>
+    <!-- <script>
       // JSP에서 데이터를 JSON 형식의 문자열로 변환하도록 수정
       const enrolldateArr = JSON.parse('${enrolldateData}');
             const totalWorkTimeArr = JSON.parse('${totalWorkTimeData}');
@@ -503,7 +560,7 @@
                     }
                 }
             });
-    </script>
+    </script> -->
 
 
 

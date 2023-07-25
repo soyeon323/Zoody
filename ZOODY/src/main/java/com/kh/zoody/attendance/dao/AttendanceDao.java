@@ -25,6 +25,11 @@ public interface AttendanceDao {
 
 	List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv);
 
+	//출퇴근 영역
+	int checkInWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
+	
+	int checkOutWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
+	
 	//메인 영역
 	int getMainAttCnt(SqlSessionTemplate sst);
 
@@ -41,12 +46,9 @@ public interface AttendanceDao {
 
 	List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv);
 
-	//출퇴근 영역
-	int checkInWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
-
-	int checkOutWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
-
 	List<AttendanceVo> mainChartList(SqlSessionTemplate sst);
+
+	List<AttendanceVo> mainCalendarList(SqlSessionTemplate sst);
 
 
 

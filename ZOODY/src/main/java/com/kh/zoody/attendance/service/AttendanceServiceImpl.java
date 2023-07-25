@@ -121,6 +121,12 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 
+	@Override
+	public List<AttendanceVo> mainCalendarList() {
+		return dao.mainCalendarList(sst);
+	}
+
+
 
 
 
