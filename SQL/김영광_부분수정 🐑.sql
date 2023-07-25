@@ -45,3 +45,32 @@ SELECT 1 FROM DUAL;
 
 /*=================================================================================================================================================*/
 commit;
+
+SELECT 
+    RN
+    ,NO
+    ,USER_NO
+    ,CAT_NO
+    ,TITLE
+    ,CONTENT
+    ,ENROLL_DATE
+    ,MODIFY_DATE
+    ,FILE_PATH
+FROM 
+    (
+        SELECT 
+            ROWNUM RN
+            ,NO
+            ,USER_NO
+            ,CAT_NO
+            ,TITLE
+            ,CONTENT
+            ,ENROLL_DATE
+            ,MODIFY_DATE
+            ,FILE_PATH
+        FROM BOARD
+        WHERE STATUS = 'O'
+        ORDER BY NO DESC
+    )B
+WHERE B.RN BETWEEN 1 AND 7
+;

@@ -18,7 +18,12 @@
 			,FILE_PATH
 		FROM BOARD
 		WHERE STATUS = 'O'
-		AND CAT_NO = #{catNo}
+		<choose>
+			<when test="catNo != null and !catNo.equals('')"> AND CAT_NO = #{catNO} </when>
+			<when test="num != null and !num.equals('')"> AND CAT_NO = #{catNO} </when>
+			<otherwise> AND CAT_NO = 1 </otherwise>
+		</choose>
+		
 		
 	</select>
 

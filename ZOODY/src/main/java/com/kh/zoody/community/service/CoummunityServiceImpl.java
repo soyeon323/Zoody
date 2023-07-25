@@ -31,6 +31,12 @@ public class CoummunityServiceImpl implements CommuityService{
 	}
 
 
+	@Override
+	public List<BoardVo> getBoardListByCount(int num) {
+		return dao.getBoardListByCount(sst, num);
+	}
+
+
 
 	
 	
