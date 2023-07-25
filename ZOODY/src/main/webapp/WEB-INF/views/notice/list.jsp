@@ -28,7 +28,7 @@
         <div id="back">
 
             <div id="firstDiv">
-                <a>전체게시글 3건</a>
+                <a>전체게시글 ${map.noticeListCnt}건</a>
                 <select name="searchType" id="department">
                     <option value="">제목</option>
                     <option value="">내용</option>
@@ -38,79 +38,31 @@
                 <input type="submit" value="검색">
             </div>
 
-            <div>
-                <table id="content">
+            <div id="tableArea">
+                <table class="table">
                     <thead>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
+                      <tr>
+                        <td scope="col">번호</td>
+                        <td scope="col">제목</td>
+                        <td scope="col">작성자</td>
+                        <td scope="col">작성일</td>
+                        <td scope="col">조회수</td>
+                      </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        <tr>
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>작성자</td>
-                            <td>작성일</td>
-                            <td>조회수</td>
-                        </tr>
-                        
+                        <c:forEach items="${map.voList}" var="voList">
+	                        <tr onclick="detail(event);">
+	                            <td scope="col" class="noticeNo">${voList.no}</td>
+	                            <td scope="col">${voList.title}</td>
+	                            <td scope="col">관리자</td>
+	                            <td scope="col">${voList.enrollDate}</td>
+	                            <td scope="col">${voList.hit}</td>
+	                        </tr>
+                        </c:forEach>
                     </tbody>
-                </table>
+                  </table>
             </div>
-            
+
         </div>
         
         <div id="page">
@@ -126,3 +78,17 @@
 
 </body>
 </html>
+<script>
+
+    //게시글 상세조회
+    function detail(event){
+        const clickedTd = event.target;
+        const tr = clickedTd.parentElement;
+
+        const noticeNo = tr.querySelector(".noticeNo");
+
+        const no = noticeNo.innerHTML;
+
+        location.href = "${root}/notice/detail?no=" + no;
+    }
+</script>

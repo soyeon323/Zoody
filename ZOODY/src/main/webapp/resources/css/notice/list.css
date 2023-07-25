@@ -71,37 +71,47 @@
 }
 
 /* 내용영역 */
-#content{
-    width: 1500px;
-    margin-top: 20px;
+#tableArea{
 }
-#content>thead{
-    width: 1500px;
-    height: 60px;
-    border-bottom: 1px solid #D7D7D7;
+
+#tableArea>table{
+    width: 1498px;
+    margin-top: 40px;
+}
+
+#tableArea thead{
     border-top: 1px solid #D7D7D7;
-    color: #4B4B4B;
+    border-bottom: 1px solid #D7D7D7;
 }
 
-#content tr{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+#tableArea tr{
+    text-align: center;
+    height: 65px;
 }
 
-#content>thead tr{
-    height: 60px;
+#tableArea input[type='checkbox']{
+    width: 20px;
+    height: 20px;
 }
 
-#content>tbody{
+
+#tableArea>table td{
+    margin-left: 150px;
+}
+
+#tableArea .table td {
+    vertical-align: middle;
+}
+
+#tableArea tbody td{
     color: black;
-    font-size: 18px;
 }
 
-#content>tbody tr{
-    height: 63px;
-    margin-top: 6px;
+#tableArea tbody tr:hover{
+    background-color: #5189FA; 
+    cursor: pointer;
 }
+
 
 /* 페이징 */
 #page{
@@ -140,7 +150,7 @@ table tbody tr:hover{
 }
 
 #firstDiv>a{
-    width: 920px;
+    width: 965px;
     font-size: 18px;
     color: #4B4B4B;
 }

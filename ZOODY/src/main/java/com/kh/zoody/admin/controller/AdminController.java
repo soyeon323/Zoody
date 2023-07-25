@@ -1,6 +1,7 @@
 package com.kh.zoody.admin.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.zoody.admin.service.AdminService;
 import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.notice.vo.NoticeVo;
@@ -110,6 +112,7 @@ public class AdminController {
 	public void noticeDetail(String no, Model model) {
 		NoticeVo vo = as.noticeDetail(no);
 		List<ReplyVo> voList = as.selectReply(no);
+		int replyCnt = as.replyCnt(no);
 		
 		if(vo == null || voList == null) {
 			throw new RuntimeException();
@@ -117,6 +120,7 @@ public class AdminController {
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("voList", voList);
+		model.addAttribute("replyCnt", replyCnt);
 		
 		return;
 	}
@@ -146,7 +150,6 @@ public class AdminController {
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
 		int noticeListCnt = as.getNoticeListCnt();
-		
 		List<NoticeVo> voList = as.list(pv);
 		
 		if(voList == null) {
@@ -201,4 +204,5 @@ public class AdminController {
 		}
 		return "";
 	}
+	
 }
