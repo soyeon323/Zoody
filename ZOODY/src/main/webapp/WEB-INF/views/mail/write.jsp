@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Zoody</title>
+<link rel="stylesheet" href="${root}/resources/summernote/summernote-lite.css">
+<script defer src="${root}/resources/summernote/summernote-lite.js"></script>
+
 <link rel="stylesheet" href="${root}/resources/css/mail/write.css">
 <script defer src="${root}/resources/js/mail/write.js"></script>
 <body>
@@ -132,8 +135,10 @@
 
 						<!-- 메일 본문 -->
 						<div class="mail-content-area">
-							<textarea id="summernote" name="content"></textarea>
+							<textarea class="mail-content" id="summernote" name="content"></textarea>
 						</div>
+						
+						
 
 					</form>
 

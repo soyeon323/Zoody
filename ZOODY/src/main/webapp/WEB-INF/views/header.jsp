@@ -34,11 +34,11 @@
             <div id="nav-profile">
                 
                 <div class="img-profile">
-                    <img src="${root}/resources/img/employee/${loginMember.profile}" alt=" ">
+                    <img class="profile-img" src="${root}/resources/img/employee/${loginMember.profile}" alt=" ">
                 </div>
 
                 <div class="box-profile">
-                    {name}
+                    ${loginMember.name}
                 </div>
 
             </div>

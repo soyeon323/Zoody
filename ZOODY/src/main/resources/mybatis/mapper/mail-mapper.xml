@@ -41,7 +41,7 @@
 		INTO MAIL_RECIPIENT
 		(
 		    MAIL_NO,
-		    RECEIVER_EMAIL,
+		    RECEIVER_NO,
 		    READ_CHECK,
 		    BOOKMARK_CHECK,
 		    DELETE_CHECK
@@ -49,7 +49,7 @@
 		VALUES
 		(
 		    #{item.mailNo},
-		    #{item.receiverEmail},
+		    (SELECT NO FROM "USER" WHERE MAIL = #{item.receiverEmail}),
 		    DEFAULT,
 		    DEFAULT,
 		    DEFAULT
