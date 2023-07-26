@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.reply.vo.ReplyVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 public interface AdminDao {
 
@@ -61,5 +62,14 @@ public interface AdminDao {
 
 	//건의사항 복사
 	int suggestionCopy(SqlSessionTemplate sst, List<String> noList);
+
+	//건의사항 삭제
+	int suggestionDelete(SqlSessionTemplate sst, List<String> noList);
+
+	//공지사항으로 등록
+	int noticeEnroll(SqlSessionTemplate sst, List<String> noList);
+
+	//건의사항 상세조회
+	SuggestionVo suggestionDetail(SqlSessionTemplate sst, String no);
 
 }

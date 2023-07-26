@@ -126,7 +126,7 @@
 /* 게시글 수정, 복사, 복제, 작성, 공지로등록 영역 */
 #iconArea{
     display: grid;
-    grid-template-columns: 135px 80px 80px 110px;
+    grid-template-columns: 135px 80px 110px;
     margin-bottom: 20px;
 }
 

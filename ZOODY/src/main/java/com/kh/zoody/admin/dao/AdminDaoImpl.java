@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.reply.vo.ReplyVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -115,6 +116,24 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int suggestionCopy(SqlSessionTemplate sst, List<String> noList) {
 		return sst.insert("suggestion.suggestionCopy", noList);
+	}
+
+	//건의사항 삭제
+	@Override
+	public int suggestionDelete(SqlSessionTemplate sst, List<String> noList) {
+		return sst.update("suggestion.suggestionDelete", noList);
+	}
+
+	//공지로 등록
+	@Override
+	public int noticeEnroll(SqlSessionTemplate sst, List<String> noList) {
+		return sst.insert("suggestion.noticeEnroll", noList);
+	}
+
+	//건의사항 상세조회
+	@Override
+	public SuggestionVo suggestionDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("suggestion.suggestionDetail", no);
 	}
 
 }

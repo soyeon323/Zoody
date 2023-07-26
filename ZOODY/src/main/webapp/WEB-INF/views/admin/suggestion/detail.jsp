@@ -19,6 +19,16 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/admin/longside.jsp" %>
+    <c:if test="${vo.rightclickYn == 'N'}">
+        <script>
+            function handleContextMenu(event) {
+                event.preventDefault();
+    
+                alert("우클릭을 사용할 수 없습니다.");
+            }
+            document.addEventListener('contextmenu', handleContextMenu);
+        </script>
+    </c:if>
 
     <div id="wrap">
 
@@ -30,20 +40,24 @@
             <div>
                 <a>▶</a>
                 <a>게시글 주소 : </a>
-                <a>http://www.naver.com/1123555498</a>
+                <a>127.0.0.1:8888/zoody/admin/suggestion/detail?no=${vo.no}</a>
             </div>
             <div>
                 <a>▶</a>
                 <a>게시글 공개 설정 : </a>
-                <a>전체공개</a>
+                <c:if test="${vo.boardLimit == 0}">
+                    <a>전체공개</a>
+                </c:if>
+                <c:if test="${vo.boardLimit == 1}">
+                    <a>관리자공개</a>
+                </c:if>
+                <c:if test="${vo.boardLimit == 2}">
+                    <a>비공개</a>
+                </c:if>
             </div>
         </div>
 
         <div id="iconArea">
-            <div>
-                <img src="${root}/resources/img/icon/png/newPencil.png" alt="글쓰기아이콘">
-                <a href="">새글쓰기</a>
-            </div>
             <div>
                 <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
                 <a href="">복사</a>
@@ -52,18 +66,14 @@
                 <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
                 <a href="">삭제</a>
             </div>
-            <div>
-                <img src="${root}/resources/img/icon/png/edit.png" alt="수정아이콘">
-                <a href="">수정</a>
-            </div>
         </div>
 
         <div id="contentArea">
             <div id="title">
-                <div>건의사항입니다&nbsp&nbsp [1]</div>
+                <div>${vo.title}&nbsp&nbsp [1]</div>
             </div>
             <div id="info">
-                <div>김철수&nbsp대리</div>
+                <div>${vo.name}&nbsp대리</div>
                 <div>2023-07-01 14:27</div>
             </div>
             <div id="content">
