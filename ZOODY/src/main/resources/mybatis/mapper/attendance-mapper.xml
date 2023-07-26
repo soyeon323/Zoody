@@ -414,6 +414,13 @@
 		WHERE USER_NO = 1
   	</select>
   	
+  	<!-- 이의신청 사유 작성 -->
+  	<update id="submitOjection">
+  		UPDATE ATTENDANCE
+	    SET OBJECTION_REASON = #{objectionReason}
+	    WHERE NO = #{no}
+  	</update>
+  	
   	
   
 </mapper>

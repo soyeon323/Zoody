@@ -139,26 +139,26 @@ public class AttendanceController {
 
 	
 	// enrolldate 데이터를 JavaScript 배열로 변환하는 메서드
-		private String convertToEnrolldateArray(List<AttendanceVo> chartList) {
-			StringBuilder sb = new StringBuilder();
-			for (AttendanceVo attendance : chartList) {
-				sb.append("'").append(attendance.getEnrolldate()).append("',");
-			}
-			// 마지막 쉼표 제거
-			sb.deleteCharAt(sb.length() - 1);
-			return sb.toString();
+	private String convertToEnrolldateArray(List<AttendanceVo> chartList) {
+		StringBuilder sb = new StringBuilder();
+		for (AttendanceVo attendance : chartList) {
+			sb.append("'").append(attendance.getEnrolldate()).append("',");
 		}
-		
-		// totalWorkTime 데이터를 JavaScript 배열로 변환하는 메서드
-		private String convertToTotalWorkTimeArray(List<AttendanceVo> chartList) {
-			StringBuilder sb = new StringBuilder();
-			for (AttendanceVo attendance : chartList) {
-				sb.append("'").append(attendance.getTotalWorkTime()).append("',");
-			}
-			// 마지막 쉼표 제거
-			sb.deleteCharAt(sb.length() - 1);
-			return sb.toString();
+		// 마지막 쉼표 제거
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
+	
+	// totalWorkTime 데이터를 JavaScript 배열로 변환하는 메서드
+	private String convertToTotalWorkTimeArray(List<AttendanceVo> chartList) {
+		StringBuilder sb = new StringBuilder();
+		for (AttendanceVo attendance : chartList) {
+			sb.append("'").append(attendance.getTotalWorkTime()).append("',");
 		}
+		// 마지막 쉼표 제거
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
 	
 	//메인화면 출퇴근 등록
 	@PostMapping("main")
@@ -213,6 +213,14 @@ public class AttendanceController {
 	    model.addAttribute("currentTypeFour", currentTypeFour);
 
 	    return "attendance/list";
+	}
+	
+	@PostMapping("list")
+	public String list(AttendanceVo vo) {
+		
+		int result = attService.submitOjection(vo);
+		
+		return "attendance/list";
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회

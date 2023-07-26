@@ -438,3 +438,8 @@
     font-size: 11px;
     padding: revert;
 }
+
+.col-form-label {
+    display: block;
+    text-align: left;
+}

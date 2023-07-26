@@ -214,38 +214,64 @@
                           </c:otherwise> 
                         </c:choose> 
                         <td>${att.type}</td>
-                        <td>
-                          <!-- Button trigger modal -->
-                          <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="display: none;">신청</button>
-
-                          <!-- Modal -->
-                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">이의신청 사유 작성</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <form>
-                                    <div class="mb-3">
-                                      <label for="recipient-name" class="col-form-label">근태 No</label>
-                                      <input type="text" class="form-control" id="recipient-name">
-                                    </div>
-                                    <div class="mb-3">
-                                      <label for="message-text" class="col-form-label">사유</label>
-                                      <textarea class="form-control" id="message-text"></textarea>
-                                    </div>
-                                  </form>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Send message</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
+                       	<c:choose>
+                       		<c:when test="${att.objectionReason == null}">
+                             <td>
+                               <!-- Button trigger modal -->
+                               <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="display: none;" data-att-no="${att.no}">
+                                 신청
+                               </button>
+     
+                               <!-- Modal -->
+                               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                   <div class="modal-content">
+                                     <div class="modal-header">
+                                       <h1 class="modal-title fs-5" id="staticBackdropLabel">이의신청</h1>
+                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                     </div>
+                                     <div class="modal-body">
+                                       <form action="${root}/attendance/list" method="post" onsubmit="submitForm(event)">
+                                         <div class="mb-3">
+                                           <label for="recipient-name" class="col-form-label">번호 :</label>
+                                           <input type="text" class="form-control" id="recipient-name" name="no">
+                                         </div>
+                                         <div class="mb-3">
+                                           <label for="message-text" class="col-form-label">사유 작성 :</label>
+                                           <textarea class="form-control" id="message-text" name="objectionReason"></textarea>
+                                         </div>
+                                         <div class="modal-footer">
+                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">작성취소</button>
+                                           <button type="submit" class="btn btn-primary">작성완료</button>
+                                        </form>
+                                     </div>
+                                   </div>
+                                 </div>
+                               </div>
+                             </td>
+                            </c:when>
+                            <c:when test="${att.objectionReason != null}">
+                             <td>
+                              <c:choose>
+                                <c:when test="${att.approvalStatus == 0}">
+                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: gray; border-color: gray;">
+                                    대기
+                                  </button>
+                                </c:when>
+                                <c:when test="${att.approvalStatus == 1}">
+                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: gray; border-color: gray;">
+                                    승인
+                                  </button>
+                                </c:when>
+                                <c:when test="${att.approvalStatus == 2}">
+                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: gray; border-color: gray;">
+                                    반려
+                                  </button>
+                                </c:when>
+                              </c:choose>
+                             </td>
+                       		</c:when>
+                       	</c:choose>
                       </tr>
                   </c:forEach>
                   
@@ -349,28 +375,46 @@
         }
       };
 
-      const exampleModal = document.getElementById('exampleModal')
-      exampleModal.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        const recipient = button.getAttribute('data-bs-whatever')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        const modalTitle = exampleModal.querySelector('.modal-title')
-        const modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-        modalTitle.textContent = `New message to ${recipient}`
-        modalBodyInput.value = recipient
-      })
     </script>
 
+    <script>
+      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
+      document.addEventListener("DOMContentLoaded", function() {
+        // "신청" 버튼들을 가져옵니다.
+        const toggleButtons = document.querySelectorAll(".toggle-button");
+
+        // 각 버튼에 이벤트 리스너를 추가
+        toggleButtons.forEach(button => {
+          button.addEventListener("click", function() {
+            // 버튼이 클릭된 행의 번호를 가져옵니다.
+            const attNo = this.getAttribute("data-att-no");
+            
+            // 모달창 내의 input 요소
+            const inputField = document.querySelector("#recipient-name");
+            
+            // input 필드에 해당 행의 번호를 설정
+            inputField.value = attNo;
+
+            inputField.setAttribute("readonly", "readonly");
+          });
+        });
+      });
+    </script>
 
     <script>
       const searchValueTag = document.querySelector("input[name=searchValue]");
       searchValueTag.value = '${searchValue}'
+    </script>
+
+    <script>
+      function submitForm(event) {
+        // 폼 제출 이벤트의 기본 동작(새로고침)을 막습니다.
+        event.preventDefault();
+
+        // 폼을 서버로 제출합니다.
+        const form = event.target;
+        form.submit();
+      }
     </script>
 
    

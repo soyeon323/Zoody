@@ -205,6 +205,7 @@ public class AnimalController {
 		
 	}
 	
+
 	
 	//동물 건강 상태 상세조회
 	@GetMapping("health")
