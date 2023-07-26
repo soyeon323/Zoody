@@ -1,5 +1,7 @@
 package com.kh.zoody;
 
+import java.util.List;
+
 import org.apache.tomcat.util.log.UserDataHelper.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.zoody.community.service.CommuityService;
+import com.kh.zoody.community.vo.BoardVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +24,9 @@ public class HomeController {
 	@GetMapping
 	public String home(Model model) {
 		
-		cs.getBoardListByCount(5);
+		List<BoardVo> boardList = cs.getBoardListByCount(5);
+		
+		model.addAttribute( "boardList" , boardList );
 		
 		return "home";
 	}

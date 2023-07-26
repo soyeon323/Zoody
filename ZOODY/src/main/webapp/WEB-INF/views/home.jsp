@@ -73,7 +73,18 @@
                 <div class="area schedule">일정</div>
                 <div class="area chart">진행도</div>
                 <div class="area attendance">근태현황</div>
-                <div class="area community">커뮤니티</div>
+                <div class="area community">커뮤니티
+                    <c:forEach items="${ boardList }" var="list">
+
+                        <td>${ list.no }</td>
+                        <td>${ list.title }</td>
+                        <td>${ list.no }</td>
+                        <td>${ list.no }</td>
+                        <td>${ list.enrollDate }</td>
+
+                    </c:forEach>
+
+                </div>
                 <div class="area notice" id="notice">
                     <img src="${root}/resources/svg/icons/notice.svg" alt="">
                     <div>전직원 알림) 스미싱 스팸메일 열람주의</div>
