@@ -14,5 +14,6 @@ public class BoardVo {
 	private String modifyDate;
 	private String status;
 	private String file;
+	private String hit;
 	
 }
