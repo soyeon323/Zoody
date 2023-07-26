@@ -44,20 +44,16 @@
 
             <div id="iconArea">
                 <div>
-                    <img src="${root}/resources/img/icon/png/newPencil.png" alt="새글작성">
-                    <a href="">새글쓰기</a>
-                </div>
-                <div>
                     <img src="${root}/resources/img/icon/png/copy.png" alt="복제">
-                    <a href="">복제</a>
+                    <button onclick="suggestionCopy();">복사</button>
                 </div>
                 <div>
                     <img src="${root}/resources/img/icon/png/delete.png" alt="삭제">
-                    <a href="">삭제</a>
+                    <button onclick="suggestionDelete();">삭제</button>
                 </div>
                 <div>
                     <img src="${root}/resources/img/icon/png/edit.png" alt="수정">
-                    <a href="">수정</a>
+                    <button onclick="suggestionEdit();">수정</button>
                 </div>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
@@ -70,7 +66,7 @@
                         </clipPath>
                         </defs>
                     </svg>
-                    <a href="">공지로 등록</a>
+                    <button onclick="noticeEnroll();" type="button">공지로 등록</button>
                 </div>
             </div>
 
@@ -79,7 +75,7 @@
                     <thead>
                       <tr>
                         <td scope="col">
-                            <input type="checkbox" name="adminSuggestion" id="checkAll">
+                            <input type="checkbox" name="adminSuggestionAll" id="checkAll">
                         </td>
                         <td scope="col">번호</td>
                         <td scope="col">제목</td>
@@ -98,9 +94,9 @@
                             <c:if test="${!empty map.voList}">
                                 <tr onclick="detail(event);">
                                     <td scope="col">
-                                        <input type="checkbox" name="adminNotice">
+                                        <input type="checkbox" name="adminSuggestion">
                                     </td>
-                                    <td scope="col" class="noticeNo">${voList.no}</td>
+                                    <td scope="col" class="suggestionNo">${voList.no}</td>
                                     <td scope="col">${voList.title}</td>
                                     <td scope="col">${voList.name}</td>
                                     <td scope="col">${voList.enrollDate}</td>
@@ -129,7 +125,7 @@
 <script>
     //체크박스 전체체크
     const allCheckbox = document.querySelector('#checkAll');
-    const tbodyCheckbox = document.querySelectorAll('input[name="adminSuggestion"]');
+    const tbodyCheckbox = document.querySelectorAll('tbody input[name="adminSuggestion"]');
 
     allCheckbox.addEventListener('change', function () {
         const isChecked = allCheckbox.checked;
@@ -152,4 +148,85 @@
         searchTypeArr[2].selected = true;
     }
 
+     //게시글 복사
+     function suggestionCopy() {
+        var checkedBoxes = document.querySelectorAll('input[name="adminSuggestion"]:checked');
+
+        if (checkedBoxes.length === 0) {
+            alert("복사할 항목을 선택해주세요.");
+            return;
+        }
+
+        const result = confirm("선택한 게시글을 복사하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
+
+        var no = [];
+
+        for (var i = 0; i < checkedBoxes.length; i++) {
+            var tr = checkedBoxes[i].closest('tr');
+            var suggestionNo = tr.querySelector('.suggestionNo');
+            var suggestionNoValue = suggestionNo.innerText;
+            no.push(suggestionNoValue);
+        }
+
+        $.ajax({
+            url : '${root}/admin/suggestion/copy',
+            type : 'POST',
+            traditional: true,
+            data : {
+                no: no
+            },
+            success : function(){
+                location.reload();
+            },
+            error : function(err){
+                location.reload();
+            }
+        })
+    };
+
+     //게시글 삭제
+    function suggestionDelete() {
+        var checkedBoxes = document.querySelectorAll('input[name="adminSuggestion"]:checked');
+
+        if (checkedBoxes.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        const result = confirm("선택한 게시글을 삭제하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
+        var no = [];
+
+        for (var i = 0; i < checkedBoxes.length; i++) {
+            var tr = checkedBoxes[i].closest('tr');
+            var suggestionNo = tr.querySelector('.suggestionNo');
+            var suggestionNoValue = suggestionNo.innerText;
+            no.push(suggestionNoValue);
+        }
+
+        alert(no);
+        $.ajax({
+            url : '${root}/admin/suggestion/delete',
+            type : 'POST',
+            traditional: true,
+            data : {
+              no : no  
+            },
+            success : function(){
+                location.reload();
+            },
+            error : function(err){
+                location.reload();
+            }
+        })
+    };
 </script>

@@ -59,4 +59,7 @@ public interface AdminDao {
 	//건의사항 목록
 	List<NoticeVo> suggstionList(SqlSessionTemplate sst, Map<String, String> searchMap);
 
+	//건의사항 복사
+	int suggestionCopy(SqlSessionTemplate sst, List<String> noList);
+
 }

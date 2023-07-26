@@ -111,5 +111,17 @@ public class AdminServiceImpl implements AdminService{
 	public List<NoticeVo> suggstionList(PageVo pv, Map<String, String> searchMap) {
 		return dao.suggstionList(sst, searchMap);
 	}
+
+	//건의사항 복사
+	@Override
+	public int suggestionCopy(List<String> noList) {
+		return dao.suggestionCopy(sst, noList);
+	}
+
+	//건의사항 삭제
+	@Override
+	public int suggestionDelete(List<String> noList) {
+		return 0;
+	}
 	
 }

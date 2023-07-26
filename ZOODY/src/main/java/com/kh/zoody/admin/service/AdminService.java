@@ -54,4 +54,10 @@ public interface AdminService {
 	//건의사항 목록 갯수
 	List<NoticeVo> suggstionList(PageVo pv, Map<String, String> searchMap);
 
+	//건의사항 복사
+	int suggestionCopy(List<String> noList);
+
+	//건의사항 삭제
+	int suggestionDelete(List<String> noList);
+
 }
