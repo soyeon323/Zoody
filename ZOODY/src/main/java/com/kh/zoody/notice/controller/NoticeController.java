@@ -2,12 +2,14 @@ package com.kh.zoody.notice.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.notice.service.NoticeService;
@@ -25,8 +27,8 @@ public class NoticeController {
 
 	//공지사항목록 화면
 	@GetMapping("list")
-	public String notice(Model model, Integer page) {
-		int listCount = ns.getNoticeListCnt();
+	public String notice(Model model, @RequestParam(defaultValue = "1") Integer page, @RequestParam Map<String, String> searchMap) {
+		int listCount = ns.getNoticeListCnt(searchMap);
 		int currentPage = (page != null) ? page : 1;
 		int pageLimit = ConstPool.PAGE_LIMIT;
 		int boardLimit = ConstPool.BOARD_LIMIT;
@@ -34,8 +36,8 @@ public class NoticeController {
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
-		int noticeListCnt = ns.getNoticeListCnt();
-		List<NoticeVo> voList = ns.list(pv);
+		int noticeListCnt = ns.getNoticeListCnt(searchMap);
+		List<NoticeVo> voList = ns.list(pv, searchMap);
 		
 		if(voList == null) {
 			throw new RuntimeException();
@@ -45,6 +47,7 @@ public class NoticeController {
 		map.put("pv", pv);
 		map.put("voList", voList);
 		map.put("noticeListCnt", noticeListCnt);
+		map.put("searchMap", searchMap);
 		
 		model.addAttribute("map", map);
 		

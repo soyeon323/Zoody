@@ -1,6 +1,7 @@
 package com.kh.zoody.employee.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -16,10 +17,10 @@ public interface EmployeeDao {
 	UserVo detail(SqlSessionTemplate sst, String id);
 
 	//직원목록 
-	List<UserVo> list(SqlSessionTemplate sst, PageVo pv);
+	List<UserVo> list(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap);
 
 	//페이징처리를 위한 게시글 갯수 조회
-	int getEmployeeListCnt(SqlSessionTemplate sst);
+	int getEmployeeListCnt(SqlSessionTemplate sst, Map<String, String> searchMap);
 
 	//직원정보수정
 	int edit(SqlSessionTemplate sst, UserVo vo);

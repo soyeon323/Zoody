@@ -3,6 +3,7 @@ package com.kh.zoody.employee.controller;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.constpool.ConstPool;
@@ -67,17 +69,22 @@ public class EmployeeController {
 	//직원상세조회 및 수정
 	@PostMapping("detail")
 	public String detail(UserVo vo, MultipartFile f, HttpServletRequest req) throws Exception {
-		String savePath = req.getServletContext().getRealPath("/resources/img/employee/");
-		String originalFilename = f.getOriginalFilename();
-		
-		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-	    String fileName = UUID.randomUUID().toString() + extension;
-	    String path = savePath + fileName;
-	    File target = new File(path);
-	    f.transferTo(target);
-		
-		vo.setProfile(fileName);
-		int result = es.edit(vo);
+		String fileName = null;
+		String extension = "";
+		  // 파일 첨부가 있을 때만 처리
+	    if (!f.isEmpty()) {
+            String savePath = req.getServletContext().getRealPath("/resources/img/employee/");
+            String originalFilename = f.getOriginalFilename();
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            fileName = UUID.randomUUID().toString() + extension;
+            String path = savePath + fileName;
+            File target = new File(path);
+            f.transferTo(target);
+	       }
+	        vo.setProfile(fileName);
+	    }
+	    int result = es.edit(vo);
 		
 		if(result != 1) {
 			throw new Exception();
@@ -86,10 +93,10 @@ public class EmployeeController {
 	}
 	
 	//직원목록 화면
-	@GetMapping("list")
-	public String list(Integer page, Model model) {
+	@RequestMapping("list")
+	public String list(@RequestParam(defaultValue = "1") Integer page, Model model, @RequestParam Map<String, String> searchMap) {
 		
-		int listCount = es.getEmployeeListCnt();
+		int listCount = es.getEmployeeListCnt(searchMap);
 		int currentPage = (page != null) ? page : 1;
 		int pageLimit = ConstPool.PAGE_LIMIT;
 		int boardLimit = ConstPool.BOARD_LIMIT;
@@ -97,14 +104,15 @@ public class EmployeeController {
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
-		int EmployeListCnt = es.getEmployeeListCnt();
+		int EmployeListCnt = es.getEmployeeListCnt(searchMap);
 		
-		List<UserVo> voList = es.list(pv);
+		List<UserVo> voList = es.list(pv, searchMap);
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("voList", voList);
 		map.put("EmployeListCnt", EmployeListCnt);
 		map.put("pv", pv);
+		map.put("searchMap", searchMap);
 
 		model.addAttribute("map", map);
 		

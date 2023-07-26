@@ -27,18 +27,19 @@
 
         <div id="back">
 
+            <form action="${root}/admin/notice/list" method="get">
             <div id="topArea">
                 <div><a>전체게시글 ${map.noticeListCnt}건</a></div>
                 <div>
-                    <select name="searchType" id="department">
-                        <option value="">제목</option>
-                        <option value="">내용</option>
-                        <option value="">작성자</option>
-                    </select>
-                    <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
-                    <input type="submit" value="검색">
+                        <select name="searchType" id="department">
+                            <option value="title">제목</option>
+                            <option value="content">내용</option>
+                        </select>
+                        <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
+                        <input type="submit" value="검색">
+                    </div>
                 </div>
-            </div>
+            </form>
 
             <div id="iconArea">
                 <div>
@@ -74,17 +75,24 @@
                       </tr>
                     </thead>
                     <tbody>
+                        <c:if test="${empty map.voList}">
+                            <tr class="searchNoResult">
+                                <td colspan="6">조회된 결과가 없습니다.</td>
+                            </tr>
+                        </c:if>
                         <c:forEach items="${map.voList}" var="voList">
-	                        <tr onclick="detail(event);">
-	                            <td scope="col">
-	                                <input type="checkbox" name="adminNotice">
-	                            </td>
-	                            <td scope="col" class="noticeNo">${voList.no}</td>
-	                            <td scope="col">${voList.title}</td>
-	                            <td scope="col">관리자</td>
-	                            <td scope="col">${voList.enrollDate}</td>
-	                            <td scope="col">${voList.hit}</td>
-	                        </tr>
+                            <c:if test="${!empty map.voList}">
+                                <tr onclick="detail(event);">
+                                    <td scope="col">
+                                        <input type="checkbox" name="adminNotice">
+                                    </td>
+                                    <td scope="col" class="noticeNo">${voList.no}</td>
+                                    <td scope="col">${voList.title}</td>
+                                    <td scope="col">관리자</td>
+                                    <td scope="col">${voList.enrollDate}</td>
+                                    <td scope="col">${voList.hit}</td>
+                                </tr>
+                            </c:if>
                         </c:forEach>
                     </tbody>
                   </table>
@@ -203,11 +211,11 @@
         var checkedBox = document.querySelectorAll('input[name="adminNotice"]:checked');
         
         if (checkedBox.length > 1) {
-            alert("수정할 게시글을 하나만 선택해주세요.");
+            alert("수정할 항목을 하나만 선택해주세요.");
             return;
         }
         if (checkedBox.length === 0) {
-            alert("수정할 게시글을 선택해주세요.");
+            alert("수정할 항목을 선택해주세요.");
             return;
         }
         var tr = checkedBox[0].closest('tr');
@@ -240,4 +248,17 @@
 
         location.href = "${root}/admin/notice/detail?no=" + no;
     }
+
+    //게시글 검색
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+    searchValueTag.value = '${map.searchMap.searchValue}';
+
+    const searchTypeArr = document.querySelectorAll("select[name=searchType] > option");
+    const x = '${map.searchMap.searchType}';
+    if(x == 'title'){
+        searchTypeArr[0].selected = true;
+    }else if(x == 'content'){
+        searchTypeArr[1].selected = true;
+    }
+
 </script>

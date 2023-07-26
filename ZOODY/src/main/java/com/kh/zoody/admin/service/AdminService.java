@@ -1,6 +1,7 @@
 package com.kh.zoody.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
@@ -9,10 +10,10 @@ import com.kh.zoody.reply.vo.ReplyVo;
 public interface AdminService {
 
 	//공지사항 목록
-	List<NoticeVo> list(PageVo pv);
+	List<NoticeVo> list(PageVo pv, Map<String, String> searchMap);
 
 	//공지사항 게시글 갯수 조회
-	int getNoticeListCnt();
+	int getNoticeListCnt(Map<String, String> searchMap);
 
 	//게시글 복사
 	int copy(List<String> noList);
@@ -46,5 +47,11 @@ public interface AdminService {
 
 	//전체목록 댓글 갯수 조회
 	List<Integer> replyCntAll(List<String> voListNo);
+
+	//건의사항 목록
+	int getSuggestionListCnt(Map<String, String> searchMap);
+
+	//건의사항 목록 갯수
+	List<NoticeVo> suggstionList(PageVo pv, Map<String, String> searchMap);
 
 }

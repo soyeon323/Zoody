@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -139,9 +140,9 @@ public class AdminController {
 	
 	//공지사항 목록
 	@RequestMapping("notice/list")
-	public String noticeList(Model model, Integer page) {
+	public String noticeList(Model model,@RequestParam(defaultValue = "1") Integer page, @RequestParam Map<String, String> searchMap) {
 	
-		int listCount = as.getNoticeListCnt();
+		int listCount = as.getNoticeListCnt(searchMap);
 		int currentPage = (page != null) ? page : 1;
 		int pageLimit = ConstPool.PAGE_LIMIT;
 		int boardLimit = ConstPool.BOARD_LIMIT;
@@ -149,8 +150,8 @@ public class AdminController {
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
-		int noticeListCnt = as.getNoticeListCnt();
-		List<NoticeVo> voList = as.list(pv);
+		int noticeListCnt = as.getNoticeListCnt(searchMap);
+		List<NoticeVo> voList = as.list(pv, searchMap);
 		
 		if(voList == null) {
 			throw new RuntimeException();
@@ -160,6 +161,7 @@ public class AdminController {
 		map.put("pv", pv);
 		map.put("voList", voList);
 		map.put("noticeListCnt", noticeListCnt);
+		map.put("searchMap", searchMap);
 		
 		model.addAttribute("map", map);
 		
@@ -188,7 +190,31 @@ public class AdminController {
 	
 	//건의사항 목록
 	@RequestMapping("suggestion/list")
-	public void suggestionList() {}
+	public void suggestionList(Model model,@RequestParam(defaultValue = "1") Integer page, @RequestParam Map<String, String> searchMap) {
+
+		int listCount = as.getSuggestionListCnt(searchMap);
+		int currentPage = (page != null) ? page : 1;
+		int pageLimit = ConstPool.PAGE_LIMIT;
+		int boardLimit = ConstPool.BOARD_LIMIT;
+	
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		int suggestionListCnt = as.getSuggestionListCnt(searchMap);
+		List<NoticeVo> voList = as.suggstionList(pv, searchMap);
+		
+		if(voList == null) {
+			throw new RuntimeException();
+		}
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pv", pv);
+		map.put("voList", voList);
+		map.put("suggestionListCnt", suggestionListCnt);
+		map.put("searchMap", searchMap);
+		
+		model.addAttribute("map", map);
+	}
 	
 	//건의사항 상세조회
 	@RequestMapping("suggestion/detail")

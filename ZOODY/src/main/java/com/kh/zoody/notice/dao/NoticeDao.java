@@ -1,6 +1,7 @@
 package com.kh.zoody.notice.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -11,10 +12,10 @@ import com.kh.zoody.reply.vo.ReplyVo;
 public interface NoticeDao {
 
 	//게시글 갯수 가져오기
-	int getNoticeListCnt(SqlSessionTemplate sst);
+	int getNoticeListCnt(SqlSessionTemplate sst, Map<String, String> searchMap);
 
 	//게시글 목록
-	List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv);
+	List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap);
 
 	//게시글 상세조회
 	NoticeVo noticeDetail(SqlSessionTemplate sst, String no);

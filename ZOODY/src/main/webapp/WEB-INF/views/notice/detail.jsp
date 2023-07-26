@@ -98,7 +98,7 @@
                                 <a id="userNameLink">${voList.name}</a>
                                 <a>&nbsp ${voList.rankName}</a>
                             </div>
-                            <div id="reply"><a id="replyContent">${voList.content}</a></div>
+                            <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>
                             <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
                         </c:forEach>
@@ -157,16 +157,33 @@
 
     //댓글태그 기능달면 글씨 굵게
     document.addEventListener('DOMContentLoaded', function () {
-        var replyContent = document.querySelector('#replyContent');
+        highlightMentions();
 
-        var pattern = /@([^ ]+)/;
-        var matchedText = replyContent.innerText.match(pattern);
+        function highlightMentions() {
+            var replyContents = document.querySelectorAll('.new-reply');
+            var pattern = /@[^\s]+/g;
 
-        if (matchedText) {
-            var boldText = matchedText[1];
-            var originalText = replyContent.innerText;
-            var updatedText = originalText.replace("@" + boldText, '<span style="font-weight: 600; color: #5189FA;">@' + boldText + '</span>');
-            replyContent.innerHTML = updatedText;
+            replyContents.forEach(function(replyContent) {
+                var matchedText = replyContent.innerHTML.match(pattern);
+
+                if (matchedText) {
+                    for (var i = 0; i < matchedText.length; i++) {
+                        var boldText = matchedText[i].substring(1);
+                        var originalText = replyContent.innerHTML;
+                        var updatedText = originalText.replace(new RegExp("@" + boldText, "g"), '<span style="font-weight: 600; color: #5189FA;">@' + boldText + '</span>');
+                        replyContent.innerHTML = updatedText;
+                    }
+                }
+            });
         }
+
+        function onReplyRegistered() {
+            highlightMentions();
+        }
+
+        function handleReplySubmit() {
+            onReplyRegistered();
+        }
+
     });
 </script>

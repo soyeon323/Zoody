@@ -156,3 +156,7 @@ table tbody tr:hover{
     font-size: 17px;
     margin-left: 10px;
 }
+
+.searchNoResult>td{
+    font-size: 20px;
+}

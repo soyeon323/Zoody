@@ -151,16 +151,13 @@
 }
 
 /* 테이블 내용 영역 */
-#tableArea{
-}
-
 #tableArea>table{
     width: 1290px;
 }
 
 #tableArea thead{
-    border-top: 1px solid #D7D7D7;
-    border-bottom: 1px solid #D7D7D7;
+    border-top: 2px solid #4876EF;
+    border-bottom: 2px solid #4876EF;
 }
 
 #tableArea tr{
@@ -224,4 +221,8 @@
 button{
     border: none;
     background: none;
+}
+
+.searchNoResult>td{
+    font-size: 20px;
 }

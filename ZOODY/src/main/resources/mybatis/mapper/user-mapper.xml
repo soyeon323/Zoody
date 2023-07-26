@@ -201,6 +201,9 @@
 		SELECT COUNT(NO)
 		FROM "USER"
 		WHERE STATE_NO = '1'
+		<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' ">
+			AND ${searchType} LIKE '%${searchValue}%'
+		</if>
 	</select>
 	
 	<select id="list" resultType="UserVo">
@@ -233,6 +236,9 @@
 		FROM "USER" U JOIN DEPARTMENT D ON U.DEPARTMENT_NO = D.NO
         JOIN RANK R ON U.RANK_NO = R.NO
 		WHERE STATE_NO = '1'
+		<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' ">
+			AND U.${searchType} LIKE '%${searchValue}%'
+		</if>
 		ORDER BY U.NO DESC
 	</select>
   
