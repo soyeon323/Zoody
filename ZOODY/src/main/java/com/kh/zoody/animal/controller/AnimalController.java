@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +65,36 @@ public class AnimalController {
 	}
 	
 	
+	//동물 리스트
+	@RequestMapping("list")
+	public String animalList( @RequestParam(defaultValue = "1") Integer page, Model model , String searchValue) {
+		
+		int listCount = as.getAnimalListCnt();
+		int currentPage = page;
+		int pageLimit = 5;
+		int boardLimit = 7;
+	
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		int getAnimalListCnt = as.getAnimalListCnt();
+		
+		List<AnimalVo> animalList = as.AnimalList(pv , searchValue);
+		log.info("animalList = {}",animalList);
+		if(animalList ==null) {
+			throw new RuntimeException();
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("animalList", animalList);
+		map.put("getAnimalListCnt", getAnimalListCnt);
+		map.put("pv", pv);
+		
+		
+		model.addAttribute("map",map);
+		return "animal/list";
+	}
+
 	//동물 상세 조회
 	@GetMapping("detail")
 	public String animalDetail(AnimalVo vo , Model model) {
@@ -109,7 +140,7 @@ public class AnimalController {
 	
 	
 	//동물 훈련 일지 작성
-	@PostMapping("training")
+	@PostMapping("training/write")
 	public String animalTraining(TrainingVo vo) {
 		
 		int result = as.trainingWrite(vo);
@@ -132,47 +163,51 @@ public class AnimalController {
 		return "animal/training-detail";
 	}
 	
-	//동물 리스트
-	@RequestMapping("list")
-	public String animalList( @RequestParam(defaultValue = "1") Integer page, Model model , String searchValue) {
+	//동물 건강 상태 리스트
+	@GetMapping("health/list")
+	public String animalHealthList( @RequestParam(defaultValue = "1") Integer page, Model model , String searchValue) {
 		
-		int listCount = as.getAnimalListCnt();
+		int listCount = as.getAnimalHealthListCnt();
 		int currentPage = page;
 		int pageLimit = 5;
 		int boardLimit = 7;
-	
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
-		int getAnimalListCnt = as.getAnimalListCnt();
+		int getAnimalHealthListCnt = as.getAnimalHealthListCnt();
 		
-		List<AnimalVo> animalList = as.AnimalList(pv , searchValue);
-		log.info("animalList = {}",animalList);
-		if(animalList ==null) {
+		List<HealthVo> animalHealthList = as.animalHealthList(pv , searchValue);
+		log.info("animaHealthList = {}",animalHealthList);
+		if(animalHealthList ==null) {
 			throw new RuntimeException();
 		}
 		
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("animalList", animalList);
-		map.put("getAnimalListCnt", getAnimalListCnt);
+		map.put("animalHealthList", animalHealthList);
+		map.put("getAnimalListCnt", getAnimalHealthListCnt);
 		map.put("pv", pv);
 		
-		
 		model.addAttribute("map",map);
-		return "animal/list";
+		return "animal/health-list";
+		}
+	
+	
+	//동물 건강상태 작성
+	@PostMapping("health/write")
+	public String animalHealthWrite(HealthVo vo) {
+		
+		int result = as.healthWrite(vo);
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+
+		return "redirect:/animal/health/list?page=1";
+		
 	}
-
-	//동물 건강 상태 작성
-	@GetMapping("health/write")
-	public String animalHealthWrite() {
-		return "animal/health-write";
-	}
 	
 
 	
-
-	
-	//동물 건강 상태 조회
+	//동물 건강 상태 상세조회
 	@GetMapping("health")
 	public String animalHealth(AnimalVo vo , Model model) {
 		

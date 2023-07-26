@@ -49,8 +49,8 @@
                     </thead>
                     <tbody>
                        <c:forEach items="${map.trainingVo}" var="trainingVo">
-                        <tr onclick="trainingdetail('${trainingVo.animalNo}');">
-                            <td>${trainingVo.trainingNo}</td>
+                        <tr id="tr" onclick=" showTrainingNo()">
+                            <td id="td">${trainingVo.trainingNo}</td>
                             <td>${trainingVo.nickName}</td>
                             <td>${trainingVo.trainingTitle}</td>
                             <td>${trainingVo.trainingDate}</td>
@@ -95,42 +95,31 @@
 
 <script>
 
-    //훈련일지 작성
-    function trainingWrite(no){
-
-        location.href = "${root}/animal/training?animalNo="+no;
-
-        // $.ajax({
-        //     url : '${root}/animal/training',
-        //     method : 'GET',
-        //     data : {
-        //         no : 'no'
-        //     },
-        //     success : ()=>{
-        //         location.href = '${root}/animal/training?no='+no;
-        //     },
-        //     error : (e)=>{
-        //         location.href = '${root}/animal/training?no='+no;
-        //     }
-        // });
+// 훈련일지 상세 조회
+function showTrainingNo() {
+        var trainingNo = document.getElementById("td").innerText;
+        location.href = '${root}/animal/training/detail?no='+trainingNo;
     }
 
+
+
+   
     //훈련 일지 상세 조회
-    function trainingdetail(no){
+    // function trainingdetail(no){
 
-        $.ajax({
-            url : '${root}/animal/training/detail',
-            method : 'GET',
-            data : {
-                no : no
-            },
-            success : ()=>{
-                location.href = '${root}/animal/training/detail?no='+no;
-            },
-            error : ()=>{
-                location.href = '${root}/animal/training/detail?no='+no;
-            }
-        });
-    }
+    //     $.ajax({
+    //         url : '${root}/animal/training/detail',
+    //         method : 'GET',
+    //         data : {
+    //             no : no
+    //         },
+    //         success : ()=>{
+    //             location.href = '${root}/animal/training/detail?no='+no;
+    //         },
+    //         error : ()=>{
+    //             location.href = '${root}/animal/training/detail?no='+no;
+    //         }
+    //     });
+    // }
   
 </script>

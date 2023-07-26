@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/animal/detail.css">
-  
+  <!-- summerNote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -20,6 +21,8 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
+    <!-- summerNote -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <div id="wrap">
 
@@ -64,37 +67,60 @@
                 </table>
                 
                 <div id="enroll-btn">
-                        <div class="btn-upload"><a onclick="healthWrite()">건강검진 작성</a></div>
+                        <div class="btn-upload"><a>폐사 처리</a></div>
                 </div>
-
-
-                <div id="content-area">
-                    <div>검진 날짜 : ${animalVo.checkupDate}</div>
-                    <div>건강검진 종합 소견</div>
-                    <br>
-                    <span>유질환</span>
-                    <textarea name="disease" id="t1" cols="30" rows="10">${animalVo.disease}</textarea>
-                    <br>
-                    <span>생활 습관 관리</span>
-                    <textarea name="lifeStyleManagement" id="t2" cols="30" rows="9">${animalVo.lifeStyleManagement}</textarea>
-                    <br>
-                    <span>의사 소견</span>
-                    <textarea name="content" id="t3" cols="30" rows="10">${animalVo.content}</textarea>
-                </div>
-
 
                 <div id="btn-area">
-                        <div class="btn-upload" onclick="trainingWriteList('${animalVo.no}');">훈련 일지 조회</div>
-                    <div class="btn-upload" id="healthDetail" >건강 정보 조회</div>
-                        <div class="btn-upload">닫기</div>
+                    <div class="btn-upload" id="trainingWriteBtn">훈련 일지 작성</div>
+                    <div class="btn-upload" id="healthDetail" >건강 검진 작성</div>
+            </div>
+
+                <form action="${root}/animal/health/write" method="POST">
+                    <div id="content-area">
+                        <input type="hidden" value="${animalVo.no}" name="animalNo">
+                        <div>건강검진 종합 소견</div>
+                        <br>
+                        <span>유질환</span>
+                        <textarea name="disease" id="t1" cols="30" rows="10"></textarea>
+                        <br>
+                        <span>생활 습관 관리</span>
+                        <textarea name="lifeStyleManagement" id="t2" cols="30" rows="9"></textarea>
+                        <br>
+                        <span>건강 상태</span>
+                        <textarea name="stateOfHealth" id="t3" cols="30" rows="10"></textarea>
+
+                            <input type="submit" value="작성하기"  class="btn-upload">
+                    </div>
+    
+                </form>
+               
+                <form action="${root}/animal/training/write" method="POST">
+                    <div id="content-area2">
+                        <div id="enroll">훈련 일지 작성 </div>
+                        <input type="hidden" value="${animalVo.no}" name="animalNo">
+                         <div id="content-area">
+                            <br>
+                            <span>제목</span>
+                            <textarea name="trainingTitle" id="t1" cols="30" rows="10"></textarea>
+
+                            <span>훈련 내용</span >
+                            <textarea name="trainingContent" id="summernote" cols="30" rows="10"></textarea>
+                        </div>
+                            <input type="submit" value="작성"  class="btn-upload">
+                  
+                </form>
+
                 </div>
-              
+               
+            </div>
+
         </div>
     </div>
 </body>
 </html>
 <script>
     
+    //건강검진 작성 숨기기
     var healthBtn = document.querySelector('.btn-upload:nth-child(2)');
 
     var contentArea = document.getElementById('content-area');
@@ -111,35 +137,73 @@
     });
 
 
-    const animalNo = document.querySelector('#animalNo').value;
 
-    //건강검진 작성
-    function healthWrite() {
-        location.href = '${root}/animal/health/write?no = '+animalNo;
-    }
+    //훈련 일지 작성 숨기기
+    var trainingWriteBtn = document.querySelector('#trainingWriteBtn');
+
+    var contentArea2 = document.getElementById('content-area2');
+
+    contentArea2.style.display = 'none';
+
+    trainingWriteBtn.addEventListener('click', function() {
+
+        if (contentArea2.style.display === 'none') {
+            contentArea2.style.display = 'block';
+        } else {
+            contentArea2.style.display = 'none';
+        }
+    });
 
 
+    
 
+ // sunnerNote
+ $('#summernote').summernote({
+        	placeholder: '내용입력',
+        	tabsize: 2,
+        	height: 500,
+        	maxHeight:800,
+        	minHeight:500,
+        	width: 1500,
+		callbacks : {
+			onImageUpload : f01
+		},
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
 
+      function f01(FileList) {
 
-
-    //훈련일지 작성
-    function trainingWriteList(no) {
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
 
         $.ajax({
-            url : '${root}/animal/training/list',
-            method : 'GET',
-            data : {
-                no : animalNo
-            },
-            success : ()=>{
-                location.href = "${root}/animal/training/list?no="+no;
+            url :'' ,
+            type : 'post',
+            data : fd,
+            processData : false,
+            contentType : false,
+            dataType:'json',
+            success : (changeNameList)=>{
+                console.log(changeNameList);
+                for(let changeName of changeNameList){
+                    $('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
+                }
             },
             error : (e)=>{
-                location.href = "${root}/animal/training/list?no="+no;
+                alert(e);
             }
         });
-    }
-    
+        }
+
 
 </script>

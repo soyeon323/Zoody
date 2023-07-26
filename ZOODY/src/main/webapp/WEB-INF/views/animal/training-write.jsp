@@ -22,22 +22,27 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
+
+    <% String no = request.getParameter("animalNo"); %> 
+
+    <p>전달된 no 값: <%= no %></p>
     <!-- summerNote -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <div id="wrap">
 
         <div id="enroll">훈련 일지 작성 </div>
-            <form action="${root}/animal/training" method="POST">
+            <form action="${root}/animal/training/write" method="POST">
+                <input type="hidden" value="${animalVo.no}">
                 <div id="content-area">
                     <br>
                     <span>제목</span>
-                    <textarea name="title" id="t1" cols="30" rows="10"></textarea>
+                    <textarea name="trainingTitle" id="t1" cols="30" rows="10"></textarea>
                   
                     <span>훈련 내용</span >
-                    <textarea name="content" id="summernote" cols="30" rows="10"></textarea>
+                    <textarea name="trainingContent" id="summernote" cols="30" rows="10"></textarea>
                 </div>
                 <div id="btn-area">
-                        <div class="btn-upload">등록</div>
+                    <input type="submit" value="등록"  class="btn-upload">
                         <a href="${root}/animal/list?page=1"><div class="btn-upload">닫기</div></a>
                         
                 </div>
@@ -81,7 +86,7 @@
         }
 
         $.ajax({
-            url :'${}' ,
+            url :'' ,
             type : 'post',
             data : fd,
             processData : false,
