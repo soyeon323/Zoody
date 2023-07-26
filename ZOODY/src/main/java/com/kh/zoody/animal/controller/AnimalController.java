@@ -170,6 +170,7 @@ public class AnimalController {
 	
 
 	
+
 	
 	//동물 건강 상태 조회
 	@GetMapping("health")

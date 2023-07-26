@@ -60,6 +60,9 @@ public interface AttendanceDao {
 
 	int getCurrentTypeFourCnt(SqlSessionTemplate sst);
 
+	//이의신
+	int submitOjection(SqlSessionTemplate sst, AttendanceVo vo);
+
 
 
 

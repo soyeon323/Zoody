@@ -141,6 +141,11 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return sst.selectOne("attendance.getCurrentTypeFourCnt");
 	}
 
+	@Override
+	public int submitOjection(SqlSessionTemplate sst, AttendanceVo vo) {
+		return sst.update("attendance.submitOjection", vo);
+	}
+
 
 
 
