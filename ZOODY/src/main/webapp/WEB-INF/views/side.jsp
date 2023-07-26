@@ -59,12 +59,21 @@
             </ul>
         </li>
         <li>
-            <a href="#">전자 결제</a>
+            <a href="#">주소록</a>
             <ul>
-            <li><a href="${root}/addressbook/main-page">주소록(조직도)</a></li>
-            <li><a href="${root}/mail/folder/receive">메일 목록</a></li>
+            <li><a href="${root}/addressbook">주소록(조직도)</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">메일</a>
+            <ul>
+            <li><a href="${root}/mail/list?folder=receive">메일 목록</a></li>
             <li><a href="${root}/mail/write">메일 작성</a></li>
-            <li><a href="${root}/mail/detail">메일 상세 </a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">전자 결재</a>
+            <ul>
             <li><a href="${root}/approval/main-page">전자메일 목록 </a></li>
             <li><a href="${root}/approval/write/letter-of-approval">전자결재 작성 </a></li>
             </ul>
