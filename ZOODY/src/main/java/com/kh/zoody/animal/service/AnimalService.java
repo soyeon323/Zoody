@@ -31,8 +31,8 @@ public class AnimalService {
 	}
 	
 	//동물 목록 조회
-	public List<AnimalVo> AnimalList(PageVo pv) {
-		return dao.AnimalList(sst,pv);
+	public List<AnimalVo> AnimalList(PageVo pv, String searchValue) {
+		return dao.AnimalList(sst,pv , searchValue);
 	}
 
 	//동물 리스트 조회(총 갯수)
@@ -61,12 +61,27 @@ public class AnimalService {
 	}
 
 	//동물 훈련 일지 조회
-	public List<AnimalVo> trainingList(PageVo pv) {
-		return dao.trainingList(sst,pv);
+	public List<TrainingVo> trainingList(PageVo pv, String searchValue) {
+		return dao.trainingList(sst,pv,searchValue);
 	}
 	
 	//동물 훈련일지 리스트 조회(총 갯수)
 	public int getAnimalTrainingListCnt() {
 		return dao.getAnimalTrainingListCnt(sst);
+	}
+
+	//동물 훈련 일지 상세 조회
+	public AnimalVo animalTrainingDetail(String no) {
+		return dao.animalTrainingDetail(sst,no);
+	}
+
+	//동물 건강 일지 리스트 총 갯수 조회
+	public int getAnimalHealthListCnt() {
+		return dao.getAnimalHealthListCnt(sst);
+	}
+	
+	//동물 건강 일지 조회
+	public List<HealthVo> animalHealthList(PageVo pv, String searchValue) {
+		return dao.animalHealthList(sst,pv,searchValue);
 	}
 }

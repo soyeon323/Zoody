@@ -25,7 +25,7 @@
 
         <div id="enroll">동물 상세 조회</div>
         <div id="chart">
-                <input id="animalNo" type="hidden" value="${animalVo.no}">
+                
                 <table>
                     <tr id="chart-1">
                         <td rowspan="4"><img src="${root}/resources/img/animal/${animalVo.profile}" alt="${animalVo.profile}" style="width: 208px; height: 198px;"></td>
@@ -38,7 +38,7 @@
                     <tr id="chart-2">
                         <td rowspan="3"><input type="text" name="name" placeholder="이름입력" value="${animalVo.name}"></td>
                         <td>담당 부서</td>
-                        <td><input type="tel" name="departmentNo" placeholder="담당 부서" maxlength="13" value="${animalVo.departmentNo}"></td>
+                        <td><input type="tel" name="departmentNo" placeholder="담당 부서" maxlength="13" value="${animalVo.departmentName}"></td>
                     </tr>
                     <tr id="chart-3">
                         <td>애칭</td>

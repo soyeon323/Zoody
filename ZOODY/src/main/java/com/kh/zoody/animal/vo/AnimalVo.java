@@ -8,8 +8,8 @@ public class AnimalVo {
 	private String no;   
 	private String profile;   
 	private String categoryNo;
-	private String userNo;
 	private String departmentNo;
+	private String departmentName;
 	private String name;
 	private String nickName;
 	private String status;
@@ -36,5 +36,14 @@ public class AnimalVo {
 	
 	private String habitat;
 	private String animalClassificationName;
+	
+	
+	
+	private String trainingTitle;	
+	private String trainingContent;	
+	private String trainingDate;	
+	
+	
+	
 	
 }

@@ -7,9 +7,10 @@ public class HealthVo {
 
 	private String no;
 	private String animalNo;
-	private String stateOfHealth;
+	private String stateOfHealth;   //건강 상태
+	private String disease;   // 질병
 	private String checkupDate;
-	private String content;
-	private String disease;
-	private String lifeStyleManagement;
+	private String lifeStyleManagement; //생활습관 관리
+	private String nickName;
+	private String status;
 }

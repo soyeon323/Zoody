@@ -21,9 +21,9 @@ public class AnimalDao {
 	}
 
 	//동물 목록 조회
-	public List<AnimalVo> AnimalList(SqlSessionTemplate sst, PageVo pv) {
+	public List<AnimalVo> AnimalList(SqlSessionTemplate sst, PageVo pv, String searchValue) {
 		RowBounds rb = new RowBounds(pv.getOffset(),pv.getBoardLimit());
-		return sst.selectList("animal.AnimalList",null,rb);
+		return sst.selectList("animal.AnimalList",searchValue,rb);
 	}
 	
 	//동물 리스트 조회(총 갯수)
@@ -52,14 +52,30 @@ public class AnimalDao {
 	}
 
 	//동물훈련 일지 조회
-	public List<AnimalVo> trainingList(SqlSessionTemplate sst, PageVo pv) {
+	public List<TrainingVo> trainingList(SqlSessionTemplate sst, PageVo pv, String searchValue) {
 		RowBounds rb = new RowBounds(pv.getOffset(),pv.getBoardLimit());
-		return sst.selectList("animal.trainingList",null,rb);
+		return sst.selectList("animal.trainingList",searchValue,rb);
 	}
 
 	//동물 훈련일지 리스트 조회(총 갯수)
 	public int getAnimalTrainingListCnt(SqlSessionTemplate sst) {
 		return sst.selectOne("animal.getAnimalTrainingListCnt");
+	}
+
+	//동물 훈련 일지 상세 조회
+	public AnimalVo animalTrainingDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("animal.animalTrainingDetail",no);
+	}
+
+	//동물 건강 일지 리스트 총 갯수 조회
+	public int getAnimalHealthListCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("animal.getAnimalHealthListCnt");
+	}
+
+	//동물 건강일지 리스트 조회
+	public List<HealthVo> animalHealthList(SqlSessionTemplate sst, PageVo pv, String searchValue) {
+		RowBounds rb = new RowBounds(pv.getOffset(),pv.getBoardLimit());
+		return sst.selectList("animal.animalHealthList",searchValue,rb);
 	}
 
 }

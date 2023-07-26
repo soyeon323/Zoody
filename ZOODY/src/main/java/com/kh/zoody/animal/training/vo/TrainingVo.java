@@ -6,10 +6,10 @@ import lombok.Data;
 public class TrainingVo {
 	
 	private String trainingNo;	
-	private String no;	
-	private String title;	
-	private String content;	
-	private String date;	
+	private String animalNo;	
+	private String trainingTitle;	
+	private String trainingContent;	
+	private String trainingDate;	
 	private String status;	
 	private String nickName;	
 

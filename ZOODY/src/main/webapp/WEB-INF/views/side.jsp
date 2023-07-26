@@ -56,6 +56,8 @@
             <ul>
             <li><a href="${root}/animal/enroll">동물 등록</a></li>
             <li><a href="${root}/animal/list?page=1">동물 목록</a></li>
+            <li><a href="${root}/animal/training/list?page=1">동물 훈련 일지목록</a></li>
+            <li><a href="${root}/animal/health/list?page=1">동물 건강 일지목록</a></li>
             </ul>
         </li>
         <li>
