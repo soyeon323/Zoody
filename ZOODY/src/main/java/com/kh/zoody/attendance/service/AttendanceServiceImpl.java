@@ -26,14 +26,14 @@ public class AttendanceServiceImpl implements AttendanceService{
 	
 	//(서브메뉴) 근무현황 목록 조회	
 	@Override
-	public List<AttendanceVo> list(PageVo pv) {
-		return dao.list(sst, pv);
+	public List<AttendanceVo> list(PageVo pv, String searchValue) {
+		return dao.list(sst, pv, searchValue);
 	}
 
 
 	@Override
-	public int getMyAttendanceCnt() {
-		return dao.getMyAttendanceCnt(sst);
+	public int getMyAttendanceCnt(String searchValue) {
+		return dao.getMyAttendanceCnt(sst, searchValue);
 	}
 
 
@@ -124,6 +124,30 @@ public class AttendanceServiceImpl implements AttendanceService{
 	@Override
 	public List<AttendanceVo> mainCalendarList() {
 		return dao.mainCalendarList(sst);
+	}
+
+
+	@Override
+	public int getCurrentTypeOneCnt() {
+		return dao.getCurrentTypeOneCnt(sst);
+	}
+
+
+	@Override
+	public int getCurrentTypeSixCnt() {
+		return dao.getCurrentTypeSixCnt(sst);
+	}
+
+
+	@Override
+	public int getCurrentTypeLeaveCnt() {
+		return dao.getCurrentTypeLeaveCnt(sst);
+	}
+
+
+	@Override
+	public int getCurrentTypeFourCnt() {
+		return dao.getCurrentTypeFourCnt(sst);
 	}
 
 

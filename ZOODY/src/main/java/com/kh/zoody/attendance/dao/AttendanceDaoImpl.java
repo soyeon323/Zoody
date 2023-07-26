@@ -19,14 +19,14 @@ public class AttendanceDaoImpl implements AttendanceDao{
 
 	//내 출결 목록 조회 영역
 	@Override
-	public int getMyAttendanceCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getMyAttendanceCnt");
+	public int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue) {
+		return sst.selectOne("attendance.getMyAttendanceCnt", searchValue);
 	}
 	
 	@Override
-	public List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv) {
+	public List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue) {
 		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
-		return sst.selectList("attendance.selectList", null, rb);
+		return sst.selectList("attendance.selectList", searchValue, rb);
 	}
 
 	@Override
@@ -119,6 +119,26 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	@Override
 	public List<AttendanceVo> mainCalendarList(SqlSessionTemplate sst) {
 		return sst.selectList("attendance.selectCalendarList");
+	}
+
+	@Override
+	public int getCurrentTypeOneCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getCurrentTypeOneCnt");
+	}
+
+	@Override
+	public int getCurrentTypeSixCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getCurrentTypeSixCnt");
+	}
+
+	@Override
+	public int getCurrentTypeLeaveCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getCurrentTypeLeaveCnt");
+	}
+
+	@Override
+	public int getCurrentTypeFourCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getCurrentTypeFourCnt");
 	}
 
 

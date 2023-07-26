@@ -2,6 +2,7 @@ package com.kh.zoody.attendance.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -12,9 +13,9 @@ import com.kh.zoody.page.vo.PageVo;
 public interface AttendanceDao {
 
 	//유저 개별 조회 영역	
-	List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv);
+	List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue);
 
-	int getMyAttendanceCnt(SqlSessionTemplate sst);
+	int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue);
 
 	List<LeaveVo> leaveList(SqlSessionTemplate sst, PageVo leavePv);
 
@@ -49,6 +50,15 @@ public interface AttendanceDao {
 	List<AttendanceVo> mainChartList(SqlSessionTemplate sst);
 
 	List<AttendanceVo> mainCalendarList(SqlSessionTemplate sst);
+
+	//출근 타입 카운팅
+	int getCurrentTypeOneCnt(SqlSessionTemplate sst);
+
+	int getCurrentTypeSixCnt(SqlSessionTemplate sst);
+
+	int getCurrentTypeLeaveCnt(SqlSessionTemplate sst);
+
+	int getCurrentTypeFourCnt(SqlSessionTemplate sst);
 
 
 
