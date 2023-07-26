@@ -5,7 +5,9 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.mail.vo.MailRecipientVo;
 import com.kh.zoody.mail.vo.MailVo;
+import com.kh.zoody.user.vo.UserVo;
 
 public interface MailDao {
 
@@ -22,5 +24,17 @@ public interface MailDao {
 	List<MailVo> getReceiveMail(
 			String receiverEmail,
 			SqlSessionTemplate sqlSessionTemplate);
+
+	
+	// 메일 번호로 메일 상세 정보 가져오기
+	MailVo getMailDetailByNo(String no, SqlSessionTemplate sqlSessionTemplate);
+
+	
+	// 메일 번호의 받는 사람들 가져오기
+	List<UserVo> getMailRecipientByMailNo(String no, SqlSessionTemplate sqlSessionTemplate);
+
+	
+	// 메일 번호의 참조인 가져오기
+	List<UserVo> getMailCcByMailNo(String no, SqlSessionTemplate sqlSessionTemplate);
 
 }

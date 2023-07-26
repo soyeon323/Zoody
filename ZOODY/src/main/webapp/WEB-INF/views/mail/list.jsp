@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Zoody</title>
-<link rel="stylesheet" href="${root}/resources/css/mail/detail.css">
+<link rel="stylesheet" href="${root}/resources/css/mail/folder/receive.css">
+<script defer src="${root}/resources/js/mail/folder/receive.js"></script>
 </head>
 <body>
 
@@ -79,9 +80,6 @@
 					<div class="mail-list-header">
 						<div class="list-header-left">
 							<div class="list-header-title">
-								<button class="back-btn">
-									<img src="${root}/resources/img/icon/svg/right-direction.svg" alt="뒤로">
-								</button>
 								받은 메일함
 							</div>
 							<div class="unread-receive">
@@ -90,90 +88,53 @@
 								<div class="receive-count">{999}</div>
 							</div>
 						</div>
+						
+						<div class="list-header-right">
+							<div class="search-input-area">
+								<input type="text" class="search-input">
+							</div>
+							<img class="search-icon" src="${root}/resources/img/icon/svg/search.svg" alt="검색">
+						</div>
+
 					</div>
 
-					<div class="mail-detail-area">
+					<div class="mail-list-body">
 
-						<div class="detail-header-bar">
-							<div class="reply-btn">답장</div>
-							<div class="delete-btn">삭제</div>
-							<div class="unread-btn">안읽음</div>
-							<div class="move-btn">
-								이동
-								<img src="${root}/resources/img/icon/svg/down-direction.svg" alt="확장">
+						<div class="list-table-header">
+							<div class="table-header-btns">
+								<input type="checkbox" name="selectAll" id="select-all" class="check-btn">
+								<button class="header-btn">읽음</button>
+								<button class="header-btn">삭제</button>
 							</div>
 						</div>
-
-						<div class="detail-title-area">
-							<button class="bookmark-btn">
-								<img src="${root}/resources/img/icon/svg/star.svg" alt="중요">
-							</button>
-							<div class="mail-title">
-								${detailMailVo.title }
-							</div>
-						</div>
-
-						<div class="sender-info">
-							<div class="mail-header-text">보낸 사람</div>
-							<div class="mail-sender">
-								${detailMailVo.sender }
-							</div>
-						</div>
-
-						<div class="receiver-info">
-							<div class="mail-header-text">받는 사람</div>
-							<div class="mail-receivers">
-							
-								<c:forEach items="${recipientUserVoList}" var="recipientUserVo" >
-									<div class="mail-receiver">${recipientUserVo.name } ( ${recipientUserVo.mail} )</div>
-								</c:forEach>
-								
-							</div>
-						</div>
-
-						<div class="cc-info">
-							<div class="mail-header-text">참조</div>
-							<div class="mail-cc-list">
-							
-								<c:forEach items="${ccUserVoList}" var="ccUserVo" >
-									<div class="mail-cc">${ccUserVo.name } ( ${ccUserVo.mail} )</div>
-								</c:forEach>
-								
-							</div>
-						</div>
-
-						<div class="send-date-info">
-							<div class="mail-header-text">보낸 날짜</div>
-							<div class="mail-send-date">${detailMailVo.sendDate }</div>
-						</div>
-
-						<div class="attachment-area">
-							<div class="attachment-text">첨부 파일</div>
-							<div class="attachment-elem">
-								<button class="download-attachment-btn">
-									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
-								</button>
-								<div class="attachment-name">
-									{ 2023년 하반기 퇴직희망자 명단.xlsx }
+						
+						<c:forEach items="${mailVoList }" var="mailVo">
+							<div class="table-data">
+								<div class="check-btn-area">
+									<input type="checkbox" class="small-check-btn">
+								</div>
+								<div class="add-bookmark-area">
+									<button class="add-bookmark-btn">
+										<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
+									</button>
+								</div>
+								<div class="read-check-icon">
+									<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
+								</div>
+								<div class="attachment-check-icon">
+									<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
+								</div>
+								<div class="mail-sender">
+									${mailVo.senderName} &lt ${mailVo.senderMail } &gt
+								</div>
+								<div class="mail-title">
+									${mailVo.title}
+								</div>
+								<div class="send-date">
+									${mailVo.sendDate}
 								</div>
 							</div>
-							<div class="attachment-elem">
-								<button class="download-attachment-btn">
-									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
-								</button>
-								<div class="attachment-name">
-									{ 2023년 하반기 퇴직희망자 명단.hwp }
-								</div>
-							</div>
-						</div>
-						
-						
-						<div class="mail-content">
-						
-							${detailMailVo.content }
-						
-						</div>
-						
+						</c:forEach>
 
 					</div>
 

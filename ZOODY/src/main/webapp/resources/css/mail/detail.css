@@ -176,7 +176,7 @@
 
 .mail-list-header {
     width: 1250px;
-    height: 100px;
+    height: 75px;
 
     display: flex;
     justify-content: space-between;
@@ -257,7 +257,7 @@
 
 .detail-title-area {
     width: 1250px;
-    height: 120px;
+    height: 60px;
 
     display: flex;
     align-items: center;
@@ -277,7 +277,7 @@
 
 .sender-info {
     width: 1250px;
-    height: 50px;
+    height: 40px;
 
     display: flex;
     align-items: center;
@@ -298,19 +298,19 @@
     color: rgb(53, 54, 54);
 }
 
-.receiver-info {
+.receiver-info, .cc-info, .send-date-info {
     width: 1250px;
-    height: 50px;
+    height: 40px;
 
     display: flex;
     align-items: center;
 }
-.mail-receivers { 
+.mail-receivers, .mail-cc-list { 
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.mail-receiver { 
+.mail-receiver, .mail-cc { 
     height: 30px;
 
     display: flex;
@@ -323,11 +323,6 @@
 }
 
 .mail-send-date {
-    width: 250px;
-    height: 70px;
-
-    margin-left: 25px;
-
     display: flex;
     align-items: center;
     
@@ -343,6 +338,8 @@
     gap: 5px;
 
     border-top: 1px solid #989898;
+
+    border-bottom: 1px solid #989898;
 }
 .attachment-text {
     width: 105px;
@@ -373,3 +370,16 @@
     font-weight: 400;
     color: rgb(53, 54, 54);
 }
+
+
+.mail-content {
+    width: 1200px;
+    height: 350px;
+
+    margin-top: 15px;
+
+    overflow-y: scroll;
+}
+.mail-content::-webkit-scrollbar {
+    display: none;
+  }

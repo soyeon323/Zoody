@@ -218,8 +218,13 @@ $(document).ready(function() {
 		  minHeight: 220,             
 		  maxHeight: 220,
 		  lang: "ko-KR",
-		  fontNames: ['Spoqa Han Sans Neo'],
-		  fontSizes: ['10']
+          callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                for(let i = 0; i < files.length; i++) {
+                    sendFile(files[i], this);
+                }
+            }
+          }
 	});
 	
 	const mailContent = document.querySelector('.note-editable');
@@ -231,3 +236,22 @@ $(document).ready(function() {
 	);
 });
 
+
+function sendFile(file, el) {
+    let url = contextPath + '/mail/img/upload';
+
+    var form_data = new FormData();
+    form_data.append('file', file);
+    $.ajax({
+        data: form_data,
+        type: "POST",
+        url: url,
+        cache: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false,
+        success: function(img_name) {
+            $(el).summernote('editor.insertImage', img_name);
+        }
+    });
+}
