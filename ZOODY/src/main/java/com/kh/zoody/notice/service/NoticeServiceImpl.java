@@ -1,9 +1,11 @@
 package com.kh.zoody.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.zoody.notice.dao.NoticeDao;
 import com.kh.zoody.notice.vo.NoticeVo;
@@ -20,14 +22,14 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	//게시글 갯수 가져오기
 	@Override
-	public int getNoticeListCnt() {
-		return dao.getNoticeListCnt(sst);
+	public int getNoticeListCnt(Map<String, String> searchMap) {
+		return dao.getNoticeListCnt(sst, searchMap);
 	}
 
 	//게시글 목록
 	@Override
-	public List<NoticeVo> list(PageVo pv) {
-		return dao.list(sst, pv);
+	public List<NoticeVo> list(PageVo pv, Map<String, String> searchMap) {
+		return dao.list(sst, pv, searchMap);
 	}
 
 	//게시글 상세조회

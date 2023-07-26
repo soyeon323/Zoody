@@ -169,14 +169,7 @@ public class AnimalController {
 	}
 	
 	
-	//동물 건강 상태 리스트
-	@GetMapping("health/list")
-	public String animalHealthList( @RequestParam(defaultValue = "1") Integer page, Model model , String searchValue) {
-		
-		int listCount = as.getAnimalHealthListCnt();
-		int currentPage = page;
-		int pageLimit = 5;
-		int boardLimit = 7;
+
 	
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);

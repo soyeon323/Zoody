@@ -7,22 +7,37 @@
 <mapper namespace="coummunity">
 
 	<select id="getBoardList" resultType="BoardVo">
+		
 		SELECT 
-			NO
-			,USER_NO
-			,CAT_NO
-			,TITLE
-			,CONTENT
-			,ENROLL_DATE
-			,MODIFY_DATE
-			,FILE_PATH
+		    NO,
+		    USER_NO,
+		    CAT_NO,
+		    TITLE,
+		    CONTENT,
+		    ENROLL_DATE,
+		    MODIFY_DATE,
+		    FILE_PATH,
+		    HIT
 		FROM BOARD
 		WHERE STATUS = 'O'
 		<choose>
-			<when test="catNo != null and !catNo.equals('')"> AND CAT_NO = #{catNO} </when>
-			<when test="num != null and !num.equals('')"> AND CAT_NO = #{catNO} </when>
-			<otherwise> AND CAT_NO = 1 </otherwise>
+			
+			<when test="num != null and num !=''">
+				AND CAT_NO = 4
+				ORDER BY NO DESC 
+				FETCH FIRST #{num} 
+				ROWS ONLY 
+			</when>
+			
+			<when test="catNo != null and catNo !=''">
+				AND CAT_NO = #{catNo}
+				ORDER BY NO DESC 
+			</when>
+			
+			
 		</choose>
+			
+		
 		
 		
 	</select>

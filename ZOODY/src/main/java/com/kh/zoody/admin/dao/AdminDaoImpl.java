@@ -1,6 +1,7 @@
 package com.kh.zoody.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,15 +16,15 @@ public class AdminDaoImpl implements AdminDao{
 
 	//공지사항 목록
 	@Override
-	public List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv) {
+	public List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap) {
 		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
-		return sst.selectList("notice.list", null, rb);
+		return sst.selectList("notice.list", searchMap, rb);
 	}
 
 	//공지사항 게시글 갯수 조회
 	@Override
-	public int getNoticeListCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("notice.getNoticeListCnt");
+	public int getNoticeListCnt(SqlSessionTemplate sst, Map<String, String> searchMap) {
+		return sst.selectOne("notice.getNoticeListCnt", searchMap);
 	}
 
 	//게시글 복사
@@ -96,6 +97,18 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<Integer> replyCntAll(SqlSessionTemplate sst, List<String> voListNo) {
 		return sst.selectList("notice.replyCntAll", voListNo);
+	}
+
+	//건의사항 목록 갯수
+	@Override
+	public int getSuggestionListCnt(SqlSessionTemplate sst, Map<String, String> searchMap) {
+		return sst.selectOne("suggestion.getSuggestionListCnt", searchMap);
+	}
+
+	//건의사항 목록
+	@Override
+	public List<NoticeVo> suggstionList(SqlSessionTemplate sst, Map<String, String> searchMap) {
+		return sst.selectList("suggestion.suggstionList", searchMap);
 	}
 
 }

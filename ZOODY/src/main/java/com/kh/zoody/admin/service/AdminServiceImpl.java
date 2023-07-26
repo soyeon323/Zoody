@@ -1,6 +1,7 @@
 package com.kh.zoody.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,14 @@ public class AdminServiceImpl implements AdminService{
 	
 	//공지사항 목록
 	@Override
-	public List<NoticeVo> list(PageVo pv) {
-		return dao.list(sst, pv);
+	public List<NoticeVo> list(PageVo pv, Map<String, String> searchMap) {
+		return dao.list(sst, pv, searchMap);
 	}
 
 	//공지사항 게시글 갯수 조회
 	@Override
-	public int getNoticeListCnt() {
-		return dao.getNoticeListCnt(sst);
+	public int getNoticeListCnt(Map<String, String> searchMap) {
+		return dao.getNoticeListCnt(sst, searchMap);
 	}
 
 	//게시글 복사
@@ -97,6 +98,18 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Integer> replyCntAll(List<String> voListNo) {
 		return dao.replyCntAll(sst, voListNo);
+	}
+
+	//건의사항 목록 갯수
+	@Override
+	public int getSuggestionListCnt(Map<String, String> searchMap) {
+		return dao.getSuggestionListCnt(sst, searchMap);
+	}
+	
+	//건의사항 목록
+	@Override
+	public List<NoticeVo> suggstionList(PageVo pv, Map<String, String> searchMap) {
+		return dao.suggstionList(sst, searchMap);
 	}
 	
 }

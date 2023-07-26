@@ -1,6 +1,7 @@
 package com.kh.zoody.notice.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,15 +16,15 @@ public class NoticeDaoImpl implements NoticeDao{
 
 	//게시글 갯수 가져오기
 	@Override
-	public int getNoticeListCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("notice.getNoticeListCnt");
+	public int getNoticeListCnt(SqlSessionTemplate sst, Map<String, String> searchMap) {
+		return sst.selectOne("notice.getNoticeListCnt", searchMap);
 	}
 
 	//게시글 목록
 	@Override
-	public List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv) {
+	public List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap) {
 		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
-		return sst.selectList("notice.list", null, rb);
+		return sst.selectList("notice.list", searchMap, rb);
 	}
 
 	//게시글 상세조회

@@ -49,13 +49,34 @@
 		VALUES
 		(
 		    #{item.mailNo},
-		    (SELECT NO FROM "USER" WHERE MAIL = #{item.receiverEmail}),
+		    (SELECT NO FROM "USER" WHERE MAIL = #{item.receiverNo}),
 		    DEFAULT,
 		    DEFAULT,
 		    DEFAULT
 		)
 		</foreach>
 	</insert>
+	
+	
+	<insert id="insertCc" parameterType="java.util.List">
+	
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" " >
+		INTO MAIL_CC
+		(
+		    MAIL_NO,
+			CC_NO,
+			BCC_CHECK
+		)
+		VALUES
+		(
+		    #{item.mailNo},
+		    (SELECT NO FROM "USER" WHERE MAIL = #{item.ccNo}),
+		    #{item.bccCheck}
+		)
+		</foreach>
+	
+	</insert>
+	
 	
 	<select id="getReceiveMailList" resultType="MailVo">
 		SELECT
@@ -71,8 +92,53 @@
 		    JOIN "USER" ON MAIL.SENDER = "USER".NO
 		WHERE MAIL.NO IN ( SELECT MAIL.NO
 		            FROM MAIL_RECIPIENT
-		            WHERE RECEIVER_EMAIL = #{receiverEmail}
+		            WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverEmail})
 		            )
+	</select>
+	
+	
+	<select id="getMailDetailByNo" resultType="MailVo">
+	
+		SELECT 
+			M.NO,
+			U.NAME AS "SENDER",
+			PREV_NO,
+			MAILBOX_NO,
+			TITLE,
+			CONTENT,
+			SEND_DATE
+		FROM MAIL M
+			JOIN "USER" U ON M.SENDER = U.NO
+		WHERE M.NO = #{no}
+	
+	</select>
+	
+	
+	<select id="getMailRecipientByMailNo" resultType="UserVo">
+	
+		SELECT U.NAME, U.MAIL
+		FROM "USER" U
+		WHERE U.NO = (
+		    SELECT RECEIVER_NO
+		    FROM MAIL_RECIPIENT
+		    WHERE MAIL_NO = #{no}
+		    )
+	
+	</select>
+  
+  
+  	<select id="getMailCcByMailNo" resultType="UserVo">
+	
+		SELECT U.NAME, U.MAIL
+		FROM "USER" U
+		WHERE U.NO = (
+			    SELECT CC_NO
+			    FROM MAIL_CC
+			    WHERE MAIL_NO = #{no}
+			    AND BCC_CHECK = 'X'
+		    )
+		
+	
 	</select>
   
 </mapper>

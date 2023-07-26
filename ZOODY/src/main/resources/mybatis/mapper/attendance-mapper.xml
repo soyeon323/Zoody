@@ -8,9 +8,14 @@
 
 	<!-- 내 출퇴근 목록 페이징 -->
 	<select id="getMyAttendanceCnt" resultType="int">
-		SELECT COUNT(NO)
-		FROM ATTENDANCE
+		SELECT COUNT(A.NO)
+		FROM ATTENDANCE A
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
 		WHERE USER_NO=1
+		<if test="searchValue != null and searchValue != ''">
+			AND AC.TYPE LIKE '%${searchValue}%'
+		</if>
 	</select>
 
 	<!-- 내 출퇴근 목록 -->
@@ -42,8 +47,10 @@
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
 		WHERE U.NO = 1
+		<if test="searchValue != null and searchValue != ''">
+			AND AC.TYPE LIKE '%${searchValue}%'
+		</if>
 		ORDER BY ENROLLDATE DESC
-		
 	</select>
 	
 	<!-- 휴가 요청 목록 페이징 -->
@@ -370,7 +377,44 @@
 		ON A.CURRENT_NO = AC.NO
 		WHERE U.NO = 1
   	</select>
-  
+  	
+  	<select id="getCurrentTypeOneCnt" resultType="int">
+  		SELECT 
+		    COUNT(A.CURRENT_NO)
+		FROM ATTENDANCE A
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		WHERE USER_NO=1
+		AND AC.NO = 1
+  	</select>
+  	
+  	<select id="getCurrentTypeSixCnt" resultType="int">
+  		SELECT 
+		    COUNT(A.CURRENT_NO)
+		FROM ATTENDANCE A
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		WHERE USER_NO=1
+		AND AC.NO = 6
+  	</select>
+  	
+  	<select id="getCurrentTypeFourCnt" resultType="int">
+  		SELECT 
+		    COUNT(A.CURRENT_NO)
+		FROM ATTENDANCE A
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		WHERE USER_NO=1
+		AND AC.NO = 4
+  	</select>
+  	
+  	<select id="getCurrentTypeLeaveCnt" resultType="int">
+  		SELECT COUNT(NO)
+		FROM LEAVE
+		WHERE USER_NO = 1
+  	</select>
+  	
+  	
   
 </mapper>
 

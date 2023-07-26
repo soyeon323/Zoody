@@ -47,7 +47,7 @@
 
                             </div>
                             <div class="profile-btns">
-                                <a href="">메일쓰기</a>
+                                <a href="${root}/mail/write">메일쓰기</a>
                                 <a href="">로그아웃</a>
                             </div>
                     </div>
@@ -73,7 +73,40 @@
                 <div class="area schedule">일정</div>
                 <div class="area chart">진행도</div>
                 <div class="area attendance">근태현황</div>
-                <div class="area community">커뮤니티</div>
+                <div class="area community">
+                    커뮤니티
+
+                    <dis class="community-list-area">
+
+                        <c:if test="${ empty boardList }">
+
+                        <div>데이터가 없습니다</div>
+
+                        </c:if>
+                        
+                        <c:if test="${not empty boardList }">
+
+                            <c:forEach items="${ boardList }" var="list">
+
+                                <div class="community-list">
+                                    <div>${ list.no }</div>
+                                    <div>${ list.title }</div>
+                                    <div>${ list.userNo }</div>
+                                    <div>${ list.hit }</div>
+                                    <div>${ list.enrollDate }</div>
+                                </div>
+
+                            </c:forEach>
+
+                        </c:if>
+
+                    </dis>
+
+                    
+
+                    
+
+                </div>
                 <div class="area notice" id="notice">
                     <img src="${root}/resources/svg/icons/notice.svg" alt="">
                     <div>전직원 알림) 스미싱 스팸메일 열람주의</div>

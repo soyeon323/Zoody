@@ -74,3 +74,26 @@ FROM
     )B
 WHERE B.RN BETWEEN 1 AND 7
 ;
+
+ -- 게시글 더미
+ DROP SEQUENCE SEQ_BOARD_NO;
+CREATE SEQUENCE SEQ_BOARD_NO;
+DECLARE
+   max_rows_per_cat NUMBER := 100;
+BEGIN
+   FOR cat_no_val IN 1..4 LOOP
+      FOR i IN 1..max_rows_per_cat LOOP
+         EXIT WHEN i > max_rows_per_cat; 
+         INSERT INTO board (NO, USER_NO, CAT_NO, TITLE, CONTENT)
+         VALUES (
+            SEQ_BOARD_NO.NEXTVAL,
+            1,
+            cat_no_val,
+            '제목' || SEQ_BOARD_NO.NEXTVAL,
+            '내용' || SEQ_BOARD_NO.NEXTVAL
+         );
+      END LOOP;
+   END LOOP;
+   COMMIT; -- Commit the changes to make them permanent
+END;
+/

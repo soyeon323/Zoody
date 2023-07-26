@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="suggestion">
+  
+  <select id="suggstionList" resultType="SuggestionVo">
+  	SELECT
+	    S.NO
+	    , S.USER_NO
+	    , U.NAME
+	    , S.TITLE
+	    , S.CONTENT
+	    , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+	    , S.STATUS
+	    , S.HIT
+	    , TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD') AS MODIFY_DATE
+	    , S.ORIGIN_NAME
+	    , S.CHANGE_NAME
+	    , S.COMMNET_YN
+	    , S.RIGHTCLICK_YN
+	    , S.BOARD_LIMIT
+	FROM SUGGESTION S
+	JOIN "USER" U ON S.USER_NO = U.NO
+	WHERE STATUS = 'O'
+	<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' and searchType != 'name'">
+		AND S.${searchType} LIKE '%${searchValue}%'
+	</if>
+	<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' and searchType == 'name'">
+		AND U.${searchType} LIKE '%${searchValue}%'
+	</if>
+	ORDER BY NO DESC
+  </select>
+  
+  <select id="getSuggestionListCnt" resultType="int">
+  	SELECT COUNT(NO)
+	FROM SUGGESTION
+	WHERE STATUS = 'O'
+	<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' ">
+		AND ${searchType} LIKE '%${searchValue}%'
+	</if>
+  </select>
+</mapper>

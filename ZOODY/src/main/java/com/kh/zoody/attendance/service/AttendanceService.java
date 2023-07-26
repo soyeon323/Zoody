@@ -11,9 +11,9 @@ import com.kh.zoody.page.vo.PageVo;
 public interface AttendanceService {
 
 	//유저 개별 조회 영역
-	int getMyAttendanceCnt();
+	int getMyAttendanceCnt(String searchValue);
 	
-	List<AttendanceVo> list(PageVo pv);
+	List<AttendanceVo> list(PageVo pv, String searchValue);
 
 	List<LeaveVo> leaveList(PageVo leavePv);
 
@@ -48,6 +48,15 @@ public interface AttendanceService {
 	List<AttendanceVo> mainChartList();
 
 	List<AttendanceVo> mainCalendarList();
+
+	//출근 타입 카운
+	int getCurrentTypeOneCnt();
+
+	int getCurrentTypeSixCnt();
+
+	int getCurrentTypeLeaveCnt();
+
+	int getCurrentTypeFourCnt();
 
 
 

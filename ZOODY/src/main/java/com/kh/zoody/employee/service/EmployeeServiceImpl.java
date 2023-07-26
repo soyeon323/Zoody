@@ -1,6 +1,7 @@
 package com.kh.zoody.employee.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -34,14 +35,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	//직원목록조회
 	@Override
-	public List<UserVo> list(PageVo pv) {
-		return dao.list(sst, pv);
+	public List<UserVo> list(PageVo pv, Map<String, String> searchMap) {
+		return dao.list(sst, pv, searchMap);
 	}
 
 	//페이징처리를 위한 게시글 갯수 조회
 	@Override
-	public int getEmployeeListCnt() {
-		return dao.getEmployeeListCnt(sst);
+	public int getEmployeeListCnt(Map<String, String> searchMap) {
+		return dao.getEmployeeListCnt(sst, searchMap);
 	}
 
 	@Override

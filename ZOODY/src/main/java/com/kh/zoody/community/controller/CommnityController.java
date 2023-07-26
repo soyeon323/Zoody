@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.zoody.community.service.CommuityService;
@@ -19,15 +20,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("community/board")
 @RequiredArgsConstructor
 @Slf4j
-public class BoardController {
+public class CommnityController {
 	
 	private final CommuityService service;
 	
 	//자유게시판
 	@RequestMapping("freeBoard")
-	public String freeBoard(Model model) {
+	public String freeBoard(@RequestParam(defaultValue = "4") int catNo ,Model model) {
 		
-		int catNo = 4;
 		List<BoardVo> freeBoardList = service.getBoardList(catNo);
 		
 		model.addAttribute("freeBoardList", freeBoardList);
