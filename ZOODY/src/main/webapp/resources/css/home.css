@@ -126,7 +126,41 @@
 .community {
     grid-column: 1 / span 2;
     grid-row: 3 / span 1;
+    display: grid;
+    grid-template-rows: 2fr 8fr;
+    justify-items: start;
+    align-items: start;
 }
+
+.community > .community-list-area {
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    padding: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.community-list {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 2fr 519.844px 1fr 1fr 2fr;
+    justify-items: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.community-list >div {
+    width: 100%;
+    height: 100%;
+}
+
+.community-list:hover {
+    background-color: #4876ef1c;
+}
+
 
 .notice{
     grid-column: 1 / span 2;
@@ -135,7 +169,7 @@
 
 
 /* profile */
-.profile-img {
+.profile > .profile-img {
     display: flex;
     width: 35.3%;
     height: 47.1%;
@@ -185,7 +219,13 @@
 }
 
 .profile-btns > a:hover {
-    background-color: gray;
+    background-color: #4876efcc;
+    color: #ffffffe3;
+    font-size: 14.5px;
+}
+
+.profile-btns > a:nth-child(n+2):hover {
+    background-color: rgb(145, 145, 151);
 }
 
 

@@ -76,8 +76,8 @@
                             	<tr>
 	                                <td>${ list.no }</td>
 	                                <td>${ list.title }</td>
-	                                <td>${ list.no }</td>
-	                                <td>${ list.no }</td>
+	                                <td>${ list.userNo }</td>
+	                                <td>${ list.hit }</td>
 	                                <td>${ list.enrollDate }</td>
 	                            </tr>
                             </c:forEach>
