@@ -58,6 +58,9 @@ public interface AttendanceService {
 
 	int getCurrentTypeFourCnt();
 
+	//이의신청
+	int submitOjection(AttendanceVo vo);
+
 
 
 

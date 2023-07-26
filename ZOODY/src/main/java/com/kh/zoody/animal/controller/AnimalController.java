@@ -172,24 +172,24 @@ public class AnimalController {
 
 	
 		//페이징처리
-		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
-		
-		int getAnimalHealthListCnt = as.getAnimalHealthListCnt();
-		
-		List<HealthVo> animalHealthList = as.animalHealthList(pv , searchValue);
-		log.info("animaHealthList = {}",animalHealthList);
-		if(animalHealthList ==null) {
-			throw new RuntimeException();
-		}
-		
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("animalHealthList", animalHealthList);
-		map.put("getAnimalListCnt", getAnimalHealthListCnt);
-		map.put("pv", pv);
-		
-		model.addAttribute("map",map);
-		return "animal/health-list";
-	}
+//		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+//		
+//		int getAnimalHealthListCnt = as.getAnimalHealthListCnt();
+//		
+//		List<HealthVo> animalHealthList = as.animalHealthList(pv , searchValue);
+//		log.info("animaHealthList = {}",animalHealthList);
+//		if(animalHealthList ==null) {
+//			throw new RuntimeException();
+//		}
+//		
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("animalHealthList", animalHealthList);
+//		map.put("getAnimalListCnt", getAnimalHealthListCnt);
+//		map.put("pv", pv);
+//		
+//		model.addAttribute("map",map);
+//		return "animal/health-list";
+//	}
 //	
 //	
 //	//동물 건강 상태 작성
