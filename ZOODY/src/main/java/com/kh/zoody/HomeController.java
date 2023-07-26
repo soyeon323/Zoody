@@ -17,13 +17,13 @@ import lombok.RequiredArgsConstructor;
 public class HomeController {
 	
 	private final CommuityService cs;
-	
-	@GetMapping
-	public String home(Model model) {
-		
-		cs.getBoardListByCount(5);
-		
-		return "home";
-	}
+//	
+//	@GetMapping
+//	public String home(Model model) {
+//		
+//		cs.getBoardListByCount(5);
+//		
+//		return "home";
+//	}
 	
 }

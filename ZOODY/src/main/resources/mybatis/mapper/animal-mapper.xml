@@ -61,12 +61,12 @@
   	</insert>
   	
   	<select id="AnimalList" resultType="AnimalVo" >
-  	   SELECT
+  	  SELECT
 		    A.NO,
 		    A.NICK_NAME,
 		    TO_CHAR(A."DATE",'YYYY-MM-DD') AS"DATE",
 		    A.FEILD,
-		    C.NAME AS NAME,
+		    C.NAME ,
 		    T.TASTE,
 		    H.HABITAT,
 		    E.ENDANGERED
@@ -82,7 +82,11 @@
 		    HABITAT H ON C.HABITAT_NO = H.HABITAT_NO
 		JOIN
 		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
-		    WHERE A.STATUS = 'O'
+		    WHERE 
+            A.STATUS = 'O'
+		    <if test="searchValue != null and searchValue !=''">
+	           AND A.NICK_NAME LIKE '%${searchValue}%'
+		    </if>
 		    ORDER BY A.NO DESC
 		
   	</select>
@@ -133,11 +137,11 @@
   	
   	<select id="animalDetail" resultType="AnimalVo">
   		
-  		  SELECT
+  		    SELECT
 		    A.NO,
-		    A.CATEGORY_NO,
 		    A.PROFILE,
 		    A.DEPARTMENT_NO,
+            D.NAME AS DEPARTMENT_NAME, 
 		    A.NICK_NAME,
 		    A.STATUS,
 		    TO_CHAR( A."DATE",'YYYY-MM-DD')AS "DATE",
@@ -169,7 +173,10 @@
 		    HABITAT H ON C.HABITAT_NO = H.HABITAT_NO
 		JOIN
 		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
-            JOIN ANIMAL_HEALTH_SCREENING AHS ON A.NO = AHS.ANIMAL_NO
+        JOIN 
+            ANIMAL_HEALTH_SCREENING AHS ON A.NO = AHS.ANIMAL_NO
+        JOIN 
+            DEPARTMENT D ON A.DEPARTMENT_NO = D.NO
 		    WHERE A.NO = #{no}
   	</select>
   	
@@ -186,16 +193,20 @@
 		WHERE ANIMAL_NO = #{no}
   	</select>
   	
-  	<select id="trainingList" resultType="com.kh.zoody.animal.training.vo.TrainingVo">
+  	<select id="trainingList" resultType="TrainingVo">
   			 SELECT 
              AT.TRAINING_NO 
-            ,AT.TITLE
-            ,TO_CHAR(AT."DATE",'YYYY-DD-MM')AS"DATE"
+            ,AT.TITLE AS TRAINING_TITLE
+            ,TO_CHAR(AT."DATE",'YYYY-DD-MM')AS TRAINING_DATE
             ,A.NICK_NAME AS NICK_NAME
-            ,A.NO
+            ,A.NO AS ANIMAL_NO
             FROM ANIMAL_TRAINING  AT 
             JOIN ANIMAL A ON AT.NO = A.NO
-            WHERE AT.STATUS = 'O'
+            WHERE
+             AT.STATUS = 'O'
+             <if test="searchValue != null and searchValue !=''">
+            	AND A.NICK_NAME LIKE '%${searchValue}%'
+             </if>
   	
   	</select>
   	
@@ -203,6 +214,38 @@
   		 SELECT COUNT(NO)
 		FROM  ANIMAL_TRAINING
 		WHERE STATUS = 'O'
+  	</select>
+  	
+  	<select id="animalTrainingDetail" resultType="AnimalVo">
+  	
+  		 SELECT 
+		 TITLE
+		 ,CONTENT
+		 ,TO_CHAR("DATE" , 'YYYY-MM-DD') AS "DATE"
+		 FROM ANIMAL_TRAINING
+		 WHERE NO= #{no}
+		 AND STATUS = 'O'
+ 
+  	</select>
+  	
+  	
+  	<select id="getAnimalHealthListCnt" resultType="int">
+  		SELECT COUNT(NO)
+		FROM ANIMAL_HEALTH_SCREENING
+  	</select>
+  	
+  	<select id="animalHealthList" resultType="AnimalVo">
+  		SELECT 
+         AHS.NO
+         ,AHS.STATE_OF_HEALTH
+         ,TO_CHAR(AHS.CHECKUP_DATE , 'YYYY-MM-DD') AS CHECKUP_DATE
+         ,A.NICK_NAME 
+         FROM ANIMAL_HEALTH_SCREENING AHS
+         JOIN ANIMAL A ON AHS.ANIMAL_NO = A.NO
+         WHERE A.STATUS = 'O'
+         <if test="searchValue != null and searchValue !=''">
+	         AND A.NICK_NAME LIKE '%${searchValue}%'
+         </if>
   	</select>
   	
   </mapper>

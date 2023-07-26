@@ -47,17 +47,17 @@
                         <td>담당 부서</td>
                         <td>
                              <select name="departmentNo" id="position">
-                            <option value="1">자연학습</option>
-                            <option value="2">조류팀</option>
-                            <option value="3">남미팀</option>
-                            <option value="4">맹수팀</option>
-                            <option value="5">동양팀</option>
-                            <option value="6">대동물</option>
-                            <option value="7">어린이동물</option>
-                            <option value="8">아프리카</option>
-                            <option value="9">유인원</option>
-                            <option value="10">생태연구</option>
-                            <option value="11">분석연구</option>
+                            <option value="1214">자연학습</option>
+                            <option value="1221">조류팀</option>
+                            <option value="1222">남미팀</option>
+                            <option value="1223">맹수팀</option>
+                            <option value="1224">동양팀</option>
+                            <option value="1231">대동물</option>
+                            <option value="1232">어린이동물</option>
+                            <option value="1233">아프리카</option>
+                            <option value="1234">유인원</option>
+                            <option value="1241">생태연구</option>
+                            <option value="1242">분석연구</option>
                             </select>
                         </td>
                         <td>식 성</td>

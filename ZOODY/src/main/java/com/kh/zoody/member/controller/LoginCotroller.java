@@ -1,4 +1,4 @@
-package com.kh.zoody.login.controller;
+package com.kh.zoody.member.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,5 +33,13 @@ public class LoginCotroller {
 		}
 		session.setAttribute("loginMember", loginMember);
 		return "redirect:/";
+	}
+	
+	//로그아웃
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "member/login";
 	}
 }

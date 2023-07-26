@@ -23,14 +23,16 @@
     <div id="wrap">
 
         <div id="enroll">
-            <a>동물 훈련 일지 조회</a>
+            <a>동물 건강검진 일지 목록</a>
         </div>
 
         <div id="back">
 
             <div id="firstDiv">
-                <input type="text" name="searchValue" placeholder="애칭 입력">
-                <input type="submit" value="검색">
+                <form action="${root}/animal/health/list">
+                    <input type="text" name="searchValue" placeholder="애칭 입력">
+                    <input type="submit" value="검색">
+                </form>
             </div>
 
             <div id="newEmployee">
@@ -41,17 +43,17 @@
                         <tr>
                             <td>번호</td>
                             <td>애칭</td>
-                            <td>훈련일지 제목</td>
+                            <td>건강 상태</td>
                             <td>작성 날짜</td>
                         </tr>
                     </thead>
                     <tbody>
-                       <c:forEach items="${map.trainingVo}" var="trainingVo">
-                        <tr onclick="trainingdetail('${trainingVo.no}');">
-                            <td>${trainingVo.trainingNo}</td>
-                            <td>${trainingVo.nickName}</td>
-                            <td>${trainingVo.title}</td>
-                            <td>${trainingVo.date}</td>
+                       <c:forEach items="${map.animalHealthList}" var="animalHealthList">
+                        <tr onclick="trainingdetail('${animalHealthList.no}');">
+                            <td>${animalHealthList.no}</td>
+                            <td>${animalHealthList.nickName}</td>
+                            <td>${animalHealthList.stateOfHealth}</td>
+                            <td>${animalHealthList.checkupDate}</td>
                         </tr>
                        </c:forEach>
                       

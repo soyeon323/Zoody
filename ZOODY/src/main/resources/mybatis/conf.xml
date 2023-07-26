@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.zoody.notice.vo.NoticeVo" alias="NoticeVo"/>
 		<typeAlias type="com.kh.zoody.animal.vo.AnimalVo" alias="AnimalVo"/>
 		<typeAlias type="com.kh.zoody.reply.vo.ReplyVo" alias="ReplyVo"/>
+		<typeAlias type="com.kh.zoody.animal.training.vo.TrainingVo" alias="TrainingVo"/>
 	</typeAliases>
 
   

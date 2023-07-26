@@ -29,7 +29,6 @@
                 <div id="enroll-btn">
                     <label for="file">
                     </label>
-                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
                 </div>
                 <form action="${root}/animal/health/write" method="post" >
                 <div id="content-area">

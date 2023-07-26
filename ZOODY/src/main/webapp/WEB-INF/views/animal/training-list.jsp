@@ -29,8 +29,10 @@
         <div id="back">
 
             <div id="firstDiv">
-                <input type="text" name="searchValue" placeholder="애칭 입력">
-                <input type="submit" value="검색">
+                <form action="${root}/animal/training/list" method="GET">
+                    <input type="text" name="searchValue" placeholder="애칭 입력">
+                    <input type="submit" value="검색">
+                </form>
             </div>
 
             <div id="newEmployee">
@@ -47,11 +49,11 @@
                     </thead>
                     <tbody>
                        <c:forEach items="${map.trainingVo}" var="trainingVo">
-                        <tr onclick="trainingdetail('${trainingVo.no}');">
+                        <tr onclick="trainingdetail('${trainingVo.animalNo}');">
                             <td>${trainingVo.trainingNo}</td>
                             <td>${trainingVo.nickName}</td>
-                            <td>${trainingVo.title}</td>
-                            <td>${trainingVo.date}</td>
+                            <td>${trainingVo.trainingTitle}</td>
+                            <td>${trainingVo.trainingDate}</td>
                         </tr>
                        </c:forEach>
                       
@@ -119,9 +121,9 @@
         $.ajax({
             url : '${root}/animal/training/detail',
             method : 'GET',
-            // data : {
-            //     no : no
-            // },
+            data : {
+                no : no
+            },
             success : ()=>{
                 location.href = '${root}/animal/training/detail?no='+no;
             },
