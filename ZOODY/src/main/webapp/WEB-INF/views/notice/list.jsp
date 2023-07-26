@@ -26,17 +26,17 @@
         </div>
 
         <div id="back">
-
-            <div id="firstDiv">
-                <a>전체게시글 ${map.noticeListCnt}건</a>
-                <select name="searchType" id="department">
-                    <option value="">제목</option>
-                    <option value="">내용</option>
-                    <option value="">작성자</option>
-                </select>
-                <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
-                <input type="submit" value="검색">
-            </div>
+            <form action="${root}/notice/list" method="get">
+                <div id="firstDiv">
+                    <a>전체게시글 ${map.noticeListCnt}건</a>
+                    <select name="searchType" id="department">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
+                    <input type="submit" value="검색">
+                </div>
+            </form>
 
             <div id="tableArea">
                 <table class="table">
@@ -50,14 +50,21 @@
                       </tr>
                     </thead>
                     <tbody>
+                        <c:if test="${empty map.voList}">
+                            <tr class="searchNoResult">
+                                <td colspan="6">조회된 결과가 없습니다.</td>
+                            </tr>
+                        </c:if>
                         <c:forEach items="${map.voList}" var="voList">
-	                        <tr onclick="detail(event);">
-	                            <td scope="col" class="noticeNo">${voList.no}</td>
-	                            <td scope="col">${voList.title}</td>
-	                            <td scope="col">관리자</td>
-	                            <td scope="col">${voList.enrollDate}</td>
-	                            <td scope="col">${voList.hit}</td>
-	                        </tr>
+                            <c:if test="${!empty map.voList}">
+                                <tr onclick="detail(event);">
+                                    <td scope="col" class="noticeNo">${voList.no}</td>
+                                    <td scope="col">${voList.title}</td>
+                                    <td scope="col">관리자</td>
+                                    <td scope="col">${voList.enrollDate}</td>
+                                    <td scope="col">${voList.hit}</td>
+                                </tr>
+                            </c:if>
                         </c:forEach>
                     </tbody>
                   </table>
@@ -91,4 +98,17 @@
 
         location.href = "${root}/notice/detail?no=" + no;
     }
+
+    //게시글 검색
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+    searchValueTag.value = '${map.searchMap.searchValue}';
+
+    const searchTypeArr = document.querySelectorAll("select[name=searchType] > option");
+    const x = '${map.searchMap.searchType}';
+    if(x == 'title'){
+        searchTypeArr[0].selected = true;
+    }else if(x == 'content'){
+        searchTypeArr[1].selected = true;
+    }
+
 </script>

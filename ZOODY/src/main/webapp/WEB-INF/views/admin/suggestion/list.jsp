@@ -27,30 +27,20 @@
         </div>
 
         <div id="back">
-
-            <div id="topArea">
-                <div><a>전체게시글 3건</a></div>
-                <div>
-                    <select name="searchType" id="department">
-                        <option value="">제목</option>
-                        <option value="">내용</option>
-                        <option value="">작성자</option>
-                    </select>
-                    <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
-                    <input type="submit" value="검색">
+            <form action="${root}/admin/suggestion/list" method="GET">
+                <div id="topArea">
+                    <div><a>전체게시글 ${map.suggestionListCnt}건</a></div>
+                    <div>
+                        <select name="searchType" id="department">
+                            <option value="title">제목</option>
+                            <option value="content">내용</option>
+                            <option value="name">작성자</option>
+                        </select>
+                        <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
+                        <input type="submit" value="검색">
+                    </div>
                 </div>
-            </div>
-
-            <div id="alertArea">
-                <div>
-                    <div><img src="${root}/resources/img/icon/png/alert.png" alt="확성기이미지"></div>
-                    <div>건의사항 작성 시 유의</div>
-                </div>
-                <div>
-                    <div><img src="${root}/resources/img/icon/png/alert.png" alt="확성기이미지"></div>
-                    <div>건의사항 투표기능 추가</div>
-                </div>
-            </div>
+            </form>
 
             <div id="iconArea">
                 <div>
@@ -89,7 +79,7 @@
                     <thead>
                       <tr>
                         <td scope="col">
-                            <input type="checkbox" name="adminNotice">
+                            <input type="checkbox" name="adminSuggestion" id="checkAll">
                         </td>
                         <td scope="col">번호</td>
                         <td scope="col">제목</td>
@@ -99,56 +89,25 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="col">
-                                <input type="checkbox" name="adminNotice">
-                            </td>
-                            <td scope="col">1</td>
-                            <td scope="col">건의사항제목111</td>
-                            <td scope="col">admin</td>
-                            <td scope="col">2023-07-01</td>
-                            <td scope="col">1</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">
-                                <input type="checkbox" name="adminNotice">
-                            </td>
-                            <td scope="col">1</td>
-                            <td scope="col">건의사항제목111</td>
-                            <td scope="col">admin</td>
-                            <td scope="col">2023-07-01</td>
-                            <td scope="col">1</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">
-                                <input type="checkbox" name="adminNotice">
-                            </td>
-                            <td scope="col">1</td>
-                            <td scope="col">건의사항제목111</td>
-                            <td scope="col">admin</td>
-                            <td scope="col">2023-07-01</td>
-                            <td scope="col">1</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">
-                                <input type="checkbox" name="adminNotice">
-                            </td>
-                            <td scope="col">1</td>
-                            <td scope="col">건의사항제목111</td>
-                            <td scope="col">admin</td>
-                            <td scope="col">2023-07-01</td>
-                            <td scope="col">1</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">
-                                <input type="checkbox" name="adminNotice">
-                            </td>
-                            <td scope="col">1</td>
-                            <td scope="col">건의사항제목111</td>
-                            <td scope="col">admin</td>
-                            <td scope="col">2023-07-01</td>
-                            <td scope="col">1</td>
-                        </tr>
+                        <c:if test="${empty map.voList}">
+                            <tr class="searchNoResult">
+                                <td colspan="6">조회된 결과가 없습니다.</td>
+                            </tr>
+                        </c:if>
+                        <c:forEach items="${map.voList}" var="voList">
+                            <c:if test="${!empty map.voList}">
+                                <tr onclick="detail(event);">
+                                    <td scope="col">
+                                        <input type="checkbox" name="adminNotice">
+                                    </td>
+                                    <td scope="col" class="noticeNo">${voList.no}</td>
+                                    <td scope="col">${voList.title}</td>
+                                    <td scope="col">${voList.name}</td>
+                                    <td scope="col">${voList.enrollDate}</td>
+                                    <td scope="col">${voList.hit}</td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
                     </tbody>
                   </table>
             </div>
@@ -167,3 +126,30 @@
 
 </body>
 </html>
+<script>
+    //체크박스 전체체크
+    const allCheckbox = document.querySelector('#checkAll');
+    const tbodyCheckbox = document.querySelectorAll('input[name="adminSuggestion"]');
+
+    allCheckbox.addEventListener('change', function () {
+        const isChecked = allCheckbox.checked;
+        tbodyCheckbox.forEach((checkbox) => {
+            checkbox.checked = isChecked;
+        });
+    });
+
+    //게시글 검색
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+    searchValueTag.value = '${map.searchMap.searchValue}';
+
+    const searchTypeArr = document.querySelectorAll("select[name=searchType] > option");
+    const x = '${map.searchMap.searchType}';
+    if(x == 'title'){
+        searchTypeArr[0].selected = true;
+    }else if(x == 'content'){
+        searchTypeArr[1].selected = true;
+    }else if(x == 'name'){
+        searchTypeArr[2].selected = true;
+    }
+
+</script>

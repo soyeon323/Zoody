@@ -1,6 +1,7 @@
 package com.kh.zoody.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -11,10 +12,10 @@ import com.kh.zoody.reply.vo.ReplyVo;
 public interface AdminDao {
 
 	//공지사항 목록
-	List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv);
+	List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap);
 
 	//공지사항 게시글 갯수 조회
-	int getNoticeListCnt(SqlSessionTemplate sst);
+	int getNoticeListCnt(SqlSessionTemplate sst, Map<String, String> searchMap);
 
 	//게시글 복사
 	int copy(SqlSessionTemplate sst, List<String> noList);
@@ -51,5 +52,11 @@ public interface AdminDao {
 
 	//전체 목록 댓글 갯수 조회
 	List<Integer> replyCntAll(SqlSessionTemplate sst, List<String> voListNo);
+
+	//건의사항 목록 갯수
+	int getSuggestionListCnt(SqlSessionTemplate sst, Map<String, String> searchMap);
+
+	//건의사항 목록
+	List<NoticeVo> suggstionList(SqlSessionTemplate sst, Map<String, String> searchMap);
 
 }

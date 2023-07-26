@@ -33,10 +33,9 @@
                 <div id="firstDiv">
                     <a>전체직원 ${map.EmployeListCnt}명</a>
                     <select name="searchType" id="department">
-                        <option value="">부서</option>
-                        <option value="">이름</option>
-                        <option value="">사번</option>
-                        <option value="">이메일</option>
+                        <option value="name">이름</option>
+                        <option value="id">사번</option>
+                        <option value="mail">이메일</option>
                     </select>
                     <input type="text" name="searchValue" placeholder="내용을 입력하세요.">
                     <input type="submit" value="검색">
@@ -60,15 +59,22 @@
                       </tr>
                     </thead>
                     <tbody>
+                        <c:if test="${empty map.voList}">
+                            <tr class="searchNoResult">
+                                <td colspan="6">조회된 결과가 없습니다.</td>
+                            </tr>
+                        </c:if>
                         <c:forEach items="${map.voList}" var="vo">
-                        	<tr onclick="sendEmployeeId(event);">
-	                            <td>${vo.departmentName}</td>
-	                            <td class="employeeId">${vo.id}</td>
-	                            <td>${vo.name}</td>
-	                            <td>${vo.rankName}</td>
-	                            <td>${vo.mail}</td>
-	                            <td>${vo.officeNumber}</td>
-                        	</tr>
+                            <c:if test="${!empty map.voList}">
+                                <tr onclick="sendEmployeeId(event);">
+                                    <td>${vo.departmentName}</td>
+                                    <td class="employeeId">${vo.id}</td>
+                                    <td>${vo.name}</td>
+                                    <td>${vo.rankName}</td>
+                                    <td>${vo.mail}</td>
+                                    <td>${vo.officeNumber}</td>
+                                </tr>
+                            </c:if>
                         </c:forEach>
                     </tbody>
                 </table>
@@ -128,5 +134,19 @@
                 console.log(err);
             }
         })
+    }
+
+    //게시글 검색
+    const searchValueTag = document.querySelector("input[name=searchValue]");
+    searchValueTag.value = '${map.searchMap.searchValue}';
+
+    const searchTypeArr = document.querySelectorAll("select[name=searchType] > option");
+    const x = '${map.searchMap.searchType}';
+    if(x == 'name'){
+        searchTypeArr[0].selected = true;
+    }else if(x == 'id'){
+        searchTypeArr[1].selected = true;
+    }else if(x == 'mail'){
+        searchTypeArr[2].selected = true;
     }
 </script>

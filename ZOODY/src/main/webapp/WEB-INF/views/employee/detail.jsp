@@ -164,7 +164,7 @@
 
                 <div id="userBtn">
                     <input type="submit" value="수정" id="userEnroll">
-                    <button id="enrollCancel">취소</button>
+                    <button id="enrollCancel" type="button" onclick="editCancel();">취소</button>
                 </div>
             </form>
         </div>
@@ -237,5 +237,13 @@
             document.querySelector("#addressInput").value = data.address;
         }
     }).open();
+    }
+    
+    //취소하면 목록으로
+    function editCancel(){
+        if(confirm("목록으로 돌아가시겠습니까?")) {
+            location.href = '${root}/employee/list';
+        }
+        return;
     }
 </script>
