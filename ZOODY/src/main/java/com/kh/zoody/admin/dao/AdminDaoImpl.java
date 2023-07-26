@@ -111,4 +111,10 @@ public class AdminDaoImpl implements AdminDao{
 		return sst.selectList("suggestion.suggstionList", searchMap);
 	}
 
+	//건의사항 복사
+	@Override
+	public int suggestionCopy(SqlSessionTemplate sst, List<String> noList) {
+		return sst.insert("suggestion.suggestionCopy", noList);
+	}
+
 }
