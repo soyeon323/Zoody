@@ -23,6 +23,7 @@ import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.reply.vo.ReplyVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -218,7 +219,15 @@ public class AdminController {
 	
 	//건의사항 상세조회
 	@RequestMapping("suggestion/detail")
-	public void suggestionDetail() {}
+	public void suggestionDetail(String no, Model model) {
+		SuggestionVo vo = as.suggestionDetail(no);
+		
+		if(vo == null) {
+			throw new RuntimeException();
+		}
+		
+		model.addAttribute("vo", vo);
+	}
 	
 	//건의사항 복사
 	@PostMapping("suggestion/copy")
@@ -240,6 +249,17 @@ public class AdminController {
 		}
 	}
 	
+	//공지사항으로 등록
+	@PostMapping("suggestion/noticeEnroll")
+	public void noticeEnroll(@RequestParam("no") List<String> noList) {
+		int result = as.noticeEnroll(noList);
+		
+		if(result == 0) {
+			throw new RuntimeException();
+		}
+		
+	}
+	
 	//댓글 삭제
 	@PostMapping("notice/replyDelete")
 	public String replyDelete(ReplyVo vo) {
@@ -251,4 +271,5 @@ public class AdminController {
 		return "";
 	}
 	
+
 }

@@ -208,7 +208,7 @@ input[type='text']::placeholder{
     margin-left: 50px;
     margin-top: 30px;
     display: grid;
-    grid-template-columns: 70px 130px 650px 100px 200px;
+    grid-template-columns: 70px 130px 680px 120px 140px;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -228,10 +228,6 @@ input[type='text']::placeholder{
     font-size: 17px;
 }
 
-#commentOk #reply{
-    margin-left: 20px;
-}
-
 #commentOk #date{
     color: #949494;
     font-weight: 300;
@@ -239,7 +235,7 @@ input[type='text']::placeholder{
 }
 
 #commentOk #deleteArea{
-    margin-left: 130px;
+    margin-left: 75px;
 }
 /* 목록으로 */
 #btnArea button{

@@ -11,6 +11,7 @@ import com.kh.zoody.admin.dao.AdminDao;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.reply.vo.ReplyVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -121,7 +122,19 @@ public class AdminServiceImpl implements AdminService{
 	//건의사항 삭제
 	@Override
 	public int suggestionDelete(List<String> noList) {
-		return 0;
+		return dao.suggestionDelete(sst, noList);
+	}
+
+	//공지사항으로 등록
+	@Override
+	public int noticeEnroll(List<String> noList) {
+		return dao.noticeEnroll(sst, noList);
+	}
+
+	//건의사항 상세조회
+	@Override
+	public SuggestionVo suggestionDetail(String no) {
+		return dao.suggestionDetail(sst, no);
 	}
 	
 }

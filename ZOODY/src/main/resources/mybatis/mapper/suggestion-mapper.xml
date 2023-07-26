@@ -16,7 +16,7 @@
 	    , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
 	    , S.STATUS
 	    , S.HIT
-	    , TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD') AS MODIFY_DATE
+	    , MODIFY_DATE
 	    , S.ORIGIN_NAME
 	    , S.CHANGE_NAME
 	    , S.COMMENT_YN
@@ -25,21 +25,31 @@
 	FROM SUGGESTION S
 	JOIN "USER" U ON S.USER_NO = U.NO
 	WHERE STATUS = 'O'
-	<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' and searchType != 'name'">
+	<if test="searchValue != null and searchValue != '' and searchType != 'name'">
 		AND S.${searchType} LIKE '%${searchValue}%'
 	</if>
-	<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' and searchType == 'name'">
+	<if test="searchValue != null and searchValue != '' and searchType == 'name'">
 		AND U.${searchType} LIKE '%${searchValue}%'
 	</if>
 	ORDER BY NO DESC
   </select>
   
   <select id="getSuggestionListCnt" resultType="int">
-  	SELECT COUNT(NO)
-	FROM SUGGESTION
+  	SELECT COUNT(S.NO)
+  	<if test="searchValue != null and searchValue != '' and searchType == 'name'">
+		, U.NAME
+	</if>
+	FROM SUGGESTION S
+	<if test="searchValue != null and searchValue != '' and searchType == 'name'">
+		JOIN "USER" U ON S.USER_NO = U.NO
+	</if>
 	WHERE STATUS = 'O'
-	<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' ">
+	<if test="searchValue != null and searchValue != '' and searchType != 'name'">
 		AND ${searchType} LIKE '%${searchValue}%'
+	</if>
+	<if test="searchValue != null and searchValue != '' and searchType == 'name'">
+		AND U.${searchType} LIKE '%${searchValue}%'
+		GROUP BY U.NAME
 	</if>
   </select>
   
@@ -65,7 +75,7 @@
   		, USER_NO
   		, TITLE
   		, CONTENT
-  		, TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS ENROLL_DATE
+  		, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') AS ENROLL_DATE
   		, STATUS
   		, 0
   		, MODIFY_DATE
@@ -80,4 +90,70 @@
 	  	#{no}
   	</foreach>
   </insert>
+  
+  <update id="suggestionDelete">
+  	UPDATE SUGGESTION
+	SET STATUS = 'X'
+	WHERE NO IN
+	<foreach collection="list" item="no" separator="," open="(" close=")">
+   	 #{no}
+  	</foreach>
+  </update>
+  
+  <insert id="noticeEnroll">
+	  INSERT INTO NOTICE
+	  (
+	    NO
+	    , ADMIN_NO
+	    , CATEGORY_NO
+	    , TITLE
+	    , CONTENT
+	    , ENROLL_DATE
+	    , STATUS
+	    , ORIGIN_NAME
+	    , CHANGE_NAME
+	    , RIGHTCLICK_YN
+	    , COMMENT_YN
+	    , BOARD_LIMIT
+	    , HIT
+	  )
+	  SELECT
+	  	SEQ_NOTICE_NO.NEXTVAL
+	    , 1
+	    , 1
+	    , TITLE
+	    , CONTENT
+	    , TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') AS ENROLL_DATE
+	    , STATUS
+	    , ORIGIN_NAME
+	    , CHANGE_NAME
+	    , RIGHTCLICK_YN
+	    , COMMENT_YN
+	    , BOARD_LIMIT
+	    , 0
+	  FROM SUGGESTION
+	  WHERE NO IN
+	  <foreach collection="list" item="no" separator="," open="(" close=")">
+	  	#{no}
+	  </foreach>
+	</insert>
+	
+	<select id="suggestionDetail" resultType="SuggestionVo">
+		SELECT
+			, NO
+			, USER_NO
+			, TITLE
+			, CONTENT
+			, ENROLL_DATE
+			, STATUS
+			, HIT
+			, MODIFY_DATE
+			, ORIGIN_NAME
+			, CHANGE_NAME
+			, COMMENT_YN
+			, RIGHTCLICK_YN
+			, BOARD_LIMIT
+		FROM SUGGESTION
+		WHERE NO = #{no}
+	</select>
 </mapper>

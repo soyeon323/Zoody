@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.reply.vo.ReplyVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 public interface AdminService {
 
@@ -59,5 +60,11 @@ public interface AdminService {
 
 	//건의사항 삭제
 	int suggestionDelete(List<String> noList);
+
+	//공지사항으로 등록
+	int noticeEnroll(List<String> noList);
+
+	//건의사항 상세조회
+	SuggestionVo suggestionDetail(String no);
 
 }
