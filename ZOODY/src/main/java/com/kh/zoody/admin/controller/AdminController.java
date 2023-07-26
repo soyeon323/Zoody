@@ -220,6 +220,26 @@ public class AdminController {
 	@RequestMapping("suggestion/detail")
 	public void suggestionDetail() {}
 	
+	//건의사항 복사
+	@PostMapping("suggestion/copy")
+	public void suggestionCopy(@RequestParam("no") List<String> noList) {
+		int result = as.suggestionCopy(noList);
+		
+		if(result == 0) {
+			throw new RuntimeException();
+		}
+	}
+	
+	//건의사항 삭제
+	@PostMapping("suggestion/delete")
+	public void suggestionDelete(@RequestParam("no") List<String> noList) {
+		int result = as.suggestionDelete(noList);
+		
+		if(result == 0) {
+			throw new RuntimeException();
+		}
+	}
+	
 	//댓글 삭제
 	@PostMapping("notice/replyDelete")
 	public String replyDelete(ReplyVo vo) {

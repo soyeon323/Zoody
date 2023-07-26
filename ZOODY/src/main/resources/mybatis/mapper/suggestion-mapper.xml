@@ -19,7 +19,7 @@
 	    , TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD') AS MODIFY_DATE
 	    , S.ORIGIN_NAME
 	    , S.CHANGE_NAME
-	    , S.COMMNET_YN
+	    , S.COMMENT_YN
 	    , S.RIGHTCLICK_YN
 	    , S.BOARD_LIMIT
 	FROM SUGGESTION S
@@ -42,4 +42,42 @@
 		AND ${searchType} LIKE '%${searchValue}%'
 	</if>
   </select>
+  
+  <insert id="suggestionCopy">
+  	INSERT INTO SUGGESTION
+  	(
+  		NO
+		, USER_NO
+		, TITLE
+		, CONTENT
+		, ENROLL_DATE
+		, STATUS
+		, HIT
+		, MODIFY_DATE
+		, ORIGIN_NAME
+		, CHANGE_NAME
+		, COMMENT_YN
+		, RIGHTCLICK_YN
+		, BOARD_LIMIT
+  	)
+  	SELECT
+  		SEQ_SUGGESTION_NO.NEXTVAL
+  		, USER_NO
+  		, TITLE
+  		, CONTENT
+  		, TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS ENROLL_DATE
+  		, STATUS
+  		, 0
+  		, MODIFY_DATE
+  		, ORIGIN_NAME
+  		, CHANGE_NAME
+  		, COMMENT_YN
+  		, RIGHTCLICK_YN
+  		, BOARD_LIMIT
+  	FROM SUGGESTION
+  	WHERE NO IN
+  	<foreach collection="list" item="no" separator="," open="(" close=")">
+	  	#{no}
+  	</foreach>
+  </insert>
 </mapper>
