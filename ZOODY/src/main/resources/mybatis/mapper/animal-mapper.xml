@@ -109,9 +109,9 @@
 			VALUES
 			(
 			    SEQ_ANIMAL_TRAINING_NO.NEXTVAL
-			    ,#{no}
-			    ,#{title}
-			    ,#{content}
+			    ,#{animalNo}
+			    ,#{trainingTitle}
+			    ,#{trainingContent}
 			)
   	
   	</insert>
@@ -123,14 +123,14 @@
 			    ,ANIMAL_NO
 			    ,CONTENT
 			    ,DISEASE
-			    ,LIFE_STYLE_MANAGEMENT
+			    ,STATE_OF_HEALTH
 			)
 			VALUES
 			(
 			    SEQ_ANIMAL_HEALTH_SCREENING_NO.NEXTVAL
 			    ,#{animalNo}
 			    ,#{lifeStyleManagement}
-			    ,#{content}
+			    ,#{stateOfHealth}
 			    ,#{disease}
 			)
   	</insert>
@@ -207,7 +207,7 @@
              <if test="searchValue != null and searchValue !=''">
             	AND A.NICK_NAME LIKE '%${searchValue}%'
              </if>
-  	
+  			ORDER BY AT.TRAINING_NO DESC
   	</select>
   	
   	<select id="getAnimalTrainingListCnt" resultType="int">
@@ -223,7 +223,7 @@
 		 ,CONTENT
 		 ,TO_CHAR("DATE" , 'YYYY-MM-DD') AS "DATE"
 		 FROM ANIMAL_TRAINING
-		 WHERE NO= #{no}
+		 WHERE TRAINING_NO= #{no}
 		 AND STATUS = 'O'
  
   	</select>
@@ -246,6 +246,7 @@
          <if test="searchValue != null and searchValue !=''">
 	         AND A.NICK_NAME LIKE '%${searchValue}%'
          </if>
+         ORDER BY AHS.NO DESC
   	</select>
   	
   </mapper>

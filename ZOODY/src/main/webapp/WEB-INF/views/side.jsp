@@ -6,7 +6,7 @@
 <head>   
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/resources/css/common/side.css">
+<link rel="stylesheet" href="${root}/resources/css/common/tempside.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
