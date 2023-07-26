@@ -4,11 +4,12 @@ const contextPath = location.href.substring( hostIndex, location.href.indexOf( '
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
 
-// document.addEventListener('keydown', function(event) {
-//     if (event.keyCode === 13) {
-//       event.preventDefault();
-//     };
-//   }, true);
+
+document.querySelector('.mail-send-form').addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    };
+  }, true);
 
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
@@ -209,41 +210,24 @@ sendMailBtn.addEventListener('click', () => {
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
 
+
 $(document).ready(function() {
-    $('#summernote').summernote({
-    enterToBr: true,
-    codeviewFilter: true,
-    codeviewIframeFilter: true,
-    disableXSSProtection: true,
-    width: 1200,
-    height: 240,
-    minHeight: 240,
-    maxHeight: 240,
-    focus: false,
-    lang: 'ko-KR',
-    toolbar: [
-        // 스타일 관련 기능
-        ['style', ['style']],
-        // 글자 크기 설정
-        ['fontsize', ['fontsize']],
-        // 글꼴 스타일
-        ['font', ['bold', 'underline', 'clear']],
-        // 글자 색상
-        ['color', ['color']],
-        // 테이블 삽입
-        ['table', ['table']],
-        // 문단 스타일
-        ['para', ['paragraph']],
-        // 에디터 높이 설정
-        ['height', ['height']],
-        // 이미지, 링크, 동영상 삽입
-        ['insert', ['picture', 'link', 'video']],
-        // 코드 보기, 전체화면, 도움말
-        ['view', ['codeview', 'fullscreen', 'help']],
-    ],
-    fontSizes: [
-        // 글자 크기 선택 옵션
-        '8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'
-    ],
-    });
+	$('#summernote').summernote({
+		  width: 1200,
+		  height: 220,                 
+		  minHeight: 220,             
+		  maxHeight: 220,
+		  lang: "ko-KR",
+		  fontNames: ['Spoqa Han Sans Neo'],
+		  fontSizes: ['10']
+	});
+	
+	const mailContent = document.querySelector('.note-editable');
+	mailContent.addEventListener('keydown', function(event) {
+	    if (event.keyCode === 13) {
+	      mailContent.innerHTML += '<br>';
+	    };
+	  }
+	);
 });
+

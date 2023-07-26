@@ -384,3 +384,10 @@
     flex-direction: column;
     align-items: center;
 }
+
+.mail-content {
+	width: 1250px;
+	height: 285px;
+	
+	resizealbe: none;
+}
