@@ -68,7 +68,7 @@
                   </svg>
                   <p>정상출근</p>
               </div>
-              <p>176</p>
+              <p>${currentTypeOne}</p>
             </div>
             <div class="att_type2">
               <div class="type-flex">
@@ -77,7 +77,7 @@
                 </svg>
                 <p>지각</p>
               </div>
-              <p class="type-p">8</p>
+              <p class="type-p">${currentTypeSix}</p>
             </div>
             <div class="att_type3">
               <div class="type-flex">
@@ -86,7 +86,7 @@
                 </svg>
                 <p>휴가</p>
               </div>
-              <p class="type-p">10</p>
+              <p class="type-p">${currentTypeLeave}</p>
             </div>
             <div class="att_type4">
               <div class="type-flex">
@@ -95,7 +95,7 @@
                 </svg>
                 <p>외근</p>
               </div>
-              <p class="type-p">22</p>
+              <p class="type-p">${currentTypeFour}</p>
             </div>
             <div class="att_workList">
               <div class="workList-flex">
@@ -153,63 +153,99 @@
             <!-- 두번째 줄 : 검색바 부분 -->
             <div class="search_area">
               <div><button onclick="toggleCheckboxes()">이의신청</button></div>
-              <div></div>
-              <div class="search-flex">
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                  <option selected>전체</option>
-                  <option value="1">상태</option>
-                </select>
-                <div class="search-input">
-                  <input type="text" placeholder="내용을 입력하세요.">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <g clip-path="url(#clip0_409_10089)">
-                      <path d="M15.9999 15.0579L11.8252 10.8833C12.9096 9.55698 13.4428 7.86465 13.3144 6.15629C13.1861 4.44794 12.406 2.85427 11.1356 1.70493C9.86516 0.555594 8.20158 -0.0614848 6.48895 -0.0186636C4.77632 0.0241577 3.14566 0.723603 1.93426 1.935C0.72287 3.14639 0.0234252 4.77705 -0.019396 6.48968C-0.0622172 8.20232 0.554862 9.86589 1.7042 11.1363C2.85354 12.4067 4.44721 13.1868 6.15556 13.3152C7.86392 13.4435 9.55625 12.9103 10.8825 11.8259L15.0572 16.0006L15.9999 15.0579ZM6.66652 12.0006C5.61169 12.0006 4.58054 11.6878 3.70348 11.1018C2.82642 10.5157 2.14283 9.68277 1.73916 8.70823C1.3355 7.73369 1.22988 6.66134 1.43567 5.62677C1.64145 4.59221 2.14941 3.6419 2.89529 2.89602C3.64117 2.15014 4.59147 1.64219 5.62604 1.4364C6.6606 1.23061 7.73296 1.33623 8.7075 1.7399C9.68204 2.14356 10.515 2.82715 11.101 3.70421C11.6871 4.58127 11.9999 5.61242 11.9999 6.66725C11.9983 8.08125 11.4359 9.43689 10.436 10.4367C9.43615 11.4366 8.08052 11.999 6.66652 12.0006Z" fill="#A4A4A4"/>
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_409_10089">
-                        <rect width="16" height="16" fill="white"/>
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </div>
+              <form action="${root}/attendance/list" method="get">
+              <div></div> 
+                <div class="search-flex">
 
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="searchType">
+                      <option>상태</option>
+                    </select>
+
+                    <div class="search-input">
+                      <input type="text" placeholder="검색 내용을 입력하세요." name="searchValue">
+                      <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <g clip-path="url(#clip0_409_10089)">
+                            <path d="M15.9999 15.0579L11.8252 10.8833C12.9096 9.55698 13.4428 7.86465 13.3144 6.15629C13.1861 4.44794 12.406 2.85427 11.1356 1.70493C9.86516 0.555594 8.20158 -0.0614848 6.48895 -0.0186636C4.77632 0.0241577 3.14566 0.723603 1.93426 1.935C0.72287 3.14639 0.0234252 4.77705 -0.019396 6.48968C-0.0622172 8.20232 0.554862 9.86589 1.7042 11.1363C2.85354 12.4067 4.44721 13.1868 6.15556 13.3152C7.86392 13.4435 9.55625 12.9103 10.8825 11.8259L15.0572 16.0006L15.9999 15.0579ZM6.66652 12.0006C5.61169 12.0006 4.58054 11.6878 3.70348 11.1018C2.82642 10.5157 2.14283 9.68277 1.73916 8.70823C1.3355 7.73369 1.22988 6.66134 1.43567 5.62677C1.64145 4.59221 2.14941 3.6419 2.89529 2.89602C3.64117 2.15014 4.59147 1.64219 5.62604 1.4364C6.6606 1.23061 7.73296 1.33623 8.7075 1.7399C9.68204 2.14356 10.515 2.82715 11.101 3.70421C11.6871 4.58127 11.9999 5.61242 11.9999 6.66725C11.9983 8.08125 11.4359 9.43689 10.436 10.4367C9.43615 11.4366 8.08052 11.999 6.66652 12.0006Z" fill="#A4A4A4"/>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_409_10089">
+                              <rect width="16" height="16" fill="white"/>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+              
             <!-- 세번째 줄 -->
             <div class="att_myList">
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col"></th>
                     <th scope="col">#</th>
                     <th scope="col">날짜</th>
                     <th scope="col">출근시간</th>
                     <th scope="col">퇴근시간</th>
                     <th scope="col">초과근무시간</th>
                     <th scope="col">상태</th>
-                    
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody id="checkboxContainer">
                   <c:forEach items="${attVoList}" var="att">	
                       <tr>
-                        <td><input type="checkbox" name="" id=""  style="display: none;"></td>
                         <th scope="row">${att.no}</th>
                         <td>${att.enrolldate}</td>
                         <td>${att.checkInTime}</td>
                         <td>${att.checkOutTime }</td>
                         <c:choose> 
-							<c:when test="${att.plusWorkTime eq '시간 분 초'}">
-		                        <td>-</td>
-							</c:when>
-							<c:when test="${att.plusWorkTime eq '0시간 0분 0초'}">
-		                        <td>-</td>
-							</c:when>
-							<c:otherwise>
-		                        <td>${att.plusWorkTime}</td>
-							</c:otherwise> 
-						</c:choose> 
+                          <c:when test="${att.plusWorkTime eq '시간 분 초'}">
+                            <td>-</td>
+                          </c:when>
+                          <c:when test="${att.plusWorkTime eq '0시간 0분 0초'}">
+                            <td>-</td>
+                          </c:when>
+                          <c:otherwise>
+                            <td>${att.plusWorkTime}</td>
+                          </c:otherwise> 
+                        </c:choose> 
                         <td>${att.type}</td>
+                        <td>
+                          <!-- Button trigger modal -->
+                          <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="display: none;">신청</button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">이의신청 사유 작성</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <form>
+                                    <div class="mb-3">
+                                      <label for="recipient-name" class="col-form-label">근태 No</label>
+                                      <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="message-text" class="col-form-label">사유</label>
+                                      <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Send message</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                   </c:forEach>
                   
@@ -284,16 +320,60 @@
         </div>
     </div>
 
+    <!-- <script>
+      function toggleCheckboxes() {
+        
+        var checkboxes = checkboxContainer.getElementsBy('button');
+    
+        for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].style.display === 'none') {
+            checkboxes[i].style.display = 'table-cell'; // 보이도록 설정
+          } else {
+            checkboxes[i].style.display = 'none'; // 숨기도록 설정
+          }
+        }
+      }
+    </script> -->
+
     <script>
       function toggleCheckboxes() {
         var checkboxContainer = document.getElementById('checkboxContainer');
-        var checkboxes = checkboxContainer.getElementsByTagName('input');
-    
-        for (var i = 0; i < checkboxes.length; i++) {
-          checkboxes[i].style.display = checkboxes[i].style.display === 'none' ? 'table-cell' : 'none';
+        var buttons = checkboxContainer.getElementsByClassName('toggle-button');
+
+        for (var i = 0; i < buttons.length; i++) {
+          if (buttons[i].style.display === 'none') {
+            buttons[i].style.display = 'block'; // 보이도록 설정
+          } else {
+            buttons[i].style.display = 'none'; // 숨기도록 설정
+          }
         }
-      }
+      };
+
+      const exampleModal = document.getElementById('exampleModal')
+      exampleModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-whatever')
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        const modalTitle = exampleModal.querySelector('.modal-title')
+        const modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+        modalTitle.textContent = `New message to ${recipient}`
+        modalBodyInput.value = recipient
+      })
     </script>
+
+
+    <script>
+      const searchValueTag = document.querySelector("input[name=searchValue]");
+      searchValueTag.value = '${searchValue}'
+    </script>
+
+   
     
 </body>
 </html>

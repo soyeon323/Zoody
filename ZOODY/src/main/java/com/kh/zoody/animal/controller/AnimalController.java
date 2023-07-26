@@ -167,11 +167,11 @@ public class AnimalController {
 	}
 	
 	
-	//동물 건강 상태 리스트
-		@GetMapping("health/write")
-		public String animalHealthList() {
-			return "animal/health-write";
-		}
+//	//동물 건강 상태 리스트
+//		@GetMapping("health/write")
+//		public String animalHealthList() {
+//			return "animal/health-write";
+//		}
 	
 	
 	//동물 건강 상태 작성

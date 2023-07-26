@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -181,23 +182,35 @@ public class AttendanceController {
 	
 	//(서브메뉴) 근무현황 목록 조회
 	@GetMapping("list")
-	public String list(Integer page, Model model) {
+	public String list(@RequestParam(defaultValue = "1") int page, Model model, String searchValue) {
 
-	    int listCount = attService.getMyAttendanceCnt();
+	    int listCount = attService.getMyAttendanceCnt(searchValue);
 	    int leaveListCount = attService.getLeaveCnt();
-	    int currentPage = (page != null) ? page: 1;
+	    int currentPage = page;
 //	    int pageLimit = 5;
 //	    int boardLimit = 10;
 
 	    //내 출결 조회
 	    PageVo pv = new PageVo(listCount, currentPage, 5, 10);
-	    List<AttendanceVo> attVoList = attService.list(pv);
+	    List<AttendanceVo> attVoList = attService.list(pv, searchValue);
 	    model.addAttribute("attVoList", attVoList);
+	    model.addAttribute("searchValue", searchValue);
 	    
 	    //휴가 요청 조회
 	    PageVo leavePv = new PageVo(leaveListCount, currentPage, 2, 4);
 	    List<LeaveVo> leVoList = attService.leaveList(leavePv);
 	    model.addAttribute("leVoList", leVoList);
+	    
+	    //출근 타입 카운팅
+	    int currentTypeOne = attService.getCurrentTypeOneCnt();
+	    int currentTypeSix = attService.getCurrentTypeSixCnt();
+	    int currentTypeLeave = attService.getCurrentTypeLeaveCnt();
+	    int currentTypeFour = attService.getCurrentTypeFourCnt(); 
+	    
+	    model.addAttribute("currentTypeOne", currentTypeOne);
+	    model.addAttribute("currentTypeSix", currentTypeSix);
+	    model.addAttribute("currentTypeLeave", currentTypeLeave);
+	    model.addAttribute("currentTypeFour", currentTypeFour);
 
 	    return "attendance/list";
 	}
