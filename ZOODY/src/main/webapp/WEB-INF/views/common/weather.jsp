@@ -6,41 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-
-#weather_info {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    background: linear-gradient(360deg, #2594B7 0%, rgba(43, 152, 186, 0.71) 78.24%, rgba(81, 180, 212, 0.69) 103.57%);
-
-    grid-template-areas: 
-    "t i"
-    "w i"
-    ;
-}
-
-.temperatures {
-    grid-area: t;
-}
-
-.weather-icon {
-    grid-area: w;
-}
-
-
- .weather-icon {
-    width: 100;
-    height: 100;
-    overflow: hidden;
-    grid-area: i;
- }
-
- .weather-icon > img {
-    max-width: 100%;
- }
-
-</style>
+<link rel="stylesheet" href="${root}/resources/css/weather/weather.css">
 </head>
 <div id="weather_info">
 
