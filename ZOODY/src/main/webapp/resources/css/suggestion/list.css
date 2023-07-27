@@ -19,7 +19,7 @@
 
 /* 뒷배경 */
 #back{
-    width: 1500px;
+    width: 1520px;
     height: 700px;
     background-color: white;
     margin-left: 80px;
@@ -27,7 +27,7 @@
     border: 1px solid #d7d7d7ba;
     border-radius: 7px;
     display: grid;
-    grid-template-rows: 60px 65px 65px 570px;
+    grid-template-rows: 60px 65px 45px 570px;
 }
 
 #back div:first-child{
@@ -71,38 +71,45 @@
 }
 
 /* 내용영역 */
-#content{
-    width: 1500px;
-    margin-top: 20px;
-}
-#content>thead{
-    width: 1500px;
-    height: 60px;
-    border-bottom: 1px solid #D7D7D7;
-    border-top: 1px solid #D7D7D7;
-    color: #4B4B4B;
+#tableArea{
+    margin-bottom: 42px;
 }
 
-#content tr{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+#tableArea>table{
+    width: 1518px;
 }
 
-#content>thead tr{
-    height: 60px;
+#tableArea thead{
+    border-top: 2px solid #4876EF;
+    border-bottom: 2px solid #4876EF;
 }
 
-#content>tbody{
-    color: black;
-    font-size: 18px;
-}
-
-#content>tbody tr{
+#tableArea tr{
+    text-align: center;
     height: 65px;
-    margin-top: 5px;
 }
 
+#tableArea input[type='checkbox']{
+    width: 20px;
+    height: 20px;
+}
+
+#tableArea>table td{
+    margin-left: 150px;
+}
+
+#tableArea .table td {
+    vertical-align: middle;
+}
+
+#tableArea tbody td{
+    color: black;
+}
+
+#tableArea tbody tr:hover{
+    background-color: #5189FA;
+    cursor: pointer;
+}
 /* 페이징 */
 #page{
     width: 1500px;
@@ -146,9 +153,11 @@ table tbody tr:hover{
 }
 
 #newWrite{
-    margin-left: 100px;
+    margin-left: 70px;
+    margin-bottom: 10px;
     display: flex;
     align-items: end;
+    height: 20px;
 }
 
 #newWrite>a{
@@ -157,4 +166,9 @@ table tbody tr:hover{
     margin-left: 10px;
     text-decoration: none;
     color: #4B4B4B;
+}
+
+#newWrite img{
+    width: 15px;
+    height: 15px;
 }

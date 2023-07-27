@@ -221,6 +221,7 @@ public class AdminController {
 	@GetMapping("suggestion/detail")
 	public void suggestionDetail(String no, Model model) {
 		SuggestionVo vo = as.suggestionDetail(no);
+		
 		List<ReplyVo> voList = as.selectSuggestionReply(no);
 		int replyCnt = as.suggestionReplyCnt(no);
 		

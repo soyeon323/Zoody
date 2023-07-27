@@ -111,4 +111,5 @@
         searchTypeArr[1].selected = true;
     }
 
+    
 </script>

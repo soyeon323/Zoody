@@ -19,7 +19,7 @@
 
 /* 뒷배경 */
 #back{
-    width: 1500px;
+    width: 1520px;
     height: 700px;
     background-color: white;
     margin-left: 80px;
@@ -75,7 +75,7 @@
 }
 
 #tableArea>table{
-    width: 1498px;
+    width: 1518px;
     margin-top: 40px;
 }
 
