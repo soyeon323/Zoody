@@ -439,7 +439,11 @@
 		ORDER BY ENROLLDATE DESC
   	</select>
   	
-  	
+  <select id="getObjectionCnt" resultType="AttendanceVo">
+  	SELECT COUNT(NO)
+	FROM ATTENDANCE
+	WHERE OBJECTION_REASON IS NOT NULL
+  </select>
   
 </mapper>
 
