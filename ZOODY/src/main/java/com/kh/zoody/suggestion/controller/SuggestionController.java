@@ -4,10 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.zoody.suggestion.service.SuggestionService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("suggestion")
+@RequiredArgsConstructor
+@Slf4j
 public class SuggestionController {
-
+	private final SuggestionService ss;
+	
 	//건의사항 목록 화면
 	@GetMapping("list")
 	public void list() {}

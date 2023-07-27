@@ -72,4 +72,19 @@ public interface AdminDao {
 	//건의사항 상세조회
 	SuggestionVo suggestionDetail(SqlSessionTemplate sst, String no);
 
+	//건의사항 상세조회시 조회수 증가
+	int suggestionIncreaseHit(SqlSessionTemplate sst, String no);
+
+	//건의사항 댓글달기
+	int suggestionReply(SqlSessionTemplate sst, ReplyVo vo);
+
+	//건의사항 댓글 화면 보여주기
+	List<ReplyVo> selectSuggestionReply(SqlSessionTemplate sst, String no);
+
+	//건의사항 댓글 수
+	int suggestionReplyCnt(SqlSessionTemplate sst, String no);
+
+	//건의사항 댓글 삭제
+	int suggestionReplyDelete(SqlSessionTemplate sst, Map<String, String> replyMap);
+
 }

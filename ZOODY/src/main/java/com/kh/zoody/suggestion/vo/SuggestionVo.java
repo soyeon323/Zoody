@@ -20,4 +20,5 @@ public class SuggestionVo {
 	private String boardLimit;
 	
 	private String name;
+	private String rankName;
 }

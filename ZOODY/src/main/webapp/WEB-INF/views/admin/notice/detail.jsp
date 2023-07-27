@@ -55,7 +55,7 @@
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
-                <button onclick="noticeCopy('${vo.no}');">복사</ㅍ>
+                <button onclick="noticeCopy('${vo.no}');">복사</button>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">

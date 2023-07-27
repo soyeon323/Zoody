@@ -60,7 +60,7 @@
 
   	</insert>
   	
-  	<select id="AnimalList" resultType="AnimalVo" >
+  	<select id="AnimalList" resultType="com.kh.zoody.animal.vo.AnimalVo" >
   	  SELECT
 		    A.NO,
 		    A.NICK_NAME,
@@ -135,7 +135,7 @@
 			)
   	</insert>
   	
-  	<select id="animalDetail" resultType="AnimalVo">
+  	<select id="animalDetail" resultType="com.kh.zoody.animal.vo.AnimalVo">
   		
   		    SELECT
 		    A.NO,
@@ -193,7 +193,7 @@
 		WHERE ANIMAL_NO = #{no}
   	</select>
   	
-  	<select id="trainingList" resultType="TrainingVo">
+  	<select id="trainingList" resultType="int">
   			 SELECT 
              AT.TRAINING_NO 
             ,AT.TITLE AS TRAINING_TITLE
@@ -216,7 +216,7 @@
 		WHERE STATUS = 'O'
   	</select>
   	
-  	<select id="animalTrainingDetail" resultType="AnimalVo">
+  	<select id="animalTrainingDetail" resultType="com.kh.zoody.animal.vo.AnimalVo">
   	
   		 SELECT 
 		 TITLE
@@ -234,7 +234,7 @@
 		FROM ANIMAL_HEALTH_SCREENING
   	</select>
   	
-  	<select id="animalHealthList" resultType="AnimalVo">
+  	<select id="animalHealthList" resultType="com.kh.zoody.animal.vo.AnimalVo">
   		SELECT 
          AHS.NO
          ,AHS.STATE_OF_HEALTH

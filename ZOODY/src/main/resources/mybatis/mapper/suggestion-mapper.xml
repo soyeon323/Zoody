@@ -140,20 +140,89 @@
 	
 	<select id="suggestionDetail" resultType="SuggestionVo">
 		SELECT
-			, NO
+		    S.NO
+		    , S.USER_NO
+		    , U.NAME
+		    , R.NAME AS RANK_NAME
+		    , S.TITLE
+		    , S.CONTENT
+		    , S.ENROLL_DATE
+		    , S.STATUS
+		    , S.HIT
+		    , S.MODIFY_DATE
+		    , S.ORIGIN_NAME
+		    , S.CHANGE_NAME
+		    , S.COMMENT_YN
+		    , S.RIGHTCLICK_YN
+		    , S.BOARD_LIMIT
+		FROM SUGGESTION S
+		JOIN "USER" U ON S.USER_NO = U.NO
+		JOIN RANK R ON U.RANK_NO = R.NO
+		WHERE S.NO = #{no}
+	</select>
+	
+	<update id="suggestionIncreaseHit">
+		UPDATE SUGGESTION
+		SET HIT = HIT + 1
+		WHERE NO = #{no}
+	</update>
+	
+	<insert id="suggestionReply">
+		INSERT INTO REPLY
+		(
+			NO
+			, SUGGESTION_NO
+			, NOTICE_NO
 			, USER_NO
-			, TITLE
 			, CONTENT
 			, ENROLL_DATE
-			, STATUS
-			, HIT
 			, MODIFY_DATE
-			, ORIGIN_NAME
-			, CHANGE_NAME
-			, COMMENT_YN
-			, RIGHTCLICK_YN
-			, BOARD_LIMIT
-		FROM SUGGESTION
-		WHERE NO = #{no}
+			, STATUS
+		)
+		VALUES
+		(
+			SEQ_REPLY_NO.NEXTVAL
+			, #{suggestionNo}
+			, #{noticeNo}
+			, #{userNo}
+			, #{content}
+			, SYSDATE
+			, #{modifyDate}
+			, 'O'
+		)
+	</insert>
+	
+	<select id="selectSuggestionReply" resultType="ReplyVo">
+		SELECT 
+	        R.NO
+	        , U.NAME
+	        , R.SUGGESTION_NO
+	        , K.NAME AS RANK_NAME
+	        , R.NOTICE_NO
+	        , R.USER_NO
+	        , R.CONTENT
+	        , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD HH24:MI') AS ENROLL_DATE
+	        , TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD HH24:MI') AS MODIFY_DATE
+	        , R.STATUS
+	    FROM REPLY R JOIN "USER" U ON R.USER_NO = U.NO
+	    JOIN RANK K ON K.NO = U.RANK_NO
+	    WHERE 
+	   		SUGGESTION_NO = #{suggestionNo}
+	    AND STATUS = 'O'
+	    ORDER BY R.NO DESC
 	</select>
+	
+	<select id="suggestionReplyCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM REPLY
+		WHERE SUGGESTION_NO = #{no}
+		AND STATUS = 'O'
+	</select>
+	
+	<update id="suggestionReplyDelete">
+		UPDATE REPLY
+		SET STATUS = 'X'
+		WHERE SUGGESTION_NO = #{suggestionNo}
+		AND NO = #{no}
+	</update>
 </mapper>

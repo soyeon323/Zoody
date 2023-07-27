@@ -107,7 +107,7 @@
 	<update id="increaseHit">
 		UPDATE NOTICE
 		SET HIT = HIT + 1
-		WHERE NO = ${no}
+		WHERE NO = #{no}
 	</update>
 	
 	<select id="selectEdit" resultType="NoticeVo">
@@ -215,14 +215,9 @@
 		FROM REPLY R JOIN "USER" U ON R.USER_NO = U.NO
 		JOIN RANK K ON K.NO = U.RANK_NO
 		WHERE 
-		<if test="suggestionNo != null or noticeNo != null">
-        (
-            <if test="suggestionNo != null">SUGGESTION_NO = #{suggestionNo}</if>
-            <if test="noticeNo != null">OR NOTICE_NO = #{noticeNo}</if>
-        )
+			NOTICE_NO = #{noticeNo}
         AND STATUS = 'O'
         ORDER BY R.NO DESC
-    </if>
 	</select>
 	
 	<update id="replyDelete">

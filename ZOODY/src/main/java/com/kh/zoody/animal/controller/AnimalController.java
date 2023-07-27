@@ -38,7 +38,7 @@ public class AnimalController {
 	//동물 등록
 	@GetMapping("enroll")
 	public String animalEnroll() {
-		return "animal/enroll";
+		return "animal/list";
 	}
 	
 	//동물 등록
@@ -92,7 +92,7 @@ public class AnimalController {
 		
 		
 		model.addAttribute("map",map);
-		return "animal/list";
+		return "animal/training-list";
 	}
 
 	//동물 상세 조회
@@ -188,7 +188,7 @@ public class AnimalController {
 		map.put("pv", pv);
 		
 		model.addAttribute("map",map);
-		return "animal/health-list";
+		return "animal/list";
 		}
 	
 	
@@ -205,8 +205,6 @@ public class AnimalController {
 		
 	}
 	
-
-	
 	//동물 건강 상태 상세조회
 	@GetMapping("health")
 	public String animalHealth(AnimalVo vo , Model model) {
@@ -218,7 +216,7 @@ public class AnimalController {
 		}
 		
 		model.addAttribute("hvo",hvo);
-		return "animal/health";
+		return "animal/list";
 	}
 
 	

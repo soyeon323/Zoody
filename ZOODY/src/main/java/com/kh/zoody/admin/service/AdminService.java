@@ -67,4 +67,16 @@ public interface AdminService {
 	//건의사항 상세조회
 	SuggestionVo suggestionDetail(String no);
 
+	//건의사항 댓글달기
+	int suggestionReply(ReplyVo vo);
+
+	//건의사항 댓글 화면 보여주기
+	List<ReplyVo> selectSuggestionReply(String no);
+
+	//건의사항 댓글 수
+	int suggestionReplyCnt(String no);
+
+	//건의사항 댓글 삭제
+	int suggestionReplyDelete(Map<String, String> replyMap);
+
 }
