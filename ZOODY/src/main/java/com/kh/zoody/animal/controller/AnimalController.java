@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -209,14 +210,25 @@ public class AnimalController {
 	@GetMapping("health/detail")
 	public String animalHealth(AnimalVo vo , Model model) {
 		
-//		HealthVo hvo = as.animalHealth(vo);
-//		log.info("hvo = {}",hvo);
-//		if(hvo ==null) {
-//			throw new RuntimeException();
-//		}
-//		
-//		model.addAttribute("hvo",hvo);
+		HealthVo hvo = as.animalHealth(vo);
+		log.info("hvo = {}",hvo);
+		if(hvo ==null) {
+			throw new RuntimeException();
+		}
+		
+		model.addAttribute("hvo",hvo);
 		return "animal/health-detail";
+	}
+	
+	//동물 폐사 처리
+	@PostMapping("die")
+	public String animalDie(AnimalVo vo) {
+		
+		int result = as.animalDie(vo);
+		if(result !=1) {
+			throw new RuntimeException();
+		}
+		return "redirect:/animal/list?page=1";
 	}
 
 	

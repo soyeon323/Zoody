@@ -78,4 +78,9 @@ public class AnimalDao {
 		return sst.selectList("animal.animalHealthList",searchValue,rb);
 	}
 
+	//동물 폐사 처리
+	public int animalDie(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.update("animal.animalDie" , vo);
+	}
+
 }

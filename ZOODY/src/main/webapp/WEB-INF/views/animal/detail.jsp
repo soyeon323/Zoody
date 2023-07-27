@@ -67,7 +67,7 @@
                 </table>
                 
                 <div id="enroll-btn">
-                        <div class="btn-upload"><a>폐사 처리</a></div>
+                        <div class="btn-upload" onclick="die()" ><a>폐사 처리</a></div>
                 </div>
 
                 <div id="btn-area">
@@ -205,5 +205,26 @@
         });
         }
 
+        //동물 폐사 처리
+        function die() {
+            const result = confirm('폐사처리 하시겠습니까?');
+
+            if(result){
+                $.ajax({
+                url : '${root}/animal/die',
+                data :{
+                    no : '${animalVo.no}'
+                },
+                type : 'POST',
+                success : (serverNo)=>{
+                    location.href = '${root}/animal/list?page=1';
+                },
+                error : ()=>{
+                    location.href = '${root}/animal/list?page=1';
+                }
+            });
+            }
+          
+        }
 
 </script>
