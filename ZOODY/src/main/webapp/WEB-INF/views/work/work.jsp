@@ -59,8 +59,8 @@
            <h1>업무 할당</h1>
            <br>
            <div id="modal-area">
-               <input type="text" name="" placeholder="업무 명">
-               <input type="text" name="" placeholder="직원 명">
+               <input type="text" name="workName" placeholder="업무 명">
+               <!-- <input type="text" name="" placeholder="직원 명"> -->
                <div id="btn-area">
                    <button class="btn btn-primary" style="width: 30px;" id="plusBtn">+</button>
                    <button class="btn btn-primary" style="width: 30px;" id="minusBtn">-</button>
@@ -93,19 +93,14 @@
             <br>
             <div id="modal-area">
                 <input type="text" placeholder="업무 명">
-                <input type="text" placeholder="직원 명">
+                <!-- <input type="text" placeholder="직원 명"> -->
                 <fieldset id="fieldset">
                  <legend>업무 내용</legend>
-                 <input type="text"> <input type="checkbox">
-                 <input type="text"> <input type="checkbox">
-                 <input type="text"> <input type="checkbox">
-                 <input type="text"> <input type="checkbox">
-                 <input type="text"> <input type="checkbox">
-             </fieldset>
-             
+                    
+                </fieldset>
             </div>
             <div>마감 일시</div>
-            
+            <button id="delete">삭제</button>
              <a class="modal_close_btn2">닫기</a>
          </div>
 
@@ -114,7 +109,9 @@
 </html>
 
 <script>
-  
+
+    //업무 모달창 삭제
+   
     // 모달1
     function modal(id) {
         var zIndex = 9999;
@@ -234,7 +231,7 @@
         headerToolbar: {
         
         },
-        initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+        // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
         editable: true, // 수정 가능?
         selectable: true, // 달력 일자 드래그 설정가능
         nowIndicator: true, // 현재 시간 마크
@@ -285,11 +282,11 @@
 
         var inputText = document.createElement('input');
         inputText.setAttribute('type', 'text');
-        inputText.setAttribute('name', '');
+        inputText.setAttribute('name', 'workContent');
 
         var inputCheckbox = document.createElement('input');
         inputCheckbox.setAttribute('type', 'checkbox');
-        // inputCheckbox.setAttribute('style', '25px');
+        inputCheckbox.setAttribute('name', 'chaekListName');
         inputCheckbox.style.width = "25px";
 
         fieldset.appendChild(inputText);

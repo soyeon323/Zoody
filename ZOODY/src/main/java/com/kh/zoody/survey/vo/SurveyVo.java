@@ -7,4 +7,11 @@ public class SurveyVo {
 
 	private String no;
 	private String content;
+	
+	private String researchNo;
+	private String totlaScore;
+	
+	private String userNo;
+	private String surveyNo;
+	
 }

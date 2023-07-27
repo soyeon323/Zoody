@@ -8,9 +8,9 @@
 	
 	<select id="getSurveyQuestion" resultType="com.kh.zoody.survey.vo.SurveyVo">
 		SELECT 
-           NO
-           ,CONTENT
-           FROM CURROPTION_SURVEY_QUESTION
+        NO
+        ,CONTENT
+        FROM CURROPTION_SURVEY_QUESTION
 	</select>
 	
 </mapper>

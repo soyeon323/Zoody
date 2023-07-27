@@ -22,6 +22,7 @@ public class CorruptSurveyController {
 	
 	private final CorruptSurveyService css;
 
+	//설문 조사 화면
 	@GetMapping("survey")
 	public String corruptSurvey(Model m) {
 		
@@ -38,7 +39,10 @@ public class CorruptSurveyController {
 	//설문조사 평균 점수 화면
 	@GetMapping("survey/score")
 	public String corruptServeyAverage() {
+		
 		return "survey/corrupt-average";
+	
 	}
+	
 	
 }
