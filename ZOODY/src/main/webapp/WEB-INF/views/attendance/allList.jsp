@@ -28,7 +28,7 @@
         <div id="obj_main">
             <!-- 맨 윗 줄 -->
             <div class="obj_count">
-              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="33 건">
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="${objectionCnt}건">
                 이의신청 건수
               </button>
             </div>
