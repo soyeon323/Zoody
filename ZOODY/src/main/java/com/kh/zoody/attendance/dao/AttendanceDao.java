@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
@@ -24,7 +25,7 @@ public interface AttendanceDao {
 	//관리자 전체 조회 영역
 	int getAllAttendanceCnt(SqlSessionTemplate sst);
 
-	List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv);
+	List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv, Map<String, String> paramMap);
 
 	//출퇴근 영역
 	int checkInWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
@@ -61,7 +62,11 @@ public interface AttendanceDao {
 	int getCurrentTypeFourCnt(SqlSessionTemplate sst);
 
 	//이의신
-	int submitOjection(SqlSessionTemplate sst, AttendanceVo vo);
+	int submitOjection(SqlSessionTemplate sst, Map<String, String> params);
+
+	List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo leavePv);
+
+	int getObjectionCnt(SqlSessionTemplate sst);
 
 
 

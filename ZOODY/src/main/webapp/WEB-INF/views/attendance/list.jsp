@@ -115,35 +115,29 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">날짜</th>
-                      <th scope="col">사유</th>
+                      <th scope="col">신청 시간</th>
                       <th scope="col">상태</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2023.09.10 ~ 2023.09.13</td>
-                      <td>병가</td>
-                      <td>대기</td>
-                    </tr>
+                  	<c:forEach items="${ewList}" var="ew">
+	                    <tr>
+	                      <th scope="row">${ew.no}</th>
+	                      <td>${ew.enrolldate}</td>
+	                      <td>${ew.startTime} ~ ${ew.endTime}</td>
+	                      <c:choose> 
+	                          <c:when test="${ew.approvalStatus == 0}">
+	                            <td>대기</td>
+	                          </c:when>
+	                          <c:when test="${ew.approvalStatus == 1}">
+	                            <td style="color: #5189FA">승인</td>
+	                          </c:when>
+	                          <c:otherwise>
+	                            <td style="color: #F85F57;">반려</td>
+	                          </c:otherwise> 
+                        </c:choose> 
+	                    </tr>
+                  	</c:forEach>
                   </tbody>
                 </table>
               </div>
@@ -224,14 +218,14 @@
      
                                <!-- Modal -->
                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                 <div class="modal-dialog">
+                                 <div class="modal-dialog modal-dialog-centered">
                                    <div class="modal-content">
                                      <div class="modal-header">
                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">이의신청</h1>
                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                      </div>
                                      <div class="modal-body">
-                                       <form action="${root}/attendance/list" method="post" onsubmit="submitForm(event)">
+                                       <form action="${root}/attendance/list" method="post">
                                          <div class="mb-3">
                                            <label for="recipient-name" class="col-form-label">번호 :</label>
                                            <input type="text" class="form-control" id="recipient-name" name="no">
@@ -242,7 +236,7 @@
                                          </div>
                                          <div class="modal-footer">
                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">작성취소</button>
-                                           <button type="submit" class="btn btn-primary">작성완료</button>
+                                           <button type="submit" class="btn btn-primary" onclick="submitObj();">작성완료</button>
                                         </form>
                                      </div>
                                    </div>
@@ -331,10 +325,10 @@
 		                      <td>대기</td>
 	                      </c:if>
 	                      <c:if test="${levo.status eq 1}">
-		                      <td>승인</td>
+		                      <td style="color: #5189FA">승인</td>
 	                      </c:if>
 	                      <c:if test="${levo.status eq 2}">
-		                      <td>반려</td>
+		                      <td style="color: #F85F57;">반려</td>
 	                      </c:if>
 	                    </tr>
 	                  </c:forEach>
@@ -346,20 +340,37 @@
         </div>
     </div>
 
-    <!-- <script>
-      function toggleCheckboxes() {
-        
-        var checkboxes = checkboxContainer.getElementsBy('button');
-    
-        for (var i = 0; i < checkboxes.length; i++) {
-          if (checkboxes[i].style.display === 'none') {
-            checkboxes[i].style.display = 'table-cell'; // 보이도록 설정
-          } else {
-            checkboxes[i].style.display = 'none'; // 숨기도록 설정
-          }
+
+    <script>
+      function submitObj(){
+        // <input> 요소의 값 가져오기
+        const recipientNameInput = document.getElementById("recipient-name");
+        const no = recipientNameInput.value;
+
+        // <textarea> 요소의 값 가져오기
+        const messageTextInput = document.getElementById("message-text");
+        const objectionReason = messageTextInput.value;
+
+        var params = {
+          no : no,
+          objectionReason : objectionReason
         }
+
+        $.ajax({
+          url : '${root}/attendance/list',
+          type : "POST",
+          data : params,
+          success : function (result) {
+              alert("제출 완료");
+              location.reload();
+          },
+          error : function (error) {
+            alert("서버 오류");
+          }
+        })
+
       }
-    </script> -->
+    </script>
 
     <script>
       function toggleCheckboxes() {
@@ -403,21 +414,9 @@
 
     <script>
       const searchValueTag = document.querySelector("input[name=searchValue]");
-      searchValueTag.value = '${searchValue}'
+      searchValueTag.value = '${searchValue}';
     </script>
 
-    <script>
-      function submitForm(event) {
-        // 폼 제출 이벤트의 기본 동작(새로고침)을 막습니다.
-        event.preventDefault();
-
-        // 폼을 서버로 제출합니다.
-        const form = event.target;
-        form.submit();
-      }
-    </script>
-
-   
     
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
@@ -47,9 +48,9 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv) {
+	public List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv, Map<String, String> paramMap) {
 		RowBounds rb = new RowBounds(allPv.getOffset(), allPv.getBoardLimit());
-		return sst.selectList("attendance.selectAllList", null, rb);
+		return sst.selectList("attendance.selectAllList", paramMap, rb);
 	}
 
 	//메인 영역
@@ -142,8 +143,19 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public int submitOjection(SqlSessionTemplate sst, AttendanceVo vo) {
-		return sst.update("attendance.submitOjection", vo);
+	public int submitOjection(SqlSessionTemplate sst, Map<String, String> params) {
+		return sst.update("attendance.submitOjection",params);
+	}
+
+	@Override
+	public List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo leavePv) {
+		RowBounds rb = new RowBounds(leavePv.getOffset(), leavePv.getBoardLimit());
+		return sst.selectList("attendance.selectExtraWorkList", null, rb);
+	}
+
+	@Override
+	public int getObjectionCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getObjectionCnt");
 	}
 
 

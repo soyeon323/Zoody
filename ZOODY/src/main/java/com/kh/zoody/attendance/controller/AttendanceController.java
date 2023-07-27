@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.zoody.attendance.service.AttendanceService;
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
@@ -201,6 +202,10 @@ public class AttendanceController {
 	    List<LeaveVo> leVoList = attService.leaveList(leavePv);
 	    model.addAttribute("leVoList", leVoList);
 	    
+	    //초과근무 요청 조회
+	    List<ExtraWorkVo> ewList = attService.extraWorkList(leavePv);
+	    model.addAttribute("ewList", ewList);
+	    
 	    //출근 타입 카운팅
 	    int currentTypeOne = attService.getCurrentTypeOneCnt();
 	    int currentTypeSix = attService.getCurrentTypeSixCnt();
@@ -216,24 +221,30 @@ public class AttendanceController {
 	}
 	
 	@PostMapping("list")
-	public String list(AttendanceVo vo) {
+	public String list(@RequestParam Map<String, String> params) {
 		
-		int result = attService.submitOjection(vo);
+		int result = attService.submitOjection(params);
 		
 		return "attendance/list";
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회
 	@GetMapping("allList")
-	public String objection(Integer page, Model model) {
+	public String objection(Integer page, Model model, @RequestParam Map<String, String> paramMap) {
 		
 		int listCount = attService.getAllAttendanceCnt();
 		int currentPage = (page != null) ? page: 1;
 		
 		PageVo allPv = new PageVo(listCount, currentPage, 5, 10);
-		List<AttendanceVo> attAllVoList = attService.allList(allPv);
+		List<AttendanceVo> attAllVoList = attService.allList(allPv, paramMap);
 		
 		model.addAttribute("attAllVoList", attAllVoList);
+		model.addAttribute("paramMap", paramMap);
+		
+		//이의신청 건수 카운팅
+		int objectionCnt = attService.getObjectionCnt();
+		
+		model.addAttribute("objectionCnt", objectionCnt);
 		
 		return "attendance/allList";
 	}
