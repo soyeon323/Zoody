@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.zoody.attendance.dao.AttendanceDao;
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
@@ -56,8 +57,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public List<AttendanceVo> allList(PageVo allPv) {
-		return dao.allList(sst, allPv);
+	public List<AttendanceVo> allList(PageVo allPv, Map<String, String> paramMap) {
+		return dao.allList(sst, allPv, paramMap);
 	}
 
 
@@ -152,8 +153,20 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public int submitOjection(AttendanceVo vo) {
-		return dao.submitOjection(sst, vo);
+	public int submitOjection( Map<String, String> params) {
+		return dao.submitOjection(sst, params);
+	}
+
+
+	@Override
+	public List<ExtraWorkVo> extraWorkList(PageVo leavePv) {
+		return dao.extraWorkList(sst, leavePv);
+	}
+
+
+	@Override
+	public int getObjectionCnt() {
+		return dao.getObjectionCnt(sst);
 	}
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
+import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
 
@@ -22,7 +23,7 @@ public interface AttendanceService {
 	//관리자 전체 조회 영역	
 	int getAllAttendanceCnt();
 
-	List<AttendanceVo> allList(PageVo allPv);
+	List<AttendanceVo> allList(PageVo allPv, Map<String, String> paramMap);
 
 	//메인영역	
 	int getMainAttCnt();
@@ -59,7 +60,11 @@ public interface AttendanceService {
 	int getCurrentTypeFourCnt();
 
 	//이의신청
-	int submitOjection(AttendanceVo vo);
+	int submitOjection(Map<String, String> params);
+
+	List<ExtraWorkVo> extraWorkList(PageVo leavePv);
+
+	int getObjectionCnt();
 
 
 

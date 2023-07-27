@@ -31,8 +31,7 @@
 /* 검색바 영역 */
 .obj_search{
     display: grid;
-    grid-template-columns: 0.7fr 4fr 1.5fr;
-    align-items: end;
+    grid-template-columns: 0.7fr 4fr 1.8fr;
 }
 
 .search-area{
@@ -97,6 +96,7 @@
     position: relative;
     gap: 9px;
     justify-content: flex-end;
+    padding-top: 20px;
 }
 
 .search-input > input{
@@ -121,10 +121,14 @@
     font-weight: 300;
 }
 
-.search-input > svg{
+.search-input > button > svg{
     position: absolute;
     right: 8px;
-    top: 5px;
+    top: 25px;
+}
+
+.search-input > button {
+    border: none;
 }
 
 .form-select {
@@ -249,15 +253,3 @@
 
 
 /* 테이블 css 깨진거 수정 */
-.table>tbody>tr>td,
-.table>tbody>tr>th,
-.table>tfoot>tr>td,
-.table>tfoot>tr>th,
-.table>thead>tr>td,
-.table>thead>tr>th {
-    padding-left: 18px !important; /* 패딩 제거 */ 
-    line-height: 1.42857143;
-    vertical-align: middle;
-    border: none !important; /* 테두리 제거 */ 
-    text-align: center;
-}
