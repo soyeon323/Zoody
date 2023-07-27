@@ -60,20 +60,33 @@
         <div id="iconArea">
             <div>
                 <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
-                <a href="">복사</a>
+                <button onclick="suggestionCopy('${vo.no}');">복사</button>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
-                <a href="">삭제</a>
+                <button onclick="suggestionDelete('${vo.no}');">삭제</button>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <g clip-path="url(#clip0_401_9570)">
+                    <path d="M1.07313 9.1875L3.65625 15H5.19125C5.47764 14.9998 5.75946 14.9282 6.01113 14.7915C6.2628 14.6548 6.47636 14.4575 6.63243 14.2173C6.7885 13.9772 6.88214 13.7019 6.90486 13.4164C6.92757 13.1309 6.87864 12.8443 6.7625 12.5825L5.33687 9.375H6.875C7.7035 9.37599 8.49778 9.70555 9.08361 10.2914C9.66945 10.8772 9.99901 11.6715 10 12.5H11.25V0H10C9.99901 0.828497 9.66945 1.62278 9.08361 2.20861C8.49778 2.79445 7.7035 3.12401 6.875 3.125H1.875C1.37772 3.125 0.900805 3.32254 0.549175 3.67417C0.197544 4.02581 0 4.50272 0 5L0 7.5C0.00139437 7.85388 0.102908 8.20014 0.292807 8.49876C0.482705 8.79738 0.753235 9.03616 1.07313 9.1875ZM5.62 13.0894C5.65189 13.1609 5.6654 13.2392 5.6593 13.3172C5.6532 13.3952 5.62769 13.4705 5.58508 13.5362C5.54247 13.6018 5.48412 13.6558 5.41533 13.6931C5.34655 13.7305 5.26952 13.75 5.19125 13.75H4.46875L2.52437 9.375H3.96875L5.62 13.0894ZM1.25 5C1.25 4.83424 1.31585 4.67527 1.43306 4.55806C1.55027 4.44085 1.70924 4.375 1.875 4.375H6.875C7.45763 4.37514 8.03438 4.25845 8.57113 4.03183C9.10789 3.80521 9.59375 3.47327 10 3.05562V9.44438C9.59375 9.02673 9.10789 8.69479 8.57113 8.46817C8.03438 8.24155 7.45763 8.12486 6.875 8.125H1.875C1.70924 8.125 1.55027 8.05915 1.43306 7.94194C1.31585 7.82473 1.25 7.66576 1.25 7.5V5ZM13.9331 9.81687L12.5031 8.38688L13.3869 7.50313L14.8169 8.93313L13.9331 9.81687ZM13.4106 4.97312L12.5269 4.08938L13.9331 2.68313L14.8169 3.56687L13.4106 4.97312ZM13.125 5.625H15V6.875H13.125V5.625Z" fill="#374957"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_401_9570">
+                    <rect width="15" height="15" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                <button onclick="noticeEnroll('${vo.no}');" type="button">공지로 등록</button>
             </div>
         </div>
 
         <div id="contentArea">
             <div id="title">
-                <div>${vo.title}&nbsp&nbsp [1]</div>
+                <div>${vo.title}&nbsp&nbsp [${replyCnt}]</div>
             </div>
             <div id="info">
-                <div>${vo.name}&nbsp대리</div>
+                <div>${vo.name}&nbsp ${vo.rankName}</div>
                 <div>2023-07-01 14:27</div>
             </div>
             <div id="content">
@@ -81,39 +94,196 @@
                 <div id="contentDetail">
                     <div>
                         <img src="${root}/resources/img/icon/png/comment.png" alt="댓글아이콘">
-                        <a>댓글 1개</a>
+                        <a>댓글 ${replyCnt}개</a>
                     </div>
                     <div>|</div>
-                    <div>조회&nbsp 3</div>
+                    <div>조회&nbsp ${vo.hit}</div>
                 </div>
             </div>
             <div id="comment">
                 <div id="commentArea">
                     <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
                    
-                    <form action="${root}/admin/suggestion/detail" method="post">
+                    <form action="${root}/admin/suggestion/detail" method="POST">
+                        <input type="hidden" value="${vo.userNo}" name="userNo">
+                        <input type="hidden" value="${vo.no}" name="suggestionNo">
                         <div id="commentZone">
-                            <div><input type="text" placeholder="댓글을 남겨보세요."></div>
+                            <div><input type="text" placeholder="댓글을 남겨보세요." name="content"></div>
                             <div><input type="submit" value="등록"></div>
                         </div>
                     </form>
                 </div>
                 <div id="commentOk">
-                    <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진"></div>
-                    <div><a>@김영희 대리</a></div>
-                    <div><a>확인해주세요</a></div>
-                    <div><a>23-07-01</a></div>
-                    <div><a href="">삭제</a></div>
+                    <c:forEach items="${voList}" var="voList">
+                        <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진" width="28px" height="28px"></div>
+                        <div id="userName">
+                            <a id="userNameLink">${voList.name}</a>
+                            <a>&nbsp ${voList.rankName}</a>
+                        </div>
+                        <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
+                        <div id="date"><a>${voList.enrollDate}</a></div>
+                        <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.suggestionNo}');">삭제</button></div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
 
         <div id="btnArea">
             <div id="btn02">
-                <button>목록</button>
+                <button onclick="goHome();">목록</button>
             </div>
         </div>
     </div>
 
 </body>
 </html>
+<script>
+    function goHome(){
+        location.href = '${root}/admin/suggestion/list';
+    }
+
+      //댓글 태그기능
+      document.addEventListener('DOMContentLoaded', function () {
+        var userNameLinks = document.querySelectorAll('#userNameLink');
+        var inputField = document.querySelector('input[name="content"]');
+
+        userNameLinks.forEach(function (userNameLink) {
+            userNameLink.addEventListener('click', function () {
+                inputField.value += '@' + userNameLink.innerHTML;
+            });
+        });
+    });
+    
+    //댓글태그 기능달면 글씨 굵게
+    document.addEventListener('DOMContentLoaded', function () {
+        highlightMentions();
+
+        function highlightMentions() {
+            var replyContents = document.querySelectorAll('.new-reply');
+            var pattern = /@[^\s]+/g;
+
+            replyContents.forEach(function(replyContent) {
+                var matchedText = replyContent.innerHTML.match(pattern);
+
+                if (matchedText) {
+                    for (var i = 0; i < matchedText.length; i++) {
+                        var boldText = matchedText[i].substring(1);
+                        var originalText = replyContent.innerHTML;
+                        var updatedText = originalText.replace(new RegExp("@" + boldText, "g"), '<span style="font-weight: 600; color: #5189FA;">@' + boldText + '</span>');
+                        replyContent.innerHTML = updatedText;
+                    }
+                }
+            });
+        }
+
+        function onReplyRegistered() {
+            highlightMentions();
+        }
+
+        function handleReplySubmit() {
+            onReplyRegistered();
+        }
+
+    });
+
+    //댓글 삭제
+    function deleteReply(no, suggestionNo){
+        if(confirm("댓글을 삭제하시겠습니까?")){
+            $.ajax({
+                url : "${root}/admin/suggestion/replyDelete",
+                type : "POST",
+                data : {
+                    no : no,
+                    suggestionNo : suggestionNo
+                },
+                success : function(){
+                    location.reload();
+                },
+                error : function(){
+                    location.reload();
+                }
+            })
+        }
+        return;
+    }
+
+    //게시글 복사
+     function suggestionCopy(no) {
+        const result = confirm("해당 게시글을 복사하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+       
+        $.ajax({
+            url : '${root}/admin/suggestion/copy',
+            type : 'POST',
+            traditional: true,
+            data : {
+                no: no
+            },
+            success : function(){
+                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+            },
+            error : function(err){
+                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+            }
+        })
+    };
+
+    //게시글 삭제
+    function suggestionDelete(no) {
+        const result = confirm("선택한 게시글을 삭제하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
+        $.ajax({
+            url : '${root}/admin/suggestion/delete',
+            type : 'POST',
+            traditional: true,
+            data : {
+              no : no  
+            },
+            success : function(){
+                alert("게시글이 삭제되었습니다.");
+                location.href = '${root}/admin/suggestion/list'
+            },
+            error : function(err){
+                alert("게시글이 삭제되었습니다.");
+                location.href = '${root}/admin/suggestion/list'
+            }
+        })
+    };
+
+    //공지사항으로 등록
+    function noticeEnroll(no){
+        if(!confirm("해당 게시글을 공지사항으로 등록하시겠습니까?")){
+            return;
+        }
+
+        $.ajax({
+            url : '${root}/admin/suggestion/noticeEnroll',
+            type : 'POST',
+            traditional: true,
+            data : {
+              no : no  
+            },
+            success : function(){
+                if(confirm("공지사항으로 등록되었습니다. 확인을 누르면 공지사항 목록으로 이동합니다.")){
+                    location.href = "${root}/admin/notice/list"
+                }else{
+                    location.reload();
+                }
+            },
+            error : function(err){
+                if(confirm("공지사항으로 등록되었습니다. 확인을 누르면 공지사항 목록으로 이동합니다.")){
+                    location.href = "${root}/admin/notice/list"
+                }else{
+                    location.reload();
+                }
+            }
+        })
+    }
+</script>

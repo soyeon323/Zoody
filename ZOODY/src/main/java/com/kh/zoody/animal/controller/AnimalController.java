@@ -39,7 +39,7 @@ public class AnimalController {
 	//동물 등록
 	@GetMapping("enroll")
 	public String animalEnroll() {
-		return "animal/enroll";
+		return "animal/list";
 	}
 	
 	//동물 등록
@@ -93,7 +93,7 @@ public class AnimalController {
 		
 		
 		model.addAttribute("map",map);
-		return "animal/list";
+		return "animal/training-list";
 	}
 
 	//동물 상세 조회
@@ -190,7 +190,7 @@ public class AnimalController {
 		map.put("pv", pv);
 		
 		model.addAttribute("map",map);
-		return "animal/health-list";
+		return "animal/list";
 		}
 	
 	
@@ -217,7 +217,8 @@ public class AnimalController {
 		}
 		
 		model.addAttribute("hvo",hvo);
-		return "animal/health-detail";
+    
+		return "animal/list";
 	}
 	
 	//동물 폐사 처리
@@ -229,6 +230,7 @@ public class AnimalController {
 			throw new RuntimeException();
 		}
 		return "redirect:/animal/list?page=1";
+
 	}
 
 	

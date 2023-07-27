@@ -218,15 +218,31 @@ public class AdminController {
 	}
 	
 	//건의사항 상세조회
-	@RequestMapping("suggestion/detail")
+	@GetMapping("suggestion/detail")
 	public void suggestionDetail(String no, Model model) {
 		SuggestionVo vo = as.suggestionDetail(no);
+		List<ReplyVo> voList = as.selectSuggestionReply(no);
+		int replyCnt = as.suggestionReplyCnt(no);
 		
 		if(vo == null) {
 			throw new RuntimeException();
 		}
 		
 		model.addAttribute("vo", vo);
+		model.addAttribute("voList", voList);
+		model.addAttribute("replyCnt", replyCnt);
+	}
+	
+	//건의사항 댓글달기
+	@PostMapping("suggestion/detail")
+	public String suggestionReply(ReplyVo vo) {
+		int result = as.suggestionReply(vo);
+				
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/admin/suggestion/detail?no=" + vo.getSuggestionNo();
 	}
 	
 	//건의사항 복사
@@ -260,7 +276,7 @@ public class AdminController {
 		
 	}
 	
-	//댓글 삭제
+	//공지사항 댓글 삭제
 	@PostMapping("notice/replyDelete")
 	public String replyDelete(ReplyVo vo) {
 		int result = as.replyDelete(vo);
@@ -271,5 +287,15 @@ public class AdminController {
 		return "";
 	}
 	
-
+	//건의사항 댓글 삭제
+	@PostMapping("suggestion/replyDelete")
+	public String suggestionReplyDelete(@RequestParam Map<String, String> replyMap) {
+		int result = as.suggestionReplyDelete(replyMap);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "";
+	}
 }

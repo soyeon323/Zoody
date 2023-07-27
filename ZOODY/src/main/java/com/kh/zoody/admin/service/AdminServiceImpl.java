@@ -134,7 +134,32 @@ public class AdminServiceImpl implements AdminService{
 	//건의사항 상세조회
 	@Override
 	public SuggestionVo suggestionDetail(String no) {
+		dao.suggestionIncreaseHit(sst, no);
 		return dao.suggestionDetail(sst, no);
+	}
+
+	//건의사항 댓글달기
+	@Override
+	public int suggestionReply(ReplyVo vo) {
+		return dao.suggestionReply(sst, vo);
+	}
+
+	//건의사항 댓글 화며 보여주기
+	@Override
+	public List<ReplyVo> selectSuggestionReply(String no) {
+		return dao.selectSuggestionReply(sst, no);
+	}
+
+	//건의 사항 댓글 수
+	@Override
+	public int suggestionReplyCnt(String no) {
+		return dao.suggestionReplyCnt(sst, no);
+	}
+
+	//건의사항 댓글 삭제
+	@Override
+	public int suggestionReplyDelete(Map<String, String> replyMap) {
+		return dao.suggestionReplyDelete(sst, replyMap);
 	}
 	
 }

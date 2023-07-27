@@ -206,7 +206,7 @@ input[type='text']::placeholder{
 /* 댓글영역 */
 #commentOk{
     margin-left: 50px;
-    margin-top: 30px;
+    margin-top: 10px;
     display: grid;
     grid-template-columns: 70px 130px 680px 120px 140px;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;

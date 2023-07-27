@@ -136,4 +136,34 @@ public class AdminDaoImpl implements AdminDao{
 		return sst.selectOne("suggestion.suggestionDetail", no);
 	}
 
+	//건의사항 상세조회시 조회수 증가
+	@Override
+	public int suggestionIncreaseHit(SqlSessionTemplate sst, String no) {
+		return sst.update("suggestion.suggestionIncreaseHit", no);
+	}
+
+	//건의사항 댓글달기
+	@Override
+	public int suggestionReply(SqlSessionTemplate sst, ReplyVo vo) {
+		return sst.insert("suggestion.suggestionReply", vo);
+	}
+
+	//건의사항 댓글 화면 보여주기
+	@Override
+	public List<ReplyVo> selectSuggestionReply(SqlSessionTemplate sst, String no) {
+		return sst.selectList("suggestion.selectSuggestionReply", no);
+	}
+
+	//건의사항 댓글 수
+	@Override
+	public int suggestionReplyCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("suggestion.suggestionReplyCnt", no);
+	}
+
+	//건의사항 댓글 삭제
+	@Override
+	public int suggestionReplyDelete(SqlSessionTemplate sst, Map<String, String> replyMap) {
+		return sst.update("suggestion.suggestionReplyDelete", replyMap);
+	}
+
 }
