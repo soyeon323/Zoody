@@ -22,10 +22,6 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
-
-    <% String no = request.getParameter("animalNo"); %> 
-
-    <p>전달된 no 값: <%= no %></p>
     <!-- summerNote -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <div id="wrap">
@@ -39,7 +35,7 @@
                     <textarea name="trainingTitle" id="t1" cols="30" rows="10"></textarea>
                   
                     <span>훈련 내용</span >
-                    <textarea name="trainingContent" id="summernote" cols="30" rows="10"></textarea>
+                    <div name="trainingContent" id="summernote" cols="30" rows="10"></div>
                 </div>
                 <div id="btn-area">
                     <input type="submit" value="등록"  class="btn-upload">

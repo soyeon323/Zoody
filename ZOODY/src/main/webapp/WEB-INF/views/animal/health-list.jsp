@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                        <c:forEach items="${map.animalHealthList}" var="animalHealthList">
-                        <tr onclick="trainingdetail('${animalHealthList.no}');">
+                        <tr onclick="healthDetail('${animalHealthList.no}');">
                             <td>${animalHealthList.no}</td>
                             <td>${animalHealthList.nickName}</td>
                             <td>${animalHealthList.stateOfHealth}</td>
@@ -95,40 +95,20 @@
 
 <script>
 
-    //훈련일지 작성
-    function trainingWrite(no){
-
-        location.href = "${root}/animal/training?animalNo="+no;
-
-        // $.ajax({
-        //     url : '${root}/animal/training',
-        //     method : 'GET',
-        //     data : {
-        //         no : 'no'
-        //     },
-        //     success : ()=>{
-        //         location.href = '${root}/animal/training?no='+no;
-        //     },
-        //     error : (e)=>{
-        //         location.href = '${root}/animal/training?no='+no;
-        //     }
-        // });
-    }
-
-    //훈련 일지 상세 조회
-    function trainingdetail(no){
-
+    //건강검진 일지 상세 조회
+    function healthDetail(no){
+        alert(no);
         $.ajax({
-            url : '${root}/animal/training/detail',
+            url : '${root}/animal/health/detail',
             method : 'GET',
-            // data : {
-            //     no : no
-            // },
+            data : {
+                no : no
+            },
             success : ()=>{
-                location.href = '${root}/animal/training/detail?no='+no;
+                location.href = '${root}/animal/health/detail?no='+no;
             },
             error : ()=>{
-                location.href = '${root}/animal/training/detail?no='+no;
+                location.href = '${root}/animal/health/detail?no='+no;
             }
         });
     }

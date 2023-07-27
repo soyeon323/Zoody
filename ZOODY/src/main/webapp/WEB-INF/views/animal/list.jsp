@@ -30,6 +30,15 @@
             <div id="firstDiv">
                 <a>현재 보유 동물 수 ${map.getAnimalListCnt}</a>
                 <form action="${root}/animal/list" method="GET">
+                    <select name="" id="">
+                        <option value="1">아프리카</option>
+                        <option value="2">유럽</option>
+                        <option value="3">중동</option>
+                        <option value="4">아시아</option>
+                        <option value="5">북아메리카</option>
+                        <option value="6">남아메리카</option>
+                        <option value="7">오세아니아</option>
+                    </select>
                     <input type="text" name="searchValue" placeholder="애칭 입력">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </form>
@@ -101,26 +110,6 @@
 </html>
 
 <script>
-
-    //훈련일지 작성
-    function trainingWrite(no){
-
-        location.href = "${root}/animal/training?no="+no;
-
-        // $.ajax({
-        //     url : '${root}/animal/training',
-        //     method : 'GET',
-        //     data : {
-        //         no : 'no'
-        //     },
-        //     success : ()=>{
-        //         location.href = '${root}/animal/training?no='+no;
-        //     },
-        //     error : (e)=>{
-        //         location.href = '${root}/animal/training?no='+no;
-        //     }
-        // });
-    }
 
     //동물 상세 조회
     function detail(no){
