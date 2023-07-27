@@ -6,9 +6,7 @@ import lombok.Data;
 public class WorkVo {
 
 	//업무행위자
-//	private String no; //업무번호
 	private String userNo;
-	
 	
 	//업무
 	private String workNo;
@@ -18,7 +16,6 @@ public class WorkVo {
 	private String workStatus;
 	
 	//checkList
-//	private String no; //업무번호
 	private String chaekListName;
 	private String checkListStatus;
 }

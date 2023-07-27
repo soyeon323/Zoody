@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="work">
+  
+  <insert id="workInsert">
+  	INSERT INTO ANIMAL_WORK
+		(
+		NO
+		, NAME
+		,CONTENT
+		,"DATE"
+		)
+		VALUES
+		(
+		 SEQ_ANIMAL_WORK_NO.NEXTVAL
+		 , #{workName}
+		 , #{workContent}
+		 , #{date}
+		)
+  </insert>
+  
+  <select id="getWorkNameAndDate" resultType="com.kh.zoody.work.vo.WorkVo">
+  	SELECT 
+	NO
+	,NAME
+	,CONTENT
+	,TO_CHAR("DATE",'YYYY-MM-DD') AS "DATE"
+	FROM ANIMAL_WORK
+  </select>
+  
+</mapper>
