@@ -42,7 +42,6 @@
            
             <div class="column1">
                 <h1>To-Do</h1>
-              
             </div>
 
             <div class="column2">
@@ -54,36 +53,42 @@
             </div>
          </div>
 
+
          <!-- 모달창1 -->
          <div id="my_modal">
            <h1>업무 할당</h1>
            <br>
            <div id="modal-area">
-               <input type="text" name="workName" placeholder="업무 명">
-               <!-- <input type="text" name="" placeholder="직원 명"> -->
-               <div id="btn-area">
-                   <button class="btn btn-primary" style="width: 30px;" id="plusBtn">+</button>
-                   <button class="btn btn-primary" style="width: 30px;" id="minusBtn">-</button>
-               </div>
-               
-               <fieldset>
-                <legend>업무 내용</legend>
+            <form action="${root}/work/insert" method="POST">
 
-               <!-- 여기에 들어가야함 -->
-               
-                </fieldset>
-            <div id="date">
-                마감날짜
-                <div id='calendar-container'>
-                    <div id='calendar'></div>
-                  </div>
-            </div>
-            <div id="btn-area"> 
-                <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="button" value="추가">
-            </div>
-            </div>
-           
-            <a class="modal_close_btn">닫기</a>
+                <input type="text" name="workName" placeholder="업무 명">
+                <!-- <input type="text" name="" placeholder="직원 명"> -->
+                <div id="btn-area">
+                    <button class="btn btn-primary" type="button" style="width: 30px;" id="plusBtn">+</button>
+                    <button class="btn btn-primary" type="button" style="width: 30px;" id="minusBtn">-</button>
+                </div>
+                
+                <fieldset>
+                 <legend>업무 내용</legend>
+                <!-- 
+                 여기에 들어가야함 
+                 여기에 추가된 인풋테그들과 체크박스들이    
+                 -->
+                 </fieldset>
+             
+            
+             </div>
+             <a class="modal_close_btn">닫기</a>
+             <div id="date">
+                 마감날짜
+                     <input type="date" name="date"/>
+             </div>
+             <div id="btn-area" style="margin-left: 400px;"> 
+                 <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
+             </div>
+
+            </form>
+              
         </div>
 
 
@@ -96,11 +101,10 @@
                 <!-- <input type="text" placeholder="직원 명"> -->
                 <fieldset id="fieldset">
                  <legend>업무 내용</legend>
-                    
+                    <!-- 여기에 보여야함 -->
                 </fieldset>
             </div>
             <div>마감 일시</div>
-            <button id="delete">삭제</button>
              <a class="modal_close_btn2">닫기</a>
          </div>
 
@@ -110,14 +114,13 @@
 
 <script>
 
-    //업무 모달창 삭제
    
     // 모달1
     function modal(id) {
         var zIndex = 9999;
         var modal = document.getElementById(id);
 
-        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+        // 닫기 버튼 처리
         modal.querySelector('.modal_close_btn').addEventListener('click', function() {
             modal.style.display = 'none';
         });
@@ -161,14 +164,30 @@
 
     // 추가 버튼 누르면 colum 에 추가됨 근데   /* 백엔드 작업할때 AJAX로 처리*/
     const addBtn = document.querySelector('#addBtn');
-    let divTagCnt = 1; // Initialize the divTagCnt variable
-    
+    let divTagCnt = 1; 
+
+
+        $.ajax({
+        url : '${root}/work/work',
+        method : 'POST',
+        data : {},
+        dataType : 'json',
+        success :(wv)=>{
+            if(wv ==='wv'){
+
+            }
+        },
+        error  :(e)=>{
+            console.log(e);
+        }
+    });
+
     addBtn.addEventListener('click', function() {
         let column = document.querySelector('.column1');
         let newDivTag = document.createElement('div');
         alert('추가 완료');
             newDivTag.setAttribute('class', 'list-group-item');
-            newDivTag.innerHTML = "추가된 업무들<br>마감일시" + divTagCnt;
+            newDivTag.innerHTML = "추가된 업무들<br>마감일시" + divTagCnt;  //여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함
             column.appendChild(newDivTag);
             divTagCnt++;
 
@@ -183,9 +202,6 @@
             var modal2 = document.getElementById('my_modal2');
             modal2.style.display = 'none';
         });
-
-
-
 
     function handleDivClick() {
         var modal2 = document.getElementById('my_modal2');
@@ -209,64 +225,6 @@
     });
 
 
-    // callender
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-
-    //캘린더
-    (function(){
-    $(function(){
-      // calendar element 취득
-      var calendarEl = $('#calendar')[0];
-      // full-calendar 생성하기
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        height: '400px', // calendar 높이 설정
-       
-        // 해더에 표시할 툴바
-        headerToolbar: {
-        
-        },
-        // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
-        editable: true, // 수정 가능?
-        selectable: true, // 달력 일자 드래그 설정가능
-        nowIndicator: true, // 현재 시간 마크
-        dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-        locale: 'ko', // 한국어 설정
-        eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-          console.log(obj);
-        },
-        eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-          console.log(obj);
-        },
-        eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
-          console.log(obj);
-        },
-        select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-          var title = prompt('Event Title:');
-          if (title) {
-            calendar.addEvent({
-              title: title,
-              start: arg.start,
-              end: arg.end,
-              allDay: arg.allDay
-            })
-          }
-          calendar.unselect()
-        }
-       
-      });
-      // 캘린더 랜더링
-      calendar.render();
-    });
-  })();
-  
-
-
  // 드래그 앤 드롭
  const columns = document.querySelectorAll(".column1,.column2,.column3");
     columns.forEach((column) => {
@@ -276,7 +234,7 @@
     });
 
 
-//    input +
+//  input +
    document.getElementById('plusBtn').addEventListener('click', function() {
         var fieldset = document.querySelector('fieldset');
 
