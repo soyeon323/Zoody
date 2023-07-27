@@ -84,4 +84,9 @@ public class AnimalService {
 	public List<HealthVo> animalHealthList(PageVo pv, String searchValue) {
 		return dao.animalHealthList(sst,pv,searchValue);
 	}
+
+	//동물 폐사 처리
+	public int animalDie(AnimalVo vo) {
+		return dao.animalDie(sst,vo);
+	}
 }

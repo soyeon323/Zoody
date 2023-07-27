@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -135,8 +134,7 @@
 			)
   	</insert>
   	
-  	<select id="animalDetail" resultType="com.kh.zoody.animal.vo.AnimalVo">
-  		
+  	<select id="animalDetail" resultType="AnimalVo">
   		    SELECT
 		    A.NO,
 		    A.PROFILE,
@@ -154,13 +152,7 @@
 		    E.ENDANGERED_RATING_NO,
 		    T.TASTE,
 		    H.HABITAT,
-		    E.ENDANGERED,
-            AHS.CONTENT,
-            AHS.STATE_OF_HEALTH,
-            AHS.DISEASE,
-            TO_CHAR(AHS.CHECKUP_DATE,'YYYY-MM-DD') AS CHECKUP_DATE,
-            AHS.LIFE_STYLE_MANAGEMENT
-            
+		    E.ENDANGERED
 		FROM
 		    ANIMAL A
 		JOIN
@@ -174,10 +166,8 @@
 		JOIN
 		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
         JOIN 
-            ANIMAL_HEALTH_SCREENING AHS ON A.NO = AHS.ANIMAL_NO
-        JOIN 
             DEPARTMENT D ON A.DEPARTMENT_NO = D.NO
-		    WHERE A.NO = #{no}
+		    WHERE A.NO =#{no}
   	</select>
   	
   	<select id="animalHealth" resultType="com.kh.zoody.animal.health.vo.HealthVo">
@@ -219,9 +209,9 @@
   	<select id="animalTrainingDetail" resultType="com.kh.zoody.animal.vo.AnimalVo">
   	
   		 SELECT 
-		 TITLE
-		 ,CONTENT
-		 ,TO_CHAR("DATE" , 'YYYY-MM-DD') AS "DATE"
+		  TITLE AS TRAINING_TITLE
+		 ,CONTENT AS TRAINING_CONTENT
+		 ,TO_CHAR("DATE" , 'YYYY-MM-DD') AS TRAINING_DATE
 		 FROM ANIMAL_TRAINING
 		 WHERE TRAINING_NO= #{no}
 		 AND STATUS = 'O'
@@ -248,5 +238,10 @@
          </if>
          ORDER BY AHS.NO DESC
   	</select>
+  	
+  	<update id="animalDie">
+ 		 UPDATE ANIMAL SET STATUS = 'X'
+ 		 WHERE NO = #{no}
+  	</update>
   	
   </mapper>

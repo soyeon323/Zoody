@@ -28,7 +28,7 @@
                             <div class="profile-content">
 
                                 <c:if test="${empty loginMember}">
-                                    <div><img src="${root}/resources/svg/icons/edit.svg" alt=""></div>
+                                    <div><img src="${root}/resources/img/icon/svg/edit.svg" alt=""></div>
                                     <div>메세지</div>
                                     <div>부서</div>
                                     <div>이메일</div>
@@ -37,7 +37,7 @@
 
                                 <c:if test="${not empty loginMember}">
 
-                                    <div><img src="${root}/resources/svg/icons/edit.svg" alt=""></div>
+                                    <div><img src="${root}/resources/img/icon/svg/edit.svg" alt=""></div>
                                     <div>${loginMember.lineIntro}</div>
                                     <div>부서 추가 ㄱ</div>
                                     <div>${loginMember.mail}</div>
@@ -56,7 +56,7 @@
                     <%@ include file="/WEB-INF/views/common/fullcalendar.jsp" %>
                 </div>
                 <div class="area weather">
-                    <button onclick="getWeatherInfo()">날씨</button>
+                    <button onclick="getPosition()">날씨</button>
                     <button onclick="getPosition()"> 현재위치 </button>
                     <%@ include file="/WEB-INF/views/common/weather.jsp" %>
                 </div>
@@ -74,9 +74,9 @@
                 <div class="area chart">진행도</div>
                 <div class="area attendance">근태현황</div>
                 <div class="area community">
-                    커뮤니티
+                    <div class="community-header">커뮤니티</div>  
 
-                    <dis class="community-list-area">
+                    <div class="community-list-area">
 
                         <c:if test="${ empty boardList }">
 
@@ -100,7 +100,7 @@
 
                         </c:if>
 
-                    </dis>
+                    </div>
 
                     
 
@@ -108,7 +108,7 @@
 
                 </div>
                 <div class="area notice" id="notice">
-                    <img src="${root}/resources/svg/icons/notice.svg" alt="">
+                    <img src="${root}/resources/img/icon/svg/notice.svg" alt="">
                     <div>전직원 알림) 스미싱 스팸메일 열람주의</div>
                 </div>
             </div>

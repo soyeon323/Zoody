@@ -6,9 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="${root}/resources/css/animal/training.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${root}/resources/css/animal/health.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -19,25 +19,43 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <div id="wrap">
 
-        <div id="enroll">훈련 일지상세 조회</div>
+    <div id="wrap">
+        ${hvo}
+        <div id="enroll">동물 건강 정보 상세 조회</div>
+
+        <div id="chart">
+                <div id="enroll-btn">
+                    <label for="file">
+                    </label>
+                    <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
+                </div>
                 <div id="content-area">
+                    <div>검진일시 : ${hvo.checkupDate}</div>
+                    <div>건강검진 종합 소견</div>
                     <br>
-                    <span>제목</span>
-                    <textarea name="title" id="t1" cols="30" rows="10">${vo.trainingTitle}</textarea>
-                  
-                    <span>훈련 내용</span >
-                    <textarea name="content" cols="30" rows="10">${vo.trainingContent}</textarea>
+                    <span>유질환</span>
+                    <textarea name="" id="t1" cols="30" rows="10" style="">${hvo.disease}</textarea>
+                    <br>
+                    <span>생활 습관 관리</span>
+                    <textarea name="" id="t2" cols="30" rows="9">${hvo.lifeStyleManagement}</textarea>
+                    <br>
+                    <span>의사 소견</span>
+                    <textarea name="" id="t3" cols="30" rows="10">${hvo.stateOfHealth}</textarea>
                 </div>
-               
+
                 <div id="btn-area">
-                        <a href="${root}/animal/training/list?page=1"><div class="btn-upload">닫기</div></a>
+                        <div class="btn-upload" onclick="back()">닫기</div>
                 </div>
+              
         </div>
 
     </div>
 
 </body>
 </html>
+<script>
+  function back() {
+    location.href = "${root}/animal/health/list?page=1";
+  }
+</script>

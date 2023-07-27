@@ -24,5 +24,18 @@ public class HomeController {
 	
 	private final CommuityService cs;
 
-	
+
+    @GetMapping
+    public String home(Model model) {
+        
+        cs.getBoardListByCount(5);
+        List<BoardVo> boardList = cs.getBoardListByCount(5);
+        
+        log.info(boardList.toString());
+        
+        model.addAttribute("boardList", boardList);
+        
+        return "home";
+    }
+
 }
