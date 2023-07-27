@@ -39,7 +39,7 @@ public class AnimalController {
 	//동물 등록
 	@GetMapping("enroll")
 	public String animalEnroll() {
-		return "animal/list";
+		return "animal/enroll";
 	}
 	
 	//동물 등록
@@ -93,7 +93,7 @@ public class AnimalController {
 		
 		
 		model.addAttribute("map",map);
-		return "animal/training-list";
+		return "animal/list";
 	}
 
 	//동물 상세 조회
@@ -136,7 +136,7 @@ public class AnimalController {
 		
 		
 		model.addAttribute("map",map);
-		return "animal/training-list";
+		return "animal/list";
 	}
 	
 	

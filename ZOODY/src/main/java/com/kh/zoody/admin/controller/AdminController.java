@@ -272,8 +272,7 @@ public class AdminController {
 		
 		if(result == 0) {
 			throw new RuntimeException();
-		}
-		
+		}	
 	}
 	
 	//공지사항 댓글 삭제
