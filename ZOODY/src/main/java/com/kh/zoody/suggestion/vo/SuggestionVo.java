@@ -15,7 +15,7 @@ public class SuggestionVo {
 	private String modifyDate;
 	private String originName;
 	private String changeName;
-	private String commnetYn;
+	private String commentYn;
 	private String rightclickYn;
 	private String boardLimit;
 	

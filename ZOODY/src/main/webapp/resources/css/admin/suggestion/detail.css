@@ -208,6 +208,20 @@ input[type='text']::placeholder{
     margin-left: 75px;
 }
 
+#noComment{
+    width: 1260px;
+    height: 355px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#noComment a{
+    font-size: 20px;
+    font-weight: 500;
+    color: #4876EF;
+}
+
 /* 목록으로 */
 #btnArea button{
     width: 160px;
