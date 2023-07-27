@@ -1,13 +1,12 @@
 #wrap{
-    width: 1920;
-    height: 921;
+    
     display: flex;
 }
 
 #grid-wrap {
     display: grid;
-    width: calc(100% - 270px);
-    height: 100%;
+    width: 1633;
+    height: 915;
     grid-template-columns: 1fr 1.2fr;
     grid-auto-rows: auto;
     gap: 20px;
@@ -15,6 +14,8 @@
     justify-content: space-evenly;
     align-items: stretch;
     color: #374957;
+    position: absolute;
+    left: 260px;
 }
 
 
@@ -103,11 +104,18 @@
 .area-gird-2{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.3fr 0.4fr 0.4fr 0.1fr;
+    grid-template-rows: 0.3fr 0.3fr 0.4fr 0.05fr;
     gap: 20px;
     margin: 20;
     margin-left: 0;
     margin-top: 50;
+}
+
+.area-gird-2 > div:not(#notice) {
+    display: grid;
+    grid-template-rows: 2fr 8fr;
+    justify-items: start;
+    align-items: start;
 }
 
 .schedule {
@@ -132,6 +140,15 @@
     align-items: start;
 }
 
+.community > .community-header {
+    grid-column: span 2;
+    width: calc(100% - 30px);
+    font-size: 22;
+    font-weight: 600;
+    justify-self: center;
+    align-self: center;
+}
+
 .community > .community-list-area {
     width: calc(100% - 30px);
     height: calc(100% - 30px);
@@ -150,11 +167,18 @@
     justify-items: center;
     align-items: center;
     vertical-align: middle;
+    color: #636567;
 }
 
 .community-list >div {
-    width: 100%;
-    height: 100%;
+    height: 16; 
+    overflow: hidden;
+}
+
+.community-list >div:nth-child(2) {
+    width: 90%;
+    justify-self: left;
+    margin-left: 20;
 }
 
 .community-list:hover {
@@ -165,7 +189,23 @@
 .notice{
     grid-column: 1 / span 2;
     grid-row: 4 / span 2;
+    font-size: 18;
+    font-weight: 500;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
 }
+
+.notice > img {
+    margin-left: 30;
+}
+
+.notice > div {
+    margin-left: 20;
+}
+
+
 
 
 /* profile */
@@ -216,12 +256,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    letter-spacing: 0.05em;
 }
 
 .profile-btns > a:hover {
     background-color: #4876efcc;
     color: #ffffffe3;
-    font-size: 14.5px;
+    font-size: 15.1px;
 }
 
 .profile-btns > a:nth-child(n+2):hover {
