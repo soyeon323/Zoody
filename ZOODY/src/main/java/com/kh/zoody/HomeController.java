@@ -24,6 +24,7 @@ public class HomeController {
 	
 	private final CommuityService cs;
 
+
     @GetMapping
     public String home(Model model) {
         
@@ -36,4 +37,5 @@ public class HomeController {
         
         return "home";
     }
+
 }

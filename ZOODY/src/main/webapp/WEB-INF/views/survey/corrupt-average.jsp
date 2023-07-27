@@ -111,12 +111,8 @@
             location.href = "${root}/corrupt/survey/";
         }
 
-
-
-
-        //부패도 평균 점수에 따라 원 태두리 색 변함
-        // 0~30  초록 31~60 주황 60~100 빨강 
-
+    //부패도 평균 점수에 따라 원 태두리 색 변함
+    // 0~30  초록 31~60 주황 60~100 빨강 
     function checkScoreColor() {
         var scoreElement = document.getElementById('avgScore');
         var score = parseFloat(scoreElement.innerText);

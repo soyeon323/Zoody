@@ -21,7 +21,7 @@
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
     <div id="wrap">
-
+        ${hvo}
         <div id="enroll">동물 건강 정보 상세 조회</div>
 
         <div id="chart">
@@ -31,20 +31,21 @@
                     <input type="file" name="f" id="file" accept=".jpg, .png, .jpeg">
                 </div>
                 <div id="content-area">
+                    <div>검진일시 : ${hvo.checkupDate}</div>
                     <div>건강검진 종합 소견</div>
                     <br>
                     <span>유질환</span>
-                    <textarea name="" id="t1" cols="30" rows="10"></textarea>
+                    <textarea name="" id="t1" cols="30" rows="10" style="">${hvo.disease}</textarea>
                     <br>
                     <span>생활 습관 관리</span>
-                    <textarea name="" id="t2" cols="30" rows="9"></textarea>
+                    <textarea name="" id="t2" cols="30" rows="9">${hvo.lifeStyleManagement}</textarea>
                     <br>
                     <span>의사 소견</span>
-                    <textarea name="" id="t3" cols="30" rows="10"></textarea>
+                    <textarea name="" id="t3" cols="30" rows="10">${hvo.stateOfHealth}</textarea>
                 </div>
 
                 <div id="btn-area">
-                        <div class="btn-upload">닫기</div>
+                        <div class="btn-upload" onclick="back()">닫기</div>
                 </div>
               
         </div>
@@ -54,5 +55,7 @@
 </body>
 </html>
 <script>
-  
+  function back() {
+    location.href = "${root}/animal/health/list?page=1";
+  }
 </script>
