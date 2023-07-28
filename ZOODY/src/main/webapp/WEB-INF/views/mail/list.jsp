@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Zoody</title>
-<link rel="stylesheet" href="${root}/resources/css/mail/folder/receive.css">
-<script defer src="${root}/resources/js/mail/folder/receive.js"></script>
+<link rel="stylesheet" href="${root}/resources/css/mail/list.css">
+<script defer src="${root}/resources/js/mail/list.js"></script>
 </head>
 <body>
 
@@ -21,7 +21,9 @@
 		
 			<div class="wrap-header">
 				<div class="wrap-title">메일</div>
-				<button class="send-mail-btn">메일 쓰기</button>
+				<a href="${root}/mail/write">
+					<button class="send-mail-btn">메일 쓰기</button>
+				</a>
 			</div>
 
 			<div class="wrap-main">
@@ -37,26 +39,26 @@
 					</div>
 
 					<div class="default-folder-list">
-						<button class="folder-btn all-mail-btn">
+						<a href="${root}/mail/list?folder=all" class="folder-btn all-mail-btn">
 							<img src="${root}/resources/img/icon/svg/all-mail.svg" alt="전체메일">
-							전체메일
-						</button>
-						<button class="folder-btn selected-folder-btn receive-mail-btn">
-							<img src="${root}/resources/img/icon/svg/receive-mail-selected.svg" alt="받은메일">
+							<div>전체메일</div>
+						</a>
+						<a href="${root}/mail/list?folder=receive" class="folder-btn receive-mail-btn">
+							<img src="${root}/resources/img/icon/svg/receive-mail.svg" alt="받은메일">
 							받은 메일함
-						</button>
-						<button class="folder-btn send-mail-list">
+						</a>
+						<a href="${root}/mail/list?folder=send" class="folder-btn send-mail-list">
 							<img src="${root}/resources/img/icon/svg/send-mail.svg" alt="보낸메일">
 							보낸 메일함
-						</button>
-						<button class="folder-btn tome-mail-btn">
+						</a>
+						<a href="${root}/mail/list?folder=to-me" class="folder-btn tome-mail-btn">
 							<img src="${root}/resources/img/icon/svg/to-me-mail.svg" alt="내게쓴메일">
 							내게 쓴 메일함
-						</button>
-						<button class="folder-btn dump-mail-btn">
+						</a>
+						<a href="${root}/mail/list?folder=dump" class="folder-btn dump-mail-btn">
 							<img src="${root}/resources/img/icon/svg/dump-mail.svg" alt="휴지통">
 							휴지통
-						</button>
+						</a>
 					</div>
 
 					<div class="custom-list-header">
@@ -103,15 +105,16 @@
 						<div class="list-table-header">
 							<div class="table-header-btns">
 								<input type="checkbox" name="selectAll" id="select-all" class="check-btn">
-								<button class="header-btn">읽음</button>
-								<button class="header-btn">삭제</button>
+								<button class="header-btn read-check-btn">읽음</button>
+								<button class="header-btn dump-btn">삭제</button>
 							</div>
 						</div>
-						
+
 						<c:forEach items="${mailVoList }" var="mailVo">
 							<div class="table-data">
 								<div class="check-btn-area">
-									<input type="checkbox" class="small-check-btn">
+									<input type="checkbox" name="mailcheck" class="small-check-btn">
+									<label for="mailcheck" id="${mailVo.no}"></label>
 								</div>
 								<div class="add-bookmark-area">
 									<button class="add-bookmark-btn">
@@ -119,7 +122,12 @@
 									</button>
 								</div>
 								<div class="read-check-icon">
-									<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
+									<c:if test="${mailVo.readCheck eq 'X'}">
+										<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
+									</c:if>
+									<c:if test="${mailVo.readCheck eq 'O'}">
+										<img src="${root}/resources/img/icon/svg/read-mail.svg" alt="안읽음">
+									</c:if>
 								</div>
 								<div class="attachment-check-icon">
 									<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
@@ -128,7 +136,9 @@
 									${mailVo.senderName} &lt ${mailVo.senderMail } &gt
 								</div>
 								<div class="mail-title">
-									${mailVo.title}
+									<a href="${root}/mail/detail?no=${mailVo.no}">
+										${mailVo.title}
+									</a>
 								</div>
 								<div class="send-date">
 									${mailVo.sendDate}

@@ -15,4 +15,8 @@ public class MailVo {
 	
 	private String senderName;
 	private String senderMail;
+	
+	private String readCheck;
+	private String deleteCheck;
+	private String receiverNo;
 }

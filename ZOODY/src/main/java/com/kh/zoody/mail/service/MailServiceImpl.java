@@ -1,7 +1,8 @@
 package com.kh.zoody.mail.service;
 
 import java.util.List;
-
+import java.util.Map;
+import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,18 +47,40 @@ public class MailServiceImpl implements MailService{
 	}
 	
 	
+	// 모든 메일 가져오기( 읽은거 안읽은거 받은거 참조인거 )
+	@Override
+	public List<MailVo> getAllMail(String mail) {
+		return mailDao.getAllMail(mail, sqlSessionTemplate);
+	}
+	
+	
 	// 받은 메일 가져오기 (참조 제외)
 	@Override
-	public List<MailVo> getReceiveMail(
-			String receiverEmail){
+	public List<MailVo> getReceiveMail(String receiverEmail){
 		return mailDao.getReceiveMail(receiverEmail, sqlSessionTemplate);
 	}
+	
+	// 보낸 메일 가져오기
+	@Override
+	public List<MailVo> getSendMail(String mail) {
+		return mailDao.getSendMail(mail, sqlSessionTemplate);
+	}
 
+	
+	// 나에게 쓴 메일 가져오기
+	public List<MailVo> getToMeMail(String mail){
+		return mailDao.getToMeMail(mail, sqlSessionTemplate);
+	}
 	
 	// 메일 번호의 메일 상세 정보 가져오기
 	@Override
 	public MailVo getMailDetailByNo(String no) {
 		return mailDao.getMailDetailByNo(no, sqlSessionTemplate);
+	}
+	// 상세보기한 메일 읽음 체크
+	@Override
+	public int readCheck(Map<String, String> readMail) {
+		return mailDao.readCheck(readMail, sqlSessionTemplate);
 	}
 
 	
@@ -72,6 +95,19 @@ public class MailServiceImpl implements MailService{
 	@Override
 	public List<UserVo> getMailCcByMailNo(String no) {
 		return mailDao.getMailCcByMailNo(no, sqlSessionTemplate);
+	}
+
+	
+	// 메일 리스트 읽음 처리
+	@Override
+	public int mailListReadCheck(List<Map<String, String>> selectedToReadMailNoList) {
+		return mailDao.mailListReadCheck(selectedToReadMailNoList, sqlSessionTemplate);
+	}
+	
+	
+	// 메일 리스트 삭제
+	public int mailListDump(List<Map<String, String>> selectedToDumpMailNoList) {
+		return mailDao.mailListDump(selectedToDumpMailNoList, sqlSessionTemplate);
 	}
 
 }

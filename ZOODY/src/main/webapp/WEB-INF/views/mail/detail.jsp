@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Zoody</title>
 <link rel="stylesheet" href="${root}/resources/css/mail/detail.css">
+<script defer src="${root}/resources/js/mail/detail.js"></script>
 </head>
 <body>
 
@@ -36,26 +37,26 @@
 					</div>
 
 					<div class="default-folder-list">
-						<button class="folder-btn all-mail-btn">
+						<a href="${root}/mail/list?folder=all" class="folder-btn all-mail-btn">
 							<img src="${root}/resources/img/icon/svg/all-mail.svg" alt="전체메일">
-							전체메일
-						</button>
-						<button class="folder-btn selected-folder-btn receive-mail-btn">
-							<img src="${root}/resources/img/icon/svg/receive-mail-selected.svg" alt="받은메일">
+							<div>전체메일</div>
+						</a>
+						<a href="${root}/mail/list?folder=receive" class="folder-btn receive-mail-btn">
+							<img src="${root}/resources/img/icon/svg/receive-mail.svg" alt="받은메일">
 							받은 메일함
-						</button>
-						<button class="folder-btn send-mail-list">
+						</a>
+						<a href="${root}/mail/list?folder=send" class="folder-btn send-mail-list">
 							<img src="${root}/resources/img/icon/svg/send-mail.svg" alt="보낸메일">
 							보낸 메일함
-						</button>
-						<button class="folder-btn tome-mail-btn">
+						</a>
+						<a href="${root}/mail/list?folder=to-me" class="folder-btn tome-mail-btn">
 							<img src="${root}/resources/img/icon/svg/to-me-mail.svg" alt="내게쓴메일">
 							내게 쓴 메일함
-						</button>
-						<button class="folder-btn dump-mail-btn">
+						</a>
+						<a href="${root}/mail/list?folder=dump" class="folder-btn dump-mail-btn">
 							<img src="${root}/resources/img/icon/svg/dump-mail.svg" alt="휴지통">
 							휴지통
-						</button>
+						</a>
 					</div>
 
 					<div class="custom-list-header">

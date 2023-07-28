@@ -39,6 +39,8 @@
     background-color: rgb(72, 118, 239);
     border: 0px;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .wrap-main {
@@ -120,7 +122,10 @@
 
     align-self: baseline;
     display: flex;
+    align-items: center;
     gap: 20px;
+
+    line-height: 30px;
 
     font-size: 16px;
     font-weight: 400;
@@ -258,7 +263,6 @@
     width: 20px;
     height: 20px;
     
-    appearance: none;
     border: 1px solid rgb(53, 54, 54);
     border-radius: 5px;
 
@@ -298,11 +302,14 @@
     width: 17px;
     height: 17px;
     
-    appearance: none;
     border: 1px solid rgb(53, 54, 54);
     border-radius: 5px;
 
     cursor: pointer;
+}
+.small-check-btn:checked {
+    content: '✔';
+    color: rgb(72, 118, 239);
 }
 .add-bookmark-area {
     width: 80px;
