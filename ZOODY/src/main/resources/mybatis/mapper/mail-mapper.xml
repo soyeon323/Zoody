@@ -7,6 +7,7 @@
 <mapper namespace="mail">
 
 	<insert id="insertMail">
+	
 		<selectKey resultType="String" keyProperty="no" order="BEFORE">
 			SELECT SEQ_MAIL_NO.NEXTVAL
 			FROM DUAL
@@ -37,63 +38,145 @@
 	
 	
 	<insert id="insertRecipient" parameterType="java.util.List">
+	
 		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" " >
-		INTO MAIL_RECIPIENT
-		(
-		    MAIL_NO,
-		    RECEIVER_NO,
-		    READ_CHECK,
-		    BOOKMARK_CHECK,
-		    DELETE_CHECK
-		)
-		VALUES
-		(
-		    #{item.mailNo},
-		    (SELECT NO FROM "USER" WHERE MAIL = #{item.receiverNo}),
-		    DEFAULT,
-		    DEFAULT,
-		    DEFAULT
-		)
+			INTO MAIL_RECIPIENT
+			(
+			    MAIL_NO,
+			    RECEIVER_NO,
+			    READ_CHECK,
+			    BOOKMARK_CHECK,
+			    DELETE_CHECK
+			)
+			VALUES
+			(
+			    #{item.mailNo},
+			    (SELECT NO FROM "USER" WHERE MAIL = #{item.receiverNo}),
+			    DEFAULT,
+			    DEFAULT,
+			    DEFAULT
+			)
 		</foreach>
+		
 	</insert>
 	
 	
 	<insert id="insertCc" parameterType="java.util.List">
 	
+		
 		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" " >
-		INTO MAIL_CC
-		(
-		    MAIL_NO,
-			CC_NO,
-			BCC_CHECK
-		)
-		VALUES
-		(
-		    #{item.mailNo},
-		    (SELECT NO FROM "USER" WHERE MAIL = #{item.ccNo}),
-		    #{item.bccCheck}
-		)
+			INTO MAIL_CC
+			(
+			    MAIL_NO,
+				CC_NO,
+				BCC_CHECK
+			)
+			VALUES
+			(
+			    #{item.mailNo},
+			    (SELECT NO FROM "USER" WHERE MAIL = #{item.ccNo}),
+			    <choose>
+			    	<when test="item.bccCheck == null">default</when>
+			    	<when test="item.bccCheck != null">#{item.bccCheck}</when>
+			    </choose>
+			)
 		</foreach>
-	
+		
 	</insert>
+	
+	
+	<select id="getAllMail" resultType="MailVo">
+	
+		SELECT 
+		    M.NO,
+		    "USER".NAME AS SENDER_NAME,
+		    "USER".MAIL AS SENDER_MAIL,
+		    PREV_NO,
+		    MAILBOX_NO,
+		    TITLE,
+		    CONTENT,
+		    SEND_DATE,
+		    MAIL_RECIPIENT.READ_CHECK AS READ_CHECK,
+		    MAIL_RECIPIENT.DELETE_CHECK AS DELETE_CHECK,
+		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverMail})
+		    OR M.NO IN (
+		        SELECT MAIL_NO
+		        FROM MAIL_CC
+		        WHERE CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})        
+		    )
+		    AND DELETE_CHECK = 'X'
+	
+	</select>
 	
 	
 	<select id="getReceiveMailList" resultType="MailVo">
 		SELECT
-		    MAIL.NO,
+		    DISTINCT MAIL.NO,
 		    "USER".NAME AS SENDER_NAME,
-    		"USER".MAIL AS SENDER_MAIL,
+		    "USER".MAIL AS SENDER_MAIL,
+		    PREV_NO,
+		    MAILBOX_NO,
+		    TITLE,
+		    CONTENT,
+		    SEND_DATE,
+		    MAIL_RECIPIENT.READ_CHECK AS READ_CHECK,
+		    MAIL_RECIPIENT.DELETE_CHECK AS DELETE_CHECK,
+		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverMail})
+            AND DELETE_CHECK = 'X'
+	</select>
+	
+	
+	<select id="getSendMailList" resultType="MailVo">
+	
+		SELECT 
+		    M.NO,
+		    "USER".NAME AS SENDER_NAME,
+		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
 		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE
-		FROM MAIL
-		    JOIN "USER" ON MAIL.SENDER = "USER".NO
-		WHERE MAIL.NO IN ( SELECT MAIL.NO
-		            FROM MAIL_RECIPIENT
-		            WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverEmail})
-		            )
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		WHERE M.SENDER = ( 
+							SELECT NO 
+							FROM "USER" 
+							WHERE MAIL = #{mail} 
+						)
+	
+	</select>
+	
+	
+	<select id="getToMeMailList" resultType="MailVo">
+	
+		SELECT 
+		    M.NO,
+		    "USER".NAME AS SENDER_NAME,
+		    "USER".MAIL AS SENDER_MAIL,
+		    PREV_NO,
+		    MAILBOX_NO,
+		    TITLE,
+		    CONTENT,
+		    SEND_DATE,
+		    MAIL_RECIPIENT.READ_CHECK AS READ_CHECK,
+		    MAIL_RECIPIENT.DELETE_CHECK AS DELETE_CHECK,
+		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		WHERE M.SENDER = ( SELECT NO FROM "USER" WHERE MAIL = 'dlwlrma@zoody.co.kr' )
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = 'dlwlrma@zoody.co.kr')
+		    AND DELETE_CHECK = 'X'
+	
 	</select>
 	
 	
@@ -114,11 +197,21 @@
 	</select>
 	
 	
+	<update id="readCheck">
+		
+		UPDATE MAIL_RECIPIENT
+		SET READ_CHECK = 'O'
+		WHERE MAIL_NO = #{mailNo}
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{userMail})
+		
+	</update>
+	
+	
 	<select id="getMailRecipientByMailNo" resultType="UserVo">
 	
 		SELECT U.NAME, U.MAIL
 		FROM "USER" U
-		WHERE U.NO = (
+		WHERE U.NO IN (
 		    SELECT RECEIVER_NO
 		    FROM MAIL_RECIPIENT
 		    WHERE MAIL_NO = #{no}
@@ -131,14 +224,41 @@
 	
 		SELECT U.NAME, U.MAIL
 		FROM "USER" U
-		WHERE U.NO = (
+		WHERE U.NO IN (
 			    SELECT CC_NO
 			    FROM MAIL_CC
 			    WHERE MAIL_NO = #{no}
 			    AND BCC_CHECK = 'X'
 		    )
-		
-	
+		    
 	</select>
+  
+  
+  	<update id="mailListReadCheck">
+		
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_RECIPIENT
+			SET READ_CHECK = 'O'
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+  	
+  	</update>
+  	
+  	
+  	<update id="mailListDump">
+		
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_RECIPIENT
+			SET DELETE_CHECK = 'O'
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+  	
+  	</update>
   
 </mapper>

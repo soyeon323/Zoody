@@ -6,11 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Zoody</title>
-<link rel="stylesheet" href="${root}/resources/summernote/summernote-lite.css">
-<script defer src="${root}/resources/summernote/summernote-lite.js"></script>
-
-<link rel="stylesheet" href="${root}/resources/css/mail/write.css">
-<script defer src="${root}/resources/js/mail/write.js"></script>
+<link rel="stylesheet" href="${root}/resources/css/mail/detail.css">
+</head>
 <body>
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
@@ -23,6 +20,7 @@
 		
 			<div class="wrap-header">
 				<div class="wrap-title">메일</div>
+				<button class="send-mail-btn">메일 쓰기</button>
 			</div>
 
 			<div class="wrap-main">
@@ -77,70 +75,107 @@
 
 				</div>
 
-				<div class="mail-write-area">
-
-					<form class="mail-send-form" action="${root}/mail/send" method="post" enctype="multipart/form-data">
-
-						<div class="write-area-header">
-							<div class="header-title">메일 쓰기</div>
-							<input type="submit" class="send-mail-btn" value="메일 보내기"></input>
+				<div class="mail-list-area">
+					<div class="mail-list-header">
+						<div class="list-header-left">
+							<div class="list-header-title">
+								<button class="back-btn">
+									<img src="${root}/resources/img/icon/svg/right-direction.svg" alt="뒤로">
+								</button>
+								받은 메일함
+							</div>
+							<div class="unread-receive">
+								<div class="unread-count">{14}</div>
+								/
+								<div class="receive-count">{999}</div>
+							</div>
 						</div>
-	
-						<div class="mail-setting-area">
-	
-							<div class="receiver-setting">
-								<div class="setting-name">받는 사람</div>
-								<div class="receivers-area">
-									<div class="elems-area reciver-elems"></div>
-									<input type="text" class="setting-input-area receiver-input-area">
-								</div>
-								<button type="button" class="addressbook-btn">주소록</button>
-							</div>
-	
-							<div class="receiver-setting">
-								<div class="setting-name">참조</div>
-								<div class="cc-area">
-									<div class="elems-area cc-elems"></div>
-									<input type="text" class="setting-input-area cc-input-area">
-								</div>
-							</div>
-	
-							<div class="receiver-setting">
-								<div class="setting-name">숨은 참조</div>
-								<div class="bcc-area">
-									<div class="elems-area bcc-elems"></div>
-									<input type="text" class="setting-input-area bcc-input-area">
-								</div>
-							</div>
-	
-							<div class="receiver-setting">
-								<div class="setting-name">제목</div>
-								<input type="text" name="title" class="title-input-area">
-							</div>
-	
-							<div class="receiver-setting">
-								<div class="setting-name">첨부 파일</div>
-								<label class="attachment-label" for="attachment-file">내 PC</label>
-								<input class="add-attachment-input" name="attachmentFileList" id="attachment-file" type="file" multiple>
-							</div>
-							<div class="receiver-setting">
-								<div class="setting-name"></div>
-								<div class="attachment-list-area">
-	
-								</div>
-							</div>
+					</div>
 
+					<div class="mail-detail-area">
+
+						<div class="detail-header-bar">
+							<div class="reply-btn">답장</div>
+							<div class="delete-btn">삭제</div>
+							<div class="unread-btn">안읽음</div>
+							<div class="move-btn">
+								이동
+								<img src="${root}/resources/img/icon/svg/down-direction.svg" alt="확장">
+							</div>
 						</div>
 
+						<div class="detail-title-area">
+							<button class="bookmark-btn">
+								<img src="${root}/resources/img/icon/svg/star.svg" alt="중요">
+							</button>
+							<div class="mail-title">
+								${detailMailVo.title }
+							</div>
+						</div>
 
-						<!-- 메일 본문 -->
-						<div class="mail-content-area">
-							<textarea class="mail-content" id="summernote" name="content"></textarea>
+						<div class="sender-info">
+							<div class="mail-header-text">보낸 사람</div>
+							<div class="mail-sender">
+								${detailMailVo.sender }
+							</div>
+						</div>
+
+						<div class="receiver-info">
+							<div class="mail-header-text">받는 사람</div>
+							<div class="mail-receivers">
+							
+								<c:forEach items="${recipientUserVoList}" var="recipientUserVo" >
+									<div class="mail-receiver">${recipientUserVo.name } ( ${recipientUserVo.mail} )</div>
+								</c:forEach>
+								
+							</div>
+						</div>
+
+						<div class="cc-info">
+							<div class="mail-header-text">참조</div>
+							<div class="mail-cc-list">
+							
+								<c:forEach items="${ccUserVoList}" var="ccUserVo" >
+									<div class="mail-cc">${ccUserVo.name } ( ${ccUserVo.mail} )</div>
+								</c:forEach>
+								
+							</div>
+						</div>
+
+						<div class="send-date-info">
+							<div class="mail-header-text">보낸 날짜</div>
+							<div class="mail-send-date">${detailMailVo.sendDate }</div>
+						</div>
+
+						<div class="attachment-area">
+							<div class="attachment-text">첨부 파일</div>
+							<div class="attachment-elem">
+								<button class="download-attachment-btn">
+									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
+								</button>
+								<div class="attachment-name">
+									{ 2023년 하반기 퇴직희망자 명단.xlsx }
+								</div>
+							</div>
+							<div class="attachment-elem">
+								<button class="download-attachment-btn">
+									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
+								</button>
+								<div class="attachment-name">
+									{ 2023년 하반기 퇴직희망자 명단.hwp }
+								</div>
+							</div>
 						</div>
 						
 						
+						<div class="mail-content">
+						
+							${detailMailVo.content }
+						
+						</div>
+						
 
-					</form>
+					</div>
 
 				</div>
 

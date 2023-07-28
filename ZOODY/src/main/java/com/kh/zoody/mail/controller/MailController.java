@@ -2,8 +2,11 @@ package com.kh.zoody.mail.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.zoody.mail.service.MailService;
 import com.kh.zoody.mail.vo.MailRecipientVo;
 import com.kh.zoody.mail.vo.MailVo;
@@ -33,6 +38,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MailController {
 	
 	private final MailService mailService;
+	
+	private final Gson gson = new Gson();
 
 	@GetMapping("list")
 	public String mailList(HttpSession session, Model model, String folder) {
@@ -40,8 +47,16 @@ public class MailController {
 		UserVo loginUser = (UserVo) session.getAttribute("loginMember");
 		
 		List<MailVo> mailVoList = new ArrayList<>();
-		if("receive".equals(folder)) {
+		if("all".equals(folder)) {
+			mailVoList = mailService.getAllMail(loginUser.getMail());
+		} else if("receive".equals(folder)) {
 			mailVoList = mailService.getReceiveMail(loginUser.getMail());
+		} else if("send".equals(folder)) {
+			mailVoList = mailService.getSendMail(loginUser.getMail());
+		} else if("to-me".equals(folder)) {
+			mailVoList = mailService.getToMeMail(loginUser.getMail());
+		} else if("dump".equals(folder)) {
+			
 		}
 		
 		model.addAttribute(mailVoList);
@@ -69,6 +84,30 @@ public class MailController {
 		model.addAttribute("ccUserVoList", ccUserVoList);
 		return "mail/detail";
 	}
+	@GetMapping("detail/read")
+	public void readCheck(String no, HttpSession session, HttpServletResponse resp) {
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		String userMail = loginMember.getMail();
+		
+		Map<String, String> readMail = new HashMap<>();
+		readMail.put("userMail", userMail);
+		readMail.put("mailNo", no);
+		
+		int result = mailService.readCheck(readMail);
+		
+		String resultJson = gson.toJson(result);
+		
+		resp.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out;
+		try {
+			out = resp.getWriter();
+			out.write(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	@PostMapping("send")
 	public String mailSend(
@@ -89,7 +128,7 @@ public class MailController {
 				attachmentFileList, 
 				mailVo);
 		
-		return "redirect:/mail/list?folder=receive";
+		return "redirect:/mail/list?folder=send";
 	}
 	
 	@PostMapping("img/upload")
@@ -117,7 +156,67 @@ public class MailController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	
+	@PostMapping("selected/read")
+	public void selectedMailReadCheck(@RequestBody String ajaxData, HttpSession session, HttpServletResponse resp) {
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		String userMail = loginMember.getMail();
 		
+		Map<String, Object> ajaxDataMap = gson.fromJson(ajaxData, HashMap.class);
+		
+		String folder = (String) ajaxDataMap.get("folder");
+		
+		List<String> selectedMailNoList = (List<String>) ajaxDataMap.get("selectedMailNoArr");
+		
+		List<Map<String, String>> selectedToReadMailNoList = new ArrayList<>();
+		
+		for(int i = 0; i < selectedMailNoList.size(); i++) {
+			Map<String, String> tempMap = new HashMap<>();
+			tempMap.put("mailNo", selectedMailNoList.get(i));
+			tempMap.put("userMail", userMail);
+			selectedToReadMailNoList.add(tempMap);
+		}
+		
+		int result = mailService.mailListReadCheck(selectedToReadMailNoList);
+		
+		try {
+			resp.getWriter().write(Integer.toString(result));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	@PostMapping("selected/dump")
+	public void selectedMailDump(@RequestBody String ajaxData, HttpSession session, HttpServletResponse resp) {
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		String userMail = loginMember.getMail();
+		
+		Map<String, Object> ajaxDataMap = gson.fromJson(ajaxData, HashMap.class);
+		
+		String folder = (String) ajaxDataMap.get("folder");
+		
+		List<String> selectedMailNoList = (List<String>) ajaxDataMap.get("selectedMailNoArr");
+		
+		List<Map<String, String>> selectedToDumpMailNoList = new ArrayList<>();
+		
+		for(int i = 0; i < selectedMailNoList.size(); i++) {
+			Map<String, String> tempMap = new HashMap<>();
+			tempMap.put("mailNo", selectedMailNoList.get(i));
+			tempMap.put("userMail", userMail);
+			selectedToDumpMailNoList.add(tempMap);
+		}
+		
+		int result = mailService.mailListDump(selectedToDumpMailNoList);
+		
+		try {
+			resp.getWriter().write(Integer.toString(result));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -118,6 +118,8 @@
     width: 255px;
     height: 30px;
 
+    line-height: 30px;
+
     align-self: baseline;
     display: flex;
     gap: 20px;
