@@ -43,8 +43,8 @@ public class AttendanceDaoImpl implements AttendanceDao{
 
 	//관리자 목록 조회 영역
 	@Override
-	public int getAllAttendanceCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getAllAttendanceCnt");
+	public int getAllAttendanceCnt(SqlSessionTemplate sst, Map<String, String> paramMap) {
+		return sst.selectOne("attendance.getAllAttendanceCnt", paramMap);
 	}
 
 	@Override
@@ -83,14 +83,14 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	
 	//이의신청 조회 영역
 	@Override
-	public int getObjCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getObjCnt");
+	public int getObjCnt(SqlSessionTemplate sst, Map<String, String> paramMap) {
+		return sst.selectOne("attendance.getObjCnt", paramMap);
 	}
 
 	@Override
-	public List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv) {
+	public List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv, Map<String, String> paramMap) {
 		RowBounds rb = new RowBounds(objPv.getOffset(), objPv.getBoardLimit());
-		return sst.selectList("attendance.selectObjList", null, rb);
+		return sst.selectList("attendance.selectObjList", paramMap, rb);
 	}
 
 	//출퇴근 영역
@@ -155,7 +155,7 @@ public class AttendanceDaoImpl implements AttendanceDao{
 
 	@Override
 	public int getObjectionCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getObjectionCnt");
+	    return sst.selectOne("attendance.getObjectionCount");
 	}
 
 

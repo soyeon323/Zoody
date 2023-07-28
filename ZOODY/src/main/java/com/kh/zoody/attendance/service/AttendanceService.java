@@ -21,7 +21,7 @@ public interface AttendanceService {
 	int getLeaveCnt();
 
 	//관리자 전체 조회 영역	
-	int getAllAttendanceCnt();
+	int getAllAttendanceCnt(Map<String, String> paramMap);
 
 	List<AttendanceVo> allList(PageVo allPv, Map<String, String> paramMap);
 
@@ -37,9 +37,9 @@ public interface AttendanceService {
 	List<AttendanceVo> mainDeList();
 	
 	//이의신청 조회 영역
-	int getObjCnt();
+	int getObjCnt(Map<String, String> paramMap);
 
-	List<AttendanceVo> objList(PageVo objPv);
+	List<AttendanceVo> objList(PageVo objPv, Map<String, String> paramMap);
 
 	//출근퇴근 영역
 	int checkInWork(AttendanceVo attendanceVo);

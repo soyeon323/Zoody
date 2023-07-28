@@ -28,7 +28,7 @@
         <div id="obj_main">
             <!-- 맨 윗 줄 -->
             <div class="obj_count">
-              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="33 건">
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="${objectionCnt} 건">
                 이의신청 건수
               </button>
             </div>
@@ -40,26 +40,30 @@
                     <input type="date" name="" id="">
                 </div>
                 <div></div>
-                <div class="search-flex">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                      <option selected>전체</option>
-                      <option value="1">부서</option>
-                    </select>
-                    <div class="search-input">
-                      <input type="text" placeholder="내용을 입력하세요.">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <g clip-path="url(#clip0_409_10089)">
-                          <path d="M15.9999 15.0579L11.8252 10.8833C12.9096 9.55698 13.4428 7.86465 13.3144 6.15629C13.1861 4.44794 12.406 2.85427 11.1356 1.70493C9.86516 0.555594 8.20158 -0.0614848 6.48895 -0.0186636C4.77632 0.0241577 3.14566 0.723603 1.93426 1.935C0.72287 3.14639 0.0234252 4.77705 -0.019396 6.48968C-0.0622172 8.20232 0.554862 9.86589 1.7042 11.1363C2.85354 12.4067 4.44721 13.1868 6.15556 13.3152C7.86392 13.4435 9.55625 12.9103 10.8825 11.8259L15.0572 16.0006L15.9999 15.0579ZM6.66652 12.0006C5.61169 12.0006 4.58054 11.6878 3.70348 11.1018C2.82642 10.5157 2.14283 9.68277 1.73916 8.70823C1.3355 7.73369 1.22988 6.66134 1.43567 5.62677C1.64145 4.59221 2.14941 3.6419 2.89529 2.89602C3.64117 2.15014 4.59147 1.64219 5.62604 1.4364C6.6606 1.23061 7.73296 1.33623 8.7075 1.7399C9.68204 2.14356 10.515 2.82715 11.101 3.70421C11.6871 4.58127 11.9999 5.61242 11.9999 6.66725C11.9983 8.08125 11.4359 9.43689 10.436 10.4367C9.43615 11.4366 8.08052 11.999 6.66652 12.0006Z" fill="#A4A4A4"/>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_409_10089">
-                            <rect width="16" height="16" fill="white"/>
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
+                <form action="${root}/attendance/admin/objection">
+                  <div class="search-flex">
+                      <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="searchType">
+                        <option value="d.name">부서</option>
+                        <option value="u.name">사원명</option>
+                      </select>
+                      <div class="search-input">
+                        <input type="text" placeholder="내용을 입력하세요." name="searchValue">
+                        <button type="submit">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <g clip-path="url(#clip0_409_10089)">
+                              <path d="M15.9999 15.0579L11.8252 10.8833C12.9096 9.55698 13.4428 7.86465 13.3144 6.15629C13.1861 4.44794 12.406 2.85427 11.1356 1.70493C9.86516 0.555594 8.20158 -0.0614848 6.48895 -0.0186636C4.77632 0.0241577 3.14566 0.723603 1.93426 1.935C0.72287 3.14639 0.0234252 4.77705 -0.019396 6.48968C-0.0622172 8.20232 0.554862 9.86589 1.7042 11.1363C2.85354 12.4067 4.44721 13.1868 6.15556 13.3152C7.86392 13.4435 9.55625 12.9103 10.8825 11.8259L15.0572 16.0006L15.9999 15.0579ZM6.66652 12.0006C5.61169 12.0006 4.58054 11.6878 3.70348 11.1018C2.82642 10.5157 2.14283 9.68277 1.73916 8.70823C1.3355 7.73369 1.22988 6.66134 1.43567 5.62677C1.64145 4.59221 2.14941 3.6419 2.89529 2.89602C3.64117 2.15014 4.59147 1.64219 5.62604 1.4364C6.6606 1.23061 7.73296 1.33623 8.7075 1.7399C9.68204 2.14356 10.515 2.82715 11.101 3.70421C11.6871 4.58127 11.9999 5.61242 11.9999 6.66725C11.9983 8.08125 11.4359 9.43689 10.436 10.4367C9.43615 11.4366 8.08052 11.999 6.66652 12.0006Z" fill="#A4A4A4"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_409_10089">
+                                <rect width="16" height="16" fill="white"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </button>
+                      </div>
                   </div>
-            </div>
+                </form>
+              </div> 
             <div class="obj_table">
               <table class="table">
                 <thead>
@@ -99,9 +103,10 @@
 	                    <c:choose> 
 							<c:when test="${obj.approvalStatus == 0}">
                       <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-obj-objectionReason="${obj.objectionReason}">
                           확인하기
                         </button>
+                        
                         
                         <!-- Modal -->
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -112,7 +117,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <p>${obj.objectionReason}</p>
+                                <textarea name="" id="recipient-name" cols="30" rows="10"></textarea>
+                                <!-- <p>${obj.objectionReason}</p> -->
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -164,5 +170,113 @@
         $('[data-bs-toggle="popover"]').popover({container: "body"});
       });
     </script>
+
+    <script>
+      const searchValueTag = document.querySelector("input[name=searchValue]");
+      searchValueTag.value = '${paramMap.searchValue}';
+
+      const searchTypeTagArr = document.querySelectorAll("select[name=searchType] > option");
+
+      const x = '${paramMap.searchType}';
+      if (x == 'd.name') {
+        searchTypeTagArr[0].selected = true;
+      }else if(x == 'u.name') {
+        searchTypeTagArr[1].selected = true;
+      }
+    </script>
+
+    <!-- <script>
+      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
+      document.addEventListener("DOMContentLoaded", function() {
+        // "신청" 버튼들을 가져옵니다.
+        const toggleButtons = document.querySelectorAll(".toggle-button");
+
+        // 각 버튼에 이벤트 리스너를 추가
+        toggleButtons.forEach(button => {
+          button.addEventListener("click", function() {
+            // 버튼이 클릭된 행의 번호를 가져옴
+            const no = this.getAttribute("data-att-no");
+
+            $.ajax({
+              url : '${root}/attendance/admin/objection',
+              type : "GET",
+              data : {no : no},
+              success : function (result) {
+                  alert("제출 완료");
+                  location.reload();
+              },
+              error : function (error) {
+                alert("서버 오류");
+              }
+            })
+            
+          });
+        });
+      });
+    </script> -->
+
+    <!-- <script>
+      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
+      document.addEventListener("DOMContentLoaded", function() {
+        // "신청" 버튼들을 가져옵니다.
+        const toggleButtons = document.querySelectorAll(".toggle-button");
+
+        // 각 버튼에 이벤트 리스너를 추가
+        toggleButtons.forEach(button => {
+          button.addEventListener("click", function() {
+            const objectionReason = this.getAttribute("data-obj-data-obj-objectionReason");
+            
+            const modalBody = modal.querySelector('.modal-body');
+            modalBody.innerHTML = `<p>${rowData.objectionReason}</p>`;
+
+            // inputField.setAttribute("readonly", "readonly");
+          });
+        });
+      });
+    </script> -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+      const toggleButtons = document.querySelectorAll(".toggle-button");
+
+      toggleButtons.forEach(button => {
+        button.addEventListener("click", function() {
+          // 이벤트 리스너에서 모달 요소를 가져옵니다.
+          const modal = document.getElementById("staticBackdrop");
+          const objectionReason = this.getAttribute("data-obj-objectionReason");
+          
+          const textareaField = document.querySelector("#recipient-name");
+          textareaField.value = objectionReason;
+
+          textareaField.setAttribute("readonly", "readonly");
+        });
+      });
+    });
+    </script>
+
+<!-- <script>
+  // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
+  document.addEventListener("DOMContentLoaded", function() {
+    // "신청" 버튼들을 가져옵니다.
+    const toggleButtons = document.querySelectorAll(".toggle-button");
+
+    // 각 버튼에 이벤트 리스너를 추가
+    toggleButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        // 버튼이 클릭된 행의 번호를 가져옵니다.
+        const attNo = this.getAttribute("data-att-no");
+        
+        // 모달창 내의 input 요소
+        const inputField = document.querySelector("#recipient-name");
+        
+        // input 필드에 해당 행의 번호를 설정
+        inputField.value = attNo;
+
+        inputField.setAttribute("readonly", "readonly");
+      });
+    });
+  });
+</script> -->
+
 </body>
 </html>
