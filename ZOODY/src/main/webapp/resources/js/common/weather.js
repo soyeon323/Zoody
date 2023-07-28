@@ -17,7 +17,7 @@
 // });
 
 // 5초마다 getPosition 함수 호출
-let updayeWeatherInfo = setInterval(getPosition, 10000); // 5000 밀리초 = 5초
+let updayeWeatherInfo = setInterval(getPosition, 1000000); // 5000 밀리초 = 5초
 
 
 let result = null;
