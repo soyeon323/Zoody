@@ -51,8 +51,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public int getAllAttendanceCnt() {
-		return dao.getAllAttendanceCnt(sst);
+	public int getAllAttendanceCnt(Map<String, String> paramMap) {
+		return dao.getAllAttendanceCnt(sst, paramMap);
 	}
 
 
@@ -87,14 +87,14 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public int getObjCnt() {
-		return dao.getObjCnt(sst);
+	public int getObjCnt(Map<String, String> paramMap) {
+		return dao.getObjCnt(sst, paramMap);
 	}
 
 
 	@Override
-	public List<AttendanceVo> objList(PageVo objPv) {
-		return dao.objList(sst, objPv);
+	public List<AttendanceVo> objList(PageVo objPv, Map<String, String> paramMap) {
+		return dao.objList(sst, objPv, paramMap);
 	}
 
 

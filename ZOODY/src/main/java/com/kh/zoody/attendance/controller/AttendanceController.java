@@ -229,10 +229,10 @@ public class AttendanceController {
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회
-	@GetMapping("allList")
+	@GetMapping("admin/allList")
 	public String objection(Integer page, Model model, @RequestParam Map<String, String> paramMap) {
 		
-		int listCount = attService.getAllAttendanceCnt();
+		int listCount = attService.getAllAttendanceCnt(paramMap);
 		int currentPage = (page != null) ? page: 1;
 		
 		PageVo allPv = new PageVo(listCount, currentPage, 5, 10);
@@ -242,25 +242,33 @@ public class AttendanceController {
 		model.addAttribute("paramMap", paramMap);
 		
 		//이의신청 건수 카운팅
-		int objectionCnt = attService.getObjectionCnt();
-		
+		int objectionCnt = getObjectionCnt();
 		model.addAttribute("objectionCnt", objectionCnt);
 		
 		return "attendance/allList";
 	}
 	
 	@GetMapping("admin/objection")
-	public String adminObjection(Integer page, Model model){
+	public String adminObjection(Integer page, Model model, @RequestParam Map<String, String> paramMap){
 		
-		int listCount = attService.getObjCnt();
+		int listCount = attService.getObjCnt(paramMap);
 		int currentPage = (page != null) ? page: 1;
 		
 		PageVo objPv = new PageVo(listCount, currentPage, 5, 10);
-		List<AttendanceVo> objVoList = attService.objList(objPv);
+		List<AttendanceVo> objVoList = attService.objList(objPv, paramMap);
 		
 		model.addAttribute("objVoList", objVoList);
+		model.addAttribute("paramMap", paramMap);
+		
+		int objectionCnt = getObjectionCnt();
+		model.addAttribute("objectionCnt", objectionCnt);
 		
 		return "attendance/adminObjection";
+	}
+	
+	//이의신청 건수 카운팅
+	public int getObjectionCnt() {
+	    return attService.getObjectionCnt();
 	}
 
 }

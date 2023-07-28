@@ -159,6 +159,8 @@
 .obj_table{
     display: grid;
     grid-template-rows: auto 59px;
+    align-items: start;
+    justify-items: center;
 }
 
 .obj_table > .table{
@@ -251,5 +253,12 @@
     border-radius: 3px;
 }
 
-
 /* 테이블 css 깨진거 수정 */
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    vertical-align: middle;
+}

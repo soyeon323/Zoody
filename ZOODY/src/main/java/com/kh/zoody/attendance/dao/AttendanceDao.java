@@ -23,7 +23,7 @@ public interface AttendanceDao {
 	int getLeaveCnt(SqlSessionTemplate sst);
 
 	//관리자 전체 조회 영역
-	int getAllAttendanceCnt(SqlSessionTemplate sst);
+	int getAllAttendanceCnt(SqlSessionTemplate sst, Map<String, String> paramMap);
 
 	List<AttendanceVo> allList(SqlSessionTemplate sst, PageVo allPv, Map<String, String> paramMap);
 
@@ -44,9 +44,9 @@ public interface AttendanceDao {
 	List<AttendanceVo> mainDeList(SqlSessionTemplate sst);
 	
 	//이의신청 조회 영역
-	int getObjCnt(SqlSessionTemplate sst);
+	int getObjCnt(SqlSessionTemplate sst, Map<String, String> paramMap);
 
-	List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv);
+	List<AttendanceVo> objList(SqlSessionTemplate sst, PageVo objPv, Map<String, String> paramMap);
 
 	List<AttendanceVo> mainChartList(SqlSessionTemplate sst);
 

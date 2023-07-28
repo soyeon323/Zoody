@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/attendance/objection.css">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 <title>Document</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
         <div id="obj_main">
             <!-- 맨 윗 줄 -->
             <div class="obj_count">
-              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="${objectionCnt}건">
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-html="true" data-bs-content="<a href='${root}/attendance/admin/objection'>${objectionCnt} 건</a>">
                 이의신청 건수
               </button>
             </div>
@@ -40,7 +40,7 @@
                     <input type="date" name="enrolldate" id="">
                 </div>
                 <div></div>
-                <form action="${root}/attendance/allList">
+                <form action="${root}/attendance/admin/allList">
                 <div class="search-flex">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="searchType">
                       <option value="d.name">부서</option>
@@ -67,7 +67,7 @@
             <div class="obj_table">
               <table class="table">
                 <thead>
-                  <tr>
+                  <tr style="height: 30px;">
                     <th scope="col">#</th>
                     <th scope="col">날짜</th>
                     <th scope="col">부서</th>
