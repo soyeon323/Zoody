@@ -82,6 +82,12 @@
     font-weight: 300;
 }
 
+#content a p{
+    color: black;
+    font-size: 18px;
+    margin-left: 50px;
+}
+
 #content a{
     color: black;
     font-size: 18px;

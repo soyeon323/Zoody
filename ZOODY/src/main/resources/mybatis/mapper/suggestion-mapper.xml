@@ -225,4 +225,76 @@
 		WHERE SUGGESTION_NO = #{suggestionNo}
 		AND NO = #{no}
 	</update>
+	
+	<insert id="write">
+		INSERT INTO SUGGESTION
+		(
+			NO
+			, USER_NO
+			, TITLE
+			, CONTENT
+			, ENROLL_DATE
+			, HIT
+			, ORIGIN_NAME
+			, CHANGE_NAME
+			, COMMENT_YN
+			, RIGHTCLICK_YN
+			, BOARD_LIMIT	
+		)
+		VALUES
+		(
+			SEQ_SUGGESTION_NO.NEXTVAL
+			, 1
+			, #{title}
+			, #{content}
+			, SYSDATE
+			, 0
+			, #{originName}
+			, #{changeName}
+			, #{commentYn}
+			, #{rightclickYn}
+			, #{boardLimit}
+		)
+	</insert>
+	
+	<insert id="oneCopy">
+		INSERT INTO SUGGESTION
+		(
+		    NO
+		    , USER_NO
+		    , TITLE
+		    , CONTENT
+		    , ENROLL_DATE
+		    , STATUS
+		    , HIT
+		    , MODIFY_DATE
+		    , ORIGIN_NAME
+		    , CHANGE_NAME
+		    , COMMENT_YN
+		    , RIGHTCLICK_YN
+		    , BOARD_LIMIT
+		)
+		SELECT
+		    SEQ_SUGGESTION_NO.NEXTVAL
+		    , 1
+		    , TITLE
+		    , CONTENT
+		    , TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') AS ENROLL_DATE
+		    , STATUS
+		    , 0
+		    , MODIFY_DATE
+		    , ORIGIN_NAME
+		    , CHANGE_NAME
+		    , COMMENT_YN
+		    , RIGHTCLICK_YN
+		    , BOARD_LIMIT
+		FROM SUGGESTION
+		WHERE NO = #{no}
+	</insert>
+	
+	<update id="oneDelete">
+		UPDATE SUGGESTION
+		SET STATUS = 'X'
+		WHERE NO = #{no}
+	</update>
 </mapper>

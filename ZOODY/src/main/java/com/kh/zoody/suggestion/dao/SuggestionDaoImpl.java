@@ -64,4 +64,22 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		return sst.update("suggestion.suggestionReplyDelete", replyMap);
 	}
 
+	//건의사항 작성
+	@Override
+	public int write(SqlSessionTemplate sst, SuggestionVo vo) {
+		return sst.insert("suggestion.write", vo);
+	}
+
+	//건의사항 복사
+	@Override
+	public int copy(SqlSessionTemplate sst, String no) {
+		return sst.insert("suggestion.oneCopy", no);
+	}
+
+	//건의사항 삭제
+	@Override
+	public int delete(SqlSessionTemplate sst, String no) {
+		return sst.update("suggestion.oneDelete", no);
+	}
+
 }

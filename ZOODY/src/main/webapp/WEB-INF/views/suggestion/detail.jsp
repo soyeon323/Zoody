@@ -39,19 +39,16 @@
             <div>
                 <a>▶</a>
                 <a>게시글 주소 : </a>
-                <a>127.0.0.1:8888/${root}/suggestion/detail?no=${map.vo.no}</a>
+                <a>127.0.0.1:8888${root}/suggestion/detail?no=${map.vo.no}</a>
             </div>
             <div>
                 <a>▶</a>
                 <a>게시글 공개 설정 : </a>
-                <c:if test="${map.vo.boardLimit == 0}">
+                <c:if test="${map.vo.boardLimit == 1}">
                     <a>전체공개</a>
                 </c:if>
-                <c:if test="${map.vo.boardLimit == 1}">
-                    <a>관리자공개</a>
-                </c:if>
                 <c:if test="${map.vo.boardLimit == 2}">
-                    <a>비공개</a>
+                    <a>관리자·운영진공개</a>
                 </c:if>
             </div>
         </div>
@@ -63,15 +60,15 @@
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
-                <button onclick="suggestionCopy('${vo.no}');">복사</button>
+                <button onclick="suggestionCopy('${map.vo.no}');">복사</button>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
-                <button onclick="suggestionDelete('${vo.no}');">삭제</button>
+                <button onclick="suggestionDelete('${map.vo.no}');">삭제</button>
             </div>
             <div>
                 <img src="${root}/resources/img/icon/png/edit.png" alt="수정아이콘">
-                <button onclick="suggestionEdit('${vo.no}');">수정</button>
+                <button onclick="suggestionEdit('${map.vo.no}');">수정</button>
             </div>
         </div>
 
@@ -85,9 +82,9 @@
             </div>
             <div id="content">
                 <div>
-                    <a>${vo.content}</a>
-                    <c:if test="${!empty vo.changeName}">
-                        <div id="imageArea"><img src="${root}/resources/img/notice/${vo.changeName}" alt="" width="200px" height="200px"></div>
+                    <a>${map.vo.content}</a>
+                    <c:if test="${!empty map.vo.changeName}">
+                        <div id="imageArea"><img src="${root}/resources/img/suggestion/${map.vo.changeName}" alt="" width="200px" height="200px"></div>
                     </c:if>
                 </div>
                 <div id="contentDetail">
@@ -219,4 +216,54 @@
         }
         return;
     }
+
+    //게시글 복사
+    function suggestionCopy(no) {
+        const result = confirm("해당 게시글을 복사하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+       
+        $.ajax({
+            url : '${root}/suggestion/copy',
+            type : 'POST',
+            traditional: true,
+            data : {
+                no: no
+            },
+            success : function(){
+                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+            },
+            error : function(err){
+                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+            }
+        })
+    };
+
+    //게시글 삭제
+    function suggestionDelete(no) {
+        const result = confirm("선택한 게시글을 삭제하시겠습니까?");
+
+        if(!result){
+            return;
+        }
+
+        $.ajax({
+            url : '${root}/suggestion/delete',
+            type : 'POST',
+            traditional: true,
+            data : {
+              no : no  
+            },
+            success : function(){
+                alert("게시글이 삭제되었습니다.");
+                location.href = '${root}/suggestion/list'
+            },
+            error : function(err){
+                alert("게시글이 삭제되었습니다.");
+                location.href = '${root}/suggestion/list'
+            }
+        })
+    };
 </script>
