@@ -32,4 +32,12 @@
 	FROM ANIMAL_WORK
   </select>
   
+  <select id="getUserList" resultType="com.kh.zoody.work.vo.WorkVo">
+  	SELECT 
+	U.NAME AS USER_NAME
+	, D.NAME AS DEPT_NAME
+	FROM "USER" U
+	JOIN DEPARTMENT D ON U.DEPARTMENT_NO = D.NO
+  </select>
+  
 </mapper>
