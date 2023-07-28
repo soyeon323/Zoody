@@ -30,18 +30,19 @@
 <link rel="stylesheet" href="${root}/resources/css/work/work.css">
 </head>
 <body>
-    
+   
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
     <div id="wrap">
-        <div id="enroll">업무 할당</div>
+        <div id="enroll">업무 할당 </div>
         <button class="btn btn-primary" id="popup_open_btn">업무 추가</button>
 
         <div class="container">
            
             <div class="column1">
                 <h1>To-Do</h1>
+                
             </div>
 
             <div class="column2">
@@ -52,98 +53,27 @@
                <h1>Done</h1>
             </div>
          </div>
-         <!-- 
          
-         
-         김민지
-         강혜린
-         이혜인
-         민윤기
-         정호석
-         주호민
-         김태형
-         전정국
-         총무인
-         정보통
-         노동안
-         재무무
-         운영일
-         이경환
-         고지원
-         전시설
-         기화공
-         건시축
-         시안설
-         원운영
-         원운영
-         영양동
-         자학연
-         조오류
-         조오류
-         맹수연
-         도양이
-         대도우
-         이린어
-         이프아
-         유인혁
-         연태생
-         연석분
-         
-         
-         방여호 -->
 
          <!-- 모달창1 -->
          <div id="my_modal">
-           <h1>업무 할당</h1>
+         
+           <h1>업무 할당 </h1>
            <br>
            <div id="modal-area">
-                <input type="text" name="workName" id="workName" placeholder="업무 명">
+            <a class="modal_close_btn">닫기</a>
+s                <input type="text" name="workName" id="workName" placeholder="업무 명">
+                <br>
+                <br>
+                <input type="text" name="userName" id="agent" placeholder="직원 명">
                 <select id="showtimes" name="showtimes"> 
-                    <optgroup label="자연학습">
-                        <option value="titanic">오영택</option> 
-                        <option value="nd">김남준</option> 
-                        <option value="wab">유지민</option> 
-                    </optgroup> 
-                    <optgroup label="조류팀">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="남미팀">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="맹수팀">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="대동물">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="어린이 동물">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="아프리카">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="유인원">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="생태연구">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                    <optgroup label="분석연구">
-                        <option value="bkrw">병이리</option> 
-                        <option value="stf">진인요</option> 
-                    </optgroup>
-                     
+                    <c:forEach items="${vo}" var="vo">
+	                    <optgroup label="${vo.deptName}">
+	                        <option >${vo.userName}</option> 
+	                    </optgroup> 
+                    </c:forEach>
                 </select>
-                <input type="text" name="" id="agent" placeholder="직원 명">
-                <div id="btn-area">
+                <div id="btn-area" style="margin-left: 200px; margin-top: 20px;">
                     <button class="btn btn-primary" type="button" style="width: 30px;" id="plusBtn">+</button>
                     <button class="btn btn-primary" type="button" style="width: 30px;" id="minusBtn">-</button>
                 </div>
@@ -154,10 +84,11 @@
                 
                 </fieldset>
              </div>
-             <a class="modal_close_btn">닫기</a>
+             <br>
+             <br>
              <div id="date">
                  마감날짜
-                     <input type="date" name="date" id="date"/>
+                     <input type="date" name="endDate"/>
              </div>
              <div id="btn-area" style="margin-left: 400px;"> 
                  <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
@@ -182,17 +113,41 @@ document.getElementById('showtimes').addEventListener('change', function() {
     agentInput.value += selectedValue +',';
 });
 
+/////////////////////    여기서 업무이름 , 업무내용 , 업무수행자 , 마감일시 보내주기 인서트 완료하면   toDo에 내가방금추가했던 업무명과 마감일시가 보여야함              ////////////////////////////////////////
+const addBtn = document.getElementById('addBtn');
+addBtn.addEventListener('click' ,function () {
+
+    $.ajax({
+        url : '${root}/work/insert',
+        method : 'get',
+        data : {},
+        success : ()=>{
+
+        },
+        error : ()=>{
+            
+        }
+    });
 
 
-    // 추가 버튼 누르면 colum 에 추가됨 근데  
-    const addBtn = document.querySelector('#popup_open_btn');
+    
+});
+
+
+/////////////////////////////////////////////////////////////
+
+
+
+
+    // 추가 버튼 누르면 colum 에 추가됨 
+    const popBtn = document.querySelector('#popup_open_btn');
     let divTagCnt = 1; 
-    addBtn.addEventListener('click', function() {
+    popBtn.addEventListener('click', function() {
 
         let column = document.querySelector('.column1');
         let newDivTag = document.createElement('div');
             newDivTag.setAttribute('class', 'list-group-item');
-            newDivTag.innerHTML = "추가된 업무들<br>마감일시" + divTagCnt;  //여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함
+            newDivTag.innerHTML = "" + divTagCnt;  //여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
             column.appendChild(newDivTag);
             divTagCnt++;
 
@@ -260,9 +215,6 @@ document.getElementById('showtimes').addEventListener('change', function() {
 
         
     }
-
-
-
 
 
 // newDivTag 클릭 이벤트 리스너 추가

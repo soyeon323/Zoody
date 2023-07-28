@@ -7,12 +7,14 @@ public class WorkVo {
 
 	//업무행위자
 	private String userNo;
+	private String userName;
+	private String deptName;
 	
 	//업무
 	private String workNo;
 	private String workName;
 	private String workContent;
-	private String date;
+	private String endDate;
 	private String workStatus;
 	
 	//checkList
