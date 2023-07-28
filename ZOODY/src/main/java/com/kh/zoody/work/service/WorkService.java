@@ -1,5 +1,7 @@
 package com.kh.zoody.work.service;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +22,8 @@ public class WorkService {
 	private final SqlSessionTemplate sst;
 	
 	//업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가
-	public int workInsert(WorkVo vo) {
-		return dao.workInsert(sst , vo);
+	public int workInsert(Map paramMap) {
+		return dao.workInsert(sst , paramMap);
 	}
 
 	// 업무명과 마감일시 가져오기 AJAX로
