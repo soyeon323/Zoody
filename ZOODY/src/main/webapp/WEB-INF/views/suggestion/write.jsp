@@ -53,7 +53,7 @@
     
             <div id="fileArea">
                 <a>파일첨부</a>
-                <input type="file" name="f" multiple accept=".jpg, .png, .jpeg">
+                <input type="file" name="f" multiple accept=".jpg, .png, .jpeg" onchange="imgUpload(event)">
             </div>
 
             <div id="tempSave">

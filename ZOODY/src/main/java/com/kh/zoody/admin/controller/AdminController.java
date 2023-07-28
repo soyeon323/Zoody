@@ -228,7 +228,6 @@ public class AdminController {
 		if(vo == null) {
 			throw new RuntimeException();
 		}
-		
 		model.addAttribute("vo", vo);
 		model.addAttribute("voList", voList);
 		model.addAttribute("replyCnt", replyCnt);

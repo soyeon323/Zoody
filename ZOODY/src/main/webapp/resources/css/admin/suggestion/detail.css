@@ -219,7 +219,7 @@ input[type='text']::placeholder{
 #noComment a{
     font-size: 20px;
     font-weight: 500;
-    color: #4876EF;
+    margin-left: 5px;
 }
 
 /* 목록으로 */
