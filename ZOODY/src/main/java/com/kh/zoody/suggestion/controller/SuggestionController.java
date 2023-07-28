@@ -4,16 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
 import com.kh.zoody.suggestion.service.SuggestionService;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +63,11 @@ public class SuggestionController {
 	public void write() {}
 	
 	//건의사항 작성
+	@PostMapping("write")
+	public String write(NoticeVo vo, @RequestParam(value = "f", required = false) List<MultipartFile> fList, HttpServletRequest req) {
+		
+		return "";
+	}
 	
 	//건의사항 수정 화면
 	@GetMapping("edit")
@@ -65,8 +76,45 @@ public class SuggestionController {
 	//건의사항 수정
 	
 	//건의사항 상세조회
-	@RequestMapping("detail")
-	public String detail() {
-		return "suggestion/detail";
+	@GetMapping("detail")
+	public void detail(String no, Model model) {
+		SuggestionVo vo = ss.suggestionDetail(no);
+		
+		List<ReplyVo> voList = ss.selectSuggestionReply(no);
+		int replyCnt = ss.suggestionReplyCnt(no);
+		
+		if(vo == null) {
+			throw new RuntimeException();
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("vo", vo);
+		map.put("voList", voList);
+		map.put("replyCnt", replyCnt);
+		
+		model.addAttribute("map", map);
+	}
+	
+	//건의사항 댓글 달기
+	@PostMapping("detail")
+	public String suggestionReply(ReplyVo vo) {
+		log.info("vo : {}", vo);
+		int result = ss.suggestionReply(vo);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/suggestion/detail?no=" + vo.getSuggestionNo();
+	}
+	
+	//건의사항 댓글 삭제
+	@PostMapping("replyDelete")
+	public String suggestionReplyDelete(@RequestParam Map<String, String> replyMap) {
+		int result = ss.suggestionReplyDelete(replyMap);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "";
 	}
 }

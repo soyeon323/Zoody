@@ -174,41 +174,44 @@ input[type='text']::placeholder{
 /* 댓글영역 */
 #commentOk{
     margin-left: 50px;
-    margin-top: 30px;
+    margin-top: 5px;
     display: grid;
-    grid-template-columns: 70px 130px 720px 100px 370px;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 70px 130px 850px 130px 200px;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#commentOk a:hover{
+    color: black;
 }
 
 #commentOk>div{
     display: flex;
     align-items: center;
+    margin-top: 7px;
 }
 
-#commentOk>div:nth-child(2), #commentOk>div:nth-child(3), #commentOk>div:nth-child(4),
-#commentOk>div:nth-child(2){
-    margin-bottom: 5px;
-}  
-
-#commentOk>div:nth-child(2)>a{
-    font-size: 18px;
-    font-weight: 600;
+#userNameLink:hover{
+    cursor: pointer !important;
+    color: #00CBA4 !important; 
 }
 
-#commentOk>div:nth-child(3)>a{
+#commentOk #userName{
+    font-weight: 400;
     font-size: 17px;
 }
 
-#commentOk>div:nth-child(4)>a{
-    font-size: 15px;
-    color: #9c9c9c;
+#commentOk #reply{
+    margin-left: 20px;
 }
 
-#commentOk>div:nth-child(5){
-    display: flex;
-    justify-self: end;
-    margin-right: 20px;
-    margin-bottom: 7px;
+#commentOk #date{
+    color: #949494;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+#commentOk #deleteArea{
+    margin-left: 130px;
 }
 
 /* 목록으로 */
@@ -255,3 +258,21 @@ input[type='text']::placeholder{
     margin-left: 8px;
 }
 
+button{
+    border: none;
+    background: none;
+}
+
+#noComment{
+    width: 1498px;
+    height: 355px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#noComment a{
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 5px;
+}

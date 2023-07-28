@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.reply.vo.ReplyVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 @Repository
 public class SuggestionDaoImpl implements SuggestionDao{
@@ -24,6 +26,42 @@ public class SuggestionDaoImpl implements SuggestionDao{
 	public List<NoticeVo> list(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap) {
 		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
 		return sst.selectList("suggestion.suggstionList", searchMap, rb);
+	}
+
+	//건의사항 상세조회 조회수 증가
+	@Override
+	public void increaseHit(SqlSessionTemplate sst, String no) {
+		sst.update("suggestion.suggestionIncreaseHit", no);
+	}
+
+	//건의사항 상세조회
+	@Override
+	public SuggestionVo suggestionDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("suggestion.suggestionDetail", no);
+	}
+
+	//건의사항 댓글 조회
+	@Override
+	public List<ReplyVo> selectSuggestionReply(SqlSessionTemplate sst, String no) {
+		return sst.selectList("suggestion.selectSuggestionReply", no);
+	}
+
+	//건의사항 댓글 갯수
+	@Override
+	public int suggestionReplyCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("suggestion.suggestionReplyCnt", no);
+	}
+
+	//건의사항 댓글 달기
+	@Override
+	public int suggestionReply(SqlSessionTemplate sst, ReplyVo vo) {
+		return sst.insert("suggestion.suggestionReply", vo);
+	}
+
+	//건의사항 댓글 삭제
+	@Override
+	public int suggestionReplyDelete(SqlSessionTemplate sst, Map<String, String> replyMap) {
+		return sst.update("suggestion.suggestionReplyDelete", replyMap);
 	}
 
 }

@@ -146,7 +146,7 @@
 		    , R.NAME AS RANK_NAME
 		    , S.TITLE
 		    , S.CONTENT
-		    , S.ENROLL_DATE
+		    , TO_CHAR(S.ENROLL_DATE, 'YYYY-MM-DD HH24:MI') AS ENROLL_DATE
 		    , S.STATUS
 		    , S.HIT
 		    , S.MODIFY_DATE
@@ -218,7 +218,7 @@
 		WHERE SUGGESTION_NO = #{no}
 		AND STATUS = 'O'
 	</select>
-	
+		
 	<update id="suggestionReplyDelete">
 		UPDATE REPLY
 		SET STATUS = 'X'
