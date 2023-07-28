@@ -36,4 +36,13 @@ public interface SuggestionDao {
 	//건의사항 댓글 삭제
 	int suggestionReplyDelete(SqlSessionTemplate sst, Map<String, String> replyMap);
 
+	//건의사항 작성
+	int write(SqlSessionTemplate sst, SuggestionVo vo);
+
+	//건의사항 복사
+	int copy(SqlSessionTemplate sst, String no);
+
+	//건의사항 삭제
+	int delete(SqlSessionTemplate sst, String no);
+
 }

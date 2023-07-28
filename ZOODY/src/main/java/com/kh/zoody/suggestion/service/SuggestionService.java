@@ -31,4 +31,13 @@ public interface SuggestionService {
 	//건의사항 댓글 삭제
 	int suggestionReplyDelete(Map<String, String> replyMap);
 
+	//건의사항 작성
+	int write(SuggestionVo vo);
+
+	//건의사항 복사
+	int copy(String no);
+
+	//건의사항 삭제
+	int delete(String no);
+
 }

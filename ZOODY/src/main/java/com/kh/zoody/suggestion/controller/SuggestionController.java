@@ -1,8 +1,11 @@
 package com.kh.zoody.suggestion.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,9 +67,32 @@ public class SuggestionController {
 	
 	//건의사항 작성
 	@PostMapping("write")
-	public String write(NoticeVo vo, @RequestParam(value = "f", required = false) List<MultipartFile> fList, HttpServletRequest req) {
+	public String write(SuggestionVo vo, @RequestParam(value = "f", required = false) List<MultipartFile> fList, HttpServletRequest req) throws Exception {
+		MultipartFile firstFile = fList.get(0);
+		String fileName = null;
+		String extension = "";
+		  // 파일 첨부가 있을 때만 처리
+	    if (!firstFile.isEmpty()) {
+	        for (MultipartFile f : fList) {
+	            String savePath = req.getServletContext().getRealPath("/resources/img/suggestion/");
+	            String originalFilename = f.getOriginalFilename();
+	            if (originalFilename != null && originalFilename.contains(".")) {
+	                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	            }
+	            fileName = UUID.randomUUID().toString() + extension;
+	            String path = savePath + fileName;
+	            File target = new File(path);
+	            f.transferTo(target);
+	            break;
+	        }
+	        vo.setChangeName(fileName);
+	    }
+		int result = ss.write(vo);
 		
-		return "";
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "redirect:/suggestion/list";
 	}
 	
 	//건의사항 수정 화면
@@ -116,5 +142,25 @@ public class SuggestionController {
 			throw new RuntimeException();
 		}
 		return "";
+	}
+	
+	//건의사항 복사
+	@PostMapping("copy")
+	public void copy(String no) {
+		int result = ss.copy(no);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+	}
+	
+	//건의사항 삭제
+	@PostMapping("delete")
+	public void delete(String no) {
+		int result = ss.delete(no);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
 	}
 }

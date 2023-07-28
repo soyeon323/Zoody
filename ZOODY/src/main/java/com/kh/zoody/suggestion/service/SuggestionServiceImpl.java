@@ -64,4 +64,22 @@ public class SuggestionServiceImpl implements SuggestionService{
 	public int suggestionReplyDelete(Map<String, String> replyMap) {
 		return dao.suggestionReplyDelete(sst, replyMap);
 	}
+
+	//건의사항 작성
+	@Override
+	public int write(SuggestionVo vo) {
+		return dao.write(sst, vo);
+	}
+
+	//건의사항 복사
+	@Override
+	public int copy(String no) {
+		return dao.copy(sst, no);
+	}
+
+	//건의사항 삭제
+	@Override
+	public int delete(String no) {
+		return dao.delete(sst, no);
+	}
 }

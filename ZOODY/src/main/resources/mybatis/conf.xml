@@ -17,7 +17,7 @@
 		<typeAlias type="com.kh.zoody.user.vo.UserVo" alias="UserVo"/>
 		<typeAlias type="com.kh.zoody.attendance.vo.AttendanceVo" alias="AttendanceVo"/>
 		<typeAlias type="com.kh.zoody.mail.vo.MailVo" alias="MailVo"/>
-		<!-- <typeAlias type="com.kh.zoody.mail.vo.MailRecipientVo" alias="MailRecipientVo"/> -->
+		<typeAlias type="com.kh.zoody.mail.vo.MailRecipientVo" alias="MailRecipientVo"/>
 		<typeAlias type="com.kh.zoody.community.vo.BoardVo" alias="BoardVo"/>
 		<typeAlias type="com.kh.zoody.notice.vo.NoticeVo" alias="NoticeVo"/>
 		<typeAlias type="com.kh.zoody.suggestion.vo.SuggestionVo" alias="SuggestionVo"/>
