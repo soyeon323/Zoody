@@ -97,9 +97,42 @@ public class SuggestionController {
 	
 	//건의사항 수정 화면
 	@GetMapping("edit")
-	public void edit() {}
+	public void edit(String no, Model model) {
+		SuggestionVo vo = ss.selectEdit(no);
+		if(vo == null) {
+			throw new RuntimeException();
+		}
+		model.addAttribute("vo", vo);
+	}
 	
 	//건의사항 수정
+	@PostMapping("edit")
+	public String edit(SuggestionVo vo, @RequestParam(value = "f", required = false) List<MultipartFile> fList, HttpServletRequest req) throws Exception{
+		MultipartFile firstFile = fList.get(0);
+		String fileName = null;
+		String extension = "";
+		  // 파일 첨부가 있을 때만 처리
+	    if (!firstFile.isEmpty()) {
+	        for (MultipartFile f : fList) {
+	            String savePath = req.getServletContext().getRealPath("/resources/img/suggestion/");
+	            String originalFilename = f.getOriginalFilename();
+	            if (originalFilename != null && originalFilename.contains(".")) {
+	                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	            }
+	            fileName = UUID.randomUUID().toString() + extension;
+	            String path = savePath + fileName;
+	            File target = new File(path);
+	            f.transferTo(target);
+	        }
+	        vo.setChangeName(fileName);
+	    } 
+		int result = ss.edit(vo);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		return "redirect:/suggestion/detail?no=" + vo.getNo();
+	}
 	
 	//건의사항 상세조회
 	@GetMapping("detail")
@@ -123,7 +156,6 @@ public class SuggestionController {
 	//건의사항 댓글 달기
 	@PostMapping("detail")
 	public String suggestionReply(ReplyVo vo) {
-		log.info("vo : {}", vo);
 		int result = ss.suggestionReply(vo);
 		
 		if(result != 1) {
@@ -163,4 +195,5 @@ public class SuggestionController {
 			throw new RuntimeException();
 		}
 	}
+	
 }

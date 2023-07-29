@@ -45,4 +45,10 @@ public interface SuggestionDao {
 	//건의사항 삭제
 	int delete(SqlSessionTemplate sst, String no);
 
+	//건의사항 수정 화면
+	SuggestionVo selectEdit(SqlSessionTemplate sst, String no);
+
+	//건의사항 수정
+	int edit(SqlSessionTemplate sst, SuggestionVo vo);
+
 }
