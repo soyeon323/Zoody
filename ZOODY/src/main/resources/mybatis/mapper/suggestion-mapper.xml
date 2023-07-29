@@ -297,4 +297,38 @@
 		SET STATUS = 'X'
 		WHERE NO = #{no}
 	</update>
+	
+	<select id="selectEdit" resultType="SuggestionVo">
+		SELECT
+			NO
+			, USER_NO
+			, TITLE
+			, CONTENT
+			, ENROLL_DATE
+			, STATUS
+			, HIT
+			, MODIFY_DATE
+			, ORIGIN_NAME
+			, CHANGE_NAME
+			, COMMENT_YN
+			, RIGHTCLICK_YN
+			, BOARD_LIMIT
+		FROM SUGGESTION
+		WHERE NO = #{no}
+	</select>
+	
+	<update id="edit">
+		UPDATE SUGGESTION
+		<set>
+		MODIFY_DATE = SYSDATE,
+			<if test="title != null">TITLE = #{title},</if>
+			<if test="content != null">CONTENT = #{content},</if>
+			<if test="originName != null">ORIGIN_NAME = #{originName},</if>
+			<if test="changeName != null">CHANGE_NAME = #{changeName},</if>
+			<if test="rightclickYn != null">RIGHTCLICK_YN = #{rightclickYn},</if>
+			<if test="commentYn != null">COMMENT_YN = #{commentYn},</if>
+			<if test="boardLimit != null">BOARD_LIMIT = #{boardLimit},</if>
+		</set>
+		WHERE NO = #{no}
+	</update>
 </mapper>

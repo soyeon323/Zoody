@@ -266,4 +266,21 @@
             }
         })
     };
+
+    //게시글 수정
+    function suggestionEdit(no){
+        $.ajax({
+            url : '${root}/suggestion/edit',
+            type : 'GET',
+            data : {
+              no : no  
+            },
+            success : function(){
+                location.href = '${root}/suggestion/edit?no=' + no;
+            },
+            error : function(err){
+                location.href = '${root}/suggestion/edit?no=' + no;
+            }
+        })
+    };
 </script>

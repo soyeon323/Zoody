@@ -82,4 +82,16 @@ public class SuggestionDaoImpl implements SuggestionDao{
 		return sst.update("suggestion.oneDelete", no);
 	}
 
+	//건의사항 수정 화면
+	@Override
+	public SuggestionVo selectEdit(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("suggestion.selectEdit", no);
+	}
+
+	//건의사항 수정
+	@Override
+	public int edit(SqlSessionTemplate sst, SuggestionVo vo) {
+		return sst.update("suggestion.edit", vo);
+	}
+
 }

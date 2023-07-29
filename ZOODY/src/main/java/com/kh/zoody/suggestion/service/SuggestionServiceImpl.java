@@ -82,4 +82,16 @@ public class SuggestionServiceImpl implements SuggestionService{
 	public int delete(String no) {
 		return dao.delete(sst, no);
 	}
+
+	//건의사항 수정 화면
+	@Override
+	public SuggestionVo selectEdit(String no) {
+		return dao.selectEdit(sst, no);
+	}
+
+	//건의사항 수정
+	@Override
+	public int edit(SuggestionVo vo) {
+		return dao.edit(sst, vo);
+	}
 }

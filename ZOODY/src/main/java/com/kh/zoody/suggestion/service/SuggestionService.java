@@ -40,4 +40,10 @@ public interface SuggestionService {
 	//건의사항 삭제
 	int delete(String no);
 
+	//건의사항 수정 화면
+	SuggestionVo selectEdit(String no);
+
+	//건의사항 수정
+	int edit(SuggestionVo vo);
+
 }
