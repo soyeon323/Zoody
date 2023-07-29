@@ -112,6 +112,10 @@
 }
 
 /* 프로젝트생성 모달 */
+.modal input:focus{
+    outline: none;
+}
+
 .modal-content{ 
     height: 600px;
 }
@@ -249,4 +253,8 @@
 
 #pjContent>input:focus{
     outline: none;
+}
+
+#contentArea a:hover{
+    color: black;
 }
