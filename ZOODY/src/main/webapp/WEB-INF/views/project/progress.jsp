@@ -103,25 +103,22 @@
                             </div>
                             <div> 
                                 <div>
-                                    <a>참가자 : </a>
-                                <input type="text" name="user" placeholder="참가자를 입력하세요.">
-                                <button>추가</button>
+                                <a>참가자 : </a>
+                                <input type="text" name="user" placeholder="참가자를 입력하세요." list="user-options">
+                                <datalist id="user-options">
+                                    <c:forEach items="${voList}" var="voList">
+                                        <input type="hidden" value="${voList.no}" name="realno">
+                                        <option value="${voList.name}_${voList.rankName}">
+                                    </c:forEach>
+                                </datalist>
+                                  
+                                <button onclick="addUser();" type="button">추가</button>
                             </div> 
-                            <div>
-                                <a>김철수_대리</a>
+                            <div id="userNameArea">
+                                <a></a>
                                 <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <g clip-path="url(#clip0_1067_8751)">
-                                            <path d="M24 1.414L22.586 0L12 10.586L1.414 0L0 1.414L10.586 12L0 22.586L1.414 24L12 13.414L22.586 24L24 22.586L13.414 12L24 1.414Z" fill="#00CBA4"/>
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_1067_8751">
-                                                <rect width="24" height="24" fill="white"/>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
+                                    
                                 </button>
-                                <div>/</div>
                             </div>
                         </div>
                         <div>
@@ -151,4 +148,29 @@
 </div>
 
 </body>
+<script>
+    function addUser() {
+        var datalist = document.getElementById("user-options");
+        var input = document.querySelector("input[name='user']");
+        var selectedValue = input.value;
 
+        if (selectedValue) {
+            var userNameArea = document.getElementById("userNameArea");
+            var newUserName = document.createElement("a");
+            newUserName.innerText = selectedValue;
+
+            var removeButton = document.createElement("button");
+            removeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><g clip-path="url(#clip0_1067_8751)"><path d="M24 1.414L22.586 0L12 10.586L1.414 0L0 1.414L10.586 12L0 22.586L1.414 24L12 13.414L22.586 24L24 22.586L13.414 12L24 1.414Z" fill="#00CBA4"/></g><defs><clipPath id="clip0_1067_8751"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>';
+            removeButton.onclick = function() {
+                userNameArea.removeChild(newUserName);
+                userNameArea.removeChild(removeButton);
+                userNameArea.removeChild(document.createTextNode("/"));
+            };
+
+            userNameArea.appendChild(newUserName);
+            userNameArea.appendChild(removeButton);
+            userNameArea.appendChild(document.createTextNode("/"));
+            input.value = "";
+        }
+    }
+</script>
