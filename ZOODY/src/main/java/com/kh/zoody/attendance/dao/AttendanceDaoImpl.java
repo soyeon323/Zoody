@@ -158,6 +158,24 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	    return sst.selectOne("attendance.getObjectionCount");
 	}
 
+	@Override
+	public int updateStatus(SqlSessionTemplate sst, Map<String, String> objParams) {
+		return sst.update("attendance.updateStatus", objParams);
+	}
+
+	@Override
+	public List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv) {
+		RowBounds rb = new RowBounds(mPv.getOffset(), mPv.getBoardLimit());
+		return sst.selectList("attendance.selectMainWorkList", null, rb);
+	}
+
+	@Override
+	public int getUserAttendanceCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getUserAttendanceCnt");
+	}
+
+	
+
 
 
 

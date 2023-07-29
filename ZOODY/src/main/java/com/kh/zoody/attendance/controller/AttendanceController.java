@@ -45,7 +45,9 @@ public class AttendanceController {
 	@GetMapping("main")
 	public String workStatus(Integer page, Model model) {
 		
-		
+		//근무 현황 그래프
+		int allAttCnt = attService.getUserAttendanceCnt();
+		model.addAttribute("allAttCnt",allAttCnt);
 		
 		//휴가,출결,초과근무 목록 조회
 		int listCount = attService.getMainAttCnt();
@@ -56,6 +58,7 @@ public class AttendanceController {
 		PageVo mPv = new PageVo(listCount, currentPage, 2, 3);
 		List<AttendanceVo> mainAttList = attService.mainAttlist(mPv);
 		List<LeaveVo> mainLeList = attService.mainLeList(mPv);
+		List<ExtraWorkVo> mainWorkList = attService.mainWorkList(mPv);
 		
 		//부서별 목록 조회
 		List<AttendanceVo> deList = attService.mainDeList();
@@ -63,6 +66,7 @@ public class AttendanceController {
 		model.addAttribute("mainAttList", mainAttList);
 		model.addAttribute("mainLeList", mainLeList);
 		model.addAttribute("deList", deList);
+		model.addAttribute("mainWorkList", mainWorkList);
 		
 		//FullCalendar 조회 
 		List<AttendanceVo> calendarList = attService.mainCalendarList();
@@ -269,6 +273,14 @@ public class AttendanceController {
 	//이의신청 건수 카운팅
 	public int getObjectionCnt() {
 	    return attService.getObjectionCnt();
+	}
+	
+	@PostMapping("admin/objection")
+	public String adminObjection(@RequestParam Map<String, String> objParams) {
+		
+		int updateStatus = attService.updateStatus(objParams);
+		
+		return "attendance/adminObjection";
 	}
 
 }

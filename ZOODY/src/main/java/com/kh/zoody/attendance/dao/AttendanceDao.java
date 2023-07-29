@@ -68,6 +68,13 @@ public interface AttendanceDao {
 
 	int getObjectionCnt(SqlSessionTemplate sst);
 
+	int updateStatus(SqlSessionTemplate sst, Map<String, String> objParams);
+
+	List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv);
+
+	int getUserAttendanceCnt(SqlSessionTemplate sst);
+
+
 
 
 

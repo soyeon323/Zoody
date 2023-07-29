@@ -170,6 +170,25 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 
+	@Override
+	public int updateStatus(Map<String, String> objParams) {
+		return dao.updateStatus(sst, objParams);
+	}
+
+
+	@Override
+	public List<ExtraWorkVo> mainWorkList(PageVo mPv) {
+		return dao.mainWorkList(sst, mPv);
+	}
+
+
+	@Override
+	public int getUserAttendanceCnt() {
+		return dao.getUserAttendanceCnt(sst);
+	}
+
+
+
 
 
 

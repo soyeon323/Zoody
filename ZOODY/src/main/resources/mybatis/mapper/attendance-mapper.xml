@@ -459,6 +459,33 @@
 	    FROM ATTENDANCE
 	    WHERE OBJECTION_REASON IS NOT NULL
 	</select>
+	
+	<update id="updateStatus">
+		UPDATE ATTENDANCE
+		SET APPROVAL_STATUS = #{approvalStatus}
+		WHERE NO = #{no}
+	</update>
+	
+	<select id="selectMainWorkList" resultType="com.kh.zoody.attendance.vo.ExtraWorkVo">
+		SELECT 
+		    "NO", 
+		    "USER_NO", 
+		    "TYPE_NO", 
+		    TO_CHAR(TO_DATE("ENROLLDATE", 'YYYYMMDD'), 'YYYY-MM-DD') AS "ENROLLDATE",
+		    TO_CHAR(TO_DATE("START_TIME", 'HH24MI'), 'HH24:MI') AS "START_TIME",
+		    TO_CHAR(TO_DATE("END_TIME", 'HH24MI'), 'HH24:MI') AS "END_TIME",
+		    "APPROVAL_STATUS", 
+		    "REASON"
+		FROM "EXTRA_WORK"
+		WHERE USER_NO = 1
+		ORDER BY ENROLLDATE DESC
+	</select>
+	
+	<select id="getUserAttendanceCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM ATTENDANCE
+		WHERE USER_NO = 1
+	</select>
   
 </mapper>
 
