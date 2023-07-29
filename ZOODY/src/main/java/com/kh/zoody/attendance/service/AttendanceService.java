@@ -66,6 +66,13 @@ public interface AttendanceService {
 
 	int getObjectionCnt();
 
+	int updateStatus(Map<String, String> objParams);
+
+	List<ExtraWorkVo> mainWorkList(PageVo mPv);
+
+	int getUserAttendanceCnt();
+
+
 
 
 

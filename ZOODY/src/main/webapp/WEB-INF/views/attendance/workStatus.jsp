@@ -185,7 +185,7 @@ element.style {
               <div class="total-title">
                 <p>총 근무일수</p>
                 <div class="total-title-flex">
-                  <p>176</p>
+                  <p>${allAttCnt}</p>
                   <p>일</p>
                 </div>
               </div>
@@ -292,10 +292,10 @@ element.style {
                                         <td>대기</td>
                           </c:when>
                           <c:when test="${mainLeVo.status == 1}">
-                                        <td>승인</td>
+                                        <td style="color: #5189FA">승인</td>
                           </c:when>
                           <c:otherwise>
-                                        <td>반려</td>
+                                        <td style="color: #F85F57;">반려</td>
                           </c:otherwise> 
                         </c:choose> 
 	                    </tr>
@@ -315,24 +315,24 @@ element.style {
               <hr>
               <table class="table table-borderless">
                   <tbody>
+                  <c:forEach items="${mainWorkList}" var="work">
                     <tr>
-                      <th scope="row">12</th>
-                      <td>2023.09.10</td>
-                      <td>18:00 ~ 21:00</td>
-                      <td>대기</td>
+                      <th scope="row">${work.no}</th>
+                      <td>${work.enrolldate}</td>
+                      <td>${work.startTime} ~ ${work.endTime}</td>
+                      <c:choose> 
+                          <c:when test="${work.approvalStatus == 0}">
+                                        <td>대기</td>
+                          </c:when>
+                          <c:when test="${work.approvalStatus == 1}">
+                                        <td style="color: #5189FA">승인</td>
+                          </c:when>
+                          <c:otherwise>
+                                        <td style="color: #F85F57;">반려</td>
+                          </c:otherwise> 
+                        </c:choose> 
                     </tr>
-                    <tr>
-                      <th scope="row">12</th>
-                      <td>2023.09.10</td>
-                      <td>18:00 ~ 21:00</td>
-                      <td>대기</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">12</th>
-                      <td>2023.09.10</td>
-                      <td>18:00 ~ 21:00</td>
-                      <td>대기</td>
-                    </tr>
+                  </c:forEach>
                   </tbody>
                 </table>
               </div>

@@ -14,31 +14,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/attendance/objection.css">
 <title>Document</title>
-<style>
-  textarea {
-    resize: none;
-    width: 100%;
-    border-color: gainsboro;
-    color: #5e5e5e;
-    padding-left: 5px;
-    padding-top: 5px;
-}
-
-.btn-primary {
-    padding: revert;
-    font-size: 13px;
-}
-
-#bt3{
-  padding: revert;
-  width: 45px;
-}
-
-
-</style>
 </head>
 <body>
-  
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
@@ -126,12 +103,12 @@
 	                    <c:choose> 
 							<c:when test="${obj.approvalStatus == 0}">
                       <td>
-                        <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-obj-objectionReason="${obj.objectionReason}">
+                        <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                           확인하기
                         </button>
                         
-                        
                         <!-- Modal -->
+                        <!-- <div class="modal fade" id="modal_${obj.no}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel_${obj.no}" aria-hidden="true"></div> -->
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
@@ -140,13 +117,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <textarea name="" id="recipient-name" cols="30" rows="10"></textarea>
-                                <!-- <p>${obj.objectionReason}</p> -->
+                                <p>${obj.objectionReason}</p>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" id="bt3" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="submit" name="approvalStatus" class="btn btn-primary btn-approve" value="1" data-obj-no="${obj.no}">승인</button>
-                                <button type="submit" name="approvalStatus" value="2" style="background-color: rgb(135, 33, 33); border-color: rgb(135, 33, 33);" class="btn btn-primary btn-reject" data-obj-no="${obj.no}">반려</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button>
                               </div>
                             </div>
                           </div>
@@ -154,10 +129,10 @@
                       </td>
 							</c:when>
 							<c:when test="${obj.approvalStatus == 1}">
-		                        <td style="color: #5189FA">승인</td>
+		                        <td>승인</td>
 							</c:when>
 							<c:otherwise>
-		                        <td style="color: #F85F57;">반려</td>
+		                        <td>반려</td>
 							</c:otherwise> 
 						</c:choose>
 	                  </tr>
@@ -210,134 +185,17 @@
     </script>
 
     <!-- <script>
-      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
-      document.addEventListener("DOMContentLoaded", function() {
-        // "신청" 버튼들을 가져옵니다.
-        const toggleButtons = document.querySelectorAll(".toggle-button");
+      document.addEventListener("DOMContentLoaded", function(){
+        //확인하기 버튼 가져오기
+        const toggleButtons = document.querySelectorAll(".toggle-button")
 
-        // 각 버튼에 이벤트 리스너를 추가
         toggleButtons.forEach(button => {
-          button.addEventListener("click", function() {
-            // 버튼이 클릭된 행의 번호를 가져옴
-            const no = this.getAttribute("data-att-no");
-
-            $.ajax({
-              url : '${root}/attendance/admin/objection',
-              type : "GET",
-              data : {no : no},
-              success : function (result) {
-                  alert("제출 완료");
-                  location.reload();
-              },
-              error : function (error) {
-                alert("서버 오류");
-              }
-            })
-            
-          });
+          button.addEventListener("click", function(){
+            const reason = this.getA
+          })
         });
       });
     </script> -->
-
-    <!-- <script>
-      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
-      document.addEventListener("DOMContentLoaded", function() {
-        // "신청" 버튼들을 가져옵니다.
-        const toggleButtons = document.querySelectorAll(".toggle-button");
-
-        // 각 버튼에 이벤트 리스너를 추가
-        toggleButtons.forEach(button => {
-          button.addEventListener("click", function() {
-            const objectionReason = this.getAttribute("data-obj-data-obj-objectionReason");
-            
-            const modalBody = modal.querySelector('.modal-body');
-            modalBody.innerHTML = `<p>${rowData.objectionReason}</p>`;
-
-            // inputField.setAttribute("readonly", "readonly");
-          });
-        });
-      });
-    </script> -->
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      const toggleButtons = document.querySelectorAll(".toggle-button");
-
-      toggleButtons.forEach(button => {
-        button.addEventListener("click", function() {
-          // 이벤트 리스너에서 모달 요소를 가져옵니다.
-          const modal = document.getElementById("staticBackdrop");
-          const objectionReason = this.getAttribute("data-obj-objectionReason");
-          
-          const textareaField = document.querySelector("#recipient-name");
-          textareaField.value = objectionReason;
-
-          textareaField.setAttribute("readonly", "readonly");
-        });
-      });
-    });
-    </script>
-
-<!-- <script>
-  // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
-  document.addEventListener("DOMContentLoaded", function() {
-    // "신청" 버튼들을 가져옵니다.
-    const toggleButtons = document.querySelectorAll(".toggle-button");
-
-    // 각 버튼에 이벤트 리스너를 추가
-    toggleButtons.forEach(button => {
-      button.addEventListener("click", function() {
-        // 버튼이 클릭된 행의 번호를 가져옵니다.
-        const attNo = this.getAttribute("data-att-no");
-        
-        // 모달창 내의 input 요소
-        const inputField = document.querySelector("#recipient-name");
-        
-        // input 필드에 해당 행의 번호를 설정
-        inputField.value = attNo;
-
-        inputField.setAttribute("readonly", "readonly");
-      });
-    });
-  });
-</script> -->
-
-<script>
-  // 승인 버튼 눌렀을 때
-  $(".btn-approve").click(function() {
-    var no = $(this).attr("data-obj-no");
-    var objParams = {
-      approvalStatus: 1,
-      no: no
-    };
-    sendApprovalStatus(objParams);
-  });
-
-  // 반려 버튼 눌렀을 때
-  $(".btn-reject").click(function() {
-    var no = $(this).attr("data-obj-no");
-    var objParams = {
-      approvalStatus: 2,
-      no: no
-    };
-    sendApprovalStatus(objParams);
-  });
-
-  // Ajax로 데이터를 서버로 보내는 함수
-  function sendApprovalStatus(objParams) {
-    $.ajax({
-      type: "POST",
-      url: "${root}/attendance/admin/objection",
-      data: objParams,
-      success: function(response) {
-        location.reload();
-      },
-      error: function(xhr, status, error) {
-        console.error("요청 실패:", error);
-      }
-    });
-  }
-</script>
 
 </body>
 </html>

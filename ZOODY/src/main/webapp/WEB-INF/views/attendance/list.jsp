@@ -253,12 +253,12 @@
                                   </button>
                                 </c:when>
                                 <c:when test="${att.approvalStatus == 1}">
-                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: gray; border-color: gray;">
+                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: rgb(208, 165, 66); border-color: rgb(208, 165, 66);">
                                     승인
                                   </button>
                                 </c:when>
                                 <c:when test="${att.approvalStatus == 2}">
-                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: gray; border-color: gray;">
+                                  <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: rgb(155, 57, 57); border-color: rgb(155, 57, 57);">
                                     반려
                                   </button>
                                 </c:when>
