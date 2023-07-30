@@ -22,9 +22,9 @@ public class WorkDao {
 		return sst.selectList("work.getUserList");
 	}
 
-//	// 업무명과 마감일시 가져오기 AJAX로
-//	public WorkVo getWorkNameAndDate(SqlSessionTemplate sst) {
-//		return sst.selectOne("work.getWorkNameAndDate");
-//	}
+	// 업무명과 마감일시 가져오기 AJAX로
+	public WorkVo getWorkNameAndDate(SqlSessionTemplate sst) {
+		return sst.selectOne("work.getWorkNameAndDate");
+	}
 
 }

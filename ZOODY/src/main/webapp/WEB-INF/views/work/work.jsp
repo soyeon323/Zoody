@@ -62,10 +62,10 @@
            <br>
            <div id="modal-area">
             <a class="modal_close_btn">닫기</a>
-s                <input type="text" name="workName" id="workName" placeholder="업무 명">
+                <input type="text" name="workName" id="workName" placeholder="업무 명">
                 <br>
                 <br>
-                <input type="text" name="userName" id="agent" placeholder="직원 명">
+                <input type="text" name="userName" id="userName" placeholder="직원 명">
                 <select id="showtimes" name="showtimes"> 
                     <c:forEach items="${vo}" var="vo">
 	                    <optgroup label="${vo.deptName}">
@@ -80,8 +80,7 @@ s                <input type="text" name="workName" id="workName" placeholder="�
                 
                 <fieldset>
                  <legend>업무 내용</legend>
-                 <input type="text" name="workContent" id="workContent">
-                
+                 
                 </fieldset>
              </div>
              <br>
@@ -91,52 +90,16 @@ s                <input type="text" name="workName" id="workName" placeholder="�
                      <input type="date" name="endDate"/>
              </div>
              <div id="btn-area" style="margin-left: 400px;"> 
-                 <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
-             </div>
+                <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
+                <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
+            </div>
         </div>
-
     </div>
-
-
-  
        
 </body>
 </html>
 
 <script>
-
-//업무행위자 추가
-document.getElementById('showtimes').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var selectedValue = selectedOption.innerHTML;
-    var agentInput = document.getElementById('agent');
-    agentInput.value += selectedValue +',';
-});
-
-/////////////////////    여기서 업무이름 , 업무내용 , 업무수행자 , 마감일시 보내주기 인서트 완료하면   toDo에 내가방금추가했던 업무명과 마감일시가 보여야함              ////////////////////////////////////////
-const addBtn = document.getElementById('addBtn');
-addBtn.addEventListener('click' ,function () {
-
-    $.ajax({
-        url : '${root}/work/insert',
-        method : 'get',
-        data : {},
-        success : ()=>{
-
-        },
-        error : ()=>{
-            
-        }
-    });
-
-
-    
-});
-
-
-/////////////////////////////////////////////////////////////
-
-
 
 
     // 추가 버튼 누르면 colum 에 추가됨 
@@ -153,6 +116,47 @@ addBtn.addEventListener('click' ,function () {
 
         });
 
+
+//Handle the "추가" button click inside the modal
+document.getElementById('addBtn').addEventListener('click', function() {
+
+    const workName = document.getElementById('workName').value;
+    const userName = document.getElementById('userName').value;
+    const workContent = document.getElementById('workContent').value;
+    const endDate = document.getElementById('endDate').value;
+    const column = document.querySelector('.column1');
+    const newDivTag = document.querySelector('.list-group-item');
+
+    //업무제목 마감일시 불러오기 
+    $.ajax({
+        url : '${root}/work/view',
+        data : {},
+        type : 'POST',
+        success : (data)=>{
+            if(data == wv){
+                newDivTag.innerHTML = `
+               <h3>${wv.workName}</h3>
+               <p>마감일: ${wv.endDate}</p>
+               `;
+            }
+            // 완료 버튼 표시
+            document.getElementById('completeBtn').style.display = 'block';
+        },
+        error : (e)=>{ console.log(e);}
+    });
+
+    column.appendChild(newDivTag);
+});
+
+
+
+//업무행위자 추가
+document.getElementById('showtimes').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var selectedValue = selectedOption.innerHTML;
+    var agentInput = document.getElementById('userName');
+    agentInput.value += selectedValue +', ';
+});
 
 //  input +
    document.getElementById('plusBtn').addEventListener('click', function() {
@@ -192,8 +196,6 @@ addBtn.addEventListener('click' ,function () {
  function modal(id) {
         var zIndex = 9999;
         var modal = document.getElementById(id);
-
-
 
         // 닫기 버튼 처리
         modal.querySelector('.modal_close_btn').addEventListener('click', function() {

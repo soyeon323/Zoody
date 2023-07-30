@@ -34,9 +34,9 @@ public class WorkService {
 	}
 
 	// 업무명과 마감일시 가져오기 AJAX로
-//	public WorkVo getWorkNameAndDate() {
-//		return dao.getWorkNameAndDate(sst);
-//	}
-//	
+	public WorkVo getWorkNameAndDate() {
+		return dao.getWorkNameAndDate(sst);
+	}
+	
 	
 }
