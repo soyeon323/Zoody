@@ -64,7 +64,7 @@ public interface AttendanceDao {
 	//이의신
 	int submitOjection(SqlSessionTemplate sst, Map<String, String> params);
 
-	List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo leavePv);
+	List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo workPv);
 
 	int getObjectionCnt(SqlSessionTemplate sst);
 
@@ -73,6 +73,9 @@ public interface AttendanceDao {
 	List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv);
 
 	int getUserAttendanceCnt(SqlSessionTemplate sst);
+
+	int getWorkCnt(SqlSessionTemplate sst);
+
 
 
 

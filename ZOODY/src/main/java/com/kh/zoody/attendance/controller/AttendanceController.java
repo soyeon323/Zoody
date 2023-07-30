@@ -67,6 +67,7 @@ public class AttendanceController {
 		model.addAttribute("mainLeList", mainLeList);
 		model.addAttribute("deList", deList);
 		model.addAttribute("mainWorkList", mainWorkList);
+		model.addAttribute("mPv", mPv);
 		
 		//FullCalendar 조회 
 		List<AttendanceVo> calendarList = attService.mainCalendarList();
@@ -95,8 +96,6 @@ public class AttendanceController {
         //FullCalendar 이벤트 목록을 프론트엔드로 전달
         model.addAttribute("events", events);
         
-        log.info("mainCalendarList 호출됨. 결과: {}", events);
-		
 		//데이터베이스에서 주간 근무 현황 데이터를 가져와서 배열로 변환
 //		List<AttendanceVo> chartList = attService.mainChartList();
 		
@@ -187,14 +186,15 @@ public class AttendanceController {
 	
 	//(서브메뉴) 근무현황 목록 조회
 	@GetMapping("list")
-	public String list(@RequestParam(defaultValue = "1") int page, Model model, String searchValue) {
+	public String list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int lp,@RequestParam(defaultValue = "1") int wp, Model model, String searchValue) {
 
 	    int listCount = attService.getMyAttendanceCnt(searchValue);
 	    int leaveListCount = attService.getLeaveCnt();
+	    int workListCount = attService.getWorkCnt();
 	    int currentPage = page;
 //	    int pageLimit = 5;
 //	    int boardLimit = 10;
-
+	    
 	    //내 출결 조회
 	    PageVo pv = new PageVo(listCount, currentPage, 5, 10);
 	    List<AttendanceVo> attVoList = attService.list(pv, searchValue);
@@ -202,12 +202,13 @@ public class AttendanceController {
 	    model.addAttribute("searchValue", searchValue);
 	    
 	    //휴가 요청 조회
-	    PageVo leavePv = new PageVo(leaveListCount, currentPage, 2, 4);
+	    PageVo leavePv = new PageVo(leaveListCount, lp, 2, 4);
 	    List<LeaveVo> leVoList = attService.leaveList(leavePv);
 	    model.addAttribute("leVoList", leVoList);
 	    
 	    //초과근무 요청 조회
-	    List<ExtraWorkVo> ewList = attService.extraWorkList(leavePv);
+	    PageVo workPv = new PageVo(workListCount, wp, 2, 4);
+	    List<ExtraWorkVo> ewList = attService.extraWorkList(workPv);
 	    model.addAttribute("ewList", ewList);
 	    
 	    //출근 타입 카운팅
@@ -220,6 +221,9 @@ public class AttendanceController {
 	    model.addAttribute("currentTypeSix", currentTypeSix);
 	    model.addAttribute("currentTypeLeave", currentTypeLeave);
 	    model.addAttribute("currentTypeFour", currentTypeFour);
+	    model.addAttribute("pv", pv);
+	    model.addAttribute("leavePv", leavePv);
+	    model.addAttribute("workPv", workPv);
 
 	    return "attendance/list";
 	}
@@ -244,6 +248,7 @@ public class AttendanceController {
 		
 		model.addAttribute("attAllVoList", attAllVoList);
 		model.addAttribute("paramMap", paramMap);
+		model.addAttribute("allPv", allPv);
 		
 		//이의신청 건수 카운팅
 		int objectionCnt = getObjectionCnt();
@@ -263,6 +268,7 @@ public class AttendanceController {
 		
 		model.addAttribute("objVoList", objVoList);
 		model.addAttribute("paramMap", paramMap);
+		model.addAttribute("objPv", objPv);
 		
 		int objectionCnt = getObjectionCnt();
 		model.addAttribute("objectionCnt", objectionCnt);

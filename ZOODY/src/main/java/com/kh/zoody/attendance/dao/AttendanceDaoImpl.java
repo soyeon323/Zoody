@@ -148,8 +148,8 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo leavePv) {
-		RowBounds rb = new RowBounds(leavePv.getOffset(), leavePv.getBoardLimit());
+	public List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo workPv) {
+		RowBounds rb = new RowBounds(workPv.getOffset(), workPv.getBoardLimit());
 		return sst.selectList("attendance.selectExtraWorkList", null, rb);
 	}
 
@@ -173,6 +173,12 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	public int getUserAttendanceCnt(SqlSessionTemplate sst) {
 		return sst.selectOne("attendance.getUserAttendanceCnt");
 	}
+
+	@Override
+	public int getWorkCnt(SqlSessionTemplate sst) {
+		return sst.selectOne("attendance.getWorkCnt");
+	}
+
 
 	
 
