@@ -52,8 +52,8 @@
     border-radius: 5px;
 }
 
-#back div:first-child input[type="submit"]{
-    background-image: url("/zoody/resources/img/search.png");
+#back input[type="submit"]{
+    background-image: url("/zoody/resources/img/icon/png/search.png");
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0);
     color: rgba(255, 255, 255, 0);

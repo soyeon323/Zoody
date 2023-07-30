@@ -30,9 +30,12 @@
             <div id="firstDiv">
                 <a>현재 보유 동물 수 ${map.getAnimalListCnt}</a>
                 <form action="${root}/animal/list" method="GET">
-                    
+                    <select name="searchType" id="department">
+                        <option value="nick_name">애칭</option>
+                        <option value="habitat">서식지</option>
+                    </select>
                     <input type="text" name="searchValue" placeholder="애칭 입력">
-                    <input type="submit" class="btn btn-primary" value="검색">
+                    <input type="submit" value="검색">
                 </form>
             </div>
 
