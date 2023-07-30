@@ -87,7 +87,6 @@
             </div>
         </div>
 
-        <form action="${root}/project/progress" method="post">
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -107,14 +106,14 @@
                                 <input type="text" name="user" placeholder="참가자를 입력하세요." list="user-options">
                                 <datalist id="user-options">
                                     <c:forEach items="${voList}" var="voList">
-                                        <input type="hidden" value="${voList.no}" name="realno">
-                                        <option value="${voList.name}_${voList.rankName}">
+                                        <option value="${voList.name}_${voList.rankName}" data-userNo="${voList.no}">
                                     </c:forEach>
                                 </datalist>
                                   
                                 <button onclick="addUser();" type="button">추가</button>
                             </div> 
                             <div id="userNameArea">
+                                <input type="hidden" value="" name="no">
                                 <a></a>
                                 <button>
                                     
@@ -136,14 +135,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="프로젝트생성">
+                        <button class="btn btn-primary" onclick="createPrj();">프로젝트생성</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>
         </div>
-        
-    </form>
     
 </div>
 
@@ -155,7 +152,7 @@
         var selectedValue = input.value;
 
         if (selectedValue) {
-            var userNameArea = document.getElementById("userNameArea");
+            var userNameArea = document.querySelector("#userNameArea");
             var newUserName = document.createElement("a");
             newUserName.innerText = selectedValue;
 
@@ -169,8 +166,22 @@
 
             userNameArea.appendChild(newUserName);
             userNameArea.appendChild(removeButton);
-            userNameArea.appendChild(document.createTextNode("/"));
             input.value = "";
+
+            // 추가된 부분: 선택된 값의 userNo 가져오기
+            var selectedOption = datalist.querySelector("option[value='" + selectedValue + "']");
+            var userNo = selectedOption.getAttribute("data-userNo");
+            var newUserNo = document.createElement("a");
+            var inputNo = document.querySelector("input[name='no']");
+            inputNo.value = userNo;
+            userNameArea.appendChild(document.createTextNode("/"));
         }
+    }
+
+    function createPrj(){
+        const no = document.querySelectorAll("#userNameArea>input");
+        const userName = document.querySelectorAll("#userNameArea>a");
+
+        alert(no + "" + userName);
     }
 </script>
