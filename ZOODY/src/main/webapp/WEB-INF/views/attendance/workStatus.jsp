@@ -339,7 +339,7 @@ element.style {
               <div class="att_department">
                 <p>부서별 출근 현황</p>
                 <div class="overflow-auto">
-                <table class="table">
+                <table class="table table-borderless">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -395,60 +395,60 @@ element.style {
     <!-- workStatus.jsp -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    themeSystem: 'bootstrap5',
-    headerToolbar: {
-      left: 'prev,next',
-      center: 'title',
-      right: 'today'
-    },
-    locale: 'ko',
-    eventSources: [
-      {
-        url: '/attendance/main',
-        method: 'GET',
-        dataType: "JSON",
-        color: 'purple',
-        textColor: 'white',
-        success: function(data) {
-          var events = [];
-          for (var i = 0; i < data.length; i++) {
-            var event = {
-              title: "출근: " + data[i].checkInTime + ", 퇴근: " + data[i].checkOutTime,
-              start: data[i].start,
-              end: data[i].end,
-              checkInTime: data[i].checkInTime, // 클릭 이벤트에서 사용하기 위해 추가
-              checkOutTime: data[i].checkOutTime // 클릭 이벤트에서 사용하기 위해 추가
-            };
-            events.push(event);
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        themeSystem: 'bootstrap5',
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'today'
+        },
+        locale: 'ko',
+        eventSources: [
+          {
+            url: '/attendance/main',
+            method: 'GET',
+            dataType: "JSON",
+            color: 'purple',
+            textColor: 'white',
+            success: function(data) {
+              var events = [];
+              for (var i = 0; i < data.length; i++) {
+                var event = {
+                  title: "출근: " + data[i].checkInTime + ", 퇴근: " + data[i].checkOutTime,
+                  start: data[i].start,
+                  end: data[i].end,
+                  checkInTime: data[i].checkInTime, // 클릭 이벤트에서 사용하기 위해 추가
+                  checkOutTime: data[i].checkOutTime // 클릭 이벤트에서 사용하기 위해 추가
+                };
+                events.push(event);
+              }
+              calendar.addEventSource(events);
+            },
+            error: function() {
+              alert('출퇴근 조회 오류');
+            },
+            data: {
+              start: '${start}', // JSP에서 변수를 바로 사용하도록 변경
+              end: '${end}' // JSP에서 변수를 바로 사용하도록 변경
+            }
           }
-          calendar.addEventSource(events);
-        },
-        error: function() {
-          alert('출퇴근 조회 오류');
-        },
-        data: {
-          start: '${start}', // JSP에서 변수를 바로 사용하도록 변경
-          end: '${end}' // JSP에서 변수를 바로 사용하도록 변경
+        ],
+        dateClick: function(info) {
+          var clickedDate = info.dateStr;
+          var eventsOnClickedDate = calendar.getEvents(function(event) {
+            return event.startStr.startsWith(clickedDate);
+          });
+          
+          var checkInTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkInTime : "출근 기록 없음";
+          var checkOutTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkOutTime : "퇴근 기록 없음";
+
+          alert("클릭한 날짜: " + clickedDate + "\n출근 시간: " + checkInTime + "\n퇴근 시간: " + checkOutTime);
         }
-      }
-    ],
-    dateClick: function(info) {
-      var clickedDate = info.dateStr;
-      var eventsOnClickedDate = calendar.getEvents(function(event) {
-        return event.startStr.startsWith(clickedDate);
       });
-      
-      var checkInTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkInTime : "출근 기록 없음";
-      var checkOutTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkOutTime : "퇴근 기록 없음";
 
-      alert("클릭한 날짜: " + clickedDate + "\n출근 시간: " + checkInTime + "\n퇴근 시간: " + checkOutTime);
-    }
-  });
-
-  calendar.render();
-});
+      calendar.render();
+    });
 
     </script>
     
@@ -568,72 +568,39 @@ element.style {
 
       // 출퇴근 등록 버튼 영역 ------------------------------------
       function handleCheckIn() {
-        if (isButtonClickable('check-in')) {
-          checkInOutWork('check-in');
-        } else {
-          alert('이미 출근 등록을 완료하였습니다.');
-        }
+        checkInOutWork('check-in');
       }
 
       function handleCheckOut() {
-        if (isButtonClickable('check-out')) {
           checkInOutWork('check-out');
-        } else {
-          alert('이미 퇴근 등록을 완료하였습니다.');
-        }
-      }
-
-      function isButtonClickable(buttonType) {
-        const lastClickedDate = localStorage.getItem(buttonType);
-        const todayDate = getTodayDate();
-
-        // 오늘 날짜와 마지막으로 클릭한 날짜를 비교하여 버튼을 클릭할 수 있는지 여부 반환
-        return lastClickedDate !== todayDate;
       }
 
       function markButtonAsClicked(buttonType) {
-        const todayDate = getTodayDate();
-
-        // 오늘 날짜를 로컬 저장소에 저장하여 버튼이 클릭된 날짜를 기록
-        localStorage.setItem(buttonType, todayDate);
-      }
-
-      function getTodayDate() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
       }
 
       function checkInOutWork(action) {
         var loginMemberNo = 1; // 클라이언트에서 적절한 회원 번호를 가져와 설정
-        if (isButtonClickable(action)) {
-          $.ajax({
+        $.ajax({
             url: "${root}/attendance/main",
             type: "POST",
             data: {
-              loginMemberNo: loginMemberNo,
-              action: action // 출근 버튼인지 퇴근 버튼인지 구분하는 파라미터
+                loginMemberNo: loginMemberNo,
+                action: action // 출근 버튼인지 퇴근 버튼인지 구분하는 파라미터
             },
             success: function(result) {
-              console.log(result);
-              if (action === "check-in") {
-                alert("출근 완료");
-              } else if (action === "check-out") {
-                alert("퇴근 완료");
-              }
-              markButtonAsClicked(action);
-              location.reload();
+                console.log(result);
+                if (action === "check-in") {
+                    alert("출근 완료");
+                } else if (action === "check-out") {
+                    alert("퇴근 완료");
+                }
+                location.reload();
             },
             error: function(error) {
-              console.error(error);
+                console.error(error);
             },
-          });
-        } else {
-          alert('해당 작업은 하루에 한 번만 가능합니다.');
-        }
-      }
+        });
+    }
 
     </script>
     

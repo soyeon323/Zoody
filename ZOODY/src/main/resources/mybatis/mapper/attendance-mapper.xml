@@ -93,6 +93,9 @@
 		<if test="searchType != null and searchType != '' and searchValue != null and searchValue != ''">
        	WHERE ${searchType} LIKE '%${searchValue}%'
         </if>
+        <if test="enrolldateOne != null and enrolldateOne != '' and enrolldateTwo != null and enrolldateTwo != ''">
+        AND ENROLLDATE BETWEEN TO_DATE(#{enrolldateOne}, 'YYYY-MM-DD') AND TO_DATE(#{enrolldateTwo}, 'YYYY-MM-DD')
+        </if>
 	</select>
 	
 	<!-- 모든 회원 근태 목록 조회 -->
@@ -138,6 +141,9 @@
         WHERE US.NAME = '정상'
         <if test="searchType != null and searchType != '' and searchValue != null and searchValue != ''">
         AND ${searchType} LIKE '%${searchValue}%'
+        </if>
+        <if test="enrolldateOne != null and enrolldateOne != '' and enrolldateTwo != null and enrolldateTwo != ''">
+        AND ENROLLDATE BETWEEN TO_DATE(#{enrolldateOne}, 'YYYY-MM-DD') AND TO_DATE(#{enrolldateTwo}, 'YYYY-MM-DD')
         </if>
 		ORDER BY ENROLLDATE DESC
 	</select>
@@ -254,6 +260,9 @@
         <if test="searchType != null and searchType != '' and searchValue != null and searchValue != ''">
         AND ${searchType} LIKE '%${searchValue}%'
         </if>
+        <if test="enrolldateOne != null and enrolldateOne != '' and enrolldateTwo != null and enrolldateTwo != ''">
+        AND ENROLLDATE BETWEEN TO_DATE(#{enrolldateOne}, 'YYYY-MM-DD') AND TO_DATE(#{enrolldateTwo}, 'YYYY-MM-DD')
+        </if>
         AND A.OBJECTION_REASON IS NOT NULL
 		ORDER BY ENROLLDATE DESC
 	</select>
@@ -272,6 +281,9 @@
         WHERE US.NAME = '정상'
         <if test="searchType != null and searchType != '' and searchValue != null and searchValue != ''">
         AND ${searchType} LIKE '%${searchValue}%'
+        </if>
+        <if test="enrolldateOne != null and enrolldateOne != '' and enrolldateTwo != null and enrolldateTwo != ''">
+        AND ENROLLDATE BETWEEN TO_DATE(#{enrolldateOne}, 'YYYY-MM-DD') AND TO_DATE(#{enrolldateTwo}, 'YYYY-MM-DD')
         </if>
         AND A.OBJECTION_REASON IS NOT NULL
 	</select>
@@ -485,6 +497,12 @@
 		SELECT COUNT(NO)
 		FROM ATTENDANCE
 		WHERE USER_NO = 1
+	</select>
+	
+	<select id="getWorkCnt" resultType="int">
+		SELECT COUNT(NO)
+		FROM EXTRA_WORK
+		WHERE NO = 1
 	</select>
   
 </mapper>

@@ -234,7 +234,7 @@
     gap: 3px;
 }
 
-.list-page > a > button{
+button[class='nomalBtn']{
     border: none;
     background-color: #fff;
 
@@ -246,11 +246,18 @@
     line-height: normal;
 }
 
-.list-page > a > button.active{
+button[class='active']{
     background-color: #1B91FF;
     color: #fff;
-
     border-radius: 3px;
+    border: none;
+
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
 }
 
 /* 테이블 css 깨진거 수정 */

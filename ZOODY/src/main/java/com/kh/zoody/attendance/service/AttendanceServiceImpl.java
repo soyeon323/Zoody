@@ -159,8 +159,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public List<ExtraWorkVo> extraWorkList(PageVo leavePv) {
-		return dao.extraWorkList(sst, leavePv);
+	public List<ExtraWorkVo> extraWorkList(PageVo workPv) {
+		return dao.extraWorkList(sst, workPv);
 	}
 
 
@@ -186,6 +186,14 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public int getUserAttendanceCnt() {
 		return dao.getUserAttendanceCnt(sst);
 	}
+
+
+	@Override
+	public int getWorkCnt() {
+		return dao.getWorkCnt(sst);
+	}
+
+
 
 
 

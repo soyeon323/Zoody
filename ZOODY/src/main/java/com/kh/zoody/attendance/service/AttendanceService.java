@@ -62,7 +62,7 @@ public interface AttendanceService {
 	//이의신청
 	int submitOjection(Map<String, String> params);
 
-	List<ExtraWorkVo> extraWorkList(PageVo leavePv);
+	List<ExtraWorkVo> extraWorkList(PageVo workPv);
 
 	int getObjectionCnt();
 
@@ -71,6 +71,8 @@ public interface AttendanceService {
 	List<ExtraWorkVo> mainWorkList(PageVo mPv);
 
 	int getUserAttendanceCnt();
+
+	int getWorkCnt();
 
 
 

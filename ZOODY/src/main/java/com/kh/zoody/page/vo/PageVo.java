@@ -14,6 +14,9 @@ public class PageVo {
 		int maxPage = (int) Math.ceil((double) listCount / boardLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
+		if(endPage > maxPage) {
+	         endPage = maxPage;
+	      }
 		int offset = (currentPage-1) * boardLimit;
 		
 		this.maxPage = maxPage;
@@ -21,6 +24,8 @@ public class PageVo {
 		this.endPage = endPage;
 		this.offset = offset;
 	}
+	
+	
 	
 	private int listCount;
 	private int currentPage;

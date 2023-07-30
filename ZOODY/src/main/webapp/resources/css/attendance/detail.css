@@ -194,15 +194,15 @@
     padding-right: 206px;
 }
 
-.workList-flex > svg, .leaveList-flex > svg{
+.workList-flex > a > svg, .leaveList-flex > a > svg{
     border-radius: 5px;
     width: 18px;
     height: 18px;
     flex-shrink: 0;
 }
 
-.workList-flex > svg{background: #00BEEA;}
-.leaveList-flex > svg{background-color: #00CBA4;}
+.workList-flex > a > svg{background: #00BEEA;}
+.leaveList-flex > a > svg{background-color: #00CBA4;}
 
 .workList-input > input, .leaveList-input > input{
     color: #FFF;
@@ -360,7 +360,7 @@
     gap: 3px;
 }
 
-.list-page > a > button{
+button[class='nomalBtn']{
     border: none;
     background-color: #fff;
 
@@ -372,11 +372,18 @@
     line-height: normal;
 }
 
-.list-page > a > button.active{
+button[class='active']{
     background-color: #1B91FF;
     color: #fff;
-
     border-radius: 3px;
+    border: none;
+
+    font-family: Spoqa Han Sans Neo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
 }
 
 /* 휴가 요청 현황 리스트 */
