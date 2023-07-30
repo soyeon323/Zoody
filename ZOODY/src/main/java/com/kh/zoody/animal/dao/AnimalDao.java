@@ -2,6 +2,7 @@ package com.kh.zoody.animal.dao;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,9 +22,9 @@ public class AnimalDao {
 	}
 
 	//동물 목록 조회
-	public List<AnimalVo> AnimalList(SqlSessionTemplate sst, PageVo pv, String searchValue) {
+	public List<AnimalVo> AnimalList(SqlSessionTemplate sst, PageVo pv, Map<String, String> paramMap) {
 		RowBounds rb = new RowBounds(pv.getOffset(),pv.getBoardLimit());
-		return sst.selectList("animal.AnimalList",searchValue,rb);
+		return sst.selectList("animal.AnimalList",paramMap,rb);
 	}
 	
 	//동물 리스트 조회(총 갯수)

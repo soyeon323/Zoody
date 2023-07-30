@@ -68,7 +68,7 @@ public class AnimalController {
 	
 	//동물 리스트
 	@RequestMapping("list")
-	public String animalList( @RequestParam(defaultValue = "1") Integer page, Model model , String searchValue) {
+	public String animalList( @RequestParam(defaultValue = "1") Integer page, Model model , @RequestParam Map<String,String> paramMap) {
 		
 		int listCount = as.getAnimalListCnt();
 		int currentPage = page;
@@ -80,7 +80,7 @@ public class AnimalController {
 		
 		int getAnimalListCnt = as.getAnimalListCnt();
 		
-		List<AnimalVo> animalList = as.AnimalList(pv , searchValue);
+		List<AnimalVo> animalList = as.AnimalList(pv , paramMap);
 		log.info("animalList = {}",animalList);
 		if(animalList ==null) {
 			throw new RuntimeException();

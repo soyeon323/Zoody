@@ -57,43 +57,47 @@
 
          <!-- 모달창1 -->
          <div id="my_modal">
-         
-           <h1>업무 할당 </h1>
-           <br>
-           <div id="modal-area">
-            <a class="modal_close_btn">닫기</a>
-                <input type="text" name="workName" id="workName" placeholder="업무 명">
-                <br>
-                <br>
-                <input type="text" name="userName" id="userName" placeholder="직원 명">
-                <select id="showtimes" name="showtimes"> 
-                    <c:forEach items="${vo}" var="vo">
-	                    <optgroup label="${vo.deptName}">
-	                        <option >${vo.userName}</option> 
-	                    </optgroup> 
-                    </c:forEach>
-                </select>
-                <div id="btn-area" style="margin-left: 200px; margin-top: 20px;">
-                    <button class="btn btn-primary" type="button" style="width: 30px;" id="plusBtn">+</button>
-                    <button class="btn btn-primary" type="button" style="width: 30px;" id="minusBtn">-</button>
-                </div>
-                
-                <fieldset>
-                 <legend>업무 내용</legend>
+         <form action="${root}/work/insert" method="POST">
+
+            <h1>업무 할당 </h1>
+            <br>
+            <div id="modal-area">
+             <a class="modal_close_btn">닫기</a>
+                 <input type="text" name="workName" id="workName" placeholder="업무 명">
+                 <br>
+                 <br>
+                 <input type="text" name="userName" id="userName" placeholder="직원 명">
+                 <select id="showtimes" name="showtimes"> 
+                     <c:forEach items="${vo}" var="vo">
+                         <optgroup label="${vo.deptName}">
+                             <option >${vo.userName}</option> 
+                         </optgroup> 
+                     </c:forEach>
+                 </select>
+                 <div id="btn-area" style="margin-left: 200px; margin-top: 20px;">
+                     <button class="btn btn-primary" type="button" style="width: 30px;" id="plusBtn">+</button>
+                     <button class="btn btn-primary" type="button" style="width: 30px;" id="minusBtn">-</button>
+                 </div>
                  
-                </fieldset>
+                 <fieldset>
+                  <legend>업무 내용</legend>
+                  
+                 </fieldset>
+              </div>
+              <br>
+              <br>
+              <div id="date">
+                  마감날짜
+                      <input type="date" name="endDate"/>
+              </div>
+              <div id="btn-area" style="margin-left: 400px;"> 
+                 <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
+                 <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
              </div>
-             <br>
-             <br>
-             <div id="date">
-                 마감날짜
-                     <input type="date" name="endDate"/>
-             </div>
-             <div id="btn-area" style="margin-left: 400px;"> 
-                <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
-                <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
-            </div>
-        </div>
+          </div>
+
+         </form>
+          
     </div>
        
 </body>
@@ -119,18 +123,19 @@
 
 //Handle the "추가" button click inside the modal
 document.getElementById('addBtn').addEventListener('click', function() {
+const modal = document.querySelector('#my_modal');
+    modal.style.display = 'none';
 
     const workName = document.getElementById('workName').value;
     const userName = document.getElementById('userName').value;
     const workContent = document.getElementById('workContent').value;
-    const endDate = document.getElementById('endDate').value;
+    const endDate = document.getElementById('endDate');
     const column = document.querySelector('.column1');
     const newDivTag = document.querySelector('.list-group-item');
 
     //업무제목 마감일시 불러오기 
     $.ajax({
         url : '${root}/work/view',
-        data : {},
         type : 'POST',
         success : (data)=>{
             if(data == wv){
@@ -139,13 +144,9 @@ document.getElementById('addBtn').addEventListener('click', function() {
                <p>마감일: ${wv.endDate}</p>
                `;
             }
-            // 완료 버튼 표시
-            document.getElementById('completeBtn').style.display = 'block';
         },
         error : (e)=>{ console.log(e);}
     });
-
-    column.appendChild(newDivTag);
 });
 
 
@@ -155,7 +156,7 @@ document.getElementById('showtimes').addEventListener('change', function() {
     var selectedOption = this.options[this.selectedIndex];
     var selectedValue = selectedOption.innerHTML;
     var agentInput = document.getElementById('userName');
-    agentInput.value += selectedValue +', ';
+    agentInput.value += selectedValue +'X, ';
 });
 
 //  input +
@@ -190,9 +191,7 @@ document.getElementById('showtimes').addEventListener('change', function() {
         }
     });
 
-
-
- // 모달1
+    // 모달1
  function modal(id) {
         var zIndex = 9999;
         var modal = document.getElementById(id);
@@ -231,17 +230,12 @@ column1.addEventListener('click', function(event) {
     }
 });
 
-
-
     // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
     Element.prototype.setStyle = function(styles) {
         for (var k in styles) this.style[k] = styles[k];
         return this;
     };
 
-
-
-   
     var listItems = document.querySelectorAll('.list-group-item');
     listItems.forEach(function(item) {
         item.addEventListener('click', handleListItemClick);
@@ -270,9 +264,5 @@ column1.addEventListener('click', function(event) {
             modal('my_modal');
         }
     });
-
-
-
-  
 
 </script>

@@ -19,7 +19,7 @@
 		 SEQ_ANIMAL_WORK_NO.NEXTVAL
 		 , #{workName}
 		 , #{workContent}
-		 , #{date}
+		 , #{endDate}
 		)
   </insert>
   
@@ -28,7 +28,7 @@
 	NO
 	,NAME
 	,CONTENT
-	,TO_CHAR("DATE",'YYYY-MM-DD') AS "DATE"
+	,TO_CHAR("DATE",'YYYY-MM-DD') AS "END_DATE"
 	FROM ANIMAL_WORK
   </select>
   

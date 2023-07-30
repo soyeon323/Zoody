@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class AnimalService {
 	}
 	
 	//동물 목록 조회
-	public List<AnimalVo> AnimalList(PageVo pv, String searchValue) {
-		return dao.AnimalList(sst,pv , searchValue);
+	public List<AnimalVo> AnimalList(PageVo pv, Map<String, String> paramMap) {
+		return dao.AnimalList(sst,pv , paramMap);
 	}
 
 	//동물 리스트 조회(총 갯수)

@@ -83,8 +83,8 @@
 		    ENDANGERED_RATING E ON C.ENDANGERED_RATING_NO = E.ENDANGERED_RATING_NO
 		    WHERE 
             A.STATUS = 'O'
-		    <if test="searchValue != null and searchValue !=''">
-	           AND A.NICK_NAME LIKE '%${searchValue}%'
+		    <if test="searchValue != null and searchValue !='' and searchType != null and searchType !=''">
+	           AND ${searchType} LIKE '%${searchValue}%'
 		    </if>
 		    ORDER BY A.NO DESC
 		
@@ -92,8 +92,11 @@
   	
   	<select id="getAnimalListCnt" resultType="int">
   		 SELECT COUNT(NO)
-		FROM "ANIMAL"
+		FROM ANIMAL
 		WHERE STATUS = 'O'
+		<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' ">
+        AND ${searchType} LIKE '%${searchValue}%'
+    	</if>
   	</select>
   	
   	

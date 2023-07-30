@@ -24,8 +24,8 @@ public class WorkService {
 	private final SqlSessionTemplate sst;
 	
 	//업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가
-	public int workInsert(Map paramMap) {
-		return dao.workInsert(sst , paramMap);
+	public int workInsert(WorkVo vo) {
+		return dao.workInsert(sst , vo);
 	}
 
 	//업무할당 화면  회원들 가져와서 뿌려줘야함

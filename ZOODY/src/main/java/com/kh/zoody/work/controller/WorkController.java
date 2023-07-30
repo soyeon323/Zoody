@@ -42,14 +42,14 @@ public class WorkController {
 	}
 	
 //	업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가  AJAX 
-	@GetMapping("insert")
-	public int workInsert(@RequestParam Map ParamMap) {
+	@PostMapping("insert")
+	public String workInsert(WorkVo vo) {
 		
-		int result = ws.workInsert(ParamMap);
+		int result = ws.workInsert(vo);
 		if(result != 1) {
 			throw new RuntimeException();
 		}
-		return result;
+		return "redirect:/work/work";
 	}
 	
 	 //업무명과 마감일시 가져오기 AJAX로
