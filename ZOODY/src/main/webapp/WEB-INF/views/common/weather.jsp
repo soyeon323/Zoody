@@ -8,12 +8,13 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/weather/weather.css">
 </head>
-<div id="weather_info">
 
-    <div class="temperatures">기온 00</div>
-    <div class="weather-icon">
-        <img src="${root}/resources/img/icon/png/weather-cloud.png" alt="">
+<div id="weather_info_wrap">   
+    <div id="weather_info_loading">
+
+        <div class="container">
+            <div id="spinner"></div>
+          </div>
+    
     </div>
-    <div class="weather-conditions">날씨 00</div>
-
 </div>

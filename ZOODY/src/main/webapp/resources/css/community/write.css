@@ -9,14 +9,13 @@
 }
 
 #write-wrap{ 
-
-    width: calc(100% - 60px - 270px);
+    /* width: calc(100% - 60px - 270px); */
     /* height: calc(100% - 60px - 48px); */
     /* margin: 30; */
     display: grid;
     position: absolute;
     left: 300px;
-    top: 78;
+    top: 75px;
     align-items: start;
     justify-items: stretch;
     align-content: stretch;
@@ -50,7 +49,7 @@
 }
 
 .write-wrap-body > div {
-    width: 99%;
+    width: calc(100% - 50px);
     height: 100%;
     max-width: 1574.090;
     padding-left: 15px;
@@ -132,7 +131,7 @@ select {
 }
 
 .right-click-area {
-    width: 342.344;
+    width: 478.344px;
     display: flex;
     align-items: center;
     gap: 15px;
