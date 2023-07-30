@@ -1,140 +1,159 @@
-// $(document).ready(function() {
+let result = null;
+let currentHour = null;
+let dayOrNight = 'day';
+let latitude = null;
+let longitude = null;
+
+$(document).ready(function() {
    
-//     // 1시간 마다 날씨 정보 가져오기
-//     setInterval(() => {
-//         getPosition();
-//     }, 360000);
+    // 현재 시간 확인
+    function isTimeBetween6PMAnd6AM() {
+        const currentDate = new Date();
+        currentHour = currentDate.getHours();
+        return currentHour >= 18 || currentHour < 6;
+    }
 
-// });
+    // 현재 시간이 오후 6시에서 다음날 오전 6시까지인지 확인합니다.
+    if (isTimeBetween6PMAnd6AM()) {
+        dayOrNight = 'night'; // 함수 A 실행
+    }
 
-// $(document).ready(function() {
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        console.log(123);
+  
+        latitude = pos.coords.latitude;
+        longitude = pos.coords.longitude;
+  
+        if (latitude === null || longitude === null) {
+          alert("위치 정보를 가져올 수 없습니다.");
+          return;
+        }
+
+        console.log("현재 위치는 : " + latitude + ", " + longitude);
+        // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
+        result = dfs_xy_conv("toXY", latitude, longitude);
+  
+        console.log("위도:", latitude);
+        console.log("경도:", longitude);
+  
+        console.log("LCC DFS 좌표 X:", result.x);
+        console.log("LCC DFS 좌표 Y:", result.y);
+  
+        // 날씨 정보를 가져오는 함수 호출
+        getWeatherData(result.x, result.y);
+      },
+      function (error) {
+        $("div").text("조회 실패 ==> " + error.code);
+      }
+    );
+    
+
    
-//     // 6촌 마다 날씨 정보 가져오기
-//     setInterval(() => {
-//         getPosition();
-//     }, 6000);
+});
 
-// });
 
 // 5초마다 getPosition 함수 호출
-let updayeWeatherInfo = setInterval(getPosition, 1000000); // 5000 밀리초 = 5초
+let updayeWeatherInfo = setInterval(getPosition, 600000); // 5000 밀리초 = 5초
 
-
-let result = null;
-
-
-// 날씨 정보 가져오기
+// 좌표 정보 가져오기
 function getPosition() {
-    navigator.geolocation.getCurrentPosition(function(pos) {
-        
-            console.log(pos);
-            var latitude = pos.coords.latitude;
-            var longitude = pos.coords.longitude;
-
-            if (latitude === null || longitude === null ) {
-                    
-                alert("위치 정보를 가져올 수 없습니다.");
-                
-                return;
-            }
-
-            console.log("현재 위치는 : " + latitude + ", "+ longitude);
-            // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
-            var result = dfs_xy_conv("toXY", latitude, longitude);
-
-            console.log("위도:", latitude);
-            console.log("경도:", longitude);
-
-            console.log("LCC DFS 좌표 X:", result.x);
-            console.log("LCC DFS 좌표 Y:", result.y);
-
-            // 여기서 날씨 정보를 사용하여 날씨를 가져올 수 있습니다.
-            $.ajax({
-                url: root + "/api/weather",
-                type: "post",
-                dataType: "json",
-                data : {
-                    nx : result.x,
-                    ny : result.y,
-                },
-                success: function(data) {
-                    console.log(data);
-
-                    let updayeWeatherInfo = 
-                    `
-                    <div class="temperatures">기온 {}</div>
-                    <div class="weather-icon">
-                        <img src="${root}/resources/img/icon/png/weather-cloud.png" alt="">
-                    </div>
-                    <div class="weather-conditions">날씨 00</div>
-                    `
-
-                },
-                error: function(data) {
-                    alert("fail");
-                }
-            });
-        },
-        function(error) {
-        $('div').text("조회 실패 ==> " + error.code);
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        isTimeBetween6PMAnd6AM();
+  
+        // var latitude = pos.coords.latitude;
+        // var longitude = pos.coords.longitude;
+  
+        if (latitude === null || longitude === null) {
+          alert("위치 정보를 가져올 수 없습니다.");
+          return;
         }
+  
+        console.log("현재 위치는 : " + latitude + ", " + longitude);
+        // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
+        result = dfs_xy_conv("toXY", latitude, longitude);
+  
+        console.log("위도:", latitude);
+        console.log("경도:", longitude);
+  
+        console.log("LCC DFS 좌표 X:", result.x);
+        console.log("LCC DFS 좌표 Y:", result.y);
+  
+        // // 날씨 정보를 가져오는 함수 호출
+        // getWeatherData(result.x, result.y);
+      },
+      function (error) {
+        $("div").text("조회 실패 ==> " + error.code);
+      }
     );
+}
+  
+// 날씨 정보를 가져오는 AJAX 요청 함수
+function getWeatherData(nx, ny) {
+    $.ajax({
+        url: root + "/api/weather",
+        type: "post",
+        dataType: "json",
+        data: {
+        nx: nx,
+        ny: ny,
+        },
+        success: function (data) {
+        let pop = data["pop"]; // 강수확률
+        let PTY = data["TMP"]; // 강수형태
+        let REH = data["REH"]; // 습도
+        let SNO = data["SNO"]; // 1시간 신적설
+        let SKY = data["SKY"]; // 하늘상태
+        let TMP = data["TMP"]; // 1시간 기온
+        let TMN = data["TMN"]; // 일일 최고기온
+        let TMX = data["TMX"]; // 강수확률
+
+        SKY = skyCheck(SKY);
+
+        let changeHtml = `
+            <div id="weather_info" class="weather-${dayOrNight}">
+                <div class="temperatures">${TMP}℃</div>
+                <div class="weather-icon">
+                    <img src="${root}/resources/img/icon/png/weather-cloud.png" alt="">
+                </div>
+                <div class="weather-conditions">${SKY}</div>
+            </div>
+            `;
+
+        $("#weather_info_wrap").html(changeHtml);
+        },
+        error: function (data) {
+            getWeatherData(nx, ny);
+        },
+    });
 }
 
 
 
+// 하늘 상태 확인
+function skyCheck(SKY){
+    if (SKY === '1') {
+        return '맑음';
+    }
+    else if (SKY === '2') {
+        return '구름조금';
+    }
+    else if (SKY === '3') {
+        return '구름많음';
+    }  
+    else if (SKY === '4') {
+        return '흐림';
+    }  
+    return 'error';
+}
 
 
-// function getPosition() {
-//     navigator.geolocation.getCurrentPosition(function(pos) {
-
-//             console.log(123);
-//             console.log(position);
-//             console.log(456);
-
-//             var latitude = pos.coords.latitude;
-//             var longitude = pos.coords.longitude;
-//             if (latitude === null || longitude === null ) {
-                
-//                 alert("위치 정보를 가져올 수 없습니다.");
-                
-//                 return;
-//             }
-//             console.log(latitude);
-//             console.log(longitude);
+ 
 
 
-//             // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
-//             var result = dfs_xy_conv("toXY", latitude, longitude);
 
-//             console.log("위도:", latitude);
-//             console.log("경도:", longitude);
 
-//             console.log("LCC DFS 좌표 X:", result.x);
-//             console.log("LCC DFS 좌표 Y:", result.y);
-
-//             // 여기서 날씨 정보를 사용하여 날씨를 가져올 수 있습니다.
-//             $.ajax({
-//                 url: root + "/api/weather",
-//                 type: "post",
-//                 dataType: "json",
-//                 data : {
-//                     nx : result.x,
-//                     ny : result.y,
-//                 },
-//                 success: function(data) {
-//                     console.log(data);
-//                 },
-//                 error: function(data) {
-//                     alert("fail");
-//                 }
-//             });
-//         },
-//         function(error) {
-//             $('div').text("조회 실패 ==> " + error.code);
-//         }
-//     );
-// }
 
 // LCC DFS 좌표변환을 위한 기초 자료
 

@@ -63,8 +63,6 @@
                     <%@ include file="/WEB-INF/views/common/fullcalendar.jsp" %>
                 </div>
                 <div class="area weather">
-                    <button onclick="getPosition()">날씨</button>
-                    <button onclick="getPosition()"> 현재위치 </button>
                     <%@ include file="/WEB-INF/views/common/weather.jsp" %>
                 </div>
                 <div class="area news">
@@ -88,6 +86,9 @@
                         <span>진행도</span>
                         <img class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
+
+                    <%@ include file="/WEB-INF/views/home/chart.jsp" %>
+                    
                 </div>
 
                 <div class="area attendance">
@@ -98,7 +99,10 @@
                 </div>
 
                 <div class="area community">
-                    <div class="community-header div-header">커뮤니티</div>  
+                    <div onclick="goToCommunity()" class="community-header div-header">
+                        <span>커뮤니티</span>
+                        <img class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
+                    </div>  
                    
                     <div class="community-list-area">
 
@@ -143,39 +147,3 @@
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.2/proj4.js"></script>
-<script>
-
-   
-
-
-    function getPosition() {
-
-        window.navigator.geolocation.getCurrentPosition(success, error);
-
-    }
-
-    function success(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    // 원래 좌표계는 WGS84 (World Geodetic System 1984)로 가정
-    var originalProjection = 'EPSG:4326';
-
-    // UTM 좌표계는 지역에 따라 다를 수 있으며, 여기서는 대한민국 기준으로 UTM-K 좌표계를 사용
-    var targetProjection = 'EPSG:5179';
-
-    // proj4 라이브러리를 사용하여 좌표를 변환
-    var transformedCoordinates = proj4(originalProjection, targetProjection, [longitude, latitude]);
-
-    var utmX = transformedCoordinates[0]; // UTM X 좌표
-    var utmY = transformedCoordinates[1]; // UTM Y 좌표
-
-    alert("내 위치 UTM X = " + utmX + " 내 위치 UTM Y = " + utmY);
-}
-
-function error(err) {
-    $('div').text("조회 실패 ==>" + err.code);
-}
-
-
-</script>

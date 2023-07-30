@@ -20,7 +20,7 @@ public interface WeatherSetting {
 	
 	final String 	SERVICE_KEY = "kSsayJw1QBDC5zyNu%2FxgOVQQfrnF5qpx4bIbcrii82hA5GxKe%2FF%2Bx1Fy7Y7xHd0JRekCwY%2BEDKVeNTXnDqZpvQ%3D%3D";
 	final int 		PAGE_NO 	= 1; 												
-	final int 		NUM_OF_ROWS = 1000; 												
+	final int 		NUM_OF_ROWS = 12; 												
 	final String 	DATA_TYPE 	= "JSON"; 												
 	final String	BASE_DATE	= dynamicBaseDate();
 	final String	BASE_TIME	= dynamicBaseTime();

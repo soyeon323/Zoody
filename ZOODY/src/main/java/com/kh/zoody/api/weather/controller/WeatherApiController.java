@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ import java.io.IOException;
 public class WeatherApiController {
 	
 	@PostMapping("/weather")
-	public List weatherInfo(WeatherVo vo) throws Exception {
+	public Map<String, String> weatherInfo(WeatherVo vo) throws Exception {
 		
 		
 		if (vo == null) {
@@ -75,21 +76,34 @@ public class WeatherApiController {
         
         // 데이터 정제
         String jsonStr = sb.toString();
-        
-        
-        Gson gson = new Gson();
-        Map jsonMap = gson.fromJson(jsonStr, Map.class);
-        Map response = (Map) jsonMap.get("response");
-        Map body = (Map) response.get("body");
-        Map itmes = (Map) body.get("items");
-        List itemList = (List) itmes.get("item");
-        
-        
 
-//        log.info("itemList : "+itemList.toString());
-		
-		return itemList;
-	}
+        Gson gson = new Gson();
+        Map<String, Object> jsonMap = gson.fromJson(jsonStr, Map.class);
+        Map<String, Object> response = (Map<String, Object>) jsonMap.get("response");
+        Map<String, Object> body = (Map<String, Object>) response.get("body");
+        Map<String, Object> items = (Map<String, Object>) body.get("items");
+        List<Map<String, Object>> itemList = (List<Map<String, Object>>) items.get("item");
+
+        // vo에 담을 데이터 Map 초기화
+        Map<String, String> weatherDataMap = new HashMap<>();
+
+        // 현재 날짜와 시간 정보 가져오기
+        String baseDate = LocalDate.now().toString();
+        baseDate = baseDate.replace("-", "");
+
+        // fcstDate과 baseTime이 같은 데이터들의 category를 vo에 담는 로직
+        for (Map<String, Object> item : itemList) {
+            String fcstDate = (String) item.get("fcstDate");
+            String fcstTime = (String) item.get("fcstTime");
+
+            if (fcstDate.equals(baseDate)) {
+                String category = (String) item.get("category");
+                String fcstValue = (String) item.get("fcstValue");
+                weatherDataMap.put(category, fcstValue);
+            }
+        }
+
+        return weatherDataMap;
 	
-   
+	}
 }

@@ -1,8 +1,52 @@
+.area.weather {
+    background-color: #D9D9D9;
+}
+
+.container {
+    width: 100;
+    height: 100;
+    margin: 20px auto;
+    border: 1px solid white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#spinner {
+    margin: calc(50% - 25px) auto;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+
+    border: 5px solid rgba(255, 255, 255, 0.3);  
+    border-top-color: #172a7f;
+    border-radius: 100%;
+
+    position: absolute;
+    animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+    100%
+    {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+#weather_info_wrap {
+    overflow: hidden;
+    border-radius: 5px;
+}
+
 #weather_info {
+
+    height: 100%;
+
     display: grid;
     align-items: center;
     justify-items: center;
-    background: linear-gradient(360deg, #2594B7 0%, rgba(43, 152, 186, 0.71) 78.24%, rgba(81, 180, 212, 0.69) 103.57%);
+    
 
     grid-template-areas: 
     "t i"
@@ -10,8 +54,14 @@
     ;
 }
 
+#weather_info > div{
+    padding: 5;
+}
+
 .temperatures {
     grid-area: t;
+    font-size: 17;
+    align-self: end;
 }
 
 .weather-icon {
@@ -28,4 +78,22 @@
 
  .weather-icon > img {
     max-width: 100%;
- }
+ } 
+
+.weather-conditions {
+    font-size: 15;
+    align-self: flex-start;
+}
+
+
+.weather-day{
+    color: #3E3D3D;
+    background: linear-gradient(360deg, #2594B7 0%, rgba(43, 152, 186, 0.71) 78.24%, rgba(81, 180, 212, 0.69) 103.57%);
+}
+
+.weather-night {
+    color: F6F6F6;
+    background: linear-gradient(360deg, #3E5359 0%, rgba(71, 101, 109, 0.83) 93.32%, rgba(68, 107, 118, 0.94) 103.57%);
+}
+
+

@@ -147,6 +147,7 @@
 .area-gird-2 > div:not(#notice) {
     display: grid;
     grid-template-rows: 2fr 8fr;
+    grid-template-columns: 1fr;
     justify-items: start;
     align-items: start;
 }
@@ -197,6 +198,7 @@
     align-items: center;
     vertical-align: middle;
     color: #636567;
+    font-size: 15;
 }
 
 .community-list >div {
