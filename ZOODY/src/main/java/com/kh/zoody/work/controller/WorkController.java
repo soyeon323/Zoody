@@ -53,14 +53,15 @@ public class WorkController {
 	}
 	
 	 //업무명과 마감일시 가져오기 AJAX로
-//	@PostMapping("work")
-//	@ResponseBody
-//	public String  getWorkNameAndDate() {
-//		
-//		WorkVo wv = ws.getWorkNameAndDate();
-//		
-//		log.info("WorkVo = {}",wv);
-//		return wv.toString();
-//	}
+	@PostMapping("work/view")
+	public String  getWorkNameAndDate(Model m) {
+		
+		WorkVo wv = ws.getWorkNameAndDate();
+		
+		log.info("WorkVo = {}",wv);
+		
+		m.addAttribute("wv",wv);
+		return "work/work";
+	}
 	
 }
