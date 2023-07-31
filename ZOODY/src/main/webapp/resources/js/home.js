@@ -3,7 +3,11 @@ function profileEditModal(){
 }
 
 function goToNotice() {
-    alert("공지로")
+    window.location.replace(root+"/notice/list");
+}
+
+function goToProject() {
+    window.location.replace(root+"/project/progress");
 }
 
 function goToCommunity() {

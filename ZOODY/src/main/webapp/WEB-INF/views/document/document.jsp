@@ -20,7 +20,13 @@
 
             <div class="document-header">${documentType}</div>
     
-            <div class="document-side">s</div>
+            <div class="document-side">
+                <ul>문서
+                    <li>전사</li>
+                    <li>부서</li>
+                </ul>
+
+            </div>
     
             <div class="document-body">b</div>
 
