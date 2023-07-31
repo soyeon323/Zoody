@@ -44,11 +44,11 @@
                         <tr>
                             <td>${svo.no}</td>
                             <td>${svo.content}</td>
-                            <td><input type="radio"  name="q${svo.no}"  value="10"></td>
-                            <td><input type="radio"  name="q${svo.no}"  value="20"></td>
-                            <td><input type="radio"  name="q${svo.no}"  value="30"></td>
-                            <td><input type="radio"  name="q${svo.no}"  value="40"></td>
-                            <td><input type="radio"  name="q${svo.no}"  value="50"></td> 
+                            <td><input type="radio"  name="q${svo.no}"  value="2"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="4"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="6"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="8"></td>
+                            <td><input type="radio"  name="q${svo.no}"  value="10"></td> 
                         </tr>
                     </c:forEach>
                 </tbody>
