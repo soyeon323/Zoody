@@ -94,7 +94,7 @@
                 <div class="area attendance">
                     <div class="div-header">
                         <span>근태현황</span>
-                        <img class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
+                        <img onclick="goToAttendance()" class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
 
                     
