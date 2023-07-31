@@ -7,7 +7,7 @@
 
 #mt_main{
     /* background-color: red; */
-    width: 90%;
+    width: 83%;
     height: 90%;
     margin: 0 auto;
     margin-top: 20px;
@@ -93,6 +93,21 @@
     column-gap: 17px;
 
     position: relative;
+}
+
+.card>.list-group {
+    position: absolute;
+    left: 322px;
+    width: 83px;
+    font-size: 13px;
+    z-index: 99;
+    top: 10px;
+}
+
+.card > button > svg{
+    position: absolute;
+    left: 305px;
+    top: 10px;
 }
 
 .card-img, .card-img-bottom, .card-img-top {

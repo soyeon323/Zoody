@@ -46,6 +46,26 @@
             	<c:forEach items="${list}" var="vo">
 	                <div class="card">
 	                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
+                        <button style="border: none; background-color: transparent;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <g clip-path="url(#clip0_473_8454)">
+                                    <path d="M7.99935 2.66667C8.73572 2.66667 9.33268 2.06971 9.33268 1.33333C9.33268 0.596954 8.73572 0 7.99935 0C7.26297 0 6.66602 0.596954 6.66602 1.33333C6.66602 2.06971 7.26297 2.66667 7.99935 2.66667Z" fill="white"/>
+                                    <path d="M7.99935 9.33365C8.73572 9.33365 9.33268 8.7367 9.33268 8.00032C9.33268 7.26394 8.73572 6.66699 7.99935 6.66699C7.26297 6.66699 6.66602 7.26394 6.66602 8.00032C6.66602 8.7367 7.26297 9.33365 7.99935 9.33365Z" fill="white"/>
+                                    <path d="M7.99935 15.9997C8.73572 15.9997 9.33268 15.4027 9.33268 14.6663C9.33268 13.93 8.73572 13.333 7.99935 13.333C7.26297 13.333 6.66602 13.93 6.66602 14.6663C6.66602 15.4027 7.26297 15.9997 7.99935 15.9997Z" fill="white"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_473_8454">
+                                    <rect width="16" height="16" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <div class="list-group" style="display: none;">
+                            <a href="${root}/meetingroom/reserve/update?no=${vo.no}" class="list-group-item list-group-item-action mtUpdate" aria-current="true" data-vo-no="${vo.no}" onclick="mtUpdate(event);">
+                              수정하기
+                            </a>
+                            <a href="${root}/meetingroom/reserve/delete?no=${vo.no}" class="list-group-item list-group-item-action mtDelete" data-vo-no="${vo.no}" onclick="mtDelete(event);">삭제하기</a>
+                        </div>
 	                    <div class="card-body">
 	                      <h5 class="card-title">${vo.name} 회의실</h5>
 	                      <a href="#" class="btn btn-primary">예약하기</a>
@@ -81,6 +101,73 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // 모든 .card 요소 선택
+        const cards = document.querySelectorAll('.card');
+    
+        // 각각의 .card 요소에 대해서 이벤트를 추가
+        cards.forEach(card => {
+            // .card 요소 내부의 버튼을 선택
+            const button = card.querySelector('button');
+    
+            // 버튼을 클릭했을 때 이벤트를 처리
+            button.addEventListener('click', function() {
+                // 현재 .card 요소 내부의 .list-group 요소를 선택
+                const listGroup = card.querySelector('.list-group');
+    
+                // 'list-group' 클래스의 디스플레이 속성을 변경하여 나타났다 사라졌다 토글
+                if (listGroup.style.display === 'none' || listGroup.style.display === '') {
+                    listGroup.style.display = 'block';
+                } else {
+                    listGroup.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function mtUpdate(event) {
+            // event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
+            const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
+            sendAjaxForUpdate(voNo); // Ajax 요청 함수 호출
+        }
+
+        function mtDelete(event) {
+            event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
+            const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
+            sendAjaxForDelete(voNo); // Ajax 요청 함수 호출
+        }
+
+        function sendAjaxForUpdate(voNo) {
+            $.ajax({
+                url: '${root}/meetingroom/reserve/update',
+                method: 'GET',
+                data: { no: voNo },
+                success: function(response) {
+                    alert("조회 성공.")
+                },
+                error: function(error) {
+                    alert("수정 오류");
+                }
+            });
+        }
+
+        function sendAjaxForDelete(voNo) {
+            $.ajax({
+                url: '${root}/meetingroom/reserve/delete',
+                method: 'POST',
+                data: { no: voNo },
+                success: function(response) {
+                    alert("성공적으로 삭제 처리 되었습니다.");
+                    window.location.href = '${root}/meetingroom/reserve';
+                },
+                error: function(error) {
+                    alert("삭제 오류");
+                }
+            });
+        }
+    </script>
     
 </body>
 </html>

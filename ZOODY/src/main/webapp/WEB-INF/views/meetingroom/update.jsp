@@ -28,7 +28,7 @@
         <form action="${root}/meetingroom/add" method="POST">
             <div id="mt_main">
                 <!-- 맨 윗 줄 -->
-                <div class="mt_link">
+                 <!-- <div class="mt_link">
                     <div aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="#">일정등록</a></li>
@@ -36,7 +36,7 @@
                           <li class="breadcrumb-item active" aria-current="page">회의실 등록</li>
                         </ol>
                     </div>
-                </div>
+                </div> -->
                 <div class="add-form">
                     <table class="board_view">
                         <colgroup>
@@ -47,7 +47,7 @@
                             <tr>
                                 <th>회의실명</th>
                                 <td>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" name="name">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="${detail.no}">
                                 </td>
                             </tr>
                             <tr>
@@ -59,14 +59,14 @@
                             <tr>
                                 <th>수용가능인원</th>
                                 <td>
-                                    <input type="number" name="capacity" id="">
+                                    <input type="number" name="capacity" id="" placeholder="${detail.capacity}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>정보</th>
                                 <td style="height: 500px;">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="info"></textarea>
+                                        <textarea class="form-control" placeholder="${detail.info}" id="floatingTextarea" name="info"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -81,7 +81,7 @@
                         </tbody>
                     </table>
                     <div class="add-btn">
-                        <input type="submit" value="등록완료">
+                        <input type="submit" value="수정완료">
                     </div>
                 </div>
             </div>

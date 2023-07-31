@@ -14,5 +14,7 @@ public class MeetingroomVo {
 	private String originName;
 	private String changeName;
 	private String capacity;
+	
+	private String voNo;
 
 }

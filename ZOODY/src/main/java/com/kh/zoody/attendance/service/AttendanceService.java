@@ -74,6 +74,10 @@ public interface AttendanceService {
 
 	int getWorkCnt();
 
+	boolean hasCheckInRecordToday(AttendanceVo attendanceVo);
+
+	boolean hasCheckOutRecordToday(AttendanceVo attendanceVo);
+
 
 
 

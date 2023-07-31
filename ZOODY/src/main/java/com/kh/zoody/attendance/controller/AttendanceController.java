@@ -166,19 +166,31 @@ public class AttendanceController {
 	
 	//메인화면 출퇴근 등록
 	@PostMapping("main")
-	public String workStatus(@RequestParam String loginMemberNo, @RequestParam String action) throws Exception {
+	public ResponseEntity<String> workStatus(@RequestParam String loginMemberNo, @RequestParam String action) {
+	    try {
+	        AttendanceVo attendanceVo = new AttendanceVo();
+	        attendanceVo.setLoginMemberNo(loginMemberNo);
 
-	    AttendanceVo attendanceVo = new AttendanceVo();
-	    attendanceVo.setLoginMemberNo(loginMemberNo);
-
-	    //클라이언트에서 전달된 action 값에 따라 출근 또는 퇴근 작업 수행
-	    if ("check-in".equals(action)) {
-	        int checkInresult = attService.checkInWork(attendanceVo);
-	    } else if ("check-out".equals(action)) {
-	        int checkOutresult = attService.checkOutWork(attendanceVo);
+	        if ("check-in".equals(action)) {
+	            if (attService.hasCheckInRecordToday(attendanceVo)) {
+	                return ResponseEntity.ok("already-checked-in");
+	            } else {
+	                attService.checkInWork(attendanceVo);
+	                return ResponseEntity.ok("출근 완료");
+	            }
+	        } else if ("check-out".equals(action)) {
+	            if (attService.hasCheckOutRecordToday(attendanceVo)) {
+	                return ResponseEntity.ok("already-checked-out");
+	            } else {
+	                attService.checkOutWork(attendanceVo);
+	                return ResponseEntity.ok("퇴근 완료");
+	            }
+	        } else {
+	            return ResponseEntity.badRequest().body("올바르지 않은 요청");
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
 	    }
-
-	    return "attendance/workStatus";
 	}
 	
 	//메인화면 주간 차트
@@ -231,9 +243,42 @@ public class AttendanceController {
 	@PostMapping("list")
 	public String list(@RequestParam Map<String, String> params) {
 		
-		int result = attService.submitOjection(params);
-		
-		return "attendance/list";
+//		try {
+//			
+//			String no = params.get("no");
+//	        
+//	        if (loginMemberNo == null || action == null) {
+//	            return "redirect:/attendance/main"; // 또는 적절한 경로로 리다이렉트 처리
+//	        }
+//
+//	        AttendanceVo attendanceVo = new AttendanceVo();
+//	        attendanceVo.setLoginMemberNo(loginMemberNo);
+//
+//	        if ("check-in".equals(action)) {
+//	            if (attService.hasCheckInRecordToday(attendanceVo)) {
+//	                // 이미 출근 등록을 완료한 경우 처리
+//	            } else {
+//	                // 출근 완료 처리
+//	                attService.checkInWork(attendanceVo);
+//	            }
+//	        } else if ("check-out".equals(action)) {
+//	            if (attService.hasCheckOutRecordToday(attendanceVo)) {
+//	                // 이미 퇴근 등록을 완료한 경우 처리
+//	            } else {
+//	                // 퇴근 완료 처리
+//	                attService.checkOutWork(attendanceVo);
+//	            }
+//	        } else {
+//	            return "redirect:/attendance/main"; // 또는 적절한 경로로 리다이렉트 처리
+//	        }
+
+	        int result = attService.submitOjection(params);
+
+	        return "attendance/list";
+//	    } catch (Exception e) {
+//	        // 오류 발생 시 적절한 에러 처리
+//	        return "redirect:/attendance/main"; // 또는 적절한 경로로 리다이렉트 처리
+//	    }
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회

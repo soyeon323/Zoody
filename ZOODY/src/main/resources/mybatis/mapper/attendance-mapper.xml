@@ -504,6 +504,22 @@
 		FROM EXTRA_WORK
 		WHERE NO = 1
 	</select>
+	
+	<!-- 출근 기록이 있는지 확인하는 쿼리 -->
+	<select id="hasCheckInRecordToday" resultType="int">
+	    SELECT COUNT(*) AS COUNT
+	    FROM ATTENDANCE
+	    WHERE USER_NO = #{loginMemberNo}
+	    AND TO_CHAR(CHECK_IN_TIME, 'YYYY-MM-DD') = TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 퇴근 기록이 있는지 확인하는 쿼리 -->
+	<select id="hasCheckOutRecordToday" resultType="int">
+	    SELECT COUNT(*) AS COUNT
+	    FROM ATTENDANCE
+	    WHERE USER_NO = #{loginMemberNo}
+	    AND TO_CHAR(CHECK_OUT_TIME, 'YYYY-MM-DD') = TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD')
+	</select>
   
 </mapper>
 

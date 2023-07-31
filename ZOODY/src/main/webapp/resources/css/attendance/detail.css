@@ -358,6 +358,7 @@
     align-items: center;
     justify-content: center;
     gap: 3px;
+    padding-top: 11px;
 }
 
 button[class='nomalBtn']{

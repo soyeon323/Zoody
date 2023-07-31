@@ -194,6 +194,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 
+	@Override
+	public boolean hasCheckInRecordToday(AttendanceVo attendanceVo) {
+		return dao.hasCheckInRecordToday(sst, attendanceVo);
+	}
+
+
+	@Override
+	public boolean hasCheckOutRecordToday(AttendanceVo attendanceVo) {
+		return dao.hasCheckOutRecordToday(sst, attendanceVo);
+	}
+
+
 
 
 

@@ -179,6 +179,24 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return sst.selectOne("attendance.getWorkCnt");
 	}
 
+	@Override
+	public boolean hasCheckInRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo) {
+		
+		int count = sst.selectOne("attendance.hasCheckInRecordToday", attendanceVo);
+		
+		return count > 0;
+	}
+
+	@Override
+	public boolean hasCheckOutRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo) {
+		
+		int count = sst.selectOne("attendance.hasCheckOutRecordToday", attendanceVo);
+		
+		return count > 0;
+	}
+
+	
+
 
 	
 
