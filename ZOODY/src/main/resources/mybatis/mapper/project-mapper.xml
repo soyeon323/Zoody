@@ -35,4 +35,37 @@
 	FROM "USER" U
 	JOIN RANK R ON U.RANK_NO = R.NO 
   </select>
+  
+  <insert id="insertPrj">
+  	INSERT INTO PROJECT
+	(
+	  	NO
+		, TITLE
+		, CONTENT
+		, START_DATE
+		, END_DATE
+		, TEAM_NAME
+	)
+	VALUES
+	( 
+		SEQ_PROJECT_NO.NEXTVAL
+		, #{title}
+		, #{content}
+		, #{startDate}
+		, #{endDate}
+		, #{title}
+	)
+  </insert>
+  
+  <select id="getPrjNo" resultType="ProjectVo">
+  	SELECT
+  		NO
+		, TITLE
+		, CONTENT
+		, START_DATE
+		, END_DATE
+		, TEAM_NAME
+	FROM PROJECT
+	WHERE TEAM_NAME = #{teamName}
+  </select>
 </mapper>

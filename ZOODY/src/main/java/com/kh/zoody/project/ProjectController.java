@@ -42,20 +42,28 @@ public class ProjectController {
 	
 	@PostMapping("progress")
 	public void projectProgress(@RequestBody String str) {
-		log.info(str);
 		Gson gson = new Gson();
 		PjVo x = gson.fromJson(str, PjVo.class);
 		
-		ProjectVo pv = ProjectVo.builder()
+		ProjectVo vo = ProjectVo.builder()
 						.userNo(x.getUserNo())
 						.userName(x.getUserName())
 						.title(x.getTitle())
 						.content(x.getContent())
 						.startDate(x.getStartDate())
 						.endDate(x.getEndDate())
+						.teamName(x.getTitle())
 						.build();
 		
-		log.info("pv : {}", pv);
+		int result1 = ps.insertPrj(vo);
+		
+		log.info("vo : {}", vo);
+		
+		ProjectVo voGetNo = ps.getPrjNo(vo.getTeamName());
+
+		if(result1 != 1) {
+			throw new RuntimeException();
+		}
 	}
 	
 	//프로젝트 상세화면
