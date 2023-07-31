@@ -13,4 +13,10 @@
         FROM CURROPTION_SURVEY_QUESTION
 	</select>
 	
+	<select id="avgSocre" resultType="com.kh.zoody.survey.vo.SurveyVo">
+		SELECT AVG("TOTAL_SCORE") AS AVERAGE_SCORE
+		FROM RESEARCH
+		WHERE "NO" = 1
+	</select>
+	
 </mapper>

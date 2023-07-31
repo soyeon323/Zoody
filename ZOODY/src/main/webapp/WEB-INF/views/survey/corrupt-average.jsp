@@ -90,7 +90,7 @@
                 <div id="score">
                     <div>현재 사내 부패도 점수</div>
                     <br>
-                    <div id="avgScore" >30</div>
+                    <div id="avgScore" >${vo.totlaScore}</div>
                 </div>
                 <div class="circle"></div>
                </div>

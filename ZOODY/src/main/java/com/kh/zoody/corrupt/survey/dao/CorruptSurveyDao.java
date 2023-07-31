@@ -15,4 +15,9 @@ public class CorruptSurveyDao {
 		return sst.selectList("survey.getSurveyQuestion");
 	}
 
+	//설문조사 평균화면
+	public SurveyVo avgSocre(SqlSessionTemplate sst, String score) {
+		return sst.selectOne("survey.avgSocre",score);
+	}
+
 }

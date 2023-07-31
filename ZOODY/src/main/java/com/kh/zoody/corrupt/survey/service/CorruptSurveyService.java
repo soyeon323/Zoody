@@ -26,4 +26,9 @@ public class CorruptSurveyService {
 	public List<SurveyVo> getSurveyQuestion() {
 		return dao.getSurveyQuestion(sst);
 	}
+
+	//설문 조사 평균화면
+	public SurveyVo avgScore(String score) {
+		return dao.avgSocre(sst,score);
+	}
 }

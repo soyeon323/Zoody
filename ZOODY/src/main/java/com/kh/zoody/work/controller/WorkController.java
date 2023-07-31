@@ -3,6 +3,11 @@ package com.kh.zoody.work.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,13 +34,17 @@ public class WorkController {
 	
 	//업무할당 화면  회원들 가져와서 뿌려줘야함
 	@GetMapping("work")
-	public String work(Model m) {
+	public String work(Model m, HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 		
 		List<WorkVo> vo = ws.getUserList();
 		log.info("vo : {}",vo);
 		if(vo ==null) {
 			throw new RuntimeException();
 		}
+		m.addAttribute("loginMember" , loginMember);
 		m.addAttribute("vo",vo);
 		
 		return "work/work";
@@ -43,24 +52,30 @@ public class WorkController {
 	
 //	업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가  AJAX 
 	@PostMapping("insert")
-	public String workInsert(WorkVo vo) {
+	@ResponseBody
+	public ResponseEntity<String> workInsert(WorkVo vo ) {
 		
 		int result = ws.workInsert(vo);
-		if(result != 1) {
-			throw new RuntimeException();
-		}
-		return "redirect:/work/work";
+		if (result != 1) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to insert work");
+	    }
+		log.info("결과 = {}",result);
+	    return ResponseEntity.ok("ok");
 	}
 	
 	 //업무명과 마감일시 가져오기 AJAX로
-	@PostMapping("work/view")
+	@PostMapping("view")
 	public String  getWorkNameAndDate(Model m) {
 		
 		WorkVo wv = ws.getWorkNameAndDate();
 		
 		log.info("WorkVo = {}",wv);
 		
-		m.addAttribute("wv",wv);
+		if(wv ==null) {
+			throw new RuntimeException();
+		}
+		
+		m.addAttribute("data",wv);
 		return "work/work";
 	}
 	

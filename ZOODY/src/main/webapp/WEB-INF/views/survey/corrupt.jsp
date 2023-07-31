@@ -89,8 +89,23 @@
             for (var i = 0; i < radios.length; i++) {
                 score += parseInt(radios[i].value);
             }
-            alert(score);
+
+            alert('설문작성 완료.');
             console.log("총 점수: " + score);   //이 점수로 평균치 계산 해야함
+
+            $.ajax({
+                url : '${root}/corrupt/survey/score',
+                data :{
+                    'score' : score
+                },
+                method : 'get',
+                success : ()=>{
+
+                },
+                error: (e)=>{
+                    alert(e);
+                }
+            });
         }
     }
 

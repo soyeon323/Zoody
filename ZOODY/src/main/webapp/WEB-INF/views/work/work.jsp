@@ -35,7 +35,7 @@
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
     <div id="wrap">
-        <div id="enroll">업무 할당 </div>
+        <div id="enroll">업무 할당</div>
         <button class="btn btn-primary" id="popup_open_btn">업무 추가</button>
 
         <div class="container">
@@ -57,7 +57,7 @@
 
          <!-- 모달창1 -->
          <div id="my_modal">
-         <form action="${root}/work/insert" method="POST">
+         <form >
 
             <h1>업무 할당 </h1>
             <br>
@@ -70,7 +70,8 @@
                  <select id="showtimes" name="showtimes"> 
                      <c:forEach items="${vo}" var="vo">
                          <optgroup label="${vo.deptName}">
-                             <option >${vo.userName}</option> 
+                            
+                             <option >${vo.userName} / ${vo.userNo}</option> 
                          </optgroup> 
                      </c:forEach>
                  </select>
@@ -91,7 +92,7 @@
                       <input type="date" name="endDate"/>
               </div>
               <div id="btn-area" style="margin-left: 400px;"> 
-                 <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가">
+                 <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" value="추가" onclick="writeComment()">
                  <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
              </div>
           </div>
@@ -104,6 +105,17 @@
 </html>
 
 <script>
+
+
+     // "X"를 눌러 이름 삭제하기
+     document.getElementById('userName').addEventListener('click', function(event) {
+        var clickedElement = event.target;
+        if (clickedElement.tagName === 'SPAN') {
+            var nameToRemove = clickedElement.previousSibling.textContent;
+            var agentInput = document.getElementById('userName');
+            agentInput.value = agentInput.value.replace(nameToRemove + 'X, ', ''); // 이름 삭제
+        }
+    });
 
 
     // 추가 버튼 누르면 colum 에 추가됨 
@@ -125,39 +137,18 @@
 document.getElementById('addBtn').addEventListener('click', function() {
 const modal = document.querySelector('#my_modal');
     modal.style.display = 'none';
+});
 
-    const workName = document.getElementById('workName').value;
-    const userName = document.getElementById('userName').value;
-    const workContent = document.getElementById('workContent').value;
-    const endDate = document.getElementById('endDate');
-    const column = document.querySelector('.column1');
-    const newDivTag = document.querySelector('.list-group-item');
 
-    //업무제목 마감일시 불러오기 
-    $.ajax({
-        url : '${root}/work/view',
-        type : 'POST',
-        success : (data)=>{
-            if(data == wv){
-                newDivTag.innerHTML = `
-               <h3>${wv.workName}</h3>
-               <p>마감일: ${wv.endDate}</p>
-               `;
-            }
-        },
-        error : (e)=>{ console.log(e);}
+
+ // 업무행위자 추가
+    document.getElementById('showtimes').addEventListener('change', function() {
+        var selectedOption = this.options[this.selectedIndex];
+        var selectedValue = selectedOption.innerHTML;
+        
+        var agentInput = document.getElementById('userName');
+        agentInput.value += selectedValue + ' , ';
     });
-});
-
-
-
-//업무행위자 추가
-document.getElementById('showtimes').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var selectedValue = selectedOption.innerHTML;
-    var agentInput = document.getElementById('userName');
-    agentInput.value += selectedValue +'X, ';
-});
 
 //  input +
    document.getElementById('plusBtn').addEventListener('click', function() {
@@ -213,8 +204,6 @@ document.getElementById('showtimes').addEventListener('change', function() {
             msTransform: 'translate(-50%, -50%)',
             webkitTransform: 'translate(-50%, -50%)'
         });
-
-        
     }
 
 
@@ -253,7 +242,6 @@ column1.addEventListener('click', function(event) {
     column.addEventListener('click', function(event) {
         var clickedElement = event.target;
         if (clickedElement.classList.contains('list-group-item')) {
-            handleDivClick();
         }
     });
 
@@ -264,5 +252,81 @@ column1.addEventListener('click', function(event) {
             modal('my_modal');
         }
     });
+
+
+
+
+//업무 작성
+function writeComment(no){
+
+    const workName = document.getElementById('workName').value;
+    const userName = document.getElementById('userName').value;
+    const workContent = document.getElementById('workContent').value;
+    const endDate = document.getElementById('endDate');
+
+		$.ajax({
+			url : "${root}/work/insert" ,
+			type : "POST" ,
+            data :{
+                'workName' : workName,
+                'userName' : userName,
+                'workContent' : workContent ,
+                'endDate' :endDate , 
+                'userNo' : '${loginMember.no}'
+            },
+			success : (x)=>{
+				console.log(x);
+				if(x == 'ok'){
+					alert("업무가 등록되었습니다.");
+					// loadComment();
+				}
+			} ,
+			error : (x)=>{
+				console.log(x);
+			} ,
+		});
+	}
+	
+
+	//업무 불러오기
+	function loadComment(){
+        const newDivTag = document.querySelector('.list-group-item');
+		$.ajax({
+            url: '${root}/work/view',
+            type: 'POST',
+            success: function(data) {
+                console.log(data);
+                const x = JSON.parse(data);
+                console.log(x);
+                newDivTag.innerHTML = `
+                    <h3>${x.workName}</h3>
+                    <p>마감일: ${x.endDate}</p> 
+                    `;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('오류가 발생했습니다:', errorThrown);
+                },
+            });
+	}
+
+	loadComment();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
