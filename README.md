@@ -1,4 +1,6 @@
-# final2team
+# WELCOME ZOODY :) ♥
+
+![Group 200](https://github.com/soyeon323/final2team/assets/122279722/b82a2776-c3bc-4cb2-81b1-8718a05e87db)
 
 2023-07-05 springTemplate(lib, mybatis, spring, log4j.xml, pom.xml) 추가.
 
