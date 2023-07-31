@@ -3,7 +3,7 @@
 }
 
 #wrap {
-    width: 1903;
+    /* width: 1903; */
     height: calc(100% - 48px);
     display: flex;
     align-items: center;

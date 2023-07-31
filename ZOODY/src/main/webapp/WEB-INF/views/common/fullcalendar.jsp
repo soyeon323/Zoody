@@ -18,11 +18,19 @@
   font-size: 16px;
 }
 
-
+.fc .fc-toolbar-title {
+    font-size: 1.2em;
+    margin: 0px;
+}
 
 .fc-theme-standard td {
   border: none;
   
+}
+
+div#calendar {
+    height: 90%;
+    width: 90%;
 }
 
 .fc .fc-daygrid-day-top {
@@ -43,6 +51,12 @@
 
 .fc-day-today > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner >.fc-daygrid-day-top {
   box-sizing: border-box;
+}
+
+.fc .fc-scrollgrid-section, .fc .fc-scrollgrid-section table, .fc .fc-scrollgrid-section > td {
+    height: 1px;
+    color: #5c5f66;
+    font-size: 14;
 }
 
 /* items */
@@ -69,12 +83,13 @@ table td[class*=col-], table th[class*=col-] {
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      width: 100 + '%',
-      height: 90 + '%' ,
-      aspectRatio: 1,
+      // width: 100 + '%',
+      // height: 90 + '%' ,
+      aspectRatio: 1.2,
       
       titleFormat : { year: 'numeric', month: 'long' }, 
-
+      windowResize: true,
+      editable: true,
     });
     
     calendar.render();

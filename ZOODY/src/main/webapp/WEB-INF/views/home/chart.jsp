@@ -20,6 +20,8 @@
         flex-direction: row;
     }
 
+    
+
     .second {
         justify-self: center;
         align-self: center;
@@ -41,6 +43,10 @@
         justify-content: center;
         align-items: center;
         color: #8c8c8c;
+    }
+
+    .second > strong:hover {
+        color: #374957;
     }
 
     .project-info-area {

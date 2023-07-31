@@ -84,7 +84,7 @@
                 <div class="area chart">
                     <div class="div-header">
                         <span>진행도</span>
-                        <img class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
+                        <img onclick="goToProject()" class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
 
                     <%@ include file="/WEB-INF/views/home/chart.jsp" %>
@@ -96,6 +96,9 @@
                         <span>근태현황</span>
                         <img class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
+
+                    
+
                 </div>
 
                 <div class="area community">

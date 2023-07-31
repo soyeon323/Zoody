@@ -2,9 +2,13 @@
     color: #505050;
 }
 
+body {
+    background-color: #F4F7FD;
+}
+
 #wrap{
-    width: 1920;
-    height: 921;
+    /* width: 1920;
+    height: 921; */
     display: flex;
 }
 

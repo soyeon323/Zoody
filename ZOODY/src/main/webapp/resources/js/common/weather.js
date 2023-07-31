@@ -3,6 +3,7 @@ let currentHour = null;
 let dayOrNight = 'day';
 let latitude = null;
 let longitude = null;
+let skyIcon = null;
 
 $(document).ready(function() {
    
@@ -54,31 +55,32 @@ $(document).ready(function() {
 
 
 // 5초마다 getPosition 함수 호출
-let updayeWeatherInfo = setInterval(getPosition, 600000); // 5000 밀리초 = 5초
+let updayeWeatherInfo = setInterval(getWeatherData(), 6000); // 5000 밀리초 = 5초
 
 // 좌표 정보 가져오기
 function getPosition() {
     navigator.geolocation.getCurrentPosition(
       function (pos) {
-        isTimeBetween6PMAnd6AM();
-  
-        // var latitude = pos.coords.latitude;
-        // var longitude = pos.coords.longitude;
-  
+          
         if (latitude === null || longitude === null) {
           alert("위치 정보를 가져올 수 없습니다.");
           return;
         }
+
+         // 현재 시간이 오후 6시에서 다음날 오전 6시까지인지 확인합니다.
+         if (isTimeBetween6PMAnd6AM()) {
+            dayOrNight = 'night'; // 함수 A 실행
+        }
   
-        console.log("현재 위치는 : " + latitude + ", " + longitude);
-        // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
-        result = dfs_xy_conv("toXY", latitude, longitude);
+        // console.log("현재 위치는 : " + latitude + ", " + longitude);
+        // // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
+        // result = dfs_xy_conv("toXY", latitude, longitude);
   
-        console.log("위도:", latitude);
-        console.log("경도:", longitude);
+        // console.log("위도:", latitude);
+        // console.log("경도:", longitude);
   
-        console.log("LCC DFS 좌표 X:", result.x);
-        console.log("LCC DFS 좌표 Y:", result.y);
+        // console.log("LCC DFS 좌표 X:", result.x);
+        // console.log("LCC DFS 좌표 Y:", result.y);
   
         // // 날씨 정보를 가져오는 함수 호출
         // getWeatherData(result.x, result.y);
@@ -110,21 +112,23 @@ function getWeatherData(nx, ny) {
         let TMX = data["TMX"]; // 강수확률
 
         SKY = skyCheck(SKY);
+        // let skyIcon = skyIconSelect(SKY);
 
         let changeHtml = `
             <div id="weather_info" class="weather-${dayOrNight}">
-                <div class="temperatures">${TMP}℃</div>
+                <div class="temperatures">${TMP}<span>℃</span></div>
                 <div class="weather-icon">
-                    <img src="${root}/resources/img/icon/png/weather-cloud.png" alt="">
+                    <img src="${root}/resources/img/icon/png/weather-${skyIcon}.png" alt="">
                 </div>
                 <div class="weather-conditions">${SKY}</div>
             </div>
             `;
 
         $("#weather_info_wrap").html(changeHtml);
+        console.log("날씨 갱신");
         },
         error: function (data) {
-            getWeatherData(nx, ny);
+            console.log("조회실패");
         },
     });
 }
@@ -134,12 +138,15 @@ function getWeatherData(nx, ny) {
 // 하늘 상태 확인
 function skyCheck(SKY){
     if (SKY === '1') {
+        skyIcon = 'sunny';
         return '맑음';
     }
     else if (SKY === '2') {
+        skyIcon = 'littleCloud';
         return '구름조금';
     }
     else if (SKY === '3') {
+        skyIcon = 'cloudy';
         return '구름많음';
     }  
     else if (SKY === '4') {
