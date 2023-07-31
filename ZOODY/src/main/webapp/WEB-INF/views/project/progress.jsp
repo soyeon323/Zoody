@@ -13,7 +13,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-    
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
     
@@ -98,7 +97,7 @@
                         <div class="modal-body">
                             <div>
                                 <a>프로젝트명 : </a>
-                                <input type="text" name="projectName" placeholder="프로젝트 명을 입력하세요.">
+                                <input type="text" name="title" placeholder="프로젝트 명을 입력하세요.">
                             </div>
                             <div> 
                                 <div>
@@ -114,7 +113,7 @@
                             </div> 
                             <div id="userNameArea">
                                 <input type="hidden" value="" name="no">
-                                <a></a>
+                                <div width="80" class="xNo"><a></a></div>
                                 <button>
                                     
                                 </button>
@@ -123,15 +122,15 @@
                         <div>
                             <a>프로젝트 기간 : </a>
                             <div>
-                                <input type="date" name="projectStart">
+                                <input type="date" name="startDate">
                             </div>
                             <a class="wave"> ~ </a>
                             <div>
-                                <input type="date" name="projectEnd">
+                                <input type="date" name="endDate">
                             </div>
                         </div>
                         <div id="pjContent">
-                            <input type="text" name="projectContent" placeholder="내용을 입력하세요.">
+                            <input type="text" name="content" placeholder="내용을 입력하세요.">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,7 +140,6 @@
                 </div>
             </div>
         </div>
-    
 </div>
 
 </body>
@@ -151,37 +149,96 @@
         var input = document.querySelector("input[name='user']");
         var selectedValue = input.value;
 
-        if (selectedValue) {
-            var userNameArea = document.querySelector("#userNameArea");
-            var newUserName = document.createElement("a");
-            newUserName.innerText = selectedValue;
+            if (selectedValue) {
+                var userNameArea = document.querySelector("#userNameArea");
+                var newUserName = document.createElement("a");
+                newUserName.innerText = selectedValue;
 
-            var removeButton = document.createElement("button");
-            removeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><g clip-path="url(#clip0_1067_8751)"><path d="M24 1.414L22.586 0L12 10.586L1.414 0L0 1.414L10.586 12L0 22.586L1.414 24L12 13.414L22.586 24L24 22.586L13.414 12L24 1.414Z" fill="#00CBA4"/></g><defs><clipPath id="clip0_1067_8751"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>';
-            removeButton.onclick = function() {
-                userNameArea.removeChild(newUserName);
-                userNameArea.removeChild(removeButton);
-                userNameArea.removeChild(document.createTextNode("/"));
-            };
+                newUserName.style.fontWeight = "500";
+                newUserName.style.color = "#4876EF";
 
-            userNameArea.appendChild(newUserName);
-            userNameArea.appendChild(removeButton);
-            input.value = "";
+                var removeButton = document.createElement("button");
+                removeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><g clip-path="url(#clip0_1067_8751)"><path d="M24 1.414L22.586 0L12 10.586L1.414 0L0 1.414L10.586 12L0 22.586L1.414 24L12 13.414L22.586 24L24 22.586L13.414 12L24 1.414Z" fill="#00CBA4"/></g><defs><clipPath id="clip0_1067_8751"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>';
 
-            // 추가된 부분: 선택된 값의 userNo 가져오기
-            var selectedOption = datalist.querySelector("option[value='" + selectedValue + "']");
-            var userNo = selectedOption.getAttribute("data-userNo");
-            var newUserNo = document.createElement("a");
-            var inputNo = document.querySelector("input[name='no']");
-            inputNo.value = userNo;
-            userNameArea.appendChild(document.createTextNode("/"));
-        }
+                removeButton.onclick = function() {
+                    userNameArea.removeChild(newUserName);
+                    userNameArea.removeChild(removeButton);
+
+                    // 선택된 userNo도 함께 삭제
+                    var inputNo = document.querySelector("input[name='no']");
+                    var userNoToRemove = selectedOption.getAttribute("data-userNo");
+                    var userNoArray = inputNo.value.split(",");
+
+                    var updatedUserNoArray = userNoArray.filter(function(userNo) {
+                        return userNo !== userNoToRemove;
+                    });
+
+                    inputNo.value = updatedUserNoArray.join(",");
+                };
+
+                userNameArea.appendChild(newUserName);
+                userNameArea.appendChild(removeButton);
+                input.value = "";
+
+                // 추가된 부분: 선택된 값의 userNo 가져오기
+                var selectedOption = datalist.querySelector("option[value='" + selectedValue + "']");
+                var userNo = selectedOption.getAttribute("data-userNo");
+
+                // userNo 리스트에 추가
+                var inputNo = document.querySelector("input[name='no']");
+                if (!inputNo.value) {
+                    inputNo.value = userNo;
+                } else {
+                    inputNo.value += "," + userNo;
+                }
+            }
     }
 
     function createPrj(){
-        const no = document.querySelectorAll("#userNameArea>input");
-        const userName = document.querySelectorAll("#userNameArea>a");
+        const noNodes = document.querySelectorAll("#userNameArea>input")[0].value;
+        const userNameNodes = document.querySelectorAll("#userNameArea>a");
+        const title = document.querySelector("input[name='title']").value;
+        const content = document.querySelector("input[name='content']").value;
+        const startDate = document.querySelector("input[name='startDate']").value;
+        const endDate = document.querySelector("input[name='endDate']").value;
 
-        alert(no + "" + userName);
+        let userNo = [];
+        let userName = [];
+
+        console.log(noNodes);
+        const arr = noNodes.split(",");
+        console.log(arr);
+
+        for (let i = 0; i < userNameNodes.length; i++) {
+            userName.push(userNameNodes[i].innerText);
+        }
+
+        const data = JSON.stringify({
+            userNo: arr,
+            userName: userName,
+            title : title,
+            content : content,
+            startDate : startDate,
+            endDate : endDate
+        });
+
+        $.ajax({
+            url: "${root}/project/progress",
+            type: "POST",
+            data: data,
+            contentType: "application/json", 
+            success: () => {
+                location.reload(true);
+            },
+            error: (err) => {
+                alert(err);
+            }
+        });
+    }
+
+    function removeTextNode(node) {
+        if (node && node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
     }
 </script>
