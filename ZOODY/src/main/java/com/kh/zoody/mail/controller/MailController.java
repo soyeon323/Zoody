@@ -43,8 +43,14 @@ public class MailController {
 
 	@GetMapping("list")
 	public String mailList(HttpSession session, Model model, String folder) {
-		
 		UserVo loginUser = (UserVo) session.getAttribute("loginMember");
+		
+		String unread = "";
+		String allMailCount = "";
+		
+		unread = mailService.getUnreadMailCount(loginUser.getMail());
+		allMailCount = mailService.getAllMailCount(loginUser.getMail());
+		
 		
 		List<MailVo> mailVoList = new ArrayList<>();
 		if("all".equals(folder)) {
@@ -59,7 +65,9 @@ public class MailController {
 			
 		}
 		
-		model.addAttribute(mailVoList);
+		model.addAttribute("unread", unread);
+		model.addAttribute("allMailCount", allMailCount);
+		model.addAttribute("mailVoList", mailVoList);
 		
 		return "mail/list";
 	}

@@ -20,4 +20,7 @@ public interface AddressbookDao {
 	
 	// 키워드로 이름 검색
 	List<UserVo> getUserInfoByKeyword(String keyword, SqlSessionTemplate sqlSessionTemplate);
+
+	// 간단한 유저 정보(이름, 메일)
+	UserVo getBriefUserInfo(String no, SqlSessionTemplate sqlSessionTemplate);
 }

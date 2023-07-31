@@ -35,4 +35,10 @@ public class AddressbookDaoImpl implements AddressbookDao {
 		return sqlSessionTemplate.selectList("user.searchUserInfoByKeyword", keyword);
 	}
 	
+	// 간단한 유저 정보(이름, 메일)
+	@Override
+	public UserVo getBriefUserInfo(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("user.getBriefUserInfo", no);
+	}
+	
 }

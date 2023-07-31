@@ -78,4 +78,22 @@ public class AddressBookController {
 		}
 	}
 	
+	@GetMapping("get/info/brief")
+	public void getBriefUserInfo(String no, HttpServletResponse resp) {
+		
+		UserVo briefInfo = addressbookService.getBriefUserInfo(no);
+		
+		String briefInfoJson = gson.toJson(briefInfo);
+		
+		PrintWriter out;
+		try {
+			resp.setCharacterEncoding("UTF-8");
+			
+			out = resp.getWriter();
+			out.write(briefInfoJson);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

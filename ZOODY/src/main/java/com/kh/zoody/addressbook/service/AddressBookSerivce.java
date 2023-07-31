@@ -20,4 +20,7 @@ public interface AddressBookSerivce {
 	
 	// 키워드로 이름 검색
 	List<UserVo> getUserInfoByKeyword(String keyword);
+
+	// 간단한 정보 (이름, 메일)
+	UserVo getBriefUserInfo(String no);
 }

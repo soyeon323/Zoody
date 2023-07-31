@@ -50,6 +50,7 @@
 			DEPARTMENT_NO,
 			B.NAME AS DEPARTMENT_NAME,
 			C.NAME AS RANK_NAME,
+			C.GRADE AS RANK_GRADE,
 			E.NAME AS STATE_NAME,
 			A.NAME AS NAME
 		FROM "USER" A
@@ -59,6 +60,7 @@
 			JOIN USER_STATE E ON A.STATE_NO = E.NO
 			JOIN EMPLOY_DIVISION F ON A.DIVISION_NO = F.NO
 		WHERE NOT STATE_NO = 3
+		ORDER BY RANK_GRADE
 	
 	</select>
 
@@ -309,6 +311,14 @@
 		SELECT NAME, DEPARTMENT_NO
 		FROM "USER"
 		WHERE NAME LIKE '%'||#{keyword}||'%'
+	
+	</select>
+	
+	<select id="getBriefUserInfo" resultType="UserVo">
+	
+		SELECT NO, NAME, MAIL
+		FROM "USER"
+		WHERE NO = #{no}
 	
 	</select>
 

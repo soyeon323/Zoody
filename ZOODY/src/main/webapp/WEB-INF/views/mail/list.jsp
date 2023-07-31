@@ -30,7 +30,7 @@
 				<div class="mail-sidebar">
 					<div class="mail-sidebar-header">
 						<div class="unread-count">
-							안읽음 {7}
+							안읽음 ${unread}
 						</div>
 						<button class="my-important-btn">
 							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
@@ -85,9 +85,9 @@
 								받은 메일함
 							</div>
 							<div class="unread-receive">
-								<div class="unread-count">{14}</div>
+								<div class="unread-count">${unread}</div>
 								/
-								<div class="receive-count">{999}</div>
+								<div class="receive-count">${allMailCount}</div>
 							</div>
 						</div>
 						

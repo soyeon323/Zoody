@@ -87,6 +87,19 @@ public class MailDaoImpl implements MailDao {
 	public List<MailVo> getAllMail(String mail, SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("mail.getAllMail", mail);
 	}
+	
+	// 안읽은 메일 갯수
+	@Override
+	public String getUnreadMailCount(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("getUnreadMailCount", mail);
+	}
+
+
+	// 모든 메일 갯수
+	@Override
+	public String getAllMailCount(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("getAllMailCount", mail);
+	}
 		
 	
 	// 받은 메일 가져오기 (참조 제외)
@@ -119,6 +132,9 @@ public class MailDaoImpl implements MailDao {
 	}
 	// 상세보기한 메일 읽음 체크
 	public int readCheck(Map<String, String> readMail, SqlSessionTemplate sqlSessionTemplate) {
+		
+		log.info("메일 정보 : {}", readMail);
+		
 		return sqlSessionTemplate.update("mail.readCheck", readMail);
 	}
 

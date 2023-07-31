@@ -88,7 +88,7 @@
 	<select id="getAllMail" resultType="MailVo">
 	
 		SELECT 
-		    M.NO,
+		    DISTINCT M.NO,
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
@@ -101,15 +101,40 @@
 		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO
 		FROM MAIL M
 		    JOIN "USER" ON M.SENDER = "USER".NO
-		    JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
-		WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverMail})
-		    OR M.NO IN (
-		        SELECT MAIL_NO
-		        FROM MAIL_CC
-		        WHERE CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})        
-		    )
+		    LEFT OUTER JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN MAIL_CC ON M. NO = MAIL_CC.MAIL_NO
+		WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
 		    AND DELETE_CHECK = 'X'
+	    ORDER BY SEND_DATE DESC
 	
+	</select>
+	
+	<select id="getAllMailCount" resultType="String">
+	
+		SELECT COUNT(M.NO)
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    left OUTER JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		    FULL OUTER JOIN MAIL_CC ON M. NO = MAIL_CC.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		     
+	</select>
+	
+	<select id="getUnreadMailCount" resultType="String">
+	
+		SELECT COUNT(M.NO)
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    left OUTER JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		    FULL OUTER JOIN MAIL_CC ON M. NO = MAIL_CC.MAIL_NO
+		WHERE READ_CHECK = 'X'
+			AND DELETE_CHECK = 'X'
+			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    
 	</select>
 	
 	
@@ -131,13 +156,14 @@
 		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
 		WHERE RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverMail})
             AND DELETE_CHECK = 'X'
+        ORDER BY SEND_DATE DESC
 	</select>
 	
 	
 	<select id="getSendMailList" resultType="MailVo">
 	
 		SELECT 
-		    M.NO,
+		    DISTINCT M.NO,
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
@@ -152,6 +178,7 @@
 							FROM "USER" 
 							WHERE MAIL = #{mail} 
 						)
+		ORDER BY SEND_DATE DESC
 	
 	</select>
 	
@@ -159,7 +186,7 @@
 	<select id="getToMeMailList" resultType="MailVo">
 	
 		SELECT 
-		    M.NO,
+		    DISTINCT M.NO,
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
@@ -176,6 +203,7 @@
 		WHERE M.SENDER = ( SELECT NO FROM "USER" WHERE MAIL = 'dlwlrma@zoody.co.kr' )
 		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = 'dlwlrma@zoody.co.kr')
 		    AND DELETE_CHECK = 'X'
+	    ORDER BY SEND_DATE DESC
 	
 	</select>
 	
@@ -195,7 +223,6 @@
 		WHERE M.NO = #{no}
 	
 	</select>
-	
 	
 	<update id="readCheck">
 		
@@ -258,6 +285,13 @@
 			    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
 			</where>
 		</foreach>
+  	
+  	</update>
+  	
+  	
+  	<update id="mailBookmark">
+  	
+  		
   	
   	</update>
   

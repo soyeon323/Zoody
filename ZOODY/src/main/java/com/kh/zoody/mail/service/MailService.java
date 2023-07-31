@@ -57,5 +57,13 @@ public interface MailService {
 	int mailListDump(List<Map<String, String>> selectedToDumpMailNoList);
 
 
+	// 안읽은 메일 갯수
+	String getUnreadMailCount(String mail);
+
+
+	// 모든 메일 갯수
+	String getAllMailCount(String mail);
+
+
 	
 }

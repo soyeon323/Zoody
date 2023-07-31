@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Zoody</title>
 <link rel="stylesheet" href="${root}/resources/css/approval/write/letter-of-approval.css">
+<script defer src="${root}/resources/js/approval/write/common.js"></script>
 </head>
 
 <body>
@@ -72,19 +73,22 @@
 							<table class="info-table">
 								<tr>
 									<th class="info-header">기안자</th>
-									<td class="info-text">{박재한}</td>
+									<td class="info-text">${loginMember.name}</td>
 								</tr>
 								<tr>
 									<th class="info-header">소속</th>
-									<td class="info-text">{동물복지1과 > 맹수팀 }</td>
+									<td class="info-text">${loginMember.departmentName }</td>
 								</tr>
 								<tr>
 									<th class="info-header">기안일</th>
-									<td class="info-text">{2023-07-03 (월)}</td>
+									<td class="info-text">
+										<c:set var="now" value="<%=new java.util.Date()%>" />
+										<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />
+									</td>
 								</tr>
 								<tr>
 									<th class="info-header">문서번호</th>
-									<td class="info-text">{ad052347}</td>
+									<td class="info-text"></td>
 								</tr>
 							</table>
 						</div>
@@ -117,6 +121,7 @@
 									<div class="main-form2">-아 래-</div>
 		
 									<textarea name="approvalMainText" id="approval-main-text"></textarea>
+
 								</td>
 							</tr>
 						</table>
@@ -145,7 +150,7 @@
 							<img class="profile-img" alt="프로필 사진" src="${root}/resources/png/profile/test-profile.png">
 						</div>
 						<div class="info-area">
-							<div class="name-rank">
+							<div class="approver-name-rank">
 								<div class="approver-name">{이지은}</div>
 								<div class="approver-rank">{팀장}</div>
 							</div>
@@ -161,7 +166,7 @@
 							<img class="profile-img" alt="프로필 사진" src="${root}/resources/png/profile/test-profile.png">
 						</div>
 						<div class="info-area">
-							<div class="name-rank">
+							<div class="approver-name-rank">
 								<div class="approver-name">{주호민}</div>
 								<div class="approver-rank">{과장}</div>
 							</div>
@@ -177,7 +182,7 @@
 							<img class="profile-img" alt="프로필 사진" src="${root}/resources/png/profile/test-profile.png">
 						</div>
 						<div class="info-area">
-							<div class="name-rank">
+							<div class="approver-name-rank">
 								<div class="approver-name">{유지민}</div>
 								<div class="approver-rank">{부장}</div>
 							</div>
@@ -189,10 +194,185 @@
 					</div>
 
 				</div>
+
 			</div>
 
 		</div>
+
+		<div class="modal-wrap">
+
+			<div class="mini-addressbook-wrap">
+
+				<div class="mini-header">주소록</div>
+
+				<div class="mini-main">
+
+					<div class="mini-addressbook">
+
+						<div class="searchbar">
+							<div class="search-input-area">
+								<input class="search-input" type="text">
+							</div>
+							<img class="search-icon" src="${root}/resources/img/icon/svg/search.svg" alt="">
+						</div>
+
+						<div class="list-tree-area">
+							
+							<button class="extends-list">
 	
+								<div class="extend-btn-icon">
+									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
+								</div>
+	
+								${departmentList[0].name }
+	
+							</button>
+							
+							<div class="first-box list-box-area ">
+							
+								<c:forEach items="${userList}" var="userVo">
+									<c:if test="${departmentList[0].no eq userVo.departmentNo }">
+										<div class="layer">
+											<div class="link-line">┠</div>
+											<div class="name-rank">
+												<div class="user-no">${userVo.no }</div>
+												<div class="user-name">${userVo.name }</div>
+												<div class="user-rank"> ${userVo.rankName }</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+	
+								<c:forEach items="${departmentList }" var="departmentVo">
+
+									
+								
+									<c:if test="${departmentList[0].no eq departmentVo.upperDepartmentNo}">
+									
+									<button class="extends-list layer">
+										<div class="extend-btn-icon">
+											<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
+										</div>
+			
+										${departmentVo.name }
+									</button>
+									
+										<div class="list-box-area">
+									
+										<c:forEach items="${userList}" var="userVo">
+											<c:if test="${departmentVo.no eq userVo.departmentNo }">
+												<div class="layer">
+													<div class="link-line">┠</div>
+													<div class="name-rank">
+														<div class="user-no">${userVo.no }</div>
+														<div class="user-name">${userVo.name }</div>
+														<div class="user-rank"> ${userVo.rankName }</div>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+									
+										<c:forEach items="${departmentList }" var="departmentLowerVo">
+									
+											<c:if test="${departmentVo.no eq departmentLowerVo.upperDepartmentNo}">
+											
+											<button class="extends-list layer">
+												<div class="extend-btn-icon">
+													<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
+												</div>
+					
+												${departmentLowerVo.name }
+											</button>
+											
+												<div class="list-box-area">
+											
+												<c:forEach items="${userList}" var="userVo">
+													<c:if test="${departmentLowerVo.no eq userVo.departmentNo }">
+														<div class="layer">
+															<div class="link-line">┠</div>
+															<div class="name-rank">
+																<div class="user-no">${userVo.no }</div>
+																<div class="user-name">${userVo.name }</div>
+																<div class="user-rank"> ${userVo.rankName }</div>
+															</div>
+														</div>
+													</c:if>
+												</c:forEach>
+											
+												<c:forEach items="${departmentList }" var="departmentLowerVo2">
+										
+													<c:if test="${departmentLowerVo.no eq departmentLowerVo2.upperDepartmentNo}">
+													
+													<button class="extends-list layer">
+														<div class="extend-btn-icon">
+															<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
+														</div>
+							
+														${departmentLowerVo2.name }
+													</button>
+													
+														<div class="list-box-area">
+													
+														<c:forEach items="${userList}" var="userVo">
+															<c:if test="${departmentLowerVo2.no eq userVo.departmentNo }">
+																<div class="layer">
+																	<div class="link-line">┠</div>
+																	<div class="name-rank">
+																		<div class="user-no">${userVo.no }</div>
+																		<div class="user-name">${userVo.name }</div>
+																		<div class="user-rank"> ${userVo.rankName }</div>
+																	</div>
+																</div>
+															</c:if>
+														</c:forEach>
+														
+														</div>
+													
+													</c:if>
+												
+												</c:forEach>
+												
+												</div>
+											
+											</c:if>
+										
+										</c:forEach>
+
+										</div>
+								
+									</c:if>
+									
+							
+								</c:forEach>
+
+							</div>
+						
+						</div>
+						
+					</div>
+
+					
+					<div class="preview">
+	
+						<div class="preview-header">결재자</div>
+	
+						<div class="preview-list">
+
+						</div>
+
+						<button class="add-approval">
+							추가하기
+						</button>
+
+					</div>
+					
+
+				</div>
+
+			</div>
+
+		</div>
+
 	</main>
 
 </body>
