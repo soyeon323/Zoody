@@ -47,7 +47,7 @@ public class PwdSettingController {
 		
 		int result = ps.pwdSetting(vo);
 		log.info("result :{}",result);
-		if(result == 1) {
+		if(result != 1) {
 			throw new RuntimeException();
 		}
 		return "member/login";

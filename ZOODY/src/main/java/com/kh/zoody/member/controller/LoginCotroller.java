@@ -32,7 +32,7 @@ public class LoginCotroller {
 			throw new RuntimeException();
 		}
 		session.setAttribute("loginMember", loginMember);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	//로그아웃
