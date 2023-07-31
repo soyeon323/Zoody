@@ -10,4 +10,8 @@ public interface MeetingroomService {
 
 	int addMeetingroom(MeetingroomVo mvo);
 
+	int mtDelete(String no);
+
+	List<MeetingroomVo> selectDetail(String no);
+
 }

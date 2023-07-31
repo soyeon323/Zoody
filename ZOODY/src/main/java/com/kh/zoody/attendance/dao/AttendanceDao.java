@@ -76,6 +76,10 @@ public interface AttendanceDao {
 
 	int getWorkCnt(SqlSessionTemplate sst);
 
+	boolean hasCheckInRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo);
+
+	boolean hasCheckOutRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo);
+
 
 
 

@@ -29,4 +29,14 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 		return dao.addMeetingroom(sst, mvo);
 	}
 
+	@Override
+	public int mtDelete(String no) {
+		return dao.mtDelete(sst, no);
+	}
+
+	@Override
+	public List<MeetingroomVo> selectDetail(String no) {
+		return dao.selectDetail(sst, no);
+	}
+
 }

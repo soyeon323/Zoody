@@ -27,5 +27,27 @@
 		INSERT INTO MEETINGROOM (NO, NAME, INFO,ORIGIN_NAME, CAPACITY) 
     		VALUES (SEQ_MEETINGROOM_NO.NEXTVAL, #{name}, #{info},#{originName}, #{capacity})
 	</insert>
+	
+	<update id="mtDelete">
+		UPDATE MEETINGROOM
+		SET STATUS = 'X'
+		WHERE NO = #{no}
+	</update>
+	
+	<select id="selectDetail" resultType="com.kh.zoody.meetingroom.vo.MeetingroomVo">
+		SELECT            
+		    NO
+		    ,NAME
+		    ,INFO
+		    ,TO_CHAR(ENROLLDATE, 'YYYY') AS ENROLLDATE
+		    ,TO_CHAR(MODIFYDATE, 'YYYY') AS MODIFYDATE
+		    ,STATUS
+		    ,ORIGIN_NAME
+		    ,CHANGE_NAME
+		    ,CAPACITY
+		FROM MEETINGROOM
+		WHERE STATUS = 'O'
+		AND NO = #{no}
+	</select>
   
 </mapper>

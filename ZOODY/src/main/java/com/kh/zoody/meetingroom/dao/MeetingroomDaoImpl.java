@@ -20,4 +20,14 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 		return sst.insert("meetingroom.addMeetingroom", mvo);
 	}
 
+	@Override
+	public int mtDelete(SqlSessionTemplate sst, String no) {
+		return sst.update("meetingroom.mtDelete", no);
+	}
+
+	@Override
+	public List<MeetingroomVo> selectDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectList("meetingroom.selectDetail", no);
+	}
+
 }

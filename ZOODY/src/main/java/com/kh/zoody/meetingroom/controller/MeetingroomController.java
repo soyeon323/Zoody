@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.zoody.meetingroom.service.MeetingroomService;
 import com.kh.zoody.meetingroom.vo.MeetingroomVo;
@@ -45,6 +46,39 @@ public class MeetingroomController {
 		int result = ms.addMeetingroom(mvo);
 		
 		return "meetingroom/add";
+	}
+	
+	//수정하기 (화면)
+	@GetMapping("reserve/update")
+	public String mtUpdate(Model model, @RequestParam String no) {
+		
+		List<MeetingroomVo> detail = ms.selectDetail(no);
+		model.addAttribute("detail", detail);
+		
+		System.out.println(no);
+		
+		return "meetingroom/update";
+	}
+	
+	//수정하기
+	@PostMapping("reserve/update")
+	public String mtUpdate(@RequestParam String no) {
+		return "meetingroom/update";
+	}
+	
+	//삭제하기 (화면)
+	@GetMapping("reserve/delete")
+	public String mtDelete() {
+		return "meetingroom/reserve";
+	}
+	
+	//삭제하기
+	@PostMapping("reserve/delete")
+	public String mtDelete(@RequestParam String no) {
+		
+		int result = ms.mtDelete(no);
+		
+		return "meetingroom/reserve";
 	}
 
 }

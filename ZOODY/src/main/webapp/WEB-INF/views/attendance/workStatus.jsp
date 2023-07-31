@@ -579,28 +579,32 @@ element.style {
       }
 
       function checkInOutWork(action) {
-        var loginMemberNo = 1; // 클라이언트에서 적절한 회원 번호를 가져와 설정
-        $.ajax({
-            url: "${root}/attendance/main",
-            type: "POST",
-            data: {
-                loginMemberNo: loginMemberNo,
-                action: action // 출근 버튼인지 퇴근 버튼인지 구분하는 파라미터
-            },
-            success: function(result) {
-                console.log(result);
-                if (action === "check-in") {
-                    alert("출근 완료");
-                } else if (action === "check-out") {
-                    alert("퇴근 완료");
-                }
-                location.reload();
-            },
-            error: function(error) {
-                console.error(error);
-            },
-        });
-    }
+          var loginMemberNo = 1; // 클라이언트에서 적절한 회원 번호를 가져와 설정
+          $.ajax({
+              url: "${root}/attendance/main",
+              type: "POST",
+              data: {
+                  loginMemberNo: loginMemberNo,
+                  action: action // 출근 버튼인지 퇴근 버튼인지 구분하는 파라미터
+              },
+              success: function(result) {
+                  console.log(result);
+                  if (result === "already-checked-in") {
+                      alert("이미 출근 등록을 완료했습니다.");
+                  } else if (result === "already-checked-out") {
+                      alert("이미 퇴근 등록을 완료했습니다.");
+                  } else if (action === "check-in") {
+                      alert("출근 완료");
+                  } else if (action === "check-out") {
+                      alert("퇴근 완료");
+                  }
+                  location.reload();
+              },
+              error: function(error) {
+                  console.error(error);
+              },
+          });
+      }
 
     </script>
     
