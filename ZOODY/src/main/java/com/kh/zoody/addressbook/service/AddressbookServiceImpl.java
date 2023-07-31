@@ -45,4 +45,9 @@ public class AddressbookServiceImpl implements AddressBookSerivce {
 		return addressbookDao.getUserInfoByKeyword(keyword, sqlSessionTemplate);
 	}
 	
+	// 간단한 정보 (이름, 메일)
+	@Override
+	public UserVo getBriefUserInfo(String no) {
+		return addressbookDao.getBriefUserInfo(no, sqlSessionTemplate);
+	}
 }

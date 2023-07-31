@@ -59,6 +59,14 @@ public interface MailDao {
 	// 메일 리스트 삭제
 	int mailListDump(List<Map<String, String>> selectedToDumpMailNoList, SqlSessionTemplate sqlSessionTemplate);
 
+
+	// 안읽은 메일 갯수
+	String getUnreadMailCount(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+
+	// 모든 메일 갯수
+	String getAllMailCount(String mail, SqlSessionTemplate sqlSessionTemplate);
+
 	
 
 }

@@ -53,6 +53,19 @@ public class MailServiceImpl implements MailService{
 		return mailDao.getAllMail(mail, sqlSessionTemplate);
 	}
 	
+	// 안읽은 메일 갯수
+	@Override
+	public String getUnreadMailCount(String mail) {
+		return mailDao.getUnreadMailCount(mail, sqlSessionTemplate);
+	}
+
+
+	// 모든 메일 갯수
+	@Override
+	public String getAllMailCount(String mail) {
+		return mailDao.getAllMailCount(mail, sqlSessionTemplate);
+	}
+	
 	
 	// 받은 메일 가져오기 (참조 제외)
 	@Override
@@ -68,6 +81,7 @@ public class MailServiceImpl implements MailService{
 
 	
 	// 나에게 쓴 메일 가져오기
+	@Override
 	public List<MailVo> getToMeMail(String mail){
 		return mailDao.getToMeMail(mail, sqlSessionTemplate);
 	}
@@ -106,6 +120,7 @@ public class MailServiceImpl implements MailService{
 	
 	
 	// 메일 리스트 삭제
+	@Override
 	public int mailListDump(List<Map<String, String>> selectedToDumpMailNoList) {
 		return mailDao.mailListDump(selectedToDumpMailNoList, sqlSessionTemplate);
 	}
