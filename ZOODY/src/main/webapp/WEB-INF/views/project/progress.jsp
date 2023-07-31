@@ -228,10 +228,11 @@
             data: data,
             contentType: "application/json", 
             success: () => {
+                alert("프로젝트가 생성되었습니다.");
                 location.reload(true);
             },
             error: (err) => {
-                alert(err);
+                console.log(err);
             }
         });
     }
