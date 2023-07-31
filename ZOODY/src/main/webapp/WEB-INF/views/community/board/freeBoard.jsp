@@ -177,3 +177,12 @@
     </div>
 
 </body>
+
+
+<script>
+
+    $(".list-table > tbody").on("click",function (e) {
+        console.log(e.target.parentNode)
+    })
+
+</script>

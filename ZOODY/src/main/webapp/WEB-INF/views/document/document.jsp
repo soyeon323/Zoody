@@ -21,19 +21,175 @@
             <div class="document-header">${documentType}</div>
     
             <div class="document-side">
-                <ul>문서
-                    <li>전사</li>
-                    <li>부서</li>
-                </ul>
 
+                <div onclick="documentUpload()">작성하기</div>
+
+                <ul>문서
+                    <li>전사 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
+                    <li>부서 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
+                </ul>
+                <ul>개인 문서
+                    <li>새 폴더 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
+                    <li>새새 폴더 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
+
+                    <li>새 폴더 추가 <span>+</span></li>
+                </ul>
             </div>
     
-            <div class="document-body">b</div>
+
+
+
+            <div class="boder-grid-body">
+                
+                <div class="boder-grid-body-top">
+                    <c:if test="${empty board.count}">
+                        <div>조회가능 문서 0 개</div>
+                    </c:if>
+                    <c:if test="${not empty board.count}">
+                        <div>전체 게시글 ${ board.count } 개</div>
+                    </c:if>
+
+                    <div class="search-area">
+
+                        <select name="search-area-cat">
+                            <option value="title" selected>제목
+                            <option value="writer"> 작성자
+                            <option value="???"> ???
+                        </select>
+
+                        <div class="search-area-search">
+                            <input type="text">
+                            <img src="${root}/resources/svg/icon/search.svg" alt="🔍">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="boder-grid-body-meddle">
+                    <div class="boder-grid-body-meddle-notice">
+                        폴더 영역
+                    </div>
+                </div>
+                <div class="boder-grid-body-bottom">
+                    
+                    <table class="list-table">
+                        <thead>
+                            <tr>
+                                <th>카테고리</th>
+                                <th>구분</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <c:forEach items="${ freeBoardList }" var="list">
+                            	<tr>
+	                                <td>${ list.no }</td>
+	                                <td>${ list.title }</td>
+	                                <td>${ list.userNo }</td>
+	                                <td>${ list.hit }</td>
+	                                <td>${ list.enrollDate }</td>
+	                            </tr>
+                            </c:forEach>
+                            
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>제목입니다</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
 
         </div>
 
 
     </div>
+    
 	
 </body>
 </html>
+
+
+<script>
+
+    function documentUpload() {
+        $(location).attr("href", root + "/document/upload");
+    }
+</script>

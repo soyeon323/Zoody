@@ -52,6 +52,19 @@ $(".registration-btn").on("click" , function () {
     console.log(title);
     
     if (title == null || title == '') {
+        
+        $(".title").css({
+            "border": "2px solid #e95555",
+            "background-color": "#fff6f6"
+        });
+
+        // 추가 3초 후에 스타일 원래대로 복원
+        setTimeout(function () {
+            $(".title").css({
+                "border": "1px solid #D7D7D7",
+                "background-color": "#f9f9f9"
+            });
+        }, 3000); // 3초
         alert("제목을 작성해주세요")
         return;
     }

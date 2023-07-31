@@ -28,6 +28,10 @@ public class DocumentController {
 		return "document/document";
 	}
 	
-	
+	// 업로드 화면
+	@GetMapping("upload")
+	public String uploadDocument() {
+		return "document/upload";
+	}
 	
 }
