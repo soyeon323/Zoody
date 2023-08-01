@@ -26,8 +26,8 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 	}
 
 	@Override
-	public List<MeetingroomVo> selectDetail(SqlSessionTemplate sst, String no) {
-		return sst.selectList("meetingroom.selectDetail", no);
+	public MeetingroomVo selectDetail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("meetingroom.selectDetail", no);
 	}
 
 }

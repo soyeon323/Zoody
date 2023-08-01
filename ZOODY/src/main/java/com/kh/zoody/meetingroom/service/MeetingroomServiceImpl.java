@@ -35,7 +35,7 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	}
 
 	@Override
-	public List<MeetingroomVo> selectDetail(String no) {
+	public MeetingroomVo selectDetail(String no) {
 		return dao.selectDetail(sst, no);
 	}
 
