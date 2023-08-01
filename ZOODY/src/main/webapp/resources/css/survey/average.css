@@ -1,7 +1,7 @@
 .circle {
     margin: 0 auto;
-    width: 650px;
-    height: 650px;
+    width: 750px;
+    height: 750px;
     border: 15px solid rgb(173, 236, 156);
     border-top-color: rgb(205, 247, 208);
     border-bottom-color: rgb(205, 247, 208);
@@ -28,7 +28,7 @@
     }
 }
 
-#score {
+#score{
     position: absolute;
     top: 47%;
     left: 50%;

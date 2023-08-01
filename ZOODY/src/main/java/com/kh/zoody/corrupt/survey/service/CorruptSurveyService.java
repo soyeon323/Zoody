@@ -31,4 +31,9 @@ public class CorruptSurveyService {
 	public SurveyVo avgScore(String score) {
 		return dao.avgSocre(sst,score);
 	}
+
+	//설문조사 마치고 합산점수 가져가기
+	public int increaseScore(String score) {
+		return dao.increaseScore(sst,score);
+	}
 }

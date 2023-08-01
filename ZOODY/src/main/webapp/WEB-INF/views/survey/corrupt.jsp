@@ -98,9 +98,9 @@
                 data :{
                     'score' : score
                 },
-                method : 'get',
+                method : 'post',
                 success : ()=>{
-
+                        location.href='${root}/corrupt/survey/score';
                 },
                 error: (e)=>{
                     alert(e);
@@ -112,18 +112,4 @@
 </script>
 
      
-       
-        
-
-
-
-
-
-
-
-
-
-
-
-
 
