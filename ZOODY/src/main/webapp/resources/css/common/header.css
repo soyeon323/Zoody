@@ -8,6 +8,7 @@ nav{
   justify-content: space-between;
   position: relative;
   z-index: 999;
+  color: #374957;
 }
 
 #logoImg>img{
@@ -39,7 +40,7 @@ nav{
 }
 
 #nav-alert {
-  width: 70%;
+  width: 140;
 }
 
 #nav-profile{ 
@@ -55,6 +56,10 @@ nav{
 
 .alret-alert{}
 
+.mail-alert > img {
+  max-height: 21;
+}
+
 /* #nav-profile 자식 */
 #nav-profile > .img-profile {
   width: 30px;
@@ -62,14 +67,15 @@ nav{
   background-color: #D9D9D9;
   border-radius: 50%;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 7px -2px rgba(0, 0, 0, 0.25);
 }
 
 #nav-profile > .img-profile > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+  max-width: 100%;
 }
 
 .box-profile {
   margin-left: 30px;
 }
+

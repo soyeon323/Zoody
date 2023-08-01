@@ -3,6 +3,7 @@ package com.kh.zoody.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,12 @@ public class LoginCotroller {
 	public void login() {}
 	
 	@PostMapping("login")
-	public String login(UserVo vo , HttpSession session) {
+	public String login(UserVo vo , HttpSession session , Model model) {
 		
 		UserVo loginMember = ls.login(vo);
 		if(loginMember == null) {
-			throw new RuntimeException();
+			session.setAttribute("msg", "로그인실패");
+			return "member/login";
 		}
 		session.setAttribute("loginMember", loginMember);
 		return "redirect:/home";

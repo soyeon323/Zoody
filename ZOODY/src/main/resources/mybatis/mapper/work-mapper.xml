@@ -9,7 +9,7 @@
   <insert id="workInsert">
   
  	INSERT ALL 
-	INTO AGENT ("NO" , "USER_NO") VALUES (SEQ_ANIMAL_WORK_NO.NEXTVAL , #{userNo})
+	INTO AGENT ("NO" , "USER_NO") VALUES (SEQ_ANIMAL_WORK_NO.NEXTVAL, #{userNo})
 	INTO ANIMAL_WORK ("NO" , "NAME" , "CONTENT" , "DATE")VALUES(SEQ_ANIMAL_WORK_NO.NEXTVAL , #{workName} , #{workContent}, #{endDate})
 	SELECT * FROM DUAL
 
@@ -17,20 +17,23 @@
   
   <select id="getWorkNameAndDate" resultType="com.kh.zoody.work.vo.WorkVo">
   	SELECT 
-	NO
-	,NAME
-	,CONTENT
+	NO AS WORK_NO
+	,NAME AS WORK_NAME
+	,CONTENT AS WORK_CONTENT
 	,TO_CHAR("DATE",'YYYY-MM-DD') AS "END_DATE"
 	FROM ANIMAL_WORK
   </select>
   
-  <select id="getUserList" resultType="com.kh.zoody.work.vo.WorkVo">
+  <select id="workList" resultType="com.kh.zoody.work.vo.WorkVo">
   	SELECT 
-  	U.NO AS USER_NO
-	,U.NAME AS USER_NAME
-	, D.NAME AS DEPT_NAME
-	FROM "USER" U
-	JOIN DEPARTMENT D ON U.DEPARTMENT_NO = D.NO
+   AW."NO" AS WORK_NO
+   , AW."NAME" AS WORK_NAME
+   , AW."CONTENT" AS WORK_CONTENT
+   , AW."DATE" AS END_DATE
+   , A."USER_NO" 
+   FROM ANIMAL_WORK AW
+   JOIN AGENT A ON AW.NO = A.NO
+   WHERE USER_NO =#{userNo}
   </select>
   
 </mapper>

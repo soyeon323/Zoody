@@ -59,7 +59,7 @@
 
                         <div class="search-area-search">
                             <input type="text">
-                            <img src="${root}/resources/svg/icon/search.svg" alt="🔍">
+                            <img src="${root}/resources/img/icon/svg/search-2.svg" alt="🔍">
                         </div>
 
                     </div>

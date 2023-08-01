@@ -18,19 +18,25 @@
 		    MODIFY_DATE,
 		    FILE_PATH,
 		    HIT
-		FROM BOARD
-		WHERE STATUS = 'O'
+		FROM (
+		    SELECT NO, USER_NO, CAT_NO, TITLE, CONTENT, ENROLL_DATE, MODIFY_DATE, FILE_PATH, HIT
+		    FROM BOARD
+		    WHERE STATUS = 'O' 
+		
 		<choose>
 			
 			<when test="num != null and num !=''">
 				AND CAT_NO = 4
-				ORDER BY NO DESC 
+				ORDER BY NO
+				)
 				FETCH FIRST #{num} 
 				ROWS ONLY 
 			</when>
 			
 			<when test="catNo != null and catNo !=''">
 				AND CAT_NO = #{catNo}
+				ORDER BY NO
+				)
 				ORDER BY NO DESC 
 			</when>
 			

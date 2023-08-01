@@ -29,8 +29,8 @@ public class WorkService {
 	}
 
 	//업무할당 화면  회원들 가져와서 뿌려줘야함
-	public List<WorkVo> getUserList() {
-		return dao.getUserList(sst);
+	public List<WorkVo> workList() {
+		return dao.workList(sst);
 	}
 
 	// 업무명과 마감일시 가져오기 AJAX로

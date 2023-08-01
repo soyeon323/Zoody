@@ -38,30 +38,18 @@
 					</div>
 					<div class="approval-line">
 						<table class="approval-line-table">
-							<tr>
+							<tr class="table-header-rank">
 								<th class="vertical-cell" rowspan="4">상신인</th>
-								<th class="table-rank">{팀원}</th>
+								<th class="table-rank">${loginMember.rankName}</th>
 								<th class="vertical-cell" rowspan="4">결재자</th>
-								<th class="table-rank">{팀장}</th>
-								<th class="table-rank">{과장}</th>
-								<th class="table-rank">{부장}</th>
 							</tr>
-							<tr>
-								<td class="table-name">{박재한}</td>
-								<td class="table-name">{이지은}</td>
-								<td class="table-name">{주호민}</td>
-								<td class="table-name">{유지민}</td>
+							<tr class="table-body-name">
+								<td class="table-name">${loginMember.name}</td>
 							</tr>
-							<tr>
-								<td class="table-approval"></td>
-								<td class="table-approval"></td>
-								<td class="table-approval"></td>
+							<tr class="approval-result">
 								<td class="table-approval"></td>
 							</tr>
-							<tr>
-								<td class="table-date"></td>
-								<td class="table-date"></td>
-								<td class="table-date"></td>
+							<tr class="table-date-area">
 								<td class="table-date"></td>
 							</tr>
 						</table>
@@ -145,53 +133,7 @@
 				</div>
 				<div class="preview-area">
 
-					<div class="approver">
-						<div class="profile-area">
-							<img class="profile-img" alt="프로필 사진" src="${root}/resources/png/profile/test-profile.png">
-						</div>
-						<div class="info-area">
-							<div class="approver-name-rank">
-								<div class="approver-name">{이지은}</div>
-								<div class="approver-rank">{팀장}</div>
-							</div>
-							<div class="department">
-								<div>소속 : </div>
-								{동물원 > 동물복지1과}
-							</div>
-						</div>
-					</div>
-
-					<div class="approver selecte-approver">
-						<div class="profile-area">
-							<img class="profile-img" alt="프로필 사진" src="${root}/resources/png/profile/test-profile.png">
-						</div>
-						<div class="info-area">
-							<div class="approver-name-rank">
-								<div class="approver-name">{주호민}</div>
-								<div class="approver-rank">{과장}</div>
-							</div>
-							<div class="department">
-								<div>소속 : </div>
-								{동물원 > 동물복지1과}
-							</div>
-						</div>
-					</div>
-
-					<div class="approver">
-						<div class="profile-area">
-							<img class="profile-img" alt="프로필 사진" src="${root}/resources/png/profile/test-profile.png">
-						</div>
-						<div class="info-area">
-							<div class="approver-name-rank">
-								<div class="approver-name">{유지민}</div>
-								<div class="approver-rank">{부장}</div>
-							</div>
-							<div class="department">
-								<div>소속 : </div>
-								{동물원}
-							</div>
-						</div>
-					</div>
+					
 
 				</div>
 
@@ -203,7 +145,10 @@
 
 			<div class="mini-addressbook-wrap">
 
-				<div class="mini-header">주소록</div>
+				<div class="mini-header">
+					주소록
+					<img class="modal-close-btn" src="${root}/resources/img/icon/svg/small-cross.svg" alt="" class="close-btn">
+				</div>
 
 				<div class="mini-main">
 
@@ -238,6 +183,7 @@
 												<div class="user-no">${userVo.no }</div>
 												<div class="user-name">${userVo.name }</div>
 												<div class="user-rank"> ${userVo.rankName }</div>
+												<div class="user-grade">${userVo.grade}</div>
 											</div>
 										</div>
 									</c:if>
@@ -267,6 +213,7 @@
 														<div class="user-no">${userVo.no }</div>
 														<div class="user-name">${userVo.name }</div>
 														<div class="user-rank"> ${userVo.rankName }</div>
+														<div class="user-grade">${userVo.grade}</div>
 													</div>
 												</div>
 											</c:if>
@@ -294,6 +241,7 @@
 																<div class="user-no">${userVo.no }</div>
 																<div class="user-name">${userVo.name }</div>
 																<div class="user-rank"> ${userVo.rankName }</div>
+																<div class="user-grade">${userVo.grade}</div>
 															</div>
 														</div>
 													</c:if>
@@ -321,6 +269,7 @@
 																		<div class="user-no">${userVo.no }</div>
 																		<div class="user-name">${userVo.name }</div>
 																		<div class="user-rank"> ${userVo.rankName }</div>
+																		<div class="user-grade">${userVo.grade}</div>
 																	</div>
 																</div>
 															</c:if>
@@ -360,7 +309,7 @@
 
 						</div>
 
-						<button class="add-approval">
+						<button class="add-approver">
 							추가하기
 						</button>
 

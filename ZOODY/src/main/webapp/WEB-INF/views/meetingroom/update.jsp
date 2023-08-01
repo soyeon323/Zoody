@@ -25,7 +25,7 @@
         <div>
             <%@ include file="/WEB-INF/views/side.jsp" %>
         </div>
-        <form action="${root}/meetingroom/add" method="POST">
+        <form action="${root}/meetingroom/reserve/update?no=${detail.no}" method="POST" enctype="multipart/form-data">
             <div id="mt_main">
                 <!-- 맨 윗 줄 -->
                  <!-- <div class="mt_link">
@@ -47,7 +47,7 @@
                             <tr>
                                 <th>회의실명</th>
                                 <td>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="${detail.no}">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" name="name" value="${detail.name}" required>
                                 </td>
                             </tr>
                             <tr>
@@ -59,14 +59,14 @@
                             <tr>
                                 <th>수용가능인원</th>
                                 <td>
-                                    <input type="number" name="capacity" id="" placeholder="${detail.capacity}">
+                                    <input type="number" name="capacity" id="" value="${detail.capacity}" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>정보</th>
                                 <td style="height: 500px;">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="${detail.info}" id="floatingTextarea" name="info"></textarea>
+                                        <textarea class="form-control" placeholder="" id="floatingTextarea" name="info" required>${detail.info}</textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -74,13 +74,14 @@
                                 <th></th>
                                 <td>
                                     <div class="mb-3">
-                                        <input class="form-control form-control-sm" type="file" id="formFileSm" name="originName">
+                                        <input class="form-control form-control-sm" type="file" id="formFileSm" name="file">
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="add-btn">
+                        <a href="${root}/meetingroom/reserve"><input type="button" value="이전"></a>
                         <input type="submit" value="수정완료">
                     </div>
                 </div>

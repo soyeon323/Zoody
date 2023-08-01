@@ -110,6 +110,7 @@ input[type="number"]{
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    gap: 9px;
 }
 
 input[type="submit"]{
@@ -131,6 +132,34 @@ input[type="submit"]{
 
 }
 
+input[type="submit"]:hover{
+    background: #00a080;
+}
+
+.add-btn input[type="button"][value="이전"]:hover{
+    background: #5e5e5e;
+}
+
+.add-btn input[type="button"][value="이전"] {
+
+    width: 116px;
+    height: 30px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    background: #7e7e7e;
+    border: none;
+
+    color: #FFF;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    /* line-height: 152.8%; */
+    letter-spacing: 1.3px;
+
+}
+
 /* 부트스트랩 css 깨진거 수정 */
 .breadcrumb {
     padding: 8px 15px;
@@ -138,6 +167,12 @@ input[type="submit"]{
     list-style: none;
     background-color: #F4F7FD !important;
     border-radius: 4px;
+}
+
+.form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
+    padding-top: 10px;
+    padding-bottom: 0.625rem;
+    color: #565656;
 }
 
 

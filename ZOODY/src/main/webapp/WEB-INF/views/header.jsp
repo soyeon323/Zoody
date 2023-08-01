@@ -33,14 +33,26 @@
 
             <div id="nav-profile">
                 
-                <div class="img-profile">
-                    <img class="profile-img" src="${root}/resources/img/employee/${loginMember.profile}" alt=" ">
-                </div>
+                <c:if test="${empty loginMember.profile}">
+                    <div class="img-profile">
+                            <img class="profile-img" src="${root}/resources/img/profile/default_profile.svg" alt="">
+                    </div>
+                    <div class="box-profile">
+                        이름
+                    </div>
+                 </c:if>
 
-                <div class="box-profile">
-                    ${loginMember.name}
-                </div>
+                <c:if test="${not empty loginMember.profile}">
+                    <div class="img-profile">
+                        <img class="profile-img" src="${root}/resources/img/profile/${loginMember.id}.png" alt=" ">
 
+                    </div>
+                    
+                    <div class="box-profile">
+                        ${loginMember.name}
+                    </div>
+                </c:if>
+                </div>
             </div>
         </div>
     </nav>
