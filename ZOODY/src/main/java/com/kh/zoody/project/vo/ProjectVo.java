@@ -1,7 +1,5 @@
 package com.kh.zoody.project.vo;
 
-import java.util.List;
-
 import lombok.Builder;
 import lombok.Data;
 

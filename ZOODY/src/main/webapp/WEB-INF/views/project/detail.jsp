@@ -15,6 +15,21 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'ko',
+        dayCellContent: function(e) {
+          e.dayNumberText = e.dayNumber;
+          e.dayNumberEl.textContent = e.dayNumber; // 날짜 숫자를 표시하기 위해 추가
+        }
+      });
+      calendar.render();
+    });
+</script>
 </head>
 <body>
     
@@ -70,14 +85,12 @@
                         </div>
                         <div id="prjProgress">
                             <div>프로젝트 진행도</div>
-                            <div class="progress" style="width: 280px;">
-                                <div class="progress-bar" role="progressbar" aria-label="Example 40px high" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                            </div>
+                            <%@ include file="/WEB-INF/views/project/chart.jsp" %>
                               
                         </div>
                     </div>
                 </div>
-                <div></div>
+                <div id='calendar'></div>
             </div>
             <div></div>
             <div>
