@@ -113,6 +113,10 @@ body {
     font-size: 12px;
 }
 
+.write-body-bottom {
+    min-height: 573.734px;
+}
+
 textarea {
     display: none;
 }

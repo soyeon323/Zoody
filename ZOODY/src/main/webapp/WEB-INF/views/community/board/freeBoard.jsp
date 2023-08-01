@@ -41,7 +41,7 @@
 
                         <div class="search-area-search">
                             <input type="text">
-                            <img src="${root}/resources/svg/icon/search.svg" alt="🔍">
+                            <img src="${root}/resources/img/icon/svg/search-2.svg" alt="🔍">
                         </div>
 
                     </div>
@@ -49,11 +49,11 @@
                 <div class="boder-grid-body-meddle">
                     <div class="boder-grid-body-meddle-notice">
                         <div>
-                            <img src="" alt="📢">
+                            <img src="${root}/resources/img/icon/svg/notice.svg" alt="📢">
                             ${ notice.title }
                         </div>
                         <div>
-                            <img src="" alt="📢">
+                            <img src="${root}/resources/img/icon/svg/notice.svg" alt="📢">
                             ${ notice.title }
                         </div>
                     </div>
@@ -83,70 +83,63 @@
                             </c:forEach>
                             
                             <tr>
-                                <td>1</td>
+                                <td>10</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>9</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>8</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>7</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>6</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>5</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>4</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>3</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
+                                <td>2</td>
                                 <td>제목입니다</td>
                                 <td>1</td>
                                 <td>1</td>

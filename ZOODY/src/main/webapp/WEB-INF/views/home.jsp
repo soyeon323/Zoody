@@ -23,17 +23,27 @@
             <div class="grid area-gird-1">
                 <div class="area profile">
                     <div class="profile-img">
-                        이미지
+                        <c:if test="${empty loginMember.profile}">
+                            <img src="${root}/resources/img/profile/default_profile.svg" alt="">
+                        </c:if>
+                        <c:if test="${not empty loginMember.profile}">
+                            <img src="${root}/resources/img/profile/${loginMember.id}.png" alt="">
+                        </c:if>
                     </div>
                     <div class="profile-info">
                             <div class="profile-content">
 
                                 <c:if test="${empty loginMember}">
                                     <div><img class="home-icon" height="20" width="20" onclick="profileEditModal()" src="${root}/resources/img/icon/svg/edit.svg" alt=""></div>
-                                    <div>메세지</div>
-                                    <div>부서</div>
-                                    <div>이메일</div>
-                                    <div>이름</div>
+                                    <div class="profile-content-intro">메세지</div>
+                                    <div class="profile-content-department">
+                                        <div>
+                                            <div>부서</div>
+                                            <div>직책</div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-content-email">이메일</div>
+                                    <div class="profile-content-name">이름</div>
                                 </c:if>
 
                                 <c:if test="${not empty loginMember}">
@@ -120,11 +130,12 @@
                             <c:forEach items="${ boardList }" var="list">
 
                                 <div class="community-list">
-                                    <div>${ list.no }</div>
+                                    <div>${ list.rownum }</div>
                                     <div>${ list.title }</div>
                                     <div>${ list.userNo }</div>
                                     <div>${ list.hit }</div>
                                     <div>${ list.enrollDate }</div>
+                                    <div>${ list.no }</div>
                                 </div>
 
                             </c:forEach>
