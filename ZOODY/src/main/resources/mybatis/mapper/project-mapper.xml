@@ -57,7 +57,7 @@
 	)
   </insert>
   
-  <select id="getPrjNo" resultType="ProjectVo">
+ <select id="getPrjNo" resultType="ProjectVo">
   	SELECT
   		NO
 		, TITLE

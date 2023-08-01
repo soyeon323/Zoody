@@ -9,9 +9,14 @@
     <link rel="stylesheet" href="${root}/resources/css/login/login.css">
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    
 </head>
 <body>
+
+	<c:if test="${not empty msg}">
+		<script>
+			alert('로그인실패');
+		</script>
+	</c:if>
     <div id="wrap">
         <a href="${root}/pwd/setting" id="pwdSetting">비밀번호 설정</a>
         <form id="login-form" action="${root}/member/login" method="POST">
