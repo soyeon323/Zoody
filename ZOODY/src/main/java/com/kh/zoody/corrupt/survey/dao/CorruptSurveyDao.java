@@ -20,4 +20,9 @@ public class CorruptSurveyDao {
 		return sst.selectOne("survey.avgSocre",score);
 	}
 
+	//설문조사 마치고 합산점수 가져가기
+	public int increaseScore(SqlSessionTemplate sst, String score) {
+		return sst.insert("survey.increaseScore",score);
+	}
+
 }

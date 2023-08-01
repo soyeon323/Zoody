@@ -38,12 +38,14 @@
             <li><a href="${root}/work/work">업무 할당</a></li>
             </ul>
         </li>
-         <li>
-            <a href="#">부패도 조사</a>
-            <ul>
-            <li><a href="${root}/corrupt/survey/score/">부패도 점수 보기</a></li>
-            </ul>
-        </li>
+        <c:if test="${not empty loginMember }">
+	         <li>
+	            <a href="#">부패도 조사</a>
+	            <ul>
+	            <li><a href="${root}/corrupt/survey/score/">부패도 점수 보기</a></li>
+	            </ul>
+	        </li>
+        </c:if>
         <li>
             <a href="#">인사 관리</a>
             <ul>
