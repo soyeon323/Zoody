@@ -30,4 +30,11 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 		return sst.selectOne("meetingroom.selectDetail", no);
 	}
 
+	@Override
+	public int updateMeetingroom(SqlSessionTemplate sst, MeetingroomVo mvo) {
+		return sst.update("meetingroom.updateMeetingroom", mvo);
+	}
+
+
+
 }

@@ -24,8 +24,8 @@
 	
 	<!-- 회의실 추가 -->
 	<insert id="addMeetingroom">
-		INSERT INTO MEETINGROOM (NO, NAME, INFO,ORIGIN_NAME, CAPACITY) 
-    		VALUES (SEQ_MEETINGROOM_NO.NEXTVAL, #{name}, #{info},#{originName}, #{capacity})
+		INSERT INTO MEETINGROOM (NO, NAME, INFO,ORIGIN_NAME,CHANGE_NAME, CAPACITY) 
+    		VALUES (SEQ_MEETINGROOM_NO.NEXTVAL, #{name}, #{info},#{originName},#{changeName}, #{capacity})
 	</insert>
 	
 	<update id="mtDelete">
@@ -49,5 +49,17 @@
 		WHERE STATUS = 'O'
 		AND NO = #{no}
 	</select>
+	
+	<update id="updateMeetingroom">
+		UPDATE MEETINGROOM
+		SET 
+			NAME = #{name},
+			INFO = #{info},
+			ORIGIN_NAME = #{originName},
+			CHANGE_NAME = #{changeName},
+			CAPACITY = #{capacity},
+			MODIFYDATE = SYSDATE
+		WHERE NO = #{no}
+	</update>
   
 </mapper>

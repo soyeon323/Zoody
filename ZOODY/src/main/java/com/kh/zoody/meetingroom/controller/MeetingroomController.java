@@ -1,13 +1,19 @@
 package com.kh.zoody.meetingroom.controller;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.meetingroom.service.MeetingroomService;
 import com.kh.zoody.meetingroom.vo.MeetingroomVo;
@@ -41,11 +47,22 @@ public class MeetingroomController {
 	
 	//회의실 추가
 	@PostMapping("add")
-	public String add(MeetingroomVo mvo) {
+	public String add(MeetingroomVo mvo, MultipartFile file) {
 		
-		int result = ms.addMeetingroom(mvo);
+		int result = ms.addMeetingroom(mvo, file);
 		
 		return "meetingroom/add";
+	}
+	
+	@PostMapping("reserve/update")
+	public String mtUpdate(Model model, MeetingroomVo mvo, MultipartFile file) {
+		int update = ms.updateMeetingroom(mvo, file);
+		
+		if (update == 1) {
+			return "redirect:/meetingroom/reserve";
+		}
+		
+		return "meetingroom/update";
 	}
 	
 	//수정하기 (화면)
@@ -56,20 +73,9 @@ public class MeetingroomController {
 		
 		model.addAttribute("detail", detail);
 		
-		System.out.println(detail);
-		
-		System.out.println(no);
-		
-		System.out.println(no);
-		
 		return "meetingroom/update";
 	}
 	
-//	//수정하기
-//	@PostMapping("reserve/update")
-//	public String mtUpdate(@RequestParam String no) {
-//		return "meetingroom/update";
-//	}
 	
 	//삭제하기 (화면)
 	@GetMapping("reserve/delete")

@@ -45,7 +45,8 @@
             <div class="mt_box">
             	<c:forEach items="${list}" var="vo">
 	                <div class="card">
-	                    <img src="${root}/resources/img/meetingroom/test.jpg" class="card-img-top" alt="...">
+                        <img src="${root}/resources/img/meetingroom/${vo.changeName}" class="card-img-top" alt="회의실사진"> <!-- 여기에 썸네일 이미지 보이기 -->
+	                    <!-- <img src="${vo.changeName}" class="card-img-top" alt="111"> -->
                         <button style="border: none; background-color: transparent;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <g clip-path="url(#clip0_473_8454)">
