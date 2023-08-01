@@ -32,8 +32,64 @@ $(document).ready(function() {
         // 글자 크기 선택 옵션
         '8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'
     ],
+    callbacks:{
+        onImageUpload : function(files){ 
+            
+            alert(files)
+
+            uploadSummernoteImageFile(files[0],this);
+        },
+        onMediaDelete: function ($target, editor, $editable) {
+            // 삭제된 이미지의 파일 이름을 알아내기 위해 split 활용
+            if (confirm('이미지를 삭제하시겠습니까?')) {
+                var deletedImageUrl = $target.attr('src').split('/').pop()
+
+                // ajax 함수 호출
+                deleteSummernoteImageFile(deletedImageUrl)
+            }
+        },
+    },
     });
 });
+
+// 썸머노트 업로드 이미지 콜백
+function uploadSummernoteImageFile(file,editor){ 
+      
+
+    data = new FormData(); 
+
+
+    data.append("file",file); 
+
+
+    $.ajax({ 
+
+        data:data, 
+
+        type:"POST", 
+
+        url: root + "/summernote/uploadSummernoteImageFile", 
+
+        dataType:"JSON", 
+
+        contentType:false, 
+
+        processData:false, 
+
+        success:function(data){ 
+
+        let imgPath = root+data.url;
+        $(editor).summernote("insertImage",imgPath); 
+
+        console.log(imgPath);
+        console.log(data.originName);
+
+        // $("#thumbnailPath").append("<option value="+"/zoody"+imgPath+">"+data.originName+"</option>"); 
+
+        } 
+    })
+};
+
 
 $("select[name=Big-Category]").on("change", function () {
     
@@ -97,7 +153,7 @@ $(".registration-btn").on("click" , function () {
         },
     });
 
-})
+});
 
 
 
@@ -108,7 +164,7 @@ $(".file").on("change" , function(e) {
     uploadFile = e.target.files[0];
 
     console.log(uploadFile);
-})
+});
 
 
 // 썸머노트 공백 체크
