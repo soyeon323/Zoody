@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
+<h1>${pjVoInfo}</h1> 
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
     
@@ -119,7 +120,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div>
+                        <div id="dateArea">
                             <a>프로젝트 기간 : </a>
                             <div>
                                 <input type="date" name="startDate">
@@ -131,6 +132,10 @@
                         </div>
                         <div id="pjContent">
                             <input type="text" name="content" placeholder="내용을 입력하세요.">
+                        </div>
+                        <div id="pjTeamName">
+                            <a>팀명 : </a>
+                            <input type="text" name="teamName" placeholder="팀명을 입력하세요.">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -201,6 +206,7 @@
         const content = document.querySelector("input[name='content']").value;
         const startDate = document.querySelector("input[name='startDate']").value;
         const endDate = document.querySelector("input[name='endDate']").value;
+        const teamName = document.querySelector("input[name='teamName']").value;
 
         let userNo = [];
         let userName = [];
@@ -219,7 +225,8 @@
             title : title,
             content : content,
             startDate : startDate,
-            endDate : endDate
+            endDate : endDate,
+            teamName : teamName
         });
 
         $.ajax({
@@ -227,9 +234,11 @@
             type: "POST",
             data: data,
             contentType: "application/json", 
-            success: () => {
+            dataType: "json",
+            success: (data) => {
                 alert("프로젝트가 생성되었습니다.");
                 location.reload(true);
+                console.log(data);
             },
             error: (err) => {
                 console.log(err);
@@ -241,5 +250,27 @@
         if (node && node.parentNode) {
             node.parentNode.removeChild(node);
         }
+    }
+
+    function createNewContent(projectData) {
+        const contentContainer = document.createElement("div");
+        contentContainer.id = "content-" + projectData.id; // 프로젝트마다 고유한 id를 부여 (예: "content-4")
+        
+        const projectName = document.createElement("div");
+        const participants = document.createElement("div");
+        const dateRange = document.createElement("div");
+        const viewMore = document.createElement("div");
+
+        projectName.innerHTML = `<a>${projectData.name}</a>`;
+        participants.innerHTML = `<a>${projectData.participants}</a>`;
+        dateRange.innerHTML = `<a>${projectData.startDate} ~ ${projectData.endDate}</a>`;
+        viewMore.innerHTML = `<a href="">더보기 ></a>`;
+
+        contentContainer.appendChild(projectName);
+        contentContainer.appendChild(participants);
+        contentContainer.appendChild(dateRange);
+        contentContainer.appendChild(viewMore);
+
+        document.getElementById("contentArea").appendChild(contentContainer);
     }
 </script>

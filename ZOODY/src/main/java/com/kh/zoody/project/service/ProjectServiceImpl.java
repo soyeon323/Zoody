@@ -1,19 +1,23 @@
 package com.kh.zoody.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.zoody.project.dao.ProjectDao;
+import com.kh.zoody.project.vo.ProjectAllVo;
 import com.kh.zoody.project.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ProjectServiceImpl implements ProjectService{
 	private final ProjectDao dao;
 	private final SqlSessionTemplate sst;
@@ -24,22 +28,37 @@ public class ProjectServiceImpl implements ProjectService{
 		return dao.selectUser(sst);
 	}
 
-	//프로젝트 생성
+	//프로젝트 팀 생성
 	@Override
-	public int insertPrj(ProjectVo vo) {
-		return dao.insertPrj(sst, vo);
+	public int insertPrj(ProjectAllVo paVo) {
+		//팀 생성 전에 팀명 중복되는지 확인
+		List<String> teamNameList = dao.selectTeamName(sst);
+		
+		for(String teamName : teamNameList) {
+			if(teamName.equals(paVo.getTeamName())) {
+				throw new RuntimeException("팀이름 중복");
+			}
+		}
+		return dao.insertPrj(sst, paVo);
 	}
 
-	//프로젝트 생성(팀insert)
+	//프로젝트 팀 번호 가져오기
 	@Override
-	public int insertPrjTeam(ProjectVo vo) {
-		return dao.insertPrjTeam(sst, vo);
+	public String selectPjNo(String teamName) {
+		return dao.selectPjNo(sst, teamName);
 	}
 
-	//프로젝트 생성 후 프로젝트 불러오기
+	//프로젝트 멤버 insert
 	@Override
-	public ProjectVo getPrjNo(String teamName) {
-		return dao.getPrjNo(sst, teamName);
+	public int insertPrjMember(Map<String, Object> map) {
+		return dao.insertPrjMember(sst, map);
 	}
+
+	//화면으로 넘겨줄 프로젝트 정보
+	@Override
+	public List<ProjectVo> selectPj(String pjNo) {
+		return dao.selectPj(sst, pjNo);
+	}
+
 
 }

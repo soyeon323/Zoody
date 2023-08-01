@@ -6,66 +6,94 @@
   
 <mapper namespace="project">
   
-  <select id="selectUser" resultType="UserVo">
-  	SELECT
-	    U.NO
-	    , U.DEPARTMENT_NO
-	    , U.RANK_NO
-	    , R.NAME AS RANK_NAME
-	    , U.POSITION_NO
-	    , U.STATE_NO
-	    , U.AGENT
-	    , U.DIVISION_NO
-	    , U.ID
-	    , U.PWD
-	    , U.NAME
-	    , U.GENDER
-	    , U.BIRTH_DATE
-	    , U.PROFILE
-	    , U.LINE_INTRO
-	    , U.ADDRESS
-	    , U.PHONE
-	    , U.MAIL
-	    , U.REGISTRATION_DATE
-	    , U.LEAVE_REASON
-	    , U.LEAVE_DATE
-	    , U.OFFICE_NUMBER
-	    , U.LEAVE_COUNT
-	    , U.CAPACITY
-	FROM "USER" U
-	JOIN RANK R ON U.RANK_NO = R.NO 
-  </select>
-  
-  <insert id="insertPrj">
-  	INSERT INTO PROJECT
-	(
-	  	NO
-		, TITLE
-		, CONTENT
-		, START_DATE
-		, END_DATE
-		, TEAM_NAME
-	)
-	VALUES
-	( 
-		SEQ_PROJECT_NO.NEXTVAL
-		, #{title}
-		, #{content}
-		, #{startDate}
-		, #{endDate}
-		, #{title}
-	)
-  </insert>
-  
-  <select id="getPrjNo" resultType="ProjectVo">
-  	SELECT
-  		NO
-		, TITLE
-		, CONTENT
-		, START_DATE
-		, END_DATE
-		, TEAM_NAME
-	FROM PROJECT
-	WHERE TEAM_NAME = #{teamName}
-  </select>
+  	<select id="selectUser" resultType="UserVo">
+	  	SELECT
+		    U.NO
+		    , U.DEPARTMENT_NO
+		    , U.RANK_NO
+		    , R.NAME AS RANK_NAME
+		    , U.POSITION_NO
+		    , U.STATE_NO
+		    , U.AGENT
+		    , U.DIVISION_NO
+		    , U.ID
+		    , U.PWD
+		    , U.NAME
+		    , U.GENDER
+		    , U.BIRTH_DATE
+		    , U.PROFILE
+		    , U.LINE_INTRO
+		    , U.ADDRESS
+		    , U.PHONE
+		    , U.MAIL
+		    , U.REGISTRATION_DATE
+		    , U.LEAVE_REASON
+		    , U.LEAVE_DATE
+		    , U.OFFICE_NUMBER
+		    , U.LEAVE_COUNT
+		    , U.CAPACITY
+		FROM "USER" U
+		JOIN RANK R ON U.RANK_NO = R.NO 
+ 	</select>
+
+	<insert id="insertPrj">
+		INSERT INTO PROJECT
+		(
+			NO
+			, TITLE
+			, CONTENT
+			, START_DATE
+			, END_DATE
+			, TEAM_NAME
+		)
+		VALUES
+		(
+			SEQ_PROJECT_NO.NEXTVAL
+			, #{title}
+			, #{content}
+			, #{startDate}
+			, #{endDate}
+			, #{teamName}
+		)
+	</insert>
+	
+	<select id="selectPjNo" resultType="String">
+		SELECT NO
+		FROM PROJECT
+		WHERE TEAM_NAME = #{teamName}
+	</select>
+	
+	<insert id="insertPrjMember">
+		INSERT INTO PROJECT_TEAM_MEMBER
+		(
+			USER_NO
+			, PROJECT_NO
+		)
+		VALUES
+		(
+			#{userNo}
+			, #{pjNo}
+		)
+	</insert>
+	
+	<select id="selectTeamName" resultType="String">
+		SELECT TEAM_NAME
+		FROM PROJECT
+	</select>
+	
+	<select id="selectPj" resultType="ProjectVo">
+		SELECT 
+		    P.NO
+		    , P.TITLE
+		    , P.CONTENT
+		    , TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE
+		    , TO_CHAR(END_DATE, 'YYYY-MM-DD') AS END_DATE
+		    , P.TEAM_NAME
+		    , U.NAME AS USER_NAME
+		    , U.NO AS USER_NO
+		FROM PROJECT P
+		JOIN PROJECT_TEAM_MEMBER M ON P.NO = M.PROJECT_NO
+		JOIN "USER" U ON M.USER_NO = U.NO
+		WHERE P.NO = ${pjNo}
+	</select>
 </mapper>
