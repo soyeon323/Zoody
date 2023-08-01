@@ -35,6 +35,8 @@ public class UserVo {
 	private String stateName;
 	private String divisionName;
 	
+	private String grade;
+	
 	private String dName1;
 	private String dName2;
 	private String dName3;
