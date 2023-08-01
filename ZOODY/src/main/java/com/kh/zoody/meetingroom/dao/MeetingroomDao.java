@@ -16,4 +16,7 @@ public interface MeetingroomDao {
 
 	MeetingroomVo selectDetail(SqlSessionTemplate sst, String no);
 
+	int updateMeetingroom(SqlSessionTemplate sst, MeetingroomVo mvo);
+
+
 }
