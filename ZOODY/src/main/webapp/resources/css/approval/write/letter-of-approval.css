@@ -375,7 +375,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    overflow-y: scroll;
 }
+.preview-area::-webkit-scrollbar {
+    display: none;
+  }
 
 .approver {
     width: 350px;
@@ -452,10 +457,13 @@
     position: absolute;
     top: 0;
 
-    display: flex;
-    justify-content: center;
+    display: none;
 
     background-color: rgba(25, 25, 25, 0.33);
+}
+.modal-wrap-active {
+    display: flex;
+    justify-content: center;
 }
 
 .mini-addressbook-wrap {
@@ -472,14 +480,21 @@
     background-color: #F4F7FD;
 }
 
+
 .mini-header {
     width: 900px;
     height: 75px;
 
     line-height: 75px;
 
+    display: flex;
+    justify-content: space-between;
+
     font-size: 20px;
     font-weight: 700;
+}
+.modal-close-btn {
+    cursor: pointer;
 }
 
 .mini-main {
@@ -589,6 +604,9 @@
     font-weight: 400;
     color: rgb(53, 54, 54);
 }
+.user-grade {
+    display: none;
+}
 
 .list-box-area {
     margin-left: 45px;
@@ -665,6 +683,8 @@
 .approver-name {
     width: 85px;
 
+    text-align: center;
+
     font-size: 14px;
     font-weight: 400;
     color: #353636;
@@ -683,15 +703,23 @@
 
 
 .preview-list { 
+    width: 100%;
     height: 450px;
 
     overflow-y: scroll;
 }
 .preview-list::-webkit-scrollbar {
     display: none;
-  }
+}
 
-.add-approval {
+.user-rank-grade {
+    display: none;
+}
+.temp-no {
+    display: none;
+}
+
+.add-approver {
     width: 150px;
     height: 45px;
 
@@ -703,5 +731,12 @@
     border: 0;
     border-radius: 10px;
 
+    cursor: pointer;
+}
+
+.add-btn{
+    cursor: pointer;
+}
+.delete-btn{
     cursor: pointer;
 }
