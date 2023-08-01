@@ -12,6 +12,6 @@ public interface MeetingroomService {
 
 	int mtDelete(String no);
 
-	List<MeetingroomVo> selectDetail(String no);
+	MeetingroomVo selectDetail(String no);
 
 }

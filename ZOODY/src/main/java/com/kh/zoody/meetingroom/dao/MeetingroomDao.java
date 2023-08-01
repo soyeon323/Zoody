@@ -14,6 +14,6 @@ public interface MeetingroomDao {
 
 	int mtDelete(SqlSessionTemplate sst, String no);
 
-	List<MeetingroomVo> selectDetail(SqlSessionTemplate sst, String no);
+	MeetingroomVo selectDetail(SqlSessionTemplate sst, String no);
 
 }

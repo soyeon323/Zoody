@@ -50,21 +50,26 @@ public class MeetingroomController {
 	
 	//수정하기 (화면)
 	@GetMapping("reserve/update")
-	public String mtUpdate(Model model, @RequestParam String no) {
+	public String mtUpdate(Model model,String no) {
 		
-		List<MeetingroomVo> detail = ms.selectDetail(no);
+		MeetingroomVo detail = ms.selectDetail(no);
+		
 		model.addAttribute("detail", detail);
+		
+		System.out.println(detail);
+		
+		System.out.println(no);
 		
 		System.out.println(no);
 		
 		return "meetingroom/update";
 	}
 	
-	//수정하기
-	@PostMapping("reserve/update")
-	public String mtUpdate(@RequestParam String no) {
-		return "meetingroom/update";
-	}
+//	//수정하기
+//	@PostMapping("reserve/update")
+//	public String mtUpdate(@RequestParam String no) {
+//		return "meetingroom/update";
+//	}
 	
 	//삭제하기 (화면)
 	@GetMapping("reserve/delete")

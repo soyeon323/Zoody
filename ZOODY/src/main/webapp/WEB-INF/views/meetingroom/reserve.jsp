@@ -127,11 +127,11 @@
     </script>
 
     <script>
-        function mtUpdate(event) {
-            // event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
-            const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
-            sendAjaxForUpdate(voNo); // Ajax 요청 함수 호출
-        }
+        // function mtUpdate(event) {
+        //     // event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
+        //     const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
+        //     sendAjaxForUpdate(voNo); // Ajax 요청 함수 호출
+        // }
 
         function mtDelete(event) {
             event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
@@ -139,19 +139,19 @@
             sendAjaxForDelete(voNo); // Ajax 요청 함수 호출
         }
 
-        function sendAjaxForUpdate(voNo) {
-            $.ajax({
-                url: '${root}/meetingroom/reserve/update',
-                method: 'GET',
-                data: { no: voNo },
-                success: function(response) {
-                    alert("조회 성공.")
-                },
-                error: function(error) {
-                    alert("수정 오류");
-                }
-            });
-        }
+        // function sendAjaxForUpdate(voNo) {
+        //     $.ajax({
+        //         url: '${root}/meetingroom/reserve/update',
+        //         method: 'POST',
+        //         data: { no: voNo },
+        //         success: function(response) {
+        //             alert("조회 성공.")
+        //         },
+        //         error: function(error) {
+        //             alert("수정 오류");
+        //         }
+        //     });
+        // }
 
         function sendAjaxForDelete(voNo) {
             $.ajax({
