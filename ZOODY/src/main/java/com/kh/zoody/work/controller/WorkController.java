@@ -39,7 +39,7 @@ public class WorkController {
 		HttpSession session = req.getSession();
 		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 		
-		List<WorkVo> vo = ws.getUserList();
+		List<WorkVo> vo = ws.workList();
 		log.info("vo : {}",vo);
 		if(vo ==null) {
 			throw new RuntimeException();
@@ -53,14 +53,14 @@ public class WorkController {
 //	업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가  AJAX 
 	@PostMapping("insert")
 	@ResponseBody
-	public ResponseEntity<String> workInsert(WorkVo vo ) {
+	public String workInsert(WorkVo vo ) {
 		
 		int result = ws.workInsert(vo);
-		if (result != 1) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to insert work");
-	    }
 		log.info("결과 = {}",result);
-	    return ResponseEntity.ok("ok");
+		if (result != 2) {
+			throw new RuntimeException();
+		}
+	    return "ok";
 	}
 	
 	 //업무명과 마감일시 가져오기 AJAX로
