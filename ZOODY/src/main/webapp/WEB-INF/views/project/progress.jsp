@@ -235,10 +235,10 @@
             data: data,
             contentType: "application/json", 
             dataType: "json",
-            success: (data) => {
+            success: (x) => {
                 alert("프로젝트가 생성되었습니다.");
+                console.log(x);
                 location.reload(true);
-                console.log(data);
             },
             error: (err) => {
                 console.log(err);
@@ -252,25 +252,4 @@
         }
     }
 
-    function createNewContent(projectData) {
-        const contentContainer = document.createElement("div");
-        contentContainer.id = "content-" + projectData.id; // 프로젝트마다 고유한 id를 부여 (예: "content-4")
-        
-        const projectName = document.createElement("div");
-        const participants = document.createElement("div");
-        const dateRange = document.createElement("div");
-        const viewMore = document.createElement("div");
-
-        projectName.innerHTML = `<a>${projectData.name}</a>`;
-        participants.innerHTML = `<a>${projectData.participants}</a>`;
-        dateRange.innerHTML = `<a>${projectData.startDate} ~ ${projectData.endDate}</a>`;
-        viewMore.innerHTML = `<a href="">더보기 ></a>`;
-
-        contentContainer.appendChild(projectName);
-        contentContainer.appendChild(participants);
-        contentContainer.appendChild(dateRange);
-        contentContainer.appendChild(viewMore);
-
-        document.getElementById("contentArea").appendChild(contentContainer);
-    }
 </script>

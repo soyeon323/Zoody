@@ -5,8 +5,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="project">
-  
-  	<!-- <select id="selectUser" resultType="UserVo">
+
+  	<select id="selectUser" resultType="UserVo">
 	  	SELECT
 		    U.NO
 		    , U.DEPARTMENT_NO
@@ -35,27 +35,6 @@
 		FROM "USER" U
 		JOIN RANK R ON U.RANK_NO = R.NO 
  	</select>
-
-	<insert id="insertPrj">
-		INSERT INTO PROJECT
-		(
-			NO
-			, TITLE
-			, CONTENT
-			, START_DATE
-			, END_DATE
-			, TEAM_NAME
-		)
-		VALUES
-		(
-			SEQ_PROJECT_NO.NEXTVAL
-			, #{title}
-			, #{content}
-			, #{startDate}
-			, #{endDate}
-			, #{teamName}
-		)
-	</insert>
 	
 	<select id="selectPjNo" resultType="String">
 		SELECT NO
@@ -114,7 +93,7 @@
 		, #{content}
 		, #{startDate}
 		, #{endDate}
-		, #{title}
+		, #{teamName}
 	)
   </insert>
   
@@ -128,6 +107,6 @@
 		, TEAM_NAME
 	FROM PROJECT
 	WHERE TEAM_NAME = #{teamName}
-  </select> -->
+  </select>
 
 </mapper>

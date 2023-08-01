@@ -153,7 +153,7 @@
 
 #back #todo #prjProgress>div:first-child{
     margin-left: 80px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 #back #todo #prjProgress>div:nth-child(2){
@@ -167,4 +167,16 @@
 #prjProgress>.progress>.progress-bar{
     height: 40px;
     background-color: #00CBA4;
+}
+
+/* 풀캘린더 설정 */
+.fc-day-sun a {
+    color: red;
+    text-decoration: none;
+}
+  
+
+.fc-day-sat a {
+    color: blue;
+    text-decoration: none;
 }
