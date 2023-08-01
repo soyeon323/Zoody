@@ -15,7 +15,6 @@ public class ProjectVo {
 	private String endDate;
 	private String teamName;
 	
-	private String projectNo;
-	private List<String> userNo;
-	private List<String> userName;
+	private String userName;
+	private String userNo;
 }
