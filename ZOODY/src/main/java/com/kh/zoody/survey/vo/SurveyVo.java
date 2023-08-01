@@ -9,7 +9,7 @@ public class SurveyVo {
 	private String content;
 	
 	private String researchNo;
-	private String totlaScore;
+	private String totalScore;
 	
 	private String userNo;
 	private String surveyNo;
