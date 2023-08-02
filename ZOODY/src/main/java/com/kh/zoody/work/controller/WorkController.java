@@ -34,18 +34,18 @@ public class WorkController {
 	
 	//업무할당 화면  회원들 가져와서 뿌려줘야함
 	@GetMapping("work")
-	public String work(Model m, HttpServletRequest req) {
+	public String work(Model m) {
 		
-		HttpSession session = req.getSession();
-		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-		
-		List<WorkVo> vo = ws.workList();
-		log.info("vo : {}",vo);
-		if(vo ==null) {
-			throw new RuntimeException();
-		}
-		m.addAttribute("loginMember" , loginMember);
-		m.addAttribute("vo",vo);
+//		HttpSession session = req.getSession();
+//		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+//		
+//		List<WorkVo> vo = ws.workList();
+//		log.info("vo : {}",vo);
+//		if(vo ==null) {
+//			throw new RuntimeException();
+//		}
+//		m.addAttribute("loginMember" , loginMember);
+//		m.addAttribute("vo",vo);
 		
 		return "work/work";
 	}
@@ -54,29 +54,27 @@ public class WorkController {
 	@PostMapping("insert")
 	@ResponseBody
 	public String workInsert(WorkVo vo ) {
-		
 		int result = ws.workInsert(vo);
-		log.info("결과 = {}",result);
 		if (result != 2) {
 			throw new RuntimeException();
 		}
 	    return "ok";
 	}
 	
-	 //업무명과 마감일시 가져오기 AJAX로
+	//업무명과 마감일시 가져오기 AJAX로
 	@PostMapping("view")
-	public String  getWorkNameAndDate(Model m) {
+	@ResponseBody
+	public String getWorkNameAndDate(Model m) {
 		
 		WorkVo wv = ws.getWorkNameAndDate();
-		
 		log.info("WorkVo = {}",wv);
 		
 		if(wv ==null) {
 			throw new RuntimeException();
 		}
-		
+
 		m.addAttribute("data",wv);
 		return "work/work";
-	}
+	}	
 	
 }
