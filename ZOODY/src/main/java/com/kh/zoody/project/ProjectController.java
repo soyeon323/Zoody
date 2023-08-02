@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.zoody.notice.vo.NoticeVo;
+import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.project.service.ProjectService;
 import com.kh.zoody.project.vo.ProjectAllVo;
 import com.kh.zoody.project.vo.ProjectVo;
+import com.kh.zoody.suggestion.vo.SuggestionVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,11 +36,16 @@ public class ProjectController {
 	@GetMapping("progress")
 	public void projectInProgress(Model model) {
 		List<ProjectVo> voList = ps.selectUser();
+		List<ProjectVo> prjList = ps.prjData();
 		
 		if(voList == null) {
 			throw new RuntimeException();
 		}
+
+		log.info("prjList : {}", prjList);
+		
 		model.addAttribute("voList", voList);
+		model.addAttribute("prjList", prjList);
 	}
 	
 	@PostMapping("progress")
@@ -70,13 +80,24 @@ public class ProjectController {
 			throw new RuntimeException();
 		}
 		
-		log.info("vo : {}", pjVoInfo);
-		
 		return pjVoInfo;
 	}
 	
 	//프로젝트 상세화면
-	@RequestMapping("detail")
+	@GetMapping("detail")
+	public void detail(Model model) {
+		List<NoticeVo> noticeList = ps.getNoticeList(new PageVo(4, 1, 1, 4));
+		List<SuggestionVo> suggestionList = ps.getSuggestionList(new PageVo(4, 1, 1, 4));
+		
+		if(noticeList == null) {
+			throw new RuntimeException();
+		}
+			
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("suggestionList", suggestionList);
+	}
+	
+	@PostMapping("detail")
 	public void detail() {
 		
 	}
