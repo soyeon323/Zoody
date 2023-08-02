@@ -17,16 +17,16 @@
         <li>
             <a href="#"><i class="fa-solid fa-cat"></i> 근태 관리</a>
             <ul>
-            <li><a href="#">text1</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
+            <li><a href="${root}/attendance/main">근무현황</a></li>
+            <li><a href="${root}/attendance/list">근무현황 목록 조회</a></li>
+            <li><a href="${root}/attendance/admin/allList">유저 전체 근무 조회</a></li>
+            <li><a href="${root}/attendance/admin/objection">objection</a></li>
             </ul>
         </li>
         <li>
             <a href="#">일정 관리</a>
             <ul>
-            <li><a href="#">text1</a></li>
+            <li><a href="${root}/calendar/month">일정관리</a></li>
             <li><a href="#">text2</a></li>
             <li><a href="#">text3</a></li>
             <li><a href="#">text4</a></li>
@@ -85,7 +85,7 @@
         <li>
             <a href="#">프로젝트 관리</a>
             <ul>
-            <li><a href="#">text1</a></li>
+            <li><a href="${root}/project/progress">진행중인 프로젝트</a></li>
             <li><a href="#">text2</a></li>
             <li><a href="#">text3</a></li>
             <li><a href="#">text4</a></li>
