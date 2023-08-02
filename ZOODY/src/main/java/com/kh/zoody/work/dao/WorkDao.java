@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.zoody.user.vo.UserVo;
 import com.kh.zoody.work.vo.WorkVo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Repository
+@Slf4j
 public class WorkDao {
 
 	//업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가

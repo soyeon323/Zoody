@@ -48,7 +48,10 @@
            
             <div class="column1">
                 <h1>To-Do</h1>
-                
+                <div class="list-group-item">
+                    <h3>ddddd</h3>
+                    <p>ddddd</p>
+                </div>
             </div>
 
             <div class="column2">
@@ -63,8 +66,6 @@
 
          <!-- 모달창1 -->
          <div id="my_modal">
-         <form >
-
             <h1>업무 할당 </h1>
             <br>
             <div id="modal-area">
@@ -90,8 +91,6 @@
                  <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
              </div>
           </div>
-
-         </form>
           
     </div>
        
@@ -100,12 +99,12 @@
 
 <script>
 
-    const addBtn = document.querySelector('#addBtn');
-    addBtn.addEventListener('click' , function () {
-       let workName = document.querySelector('#workName').innerHTML;
-       let newDivTag = document.querySelector('.list-group-item');
-       newDivTag.innerHTML = workName; 
-    });
+    // const addBtn = document.querySelector('#addBtn');
+    // addBtn.addEventListener('click' , function () {
+    //    let workName = document.querySelector('#workName').innerHTML;
+    //    let newDivTag = document.querySelector('.list-group-item');
+    //    newDivTag.innerHTML = workName; 
+    // });
 
 
     // 추가 버튼 누르면 colum 에 추가됨 
@@ -131,13 +130,6 @@
     });
 
         });
-
-//Handle the "추가" button click inside the modal
-// document.getElementById('addBtn').addEventListener('click', function() {
-// const modal = document.querySelector('#my_modal');
-//     modal.style.display = 'none';
-// });
-
 
 document.querySelector('#completeBtn').addEventListener('click' , function () {
    //완료 버튼 눌렀을때 실행될 코드 
@@ -278,16 +270,14 @@ column1.addEventListener('click', function(event) {
     });
 
 
-
-
 // 업무 작성
-function writeComment(no){
+function writeComment(userNo){
 
     const workName = document.getElementById('workName').value;
-    const userName = document.getElementById('userName').value;
     const workContent = document.getElementById('workContent').value;
-    const endDate = document.getElementById('endDate');
-
+    const endDate = document.querySelector('input[name=endDate]').value;
+    const modal = document.querySelector('#my_modal');
+    
 		$.ajax({
 			url : "${root}/work/insert" ,
 			type : "POST" ,
@@ -295,21 +285,22 @@ function writeComment(no){
                 'workName' : workName,
                 'workContent' : workContent ,
                 'endDate' :endDate , 
-                'userNo' : no
+                'userNo' : userNo
             },
 			success : (x)=>{
 				console.log(x);
 				if(x == 'ok'){
 					alert("업무가 등록되었습니다.");
+                    modal.style.display='none';
+                    loadComment();
 				}
 			} ,
 			error : (x)=>{
 				console.log(x);
 			} ,
 		});
-	}
+}
 	
-
 	//업무 불러오기
 	function loadComment(){
         const newDivTag = document.querySelector('.list-group-item');
@@ -330,7 +321,5 @@ function writeComment(no){
                 },
             });
 	}
-
 	loadComment();
-
 </script>

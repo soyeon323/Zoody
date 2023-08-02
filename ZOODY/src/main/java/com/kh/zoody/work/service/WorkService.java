@@ -25,7 +25,11 @@ public class WorkService {
 	
 	//업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가
 	public int workInsert(WorkVo vo) {
-		return dao.workInsert(sst , vo);
+		int result = dao.workInsert(sst, vo);
+		if(result !=2) {
+			throw new RuntimeException();
+		}
+		return result;
 	}
 
 	//업무할당 화면  회원들 가져와서 뿌려줘야함
