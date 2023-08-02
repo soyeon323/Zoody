@@ -23,6 +23,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <!-- //fullcalendar 언어 설정관련 script -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <title>Document</title>
 <style>
 
@@ -112,7 +114,11 @@
 	                          arg.draggedEl.parentNode.removeChild(arg.draggedEl);
 	                      }
 	                  },
-	                  events: data // AJAX로 받아온 데이터를 이벤트로 설정
+	                  events: data ,// AJAX로 받아온 데이터를 이벤트로 설정
+                    eventClick: function(info) {
+                      // 이벤트를 클릭했을 때 실행되는 로직을 작성할 수 있습니다.
+                      // 예: 모달 창에 상세 정보 표시 등
+                  }
 	              });
 	              // 캘린더 랜더링
 	              calendar.render();
@@ -121,6 +127,8 @@
 	  })();
 	  
 	</script>
+
+ 
 	
 
 

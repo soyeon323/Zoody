@@ -1,5 +1,6 @@
 package com.kh.zoody.calendar.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,10 +34,15 @@ public class CalendarController {
 	
 	private final CalendarService cs;
 	
+	@GetMapping("main")
+	public String listMonth() {
+		return "calendar/month";
+	}
+	
 	
 	@GetMapping("list")
-//	@ResponseBody
-	public String listMonth(Model model) {
+	@ResponseBody
+	public List<Map<String, Object>> listMonth(Model model) {
 		
 		List<Map<String, Object>> listAll = cs.listAll();
 		
@@ -55,12 +61,31 @@ public class CalendarController {
 			
 		}
 		
-		model.addAttribute("jsonArr", jsonArr);
-		
 		log.info("jsonArrCheck: {}", jsonArr);
 		
-		return "calendar/month";
+		return jsonArr;
 	}
+	
+//	@GetMapping("list")
+//    public String listMonth(Model model) {
+//        List<Map<String, Object>> listAll = cs.listAll();
+//
+//        // FullCalendar에서 사용하는 events 배열
+//        List<Map<String, Object>> events = new ArrayList<>();
+//        
+//        for (Map<String, Object> eventData : listAll) {
+//            Map<String, Object> event = new HashMap<>();
+//            event.put("title", eventData.get("TITLE"));
+//            event.put("start", eventData.get("START_TIME"));
+//            event.put("end", eventData.get("END_TIME"));
+//            events.add(event);
+//        }
+//        
+//        // Model에 events를 추가하여 JSP에서 사용할 수 있도록 함
+//        model.addAttribute("events", events);
+//        
+//        return "calendar/month";
+//    }
 	
 	
 //	
