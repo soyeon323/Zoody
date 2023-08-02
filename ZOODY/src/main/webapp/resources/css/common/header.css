@@ -40,7 +40,7 @@ nav{
 }
 
 #nav-alert {
-  width: 140;
+  width: 140px !important;
 }
 
 #nav-profile{ 
@@ -57,7 +57,7 @@ nav{
 .alret-alert{}
 
 .mail-alert > img {
-  max-height: 21;
+  max-height: 21px !important;
 }
 
 /* #nav-profile 자식 */

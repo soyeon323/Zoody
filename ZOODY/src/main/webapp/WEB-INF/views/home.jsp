@@ -88,7 +88,7 @@
                 <div class="area schedule">
                     <div class="div-header">
                         <span>일정</span>
-                        <img class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
+                        <img onclick="goToCalender()" class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
                 </div>
                 <div class="area chart">
@@ -151,7 +151,7 @@
                 </div>
                 <div onclick="goToNotice()" class="area notice" id="notice">
                     <img src="${root}/resources/img/icon/svg/notice.svg" alt="">
-                    <div>전직원 알림) 스미싱 스팸메일 열람주의</div>
+                    <div>${getNotice[0].title}</div>
                 </div>
             </div>
 

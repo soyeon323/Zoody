@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.zoody.community.service.CommuityService;
 import com.kh.zoody.community.vo.BoardVo;
+import com.kh.zoody.home.service.HomeService;
+import com.kh.zoody.notice.service.NoticeService;
+import com.kh.zoody.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	
 	private final CommuityService cs;
-
+	private final HomeService hs;
 
     @GetMapping
     public String home(Model model) {
@@ -32,8 +35,13 @@ public class HomeController {
     	String call = "home";
     	
         List<BoardVo> boardList = cs.getBoardListByCount(call);
+        List<NoticeVo> getNotice = hs.getNewNotice();
+        
+        log.info(getNotice.get(0).getTitle());
+        
         
         model.addAttribute("boardList", boardList);
+        model.addAttribute("getNotice", getNotice);
         
         return "home";
     }
