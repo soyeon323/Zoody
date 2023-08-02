@@ -48,10 +48,8 @@
            
             <div class="column1">
                 <h1>To-Do</h1>
-                <div class="list-group-item">
-                    <h3>ddddd</h3>
-                    <p>ddddd</p>
-                </div>
+              
+                
             </div>
 
             <div class="column2">
@@ -76,7 +74,7 @@
                      <button class="btn btn-primary" type="button" style="width: 30px;" id="minusBtn">-</button>
                  </div>
                  <fieldset>
-                  <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
+                  <legend>업무 내용</legend>
                   
                  </fieldset>
               </div>
@@ -91,6 +89,32 @@
                  <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
              </div>
           </div>
+
+
+           <!-- 모달창2 내가 작성한 업무명과 내용들이 보여져야함 -->
+         <div id="my_modal2">
+            <h1>업무 할당 </h1>
+            <br>
+            <div id="modal-area">
+             <a class="modal_close_btn">닫기</a>
+                 <input type="text" name="workName" id="workName" placeholder="업무 명">    <!--value="${workName}"-->
+                 
+                 <fieldset>
+                  <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
+                    <input type="text">   <!--value="${workContent}"-->
+                    <input type="checkbox">
+                 </fieldset>
+              </div>
+              <br>
+              <br>
+              <div id="date">
+                  마감날짜
+                      <input type="date" name="endDate"/><!--value="${endDate}"-->
+              </div>
+              <div id="btn-area" style="margin-left: 400px;"> 
+                 <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
+             </div>
+          </div>
           
     </div>
        
@@ -98,6 +122,12 @@
 </html>
 
 <script>
+
+
+ 
+
+
+
 
     // const addBtn = document.querySelector('#addBtn');
     // addBtn.addEventListener('click' , function () {
@@ -109,26 +139,9 @@
 
     // 추가 버튼 누르면 colum 에 추가됨 
     const popBtn = document.querySelector('#popup_open_btn');
-    let divTagCnt = 1; 
+    
     popBtn.addEventListener('click', function() {
-        let column = document.querySelector('.column1');
-        let newDivTag = document.createElement('div');
-            newDivTag.setAttribute('class', 'list-group-item');
-            newDivTag.innerHTML = "" + divTagCnt;  //여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
-            column.appendChild(newDivTag);
-            divTagCnt++;
-
-            var removeButton = document.createElement('button');
-    removeButton.setAttribute('class', 'remove-btn');
-    removeButton.innerHTML = 'X';
-    removeButton.style.marginLeft =' 130px';
-    newDivTag.appendChild(removeButton);
-
-    // Add event listener to the X button
-    removeButton.addEventListener('click', function() {
-        removeListItem(newDivTag);
-    });
-
+        modal('my_modal');
         });
 
 document.querySelector('#completeBtn').addEventListener('click' , function () {
@@ -160,29 +173,34 @@ document.getElementById('plusBtn').addEventListener('click', function() {
     inputCheckbox.setAttribute('name', 'chaekListName');
     inputCheckbox.style.width = "25px";
 
-    // 체크박스가 체크될 때마다 meter의 value 값 증가
-    inputCheckbox.addEventListener('change', function() {
-        var checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-        var totalCount = document.querySelectorAll('input[type="checkbox"]').length;
-        var progressPercentage = (checkedCount / totalCount) * 100;
-        var meter = document.getElementById('meter');
-        meter.value = progressPercentage;
+    // // 체크박스가 체크될 때마다 meter의 value 값 증가
+    // inputCheckbox.addEventListener('change', function() {
+    //     var checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    //     var totalCount = document.querySelectorAll('input[type="checkbox"]').length;
+    //     var progressPercentage = (checkedCount / totalCount) * 100;
+    //     var meter = document.getElementById('meter');
+    //     meter.value = progressPercentage;
 
-         // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
-     var completeBtn = document.getElementById('completeBtn');
-     var addBtn = document.querySelector('#addBtn');
-        if (checkedCount === totalCount) {
-            completeBtn.style.display = 'block';
-            addBtn.style.display = 'none';
-        } else {
-            completeBtn.style.display = 'none';
-            addBtn.style.display = 'block';
-        }
-    });
+    //      // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
+    //  var completeBtn = document.getElementById('completeBtn');
+    //  var addBtn = document.querySelector('#addBtn');
+    //     if (checkedCount === totalCount) {
+    //         completeBtn.style.display = 'block';
+    //         addBtn.style.display = 'none';
+    //     } else {
+    //         completeBtn.style.display = 'none';
+    //         addBtn.style.display = 'block';
+    //     }
+    // });
 
     fieldset.appendChild(inputText);
     fieldset.appendChild(inputCheckbox);
 });
+
+
+
+
+
 
     // input -
     document.getElementById('minusBtn').addEventListener('click', function() {
@@ -229,7 +247,7 @@ column1.addEventListener('click', function(event) {
 
     if (clickedElement.classList.contains('list-group-item')) {
         // 모달창 띄우기
-            modal('my_modal');
+            modal('my_modal2');
             // 클릭한 newDivTag 엘리먼트 저장
             clickedElement = clickedElement;
     }
@@ -251,6 +269,7 @@ column1.addEventListener('click', function(event) {
     columns.forEach((column) => {
     new Sortable(column, {
         group: "shared",
+        
     });
     });
 
@@ -258,6 +277,7 @@ column1.addEventListener('click', function(event) {
     column.addEventListener('click', function(event) {
         var clickedElement = event.target;
         if (clickedElement.classList.contains('list-group-item')) {
+            modal('my_modal2');
         }
     });
 
@@ -265,7 +285,7 @@ column1.addEventListener('click', function(event) {
     column2.addEventListener('click', function(event) {
         var clickedElement = event.target;
         if (clickedElement.classList.contains('list-group-item')) {
-            modal('my_modal');
+            modal('my_modal2');
         }
     });
 
@@ -292,7 +312,16 @@ function writeComment(userNo){
 				if(x == 'ok'){
 					alert("업무가 등록되었습니다.");
                     modal.style.display='none';
-                    loadComment();
+
+                    let divTagCnt = 1; 
+                    let column = document.querySelector('.column1');
+                    let newDivTag = document.createElement('div');
+                        newDivTag.setAttribute('class', 'list-group-item');
+                        // newDivTag.innerHTML = "" + divTagCnt; // 여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
+                        column.appendChild(newDivTag);
+                        divTagCnt++;
+
+                        loadComment('${loginMember.no}');
 				}
 			} ,
 			error : (x)=>{
@@ -301,23 +330,28 @@ function writeComment(userNo){
 		});
 }
 	
-	//업무 불러오기
-	function loadComment(){
+	// 업무 불러오기
+	function loadComment(userNo){
+        console.log(userNo);
         const newDivTag = document.querySelector('.list-group-item');
 		$.ajax({
             url: '${root}/work/view',
             type: 'POST',
+            data:{
+                'userNo':userNo
+            },
             success: function(data) {
-                console.log(data);
-                const x = JSON.parse(data);
-                console.log(x);
-                newDivTag.innerHTML = `
-                    <h3>${x.workName}</h3>
-                    <p>마감일: ${x.endDate}</p> 
-                    `;
+                if(data == 'data'){
+                    newDivTag = "";
+                    const x = JSON.parse(data);
+                    console.log(x);
+                    for(let i = 0; i <x.length; i++){
+                        newDivTag.innerHTML += x[i].workName +"/"+x[i].endDate
+                    }
+                }
                 },
                 error: function(e) {
-                    console.error(e);
+               console.log('에러 ㅋㅋ' +e);
                 },
             });
 	}

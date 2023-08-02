@@ -21,13 +21,13 @@ public class WorkDao {
 	}
 
 	//업무할당 화면  회원들 가져와서 뿌려줘야함
-	public List<WorkVo> workList(SqlSessionTemplate sst) {
-		return sst.selectList("work.workList");
+	public List<WorkVo> workList(SqlSessionTemplate sst, UserVo loginMember) {
+		return sst.selectList("work.workList" , loginMember);
 	}
 
 	// 업무명과 마감일시 가져오기 AJAX로
-	public WorkVo getWorkNameAndDate(SqlSessionTemplate sst) {
-		return sst.selectOne("work.getWorkNameAndDate");
+	public List<WorkVo> getWorkNameAndDate(SqlSessionTemplate sst, String userNo) {
+		return sst.selectList("work.getWorkNameAndDate",userNo);
 	}
 
 }
