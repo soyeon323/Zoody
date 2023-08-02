@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,7 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	
 	private final MeetingroomDao dao;
 	private final SqlSessionTemplate sst;
+	private final ServletContext servletContext;
 
 	@Override
 	public List<MeetingroomVo> selectList() {
@@ -44,9 +46,9 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	}
 
 	@Override
-	public int addMeetingroom(MeetingroomVo mvo, MultipartFile file) {
+	public int addMeetingroom(MeetingroomVo mvo, MultipartFile file, HttpServletRequest req) {
         // 파일 업로드 처리
-        String fileName = saveUploadedFile(file);
+        String fileName = saveUploadedFile(file, req);
         String originName = file.getOriginalFilename();
 
         // 회의실 정보 저장
@@ -58,10 +60,12 @@ public class MeetingroomServiceImpl implements MeetingroomService{
     }
 
     //파일 업로드
-    private String saveUploadedFile(MultipartFile file) {
+    private String saveUploadedFile(MultipartFile file, HttpServletRequest req) {
     	try {
     		
-    		String uploadDir = "D:/dev/finalZoodyRepo/ZOODY/src/main/webapp/resources/img/meetingroom/";
+    		String uploadDir = req.getServletContext().getRealPath("/resources/img/meetingroom/");
+    		
+//    		String uploadDir = "D:/dev/finalZoodyRepo/ZOODY/src/main/webapp/resources/img/meetingroom/";
 
 	        //업로드 디렉토리 생성 (없을 경우)
 	        File dir = new File(uploadDir);
@@ -80,6 +84,7 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 
             //파일을 지정된 경로에 저장
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+//            Files.copy(file.getInputStream(), Paths.get(absoluteUploadDir + uniqueFileName), StandardCopyOption.REPLACE_EXISTING);
 
             //저장된 파일명 또는 경로 반환
             return uniqueFileName;
@@ -105,7 +110,7 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	public int updateMeetingroom(MeetingroomVo mvo, MultipartFile file) {
 		
 		// 파일 업로드 처리
-        String fileName = saveUploadedFile(file);
+        String fileName = saveUploadedFile(file, null);
         String originName = file.getOriginalFilename();
 
         // 회의실 정보 저장
