@@ -17,4 +17,6 @@ public class BoardVo {
 	private String file;
 	private String hit;
 	
+	private String viewItemCount;
+	private String call;
 }

@@ -74,84 +74,15 @@
                         <tbody>
                             <c:forEach items="${ freeBoardList }" var="list">
                             	<tr>
-	                                <td>${ list.no }</td>
+	                                <td>${ list.rownum }</td>
 	                                <td>${ list.title }</td>
 	                                <td>${ list.userNo }</td>
 	                                <td>${ list.hit }</td>
 	                                <td>${ list.enrollDate }</td>
+                                    <td style="display: none;">${ list.no }</td>
 	                            </tr>
                             </c:forEach>
                             
-                            <tr>
-                                <td>10</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
                         </tbody>
                     </table>
 
@@ -174,8 +105,22 @@
 
 <script>
 
-    $(".list-table > tbody").on("click",function (e) {
-        console.log(e.target.parentNode)
+    
+    $(".list-table > tbody > tr").on("click",function (e) {
+        
+        let boardNo = null;
+        let listTarget = e.target.tagName;
+
+        if (listTarget === "TD") {
+            boardNo = $(e.target.parentNode).children(":last").text();
+        }
+        else if (listTarget === "TR"){
+            boardNo = $(e.target).children(':last').text();
+        }
+
+
+        window.location.replace(root+"/community/board/detail?no="+boardNo);
+        
     })
 
 </script>

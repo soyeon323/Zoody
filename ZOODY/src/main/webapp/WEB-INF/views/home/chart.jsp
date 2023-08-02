@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="${root}/resources/css/home/chart.css">
 <style>
 
+    
+
+
     .chart-body {
         width: 100%;
         height: 100%;
@@ -95,7 +98,12 @@
 
 
 <script>
-    $(function(){
+
+    setTimeout(function() {
+        getChart();
+    }, 3000); 
+
+    function getChart(){
         // perNum 변수에 70을 저장
         var perNum = 33;
 
@@ -132,5 +140,5 @@
             // 현재 진행 중인 애니메이션의 진행률을 이용하여 진행 막대에 표시할 텍스트를 갱신
             $(this).find('strong').html(Math.round(perNum * progress) + '<i>%</i>');
         });
-    });
+    };
 </script>

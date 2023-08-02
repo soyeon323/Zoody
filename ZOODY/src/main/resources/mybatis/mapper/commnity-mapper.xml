@@ -4,11 +4,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="coummunity">
+<mapper namespace="community">
 
 	<select id="getBoardList" resultType="BoardVo">
 		
 		SELECT 
+			ROWNUM,
 		    NO,
 		    USER_NO,
 		    CAT_NO,
@@ -25,26 +26,26 @@
 		
 		<choose>
 			
-			<when test="num != null and num !=''">
+			<when test="call != null and call.equals('home')">
 				AND CAT_NO = 4
 				ORDER BY NO
 				)
-				FETCH FIRST #{num} 
+				ORDER BY ROWNUM DESC
+				FETCH FIRST 5 
 				ROWS ONLY 
 			</when>
 			
-			<when test="catNo != null and catNo !=''">
+			<otherwise>
 				AND CAT_NO = #{catNo}
 				ORDER BY NO
 				)
 				ORDER BY NO DESC 
-			</when>
+			</otherwise>
+			
 			
 			
 		</choose>
 			
-		
-		
 		
 	</select>
 
@@ -70,6 +71,12 @@
 	        </if>
 	    )
 	</insert>
-
+	
+	<select id="detail" resultType="BoardVo">
+		SELECT *
+		FROM BOARD
+		WHERE NO = #{NO}
+	</select>
+	
   
 </mapper>

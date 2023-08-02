@@ -5,7 +5,19 @@ let latitude = null;
 let longitude = null;
 let skyIcon = null;
 
-$(document).ready(function() {
+$(document).ready(()=>{
+    getTime();
+
+
+    // 5분마다 getPosition 함수 호출
+    
+    setInterval(function() {
+        getWeatherData(result.x, result.y);
+    }, 300000); 
+    
+});
+
+function getTime() {
    
     // 현재 시간 확인
     function isTimeBetween6PMAnd6AM() {
@@ -21,7 +33,6 @@ $(document).ready(function() {
 
     navigator.geolocation.getCurrentPosition(
       function (pos) {
-        console.log(123);
   
         latitude = pos.coords.latitude;
         longitude = pos.coords.longitude;
@@ -35,14 +46,14 @@ $(document).ready(function() {
         // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
         result = dfs_xy_conv("toXY", latitude, longitude);
   
-        console.log("위도:", latitude);
-        console.log("경도:", longitude);
+        // console.log("위도:", latitude);
+        // console.log("경도:", longitude);
   
-        console.log("LCC DFS 좌표 X:", result.x);
-        console.log("LCC DFS 좌표 Y:", result.y);
-  
-        // 날씨 정보를 가져오는 함수 호출
-        getWeatherData(result.x, result.y);
+        // console.log("LCC DFS 좌표 X:", result.x);
+        // console.log("LCC DFS 좌표 Y:", result.y);
+        
+        setTimeout(()=>getWeatherData(result.x, result.y),1000);
+        
       },
       function (error) {
         $("div").text("조회 실패 ==> " + error.code);
@@ -50,12 +61,10 @@ $(document).ready(function() {
     );
     
 
+    
    
-});
+}
 
-
-// 5초마다 getPosition 함수 호출
-let updayeWeatherInfo = setInterval(getWeatherData(), 6000); // 5000 밀리초 = 5초
 
 // 좌표 정보 가져오기
 function getPosition() {

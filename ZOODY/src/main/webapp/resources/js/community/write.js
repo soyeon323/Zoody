@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    
+
     $('#summernote').summernote({
     codeviewFilter: false,
     codeviewIframeFilter: false,

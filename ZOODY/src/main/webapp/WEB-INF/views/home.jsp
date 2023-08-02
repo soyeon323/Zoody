@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/home.css">
-<script src="${root}/resources/js/home.js"></script>
+
 <script src="${root}/resources/js/common/weather.js"></script>
 </head>
 <body>
@@ -160,4 +160,8 @@
     </div>
 
 </body>
+<script src="${root}/resources/js/home.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.2/proj4.js"></script>
+
+<script>
+
