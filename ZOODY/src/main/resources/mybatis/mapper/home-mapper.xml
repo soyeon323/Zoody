@@ -1,0 +1,29 @@
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="home">
+ 
+ 	<select id="getNewNotice" resultType="NoticeVo">
+ 		SELECT
+	    NO,
+	    ADMIN_NO,
+	    CATEGORY_NO,
+	    TITLE,
+	    CONTENT,
+	    TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+	    STATUS,
+	    ORIGIN_NAME,
+	    CHANGE_NAME,
+	    RIGHTCLICK_YN,
+	    COMMENT_YN,
+	    BOARD_LIMIT,
+	    HIT
+		FROM NOTICE
+		WHERE STATUS = 'O'
+		ORDER BY NO DESC
+		FETCH FIRST 2 ROWS ONLY
+ 	</select>
+ 
+  </mapper>

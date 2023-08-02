@@ -6,6 +6,10 @@ function goToNotice() {
     window.location.replace(root+"/notice/list");
 }
 
+function goToCalender() {
+    window.location.replace(root+"/calendar/month");
+}
+
 function goToProject() {
     window.location.replace(root+"/project/progress");
 }
