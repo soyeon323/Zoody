@@ -35,8 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MeetingroomController {
 	
 	private final MeetingroomService ms;
-	private final ServletContext servletContext;
-	private final ResourceLoader resourceLoader;
 	
 	//회의실 예약 (회의실 목록보기)
 	@GetMapping("reserve")
@@ -56,9 +54,9 @@ public class MeetingroomController {
 	
 	//회의실 추가
 	@PostMapping("add")
-	public String add(MeetingroomVo mvo, MultipartFile file, HttpServletRequest req) {
+	public String add(MeetingroomVo mvo, MultipartFile file) {
 		
-		int result = ms.addMeetingroom(mvo, file, req);
+		int result = ms.addMeetingroom(mvo, file);
 		
 		return "meetingroom/add";
 	}

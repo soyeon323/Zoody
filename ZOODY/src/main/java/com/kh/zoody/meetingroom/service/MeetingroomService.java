@@ -12,7 +12,7 @@ public interface MeetingroomService {
 
 	List<MeetingroomVo> selectList();
 
-	int addMeetingroom(MeetingroomVo mvo, MultipartFile file, HttpServletRequest req);
+	int addMeetingroom(MeetingroomVo mvo, MultipartFile file);
 
 	int mtDelete(String no);
 
