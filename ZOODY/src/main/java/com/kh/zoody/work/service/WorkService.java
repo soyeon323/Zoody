@@ -33,13 +33,13 @@ public class WorkService {
 	}
 
 	//업무할당 화면  회원들 가져와서 뿌려줘야함
-	public List<WorkVo> workList() {
-		return dao.workList(sst);
+	public List<WorkVo> workList(UserVo loginMember) {
+		return dao.workList(sst , loginMember);
 	}
 
 	// 업무명과 마감일시 가져오기 AJAX로
-	public WorkVo getWorkNameAndDate() {
-		return dao.getWorkNameAndDate(sst);
+	public List<WorkVo> getWorkNameAndDate(String userNo) {
+		return dao.getWorkNameAndDate(sst , userNo);
 	}
 	
 	

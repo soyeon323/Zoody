@@ -32,14 +32,14 @@ public class WorkController {
 
 	private final WorkService ws;
 	
-	//업무할당 화면  회원들 가져와서 뿌려줘야함
+	//업무할당 화면  
 	@GetMapping("work")
-	public String work(Model m) {
+	public String work(Model m , HttpServletRequest req) {
 		
 //		HttpSession session = req.getSession();
 //		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 //		
-//		List<WorkVo> vo = ws.workList();
+//		List<WorkVo> vo = ws.workList(loginMember);
 //		log.info("vo : {}",vo);
 //		if(vo ==null) {
 //			throw new RuntimeException();
@@ -61,20 +61,23 @@ public class WorkController {
 	    return "ok";
 	}
 	
-	//업무명과 마감일시 가져오기 AJAX로
+//	업무명과 마감일시 가져오기 AJAX로
 	@PostMapping("view")
 	@ResponseBody
-	public String getWorkNameAndDate(Model m) {
+	public String getWorkNameAndDate(Model m , String userNo) {
 		
-		WorkVo wv = ws.getWorkNameAndDate();
-		log.info("WorkVo = {}",wv);
+		List<WorkVo> vo = ws.getWorkNameAndDate(userNo);
+		log.info("WorkVo = {}",vo);
 		
-		if(wv ==null) {
+		if(vo ==null) {
 			throw new RuntimeException();
 		}
-
-		m.addAttribute("data",wv);
-		return "work/work";
+		
+		Gson gson = new Gson();
+		String str = gson.toJson(vo);
+		
+		m.addAttribute("data",str);
+		return "data";
 	}	
 	
 }

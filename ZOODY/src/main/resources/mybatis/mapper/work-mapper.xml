@@ -17,11 +17,14 @@
   
   <select id="getWorkNameAndDate" resultType="com.kh.zoody.work.vo.WorkVo">
   	SELECT 
-	NO AS WORK_NO
-	,NAME AS WORK_NAME
-	,CONTENT AS WORK_CONTENT
-	,TO_CHAR("DATE",'YYYY-MM-DD') AS "END_DATE"
-	FROM ANIMAL_WORK
+   AW."NO" AS WORK_NO
+   , AW."NAME" AS WORK_NAME
+   , AW."CONTENT" AS WORK_CONTENT
+   , TO_CHAR(AW."DATE",'YYYY-MM-DD') AS END_DATE
+   , A."USER_NO" 
+   FROM ANIMAL_WORK AW
+   JOIN AGENT A ON AW.NO = A.NO
+   WHERE USER_NO = #{no}
   </select>
   
   <select id="workList" resultType="com.kh.zoody.work.vo.WorkVo">
@@ -29,11 +32,11 @@
    AW."NO" AS WORK_NO
    , AW."NAME" AS WORK_NAME
    , AW."CONTENT" AS WORK_CONTENT
-   , AW."DATE" AS END_DATE
+   , TO_CHAR(AW."DATE",'YYYY-MM-DD') AS END_DATE
    , A."USER_NO" 
    FROM ANIMAL_WORK AW
    JOIN AGENT A ON AW.NO = A.NO
-   WHERE USER_NO =#{userNo}
+   WHERE USER_NO = #{no}
   </select>
   
 </mapper>
