@@ -1,8 +1,8 @@
 const contextPath = location.href.substring( hostIndex, location.href.indexOf( '/', hostIndex + 1 ));
 
 /* ========================================================================================================= */
-const modalWrap = document.querySelector('.modal-wrap');
 
+const modalWrap = document.querySelector('.modal-wrap');
 
 const addBtn = document.querySelector('.add-btn');
 addBtn.addEventListener('click', ()=>{
@@ -15,8 +15,37 @@ closeBtn.addEventListener('click', ()=>{
 });
 
 
+/* ========================================================================================================= */
+let loginUserGrade = null;
+let toppestGrade = null;
+
+getLoginMemberInSession();
+function getLoginMemberInSession() {
+    
+    fetch(contextPath + "/approval/loginmember")
+    .then( (response) => response.json() )
+    .then( (data) => {
+
+        loginUserGrade = data.grade;
+        toppestGrade = loginUserGrade;
+
+        const senderRank = document.querySelector('.sender-rank');
+        senderRank.innerText = data.rankName;
+
+        const senderName = document.querySelector('.sender-name');
+        senderName.innerText = data.name;
+
+        const drafterName = document.querySelector('.drafter-name');
+        drafterName.innerText = data.name;
+
+        const drafterDepart = document.querySelector('.drafter-depart');
+        drafterDepart.innerText = data.departmentName;
+    })
+
+}
 
 /* ========================================================================================================= */
+
 
 const extendsBtns = document.querySelectorAll('.extends-list')
 
@@ -47,13 +76,14 @@ function toggleExtendList(event) {
 
 /* ========================================================================================================= */
 
+
 let previewArray = [];
 let previewArrIdx = 0;
-let toppestGrade = 10;
 
 const userBriefInfoList = document.querySelectorAll('.name-rank');
 
 userBriefInfoList.forEach(element => {
+
     element.addEventListener('click', event => {
         const currentTarget = event.currentTarget;
         const userNo = currentTarget.querySelector('.user-no');
@@ -63,7 +93,7 @@ userBriefInfoList.forEach(element => {
 
         let ableCheck = 1;
 
-        if(userGradeValue <= toppestGrade) {
+        if(userGradeValue < toppestGrade) {
             toppestGrade = userGradeValue;
         } else {
             alert('이전 결재자보다 낮은 결재권한자를 추가 할 수 없습니다.');
@@ -96,8 +126,6 @@ function setPreview(event) {
     fetch(contextPath + "/addressbook/get/info/brief?no=" + userNoValue)
     .then( (response) => response.json() )
     .then( (data) => {
-
-        console.log(data);
 
         let departmentInfo = '';
         if(data.dName1 != null) { departmentInfo += data.dName1 + ' > '; }
