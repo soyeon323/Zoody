@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="calendar">
+
+	<select id="listAll" resultType="Map" parameterType="String">
+		SELECT 
+		    C.NO
+		    ,C.USER_NO
+		    ,C.TYPE_NO
+		    ,C.REV_NO
+		    ,C.TITLE
+		    ,C.CONTENT
+		    ,TO_CHAR(C.START_TIME, 'YYYY-MM-DD HH24:MI') AS START_TIME
+		    ,TO_CHAR(C.END_TIME, 'YYYY-MM-DD HH24:MI') AS END_TIME
+		    ,C.PLACE
+		    ,C.STATUS
+		    ,U.NAME
+		    ,CT.TYPE
+		FROM CALENDAR C
+		JOIN "USER" U
+		ON C.USER_NO = U.NO
+		JOIN CALENDAR_TYPE CT
+		ON C.TYPE_NO = CT.NO
+		WHERE C.USER_NO = 1
+			</select>
+	
+  
+</mapper>

@@ -46,9 +46,9 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	}
 
 	@Override
-	public int addMeetingroom(MeetingroomVo mvo, MultipartFile file, HttpServletRequest req) {
+	public int addMeetingroom(MeetingroomVo mvo, MultipartFile file) {
         // 파일 업로드 처리
-        String fileName = saveUploadedFile(file, req);
+        String fileName = saveUploadedFile(file);
         String originName = file.getOriginalFilename();
 
         // 회의실 정보 저장
@@ -60,18 +60,23 @@ public class MeetingroomServiceImpl implements MeetingroomService{
     }
 
     //파일 업로드
-    private String saveUploadedFile(MultipartFile file, HttpServletRequest req) {
+    private String saveUploadedFile(MultipartFile file) {
     	try {
-    		
-    		String uploadDir = req.getServletContext().getRealPath("/resources/img/meetingroom/");
-    		
-//    		String uploadDir = "D:/dev/finalZoodyRepo/ZOODY/src/main/webapp/resources/img/meetingroom/";
 
-	        //업로드 디렉토리 생성 (없을 경우)
-	        File dir = new File(uploadDir);
-	        if (!dir.exists()) {
-	            dir.mkdirs();
-	        }
+    		//절대 경로
+//    		String uploadDir = "D:/dev/finalZoodyRepo/ZOODY/src/main/webapp/resources/img/meetingroom/";
+    		
+    		// 상대 경로 설정
+            String relativePath = "/resources/img/meetingroom/";
+
+            // 상대 경로를 절대 경로로 변환
+            String absolutePath = servletContext.getRealPath(relativePath);
+            
+
+            File dir = new File(absolutePath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
 
             //원본 파일명 가져오기
             String originalFileName = file.getOriginalFilename();
@@ -80,11 +85,10 @@ public class MeetingroomServiceImpl implements MeetingroomService{
             String uniqueFileName = java.util.UUID.randomUUID().toString() + "_" + originalFileName;
 
             //파일을 서버에 저장할 경로와 파일명 결합
-            Path filePath = Paths.get(uploadDir + uniqueFileName);
+            Path filePath = Paths.get(absolutePath + uniqueFileName);
 
             //파일을 지정된 경로에 저장
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-//            Files.copy(file.getInputStream(), Paths.get(absoluteUploadDir + uniqueFileName), StandardCopyOption.REPLACE_EXISTING);
 
             //저장된 파일명 또는 경로 반환
             return uniqueFileName;
@@ -110,7 +114,7 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	public int updateMeetingroom(MeetingroomVo mvo, MultipartFile file) {
 		
 		// 파일 업로드 처리
-        String fileName = saveUploadedFile(file, null);
+        String fileName = saveUploadedFile(file);
         String originName = file.getOriginalFilename();
 
         // 회의실 정보 저장
