@@ -134,8 +134,8 @@
 		    P.NO
 		    , P.TITLE
 		    , P.CONTENT
-		    , P.START_DATE
-		    , P.END_DATE
+		    , TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE
+		    , TO_CHAR(END_DATE, 'YYYY-MM-DD') AS END_DATE
 		    , P.TEAM_NAME
 		    , U.NAME AS USER_NAME
 		    , U.NO AS USER_NO
