@@ -109,4 +109,39 @@
 	WHERE TEAM_NAME = #{teamName}
   </select>
 
+	<select id="getNoticeList" resultType="NoticeVo">
+		SELECT
+		    NO
+		    , TITLE
+		    , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		FROM NOTICE
+		ORDER BY NO DESC
+	</select>
+	
+	<select id="getSuggestionList" resultType="SuggestionVo">
+		SELECT
+		    S.NO
+		    , S.TITLE
+		    , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , U.NAME
+		FROM SUGGESTION S
+		JOIN "USER" U ON S.USER_NO = U.NO
+		ORDER BY S.NO DESC
+	</select>
+	
+	<select id="prjData" resultType="ProjectVo">
+		SELECT
+		    P.NO
+		    , P.TITLE
+		    , P.CONTENT
+		    , P.START_DATE
+		    , P.END_DATE
+		    , P.TEAM_NAME
+		    , U.NAME AS USER_NAME
+		    , U.NO AS USER_NO
+		FROM PROJECT P
+		JOIN PROJECT_TEAM_MEMBER M ON P.NO = M.PROJECT_NO
+		JOIN "USER" U ON M.USER_NO = U.NO
+		ORDER BY P.NO DESC
+	</select>
 </mapper>

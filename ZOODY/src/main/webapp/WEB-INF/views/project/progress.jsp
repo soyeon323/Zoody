@@ -13,7 +13,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>${pjVoInfo}</h1> 
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
     
@@ -26,41 +25,13 @@
         <div id="contentArea">
             <div id="content-1">
                 <div>
-                    <a>판다 개체보존 프로젝트</a>
+                    <a></a>
                 </div>
                 <div>
-                    <a>김철수님 외 3명</a>
+                    <a></a>
                 </div>
                 <div>
-                    <a>2023-07-07 ~ 2023-07-20</a>
-                </div>
-                <div>
-                    <a href="">더보기 ></a>
-                </div>
-            </div>
-            <div id="content-2">
-                <div>
-                    <a>판다 개체보존 프로젝트</a>
-                </div>
-                <div>
-                    <a>김철수님 외 3명</a>
-                </div>
-                <div>
-                    <a>2023-07-07 ~ 2023-07-20</a>
-                </div>
-                <div>
-                    <a href="">더보기 ></a>
-                </div>
-            </div>
-            <div id="content-3">
-                <div>
-                    <a>판다 개체보존 프로젝트</a>
-                </div>
-                <div>
-                    <a>김철수님 외 3명</a>
-                </div>
-                <div>
-                    <a>2023-07-07 ~ 2023-07-20</a>
+                    <a></a>
                 </div>
                 <div>
                     <a href="">더보기 ></a>
@@ -86,7 +57,6 @@
                 </div>
             </div>
         </div>
-
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -211,9 +181,7 @@
         let userNo = [];
         let userName = [];
 
-        console.log(noNodes);
         const arr = noNodes.split(",");
-        console.log(arr);
 
         for (let i = 0; i < userNameNodes.length; i++) {
             userName.push(userNameNodes[i].innerText);
@@ -236,8 +204,8 @@
             contentType: "application/json", 
             dataType: "json",
             success: (x) => {
-                alert("프로젝트가 생성되었습니다.");
                 console.log(x);
+                alert("프로젝트 생성이 완료되었습니다.");
                 location.reload(true);
             },
             error: (err) => {

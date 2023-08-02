@@ -9,6 +9,12 @@
 <link rel="stylesheet" href="${root}/resources/css/project/side.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 </head>
+<style>
+    button{
+        border: none;
+        background: none;
+    }
+</style>
 <body>
 
     <aside class="side-bar">
@@ -98,7 +104,9 @@
                 </clipPath>
                 </defs>
             </svg>
-            <a href="">채팅하기</a>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                채팅하기
+            </button>
         </div>
         <div><a>국가주도 동물사랑 프로젝트</a></div>
         <div>
