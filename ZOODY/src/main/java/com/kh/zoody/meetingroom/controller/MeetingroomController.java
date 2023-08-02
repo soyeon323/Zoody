@@ -1,12 +1,19 @@
 package com.kh.zoody.meetingroom.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +35,12 @@ import lombok.extern.slf4j.Slf4j;
 public class MeetingroomController {
 	
 	private final MeetingroomService ms;
+	private final ServletContext servletContext;
+	private final ResourceLoader resourceLoader;
 	
 	//회의실 예약 (회의실 목록보기)
 	@GetMapping("reserve")
-	public String reserve(Model model) {
+	public String reserve(Model model) throws Exception {
 		
 		List<MeetingroomVo> list = ms.selectList();
 		model.addAttribute("list", list);
@@ -47,9 +56,9 @@ public class MeetingroomController {
 	
 	//회의실 추가
 	@PostMapping("add")
-	public String add(MeetingroomVo mvo, MultipartFile file) {
+	public String add(MeetingroomVo mvo, MultipartFile file, HttpServletRequest req) {
 		
-		int result = ms.addMeetingroom(mvo, file);
+		int result = ms.addMeetingroom(mvo, file, req);
 		
 		return "meetingroom/add";
 	}
