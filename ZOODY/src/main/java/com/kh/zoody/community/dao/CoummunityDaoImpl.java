@@ -12,17 +12,22 @@ public class CoummunityDaoImpl implements CommunityDao {
 
 	@Override
 	public List<BoardVo> getBoardList(SqlSessionTemplate sst, int catNo) {
-		return sst.selectList("coummunity.getBoardList", catNo);
+		return sst.selectList("community.getBoardList", catNo);
 	}
 	
 	@Override
-	public List<BoardVo> getBoardListByCount(SqlSessionTemplate sst, int num) {
-		return sst.selectList("coummunity.getBoardList", num);
+	public List<BoardVo> getBoardListByCount(SqlSessionTemplate sst, String call) {
+		return sst.selectList("community.getBoardList", call);
 	}
 	
 	@Override
 	public int write(SqlSessionTemplate sst, BoardVo vo) {
-		return sst.insert("coummunity.write" , vo);
+		return sst.insert("community.write" , vo);
+	}
+
+	@Override
+	public BoardVo getBoardDetail(SqlSessionTemplate sst, int no) {
+		return sst.selectOne("community.detail" , no);
 	}
 
 

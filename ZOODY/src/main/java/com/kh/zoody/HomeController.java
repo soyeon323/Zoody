@@ -3,6 +3,7 @@ package com.kh.zoody;
 import java.util.List;
 
 import org.apache.tomcat.util.log.UserDataHelper.Mode;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +28,10 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model) {
-        
-        cs.getBoardListByCount(5);
-        List<BoardVo> boardList = cs.getBoardListByCount(5);
-        
-//        log.info(boardList.toString());
+    	
+    	String call = "home";
+    	
+        List<BoardVo> boardList = cs.getBoardListByCount(call);
         
         model.addAttribute("boardList", boardList);
         

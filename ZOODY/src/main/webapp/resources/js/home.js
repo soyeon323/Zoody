@@ -17,3 +17,20 @@ function goToAttendance() {
 function goToCommunity() {
     window.location.replace(root+"/community/board/freeBoard");
 } 
+
+$(".community-list").on("click",function(e){
+
+    let boardNo = null;
+    let listTarget = $(e.target).hasClass("community-list");
+
+    if (!listTarget) {
+        boardNo = $(e.target.parentNode).children(":last").text();
+    }
+    else {
+        boardNo = $(e.target).children(':last').text();
+    }
+
+
+    window.location.replace(root+"/community/board/detail?no="+boardNo);
+
+})

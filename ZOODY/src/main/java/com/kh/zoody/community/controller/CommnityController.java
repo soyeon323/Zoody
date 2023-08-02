@@ -50,13 +50,12 @@ public class CommnityController {
 	public String write(BoardVo vo) {
 		
 //		log.info(vo.getCatNo());
-		log.info(vo.getContent());
-		log.info(vo.getFile());
-		log.info(vo.getTitle());
-		log.info(vo.getUserNo());
-		
+//		log.info(vo.getContent());
+//		log.info(vo.getFile());
+//		log.info(vo.getTitle());
+//		log.info(vo.getUserNo());
+//		
 		int result =  service.write(vo);
-		log.info(result + "zz");
 		if (result < 0) {
 			return "게시글 작성실패";
 		}
@@ -64,6 +63,24 @@ public class CommnityController {
 		return "작성성공";
 	}
 	
+	@GetMapping("detail")
+	public String getBoardDetail(int no , Model model) {
+		
+		log.info("호출");
+		
+		BoardVo boardDetail =  service.getBoardDetail(no);
+		
+		log.info(boardDetail+"");
+		
+		if (boardDetail == null) {
+			return "조회실패";
+		}
+		
+		model.addAttribute("boardDetail", boardDetail);
+		
+		return "community/board/detail";
+	}
+
 }
 
 

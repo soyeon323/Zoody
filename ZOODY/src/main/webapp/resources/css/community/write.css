@@ -113,6 +113,13 @@ body {
     font-size: 12px;
 }
 
+input.title:focus {
+    background: #ffffff;
+    border: 1px solid #5189FA;
+    /* outline: 1px solid #5189FA; */
+    outline: none;
+}
+
 .write-body-bottom {
     min-height: 573.734px;
 }
