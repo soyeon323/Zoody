@@ -24,18 +24,22 @@
 
         <div id="contentArea">
             <div id="content-1">
-                <div>
-                    <a></a>
-                </div>
-                <div>
-                    <a></a>
-                </div>
-                <div>
-                    <a></a>
-                </div>
-                <div>
-                    <a href="">더보기 ></a>
-                </div>
+                <c:if test="${list.no == 1}">
+                    <c:forEach items="${prjList}" var="list">
+                        <div>
+                            <a>${list.title}</a>
+                        </div>
+                        <div>
+                            <a>${list.userName}</a>
+                        </div>
+                        <div>
+                            <a>${list.startDate} ~ ${list.endDate}</a>
+                        </div>
+                        <div>
+                            <a href="">더보기 ></a>
+                        </div>
+                    </c:forEach>
+                </c:if>
             </div>
             <div id="content-4">
                 <div>
