@@ -14,12 +14,36 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/attendance/attendance.css">
 
+<script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js" type="text/javascript"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Document</title>
 
 <style>
+
+.swal-text {
+    font-size: 14px;
+    letter-spacing: 0.4px;
+}
+
+.fc .fc-daygrid-day-frame {
+    height: 10px;
+}
+
+:root {
+    --fc-daygrid-event-dot-width: 5.5px;
+}
+
+.fc-daygrid-dot-event .fc-event-title {
+    font-size: 5px;
+    font-weight: 400;
+}
+
+.fc-direction-ltr .fc-daygrid-event .fc-event-time {
+    display: none;
+}
 
 element.style {
     /* width: auto; */
@@ -396,59 +420,59 @@ element.style {
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        themeSystem: 'bootstrap5',
-        headerToolbar: {
-          left: 'prev,next',
-          center: 'title',
-          right: 'today'
-        },
-        locale: 'ko',
-        eventSources: [
-          {
-            url: '/attendance/main',
-            method: 'GET',
-            dataType: "JSON",
-            color: 'purple',
-            textColor: 'white',
-            success: function(data) {
-              var events = [];
-              for (var i = 0; i < data.length; i++) {
-                var event = {
-                  title: "출근: " + data[i].checkInTime + ", 퇴근: " + data[i].checkOutTime,
-                  start: data[i].start,
-                  end: data[i].end,
-                  checkInTime: data[i].checkInTime, // 클릭 이벤트에서 사용하기 위해 추가
-                  checkOutTime: data[i].checkOutTime // 클릭 이벤트에서 사용하기 위해 추가
-                };
-                events.push(event);
-              }
-              calendar.addEventSource(events);
-            },
-            error: function() {
-              alert('출퇴근 조회 오류');
-            },
-            data: {
-              start: '${start}', // JSP에서 변수를 바로 사용하도록 변경
-              end: '${end}' // JSP에서 변수를 바로 사용하도록 변경
-            }
-          }
-        ],
-        dateClick: function(info) {
-          var clickedDate = info.dateStr;
-          var eventsOnClickedDate = calendar.getEvents(function(event) {
-            return event.startStr.startsWith(clickedDate);
+        $(function(){
+          var request = $.ajax({
+            url : "${root}/attendance/monthList",
+            method : "GET",
+            dataType : "json"
           });
-          
-          var checkInTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkInTime : "출근 기록 없음";
-          var checkOutTime = eventsOnClickedDate.length > 0 ? eventsOnClickedDate[0].extendedProps.checkOutTime : "퇴근 기록 없음";
 
-          alert("클릭한 날짜: " + clickedDate + "\n출근 시간: " + checkInTime + "\n퇴근 시간: " + checkOutTime);
-        }
-      });
+          request.done(function(data){
+            console.log(data);
 
-      calendar.render();
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+              themeSystem: 'bootstrap5',
+              headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+              },
+              locale: 'ko',
+              events: data,
+              eventClick : function(info){
+                var start = info.event.start;
+                var end = info.event.end;
+                var title = info.event.title;
+
+                // moment 객체로 변환 후 원하는 형식으로 포맷팅
+                var formatStart = moment(start).format("MM월 DD일 - HH시 mm분");
+                var formatEnd = moment(end).format("MM월 DD일 - HH시 mm분");
+
+                var message = "출근시간 : " + formatStart + "\n퇴근시간 : " + formatEnd;
+
+                swal(title,message,'info');
+              },
+              dayCellContent : function(info){
+                var number = document.createElement("a");
+                number.classList.add("fc-daygrid-day-number");
+                number.innerHTML = info.dayNumberText.replace("일","").replace("日","");
+                if(info.view.type === "dayGridMonth"){
+                  return{
+                    html : number.outerHTML
+                  };
+                }
+                return{
+                  domNodes:[]
+                };
+              },
+            });
+      
+            calendar.render();
+
+          })
+
+        })
     });
 
     </script>

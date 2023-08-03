@@ -191,7 +191,7 @@
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
 		WHERE U.NO = 1
-		ORDER BY CHECK_IN_TIME DESC
+		ORDER BY A.ENROLLDATE DESC
 	</select>
 	
 	<!-- 메인 내 휴가 요청 조회 -->
@@ -519,6 +519,22 @@
 	    FROM ATTENDANCE
 	    WHERE USER_NO = #{loginMemberNo}
 	    AND TO_CHAR(CHECK_OUT_TIME, 'YYYY-MM-DD') = TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 출퇴근 달력 조회 -->
+	<select id="monthList" resultType="Map" parameterType="String">
+		SELECT 
+		    A.NO
+		    ,A.USER_NO
+		    ,A.CURRENT_NO
+		    ,TO_CHAR(A.ENROLLDATE,'YYYY-MM-DD') AS ENROLLDATE
+		    ,TO_CHAR(A.CHECK_IN_TIME,'HH24:MI') AS CHECK_IN_TIME
+		    ,TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI') AS CHECK_OUT_TIME
+		    ,AC.TYPE
+		FROM ATTENDANCE A
+		JOIN ATTENDANCE_CURRENT AC
+		ON A.CURRENT_NO = AC.NO
+		WHERE USER_NO = 1
 	</select>
   
 </mapper>

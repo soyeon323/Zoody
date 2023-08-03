@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -69,99 +71,38 @@ public class AttendanceController {
 		model.addAttribute("mainWorkList", mainWorkList);
 		model.addAttribute("mPv", mPv);
 		
-		//FullCalendar 조회 
-		List<AttendanceVo> calendarList = attService.mainCalendarList();
-		
-//		//FullCalendar 이벤트 형식으로 변환
-//        List<FullCalendarEvent> events = new ArrayList<>();
-//        for (AttendanceVo attendance : calendarList) {
-//            // 출근 시간과 퇴근 시간을 FullCalendar에 출력할 형식으로 변환하여 저장
-//            String title = "출근: " + attendance.getCheckInTime() + ", 퇴근: " + attendance.getCheckOutTime();
-//            String start = attendance.getEnrolldate() + "T" + attendance.getCheckInTime();
-//            String end = attendance.getEnrolldate() + "T" + attendance.getCheckOutTime();
-//
-//            events.add(new FullCalendarEvent(title, start, end));
-//        }
-        
-        List<Map<String, String>> events = new ArrayList<>();
-        for (AttendanceVo attendance : calendarList) {
-            Map<String, String> event = new HashMap<>();
-            event.put("title", "출근: " + attendance.getCheckInTime() + ", 퇴근: " + attendance.getCheckOutTime());
-            event.put("start", attendance.getEnrolldate() + "T" + attendance.getCheckInTime());
-            event.put("end", attendance.getEnrolldate() + "T" + attendance.getCheckOutTime());
-
-            events.add(event);
-        }
-        
-        //FullCalendar 이벤트 목록을 프론트엔드로 전달
-        model.addAttribute("events", events);
-        
-		//데이터베이스에서 주간 근무 현황 데이터를 가져와서 배열로 변환
-//		List<AttendanceVo> chartList = attService.mainChartList();
-		
-		//JSP에 데이터를 전달하기 위해 Model에 설정
-//		model.addAttribute("enrolldateData", convertToEnrolldateArray(chartList));
-//		model.addAttribute("totalWorkTimeData", convertToTotalWorkTimeArray(chartList));
-		
-		
 		return "attendance/workStatus";
 	}
 
-	//이벤트 데이터를 담을 클래스 생성
-	private static class FullCalendarEvent {
-	    private final String title;
-	    private final String start;
-	    private final String end;
-	
-	    public FullCalendarEvent(String title, String start, String end) {
-	        this.title = title;
-	        this.start = start;
-	        this.end = end;
-	    }
-	
-	    public String getTitle() {
-	        return title;
-	    }
-	
-	    public String getStart() {
-	        return start;
-	    }
-	
-	    public String getEnd() {
-	        return end;
-	    }
-	    
-	    @Override
-	    public String toString() {
-	        return "FullCalendarEvent{" +
-	                "title='" + title + '\'' +
-	                ", start='" + start + '\'' +
-	                ", end='" + end + '\'' +
-	                '}';
-	    }
-	}
-
-	
-	// enrolldate 데이터를 JavaScript 배열로 변환하는 메서드
-	private String convertToEnrolldateArray(List<AttendanceVo> chartList) {
-		StringBuilder sb = new StringBuilder();
-		for (AttendanceVo attendance : chartList) {
-			sb.append("'").append(attendance.getEnrolldate()).append("',");
+	//출결 달력 json으로 정보 넘기기
+	@GetMapping("monthList")
+	@ResponseBody
+	public List<Map<String, Object>> monthList(){
+		
+		List<Map<String, Object>> attMonth = attService.monthList();
+		
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		
+		HashMap<String, Object> hash = new HashMap<>();
+		
+		for (int i = 0; i < attMonth.size(); i++) {
+			Map<String, Object> attendance = attMonth.get(i);
+	        String enrollDate = (String) attendance.get("ENROLLDATE");
+	        String checkInTime = (String) attendance.get("CHECK_IN_TIME");
+	        String checkOutTime = (String) attendance.get("CHECK_OUT_TIME");
+	        
+	        JSONObject jsonObject = new JSONObject();
+	        jsonObject.put("title", attendance.get("TYPE"));
+	        jsonObject.put("start", enrollDate + "T" + checkInTime);
+	        jsonObject.put("end", enrollDate + "T" + checkOutTime);
+	        
+	        jsonArr.add(jsonObject);
 		}
-		// 마지막 쉼표 제거
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
-	}
-	
-	// totalWorkTime 데이터를 JavaScript 배열로 변환하는 메서드
-	private String convertToTotalWorkTimeArray(List<AttendanceVo> chartList) {
-		StringBuilder sb = new StringBuilder();
-		for (AttendanceVo attendance : chartList) {
-			sb.append("'").append(attendance.getTotalWorkTime()).append("',");
-		}
-		// 마지막 쉼표 제거
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
+		
+		log.info("jsonArrCheck: {}", jsonArr);
+		
+		return jsonArr;
 	}
 	
 	//메인화면 출퇴근 등록

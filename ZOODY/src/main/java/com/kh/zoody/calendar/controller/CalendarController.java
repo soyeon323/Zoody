@@ -34,15 +34,17 @@ public class CalendarController {
 	
 	private final CalendarService cs;
 	
+	//달력 (화면)
 	@GetMapping("main")
-	public String listMonth() {
+	public String listMonthMain() {
 		return "calendar/month";
 	}
 	
 	
+	//json 으로 일정 정보 넘기기
 	@GetMapping("list")
 	@ResponseBody
-	public List<Map<String, Object>> listMonth(Model model) {
+	public List<Map<String, Object>> listMonth() {
 		
 		List<Map<String, Object>> listAll = cs.listAll();
 		

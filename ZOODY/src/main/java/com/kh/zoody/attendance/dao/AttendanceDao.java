@@ -80,6 +80,8 @@ public interface AttendanceDao {
 
 	boolean hasCheckOutRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo);
 
+	List<Map<String, Object>> monthList(SqlSessionTemplate sst);
+
 
 
 

@@ -100,24 +100,24 @@
 	              // full-calendar 생성하기
 	              var calendar = new FullCalendar.Calendar(calendarEl, {
 	                  // 해더에 표시할 툴바
-	                  headerToolbar: {
-	                      left: 'prev,next today',
-	                      center: 'title',
-	                      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-	                  },
-	                  locale: 'ko', // 한국어 설정
-	                  editable: true, // 수정 가능
-	                  droppable: true, // 드래그 가능
-	                  drop: function (arg) { // 드래그 엔 드롭 성공시
-	                      if (document.getElementById('drop-remove').checked) {
-	                          // 드래그 박스에서 아이템을 삭제한다.
-	                          arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-	                      }
-	                  },
-	                  events: data ,// AJAX로 받아온 데이터를 이벤트로 설정
-                    eventClick: function(info) {
-                      // 이벤트를 클릭했을 때 실행되는 로직을 작성할 수 있습니다.
-                      // 예: 모달 창에 상세 정보 표시 등
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                },
+                locale: 'ko', // 한국어 설정
+                editable: true, // 수정 가능
+                droppable: true, // 드래그 가능
+                drop: function (arg) { // 드래그 엔 드롭 성공시
+                    if (document.getElementById('drop-remove').checked) {
+                        // 드래그 박스에서 아이템을 삭제
+                        arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+                    }
+                },
+                events: data ,// AJAX로 받아온 데이터를 이벤트로 설정
+                eventClick: function(info) {
+                  // 이벤트를 클릭했을 때 실행되는 로직을 작성
+                  // 예: 모달 창에 상세 정보 표시 등
                   }
 	              });
 	              // 캘린더 랜더링
