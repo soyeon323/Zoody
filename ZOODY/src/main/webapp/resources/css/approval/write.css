@@ -79,6 +79,12 @@
 
     background-color: rgb(81, 137, 250);
     border-radius: 5px;
+    border: 0px;
+
+    cursor: pointer;
+}
+.upvote-btn:focus {
+    outline: none;
 }
 
 .document-form {
@@ -148,6 +154,9 @@
     vertical-align: middle;
 
     border : 1px solid rgb(130, 130, 130);
+}
+.sender-no {
+    display: none;
 }
 
 .table-approval {
@@ -239,6 +248,16 @@
 
     border : 1px solid rgb(130, 130, 130);
 }
+.instruction {
+    width: 380px;
+    height: 100px;
+
+    border: 0px;
+}
+.instruction:focus {
+    outline: none;
+}
+
 
 .main-text-table {
     width: 940px;
@@ -341,10 +360,16 @@
     
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     font-size: 20px;
     font-weight: 700;
     color: rgb(53, 54, 54);
+}
+.unseleted-setting-btn {
+    color: #828282;
+
+    cursor: pointer;
 }
 
 .btn-area {
@@ -380,7 +405,22 @@
 }
 .preview-area::-webkit-scrollbar {
     display: none;
-  }
+}
+
+.cc-preview-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-y: scroll;
+}
+.cc-preview-area::-webkit-scrollbar {
+    display: none;
+}
+
+.unselected-preview {
+    display: none;
+}
 
 .approver {
     width: 350px;
@@ -482,7 +522,7 @@
 
 
 .mini-header {
-    width: 900px;
+    width: 950px;
     height: 75px;
 
     line-height: 75px;

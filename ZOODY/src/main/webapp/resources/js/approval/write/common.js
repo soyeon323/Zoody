@@ -35,11 +35,24 @@ function getLoginMemberInSession() {
         const senderName = document.querySelector('.sender-name');
         senderName.innerText = data.name;
 
+        const senderNo = document.querySelector('.sender-no');
+        senderNo.value = data.no;
+
         const drafterName = document.querySelector('.drafter-name');
         drafterName.innerText = data.name;
 
         const drafterDepart = document.querySelector('.drafter-depart');
         drafterDepart.innerText = data.departmentName;
+
+        const draftDate = document.querySelector('.draft-date');
+        const today = new Date();
+        const yy = today.getFullYear();
+        const mm = ('0' + (today.getMonth() + 1)).slice(-2);
+        const dd = ('0' + today.getDate()).slice(-2);
+        const hh = today.getHours();
+        const min = today.getMinutes();
+        draftDate.innerText = yy + '-' + mm + '-' + dd + ' / ' + hh + ':' + min;
+
     })
 
 }
@@ -77,8 +90,8 @@ function toggleExtendList(event) {
 /* ========================================================================================================= */
 
 
-let previewArray = [];
-let previewArrIdx = 0;
+let approverArray = [];
+let approverArrIdx = 0;
 
 const userBriefInfoList = document.querySelectorAll('.name-rank');
 
@@ -100,16 +113,16 @@ userBriefInfoList.forEach(element => {
             ableCheck = 0;
         }
 
-        previewArray.forEach(element => {
+        approverArray.forEach(element => {
             if(element.no == userNoValue) {
                 alert('같은 결재자를 두명 이상 선택할 수 없습니다.');
                 ableCheck = 0;
             }
         });
 
-        if(previewArrIdx < 4 && ableCheck == 1) {
+        if(approverArrIdx < 4 && ableCheck == 1) {
             setPreview(event);
-        } else if (previewArrIdx >= 4) {
+        } else if (approverArrIdx >= 4) {
             alert('결재자는 최대 4명까지만 설정 가능합니다.');
         }
 
@@ -133,7 +146,7 @@ function setPreview(event) {
         if(data.dName3 != null) { departmentInfo += data.dName3 + ' > '; }
         departmentInfo += data.dName4;
 
-        previewArray[previewArrIdx] = {
+        approverArray[approverArrIdx] = {
             'no' : data.no,
             'name' : data.name,
             'grade' : data.grade,
@@ -141,7 +154,7 @@ function setPreview(event) {
             'profile' : data.profile,
             'department' : departmentInfo,
         }
-        previewArrIdx++;
+        approverArrIdx++;
 
         const approverMember = document.createElement('div');
         approverMember.classList.add('approver-memeber');
@@ -187,27 +200,27 @@ function setPreview(event) {
             const approverInfo = event.target.parentNode;
             const deleteApproverNo = approverInfo.querySelector('.temp-no').innerText;
 
-            for(let i = 0; i < previewArrIdx; i++) {
-                if(previewArray[i].no == deleteApproverNo) {
-                    previewArray.splice(i,1);
+            for(let i = 0; i < approverArrIdx; i++) {
+                if(approverArray[i].no == deleteApproverNo) {
+                    approverArray.splice(i,1);
                     
-                    for(let j = i; j < previewArrIdx - 1; j++) {
-                        previewArray[j] = previewArray[j + 1];
+                    for(let j = i; j < approverArrIdx - 1; j++) {
+                        approverArray[j] = approverArray[j + 1];
                     }
 
-                    previewArray = previewArray.filter((item)=>{
+                    approverArray = approverArray.filter((item)=>{
                         return item !== null;
                     });
 
-                    previewArrIdx--;
+                    approverArrIdx--;
                 }
             }
 
             toppestGrade = 10;
 
-            for(let i = 0; i< previewArray.length; i++) {
-                if(previewArray[i].grade < toppestGrade) {
-                    toppestGrade = previewArray[i].grade
+            for(let i = 0; i< approverArray.length; i++) {
+                if(approverArray[i].grade < toppestGrade) {
+                    toppestGrade = approverArray[i].grade
                 }
             }
 
@@ -228,11 +241,9 @@ addApproverBtn.addEventListener('click', ()=>{
     const modalWrap = document.querySelector('.modal-wrap');
     modalWrap.classList.toggle('modal-wrap-active')
 
-    console.log(previewArray);
-
     // 오른쪽 창에 추가
-    const previewArea = document.querySelector('.preview-area');
-    previewArray.forEach(element => {
+    const approverList = document.querySelector('.approver-list');
+    approverArray.forEach(element => {
 
         const approver = document.createElement('div');
         approver.classList.add('approver');
@@ -274,12 +285,12 @@ addApproverBtn.addEventListener('click', ()=>{
         approver.append(profileArea);
         approver.append(infoArea);
 
-        previewArea.append(approver);
+        approverList.append(approver);
     });
 
 
     // 문서에 추가
-    previewArray.forEach(element=>{
+    approverArray.forEach(element=>{
 
         const tableHeaderRank = document.querySelector('.table-header-rank');
 
@@ -316,6 +327,52 @@ addApproverBtn.addEventListener('click', ()=>{
 
 
 });
+
+
+
+/* ========================================================================================================= */
+
+const previewSettingBtnArr = document.querySelectorAll('.preview-setting-btn');
+
+previewSettingBtnArr.forEach(previewSettingBtn => {
+
+    previewSettingBtn.addEventListener('click', (event)=>{
+
+        if(event.currentTarget.classList.contains('unseleted-setting-btn')) {
+
+            // 타겟버튼 unseleted 제거
+            event.currentTarget.classList.remove('unseleted-setting-btn');
+
+            // 다른 버튼 unselected
+            previewSettingBtnArr.forEach(btn=>{
+                if(btn != event.currentTarget) {
+                    btn.classList.add('unseleted-setting-btn');
+                }
+            });
+
+            // 프리뷰 화며 전환
+            if(event.currentTarget.classList.contains('set-approver')) {
+                document.querySelector('.approver-list').classList.toggle('unselected-preview');
+                document.querySelector('.cc-list').classList.toggle('unselected-preview');
+            } else {
+                document.querySelector('.cc-list').classList.toggle('unselected-preview');
+                document.querySelector('.approver-list').classList.toggle('unselected-preview');
+            }
+
+        }
+
+    });
+    
+
+});
+
+
+
+
+
+
+
+
 
 
 
