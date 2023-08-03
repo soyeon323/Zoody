@@ -110,7 +110,7 @@ public class AdminServiceImpl implements AdminService{
 	//건의사항 목록
 	@Override
 	public List<NoticeVo> suggstionList(PageVo pv, Map<String, String> searchMap) {
-		return dao.suggstionList(sst, searchMap);
+		return dao.suggstionList(sst, pv, searchMap);
 	}
 
 	//건의사항 복사

@@ -85,9 +85,9 @@
             <button onclick="goWrite();">글쓰기</button>
         </div>
         <div><a>관리자게시판</a></div>
-        <div><a href="">공지사항</a></div>
+        <div><a href="${root}/admin/notice/list">공지사항</a></div>
         <div><a>직원게시판</a></div>
-        <div><a href="">건의사항</a></div>
+        <div><a href="${root}/admin/suggestion/list">건의사항</a></div>
         <div><a href="">설문/투표</a></div>
         <div><a>부서게시판</a></div>
         <div><a href="">사내뉴스</a></div>
