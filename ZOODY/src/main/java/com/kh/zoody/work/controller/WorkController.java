@@ -36,16 +36,16 @@ public class WorkController {
 	@GetMapping("work")
 	public String work(Model m , HttpServletRequest req) {
 		
-//		HttpSession session = req.getSession();
-//		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-//		
+		HttpSession session = req.getSession();
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		
 //		List<WorkVo> vo = ws.workList(loginMember);
 //		log.info("vo : {}",vo);
 //		if(vo ==null) {
 //			throw new RuntimeException();
 //		}
-//		m.addAttribute("loginMember" , loginMember);
 //		m.addAttribute("vo",vo);
+		m.addAttribute("loginMember" , loginMember);
 		
 		return "work/work";
 	}
@@ -74,10 +74,9 @@ public class WorkController {
 		}
 		
 		Gson gson = new Gson();
-		String str = gson.toJson(vo);
+		String data = gson.toJson(vo);
 		
-		m.addAttribute("data",str);
-		return "data";
+		return data;
 	}	
 	
 }

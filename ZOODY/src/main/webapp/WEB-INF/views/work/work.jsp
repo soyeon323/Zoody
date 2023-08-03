@@ -48,7 +48,9 @@
            
             <div class="column1">
                 <h1>To-Do</h1>
-              
+                <c:forEach items="${vo}" var="vo">
+	                <div class="list-group-item"> ${vo.workName} / ${vo.endDate} </div>
+                </c:forEach>
                 
             </div>
 
@@ -122,12 +124,6 @@
 </html>
 
 <script>
-
-
- 
-
-
-
 
     // const addBtn = document.querySelector('#addBtn');
     // addBtn.addEventListener('click' , function () {
@@ -313,13 +309,13 @@ function writeComment(userNo){
 					alert("업무가 등록되었습니다.");
                     modal.style.display='none';
 
-                    let divTagCnt = 1; 
-                    let column = document.querySelector('.column1');
-                    let newDivTag = document.createElement('div');
-                        newDivTag.setAttribute('class', 'list-group-item');
-                        // newDivTag.innerHTML = "" + divTagCnt; // 여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
-                        column.appendChild(newDivTag);
-                        divTagCnt++;
+                    // let divTagCnt = 1; 
+                    // let column = document.querySelector('.column1');
+                    // let newDivTag = document.createElement('div');
+                    //     newDivTag.setAttribute('class', 'list-group-item');
+                    //     newDivTag.innerHTML = divTagCnt ; // 여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
+                    //     column.appendChild(newDivTag);
+                    //     divTagCnt++;
 
                         loadComment('${loginMember.no}');
 				}
@@ -330,10 +326,9 @@ function writeComment(userNo){
 		});
 }
 	
-	// 업무 불러오기
+	// 업무제목과 마감일시 불러오기
 	function loadComment(userNo){
         console.log(userNo);
-        const newDivTag = document.querySelector('.list-group-item');
 		$.ajax({
             url: '${root}/work/view',
             type: 'POST',
@@ -341,12 +336,21 @@ function writeComment(userNo){
                 'userNo':userNo
             },
             success: function(data) {
-                if(data == 'data'){
+                if(data){
+
+                    let divTagCnt = 1; 
+                    let column = document.querySelector('.column1');
+                    let newDivTag = document.createElement('div');
+                        newDivTag.setAttribute('class', 'list-group-item');
+                        newDivTag.innerHTML = divTagCnt ; // 여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
+                        column.appendChild(newDivTag);
+                        divTagCnt++;
+
                     newDivTag = "";
                     const x = JSON.parse(data);
                     console.log(x);
                     for(let i = 0; i <x.length; i++){
-                        newDivTag.innerHTML += x[i].workName +"/"+x[i].endDate
+                        newDivTag.innerHTML += x[i].workName +"/"+x[i].endDate  
                     }
                 }
                 },
@@ -355,5 +359,6 @@ function writeComment(userNo){
                 },
             });
 	}
+
 	loadComment();
 </script>
