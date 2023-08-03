@@ -206,6 +206,12 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 
+	@Override
+	public List<Map<String, Object>> monthList() {
+		return dao.monthList(sst);
+	}
+
+
 
 
 

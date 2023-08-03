@@ -78,6 +78,8 @@ public interface AttendanceService {
 
 	boolean hasCheckOutRecordToday(AttendanceVo attendanceVo);
 
+	List<Map<String, Object>> monthList();
+
 
 
 

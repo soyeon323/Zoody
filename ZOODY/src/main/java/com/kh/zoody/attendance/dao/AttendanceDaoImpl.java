@@ -195,6 +195,11 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return count > 0;
 	}
 
+	@Override
+	public List<Map<String, Object>> monthList(SqlSessionTemplate sst) {
+		return sst.selectList("attendance.monthList");
+	}
+
 	
 
 
