@@ -136,7 +136,7 @@ public class AnimalController {
 		
 		
 		model.addAttribute("map",map);
-		return "animal/list";
+		return "animal/training-list";
 	}
 	
 	
@@ -149,7 +149,7 @@ public class AnimalController {
 			throw new RuntimeException();
 		}
 
-		return "redirect:/animal/list?page=1";
+		return "redirect:/animal/training-list";
 	}
 	
 	//동물 훈련 일지 상세조회
@@ -190,7 +190,7 @@ public class AnimalController {
 		map.put("pv", pv);
 		
 		model.addAttribute("map",map);
-		return "animal/list";
+		return "animal/health-list";
 		}
 	
 	
@@ -203,7 +203,7 @@ public class AnimalController {
 			throw new RuntimeException();
 		}
 
-		return "redirect:/animal/health/list?page=1";
+		return "redirect:/animal/health-list";
 	}
 	
 	//동물 건강 상태 상세조회
@@ -218,7 +218,7 @@ public class AnimalController {
 		
 		model.addAttribute("hvo",hvo);
     
-		return "animal/list";
+		return "animal/health-detail";
 	}
 	
 	//동물 폐사 처리

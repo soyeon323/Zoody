@@ -65,7 +65,7 @@
         
             <div id="page">
                 <c:if test="${map.pv.currentPage > 1}">
-                    <a href="${root}/animal/training/list?page=${map.pv.currentPage - 1}">
+                    <a href="${root}/animal/health/list?page=${map.pv.currentPage - 1}">
                         <img src="${root}/resources/img/icon/png/left.png" alt="왼쪽화살표">
                     </a>
                 </c:if>
@@ -73,7 +73,7 @@
                 <c:forEach begin="${map.pv.startPage}" end="${map.pv.endPage}" step="1" var="i">
                     
                         <c:if test="${map.pv.currentPage ne i}">
-                            <a href="${root}/animal/training/list?page=${i}">${i}</a>
+                            <a href="${root}/animal/health/list?page=${i}">${i}</a>
                         </c:if>
 
                         <c:if test="${mpa.pv.currentPage == i}">
@@ -83,7 +83,7 @@
                 </c:forEach>
             
                 <c:if test="${map.pv.currentPage < map.pv.maxPage}">
-                    <a href="${root}/animal/training/list?page=${map.pv.currentPage + 1}">
+                    <a href="${root}/animal/health/list?page=${map.pv.currentPage + 1}">
                         <img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표">
                     </a>
                 </c:if>
@@ -97,7 +97,6 @@
 
     //건강검진 일지 상세 조회
     function healthDetail(no){
-        alert(no);
         $.ajax({
             url : '${root}/animal/health/detail',
             method : 'GET',
