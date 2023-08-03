@@ -63,7 +63,7 @@
             <div id="tableArea">
                 <table class="table">
                     <thead>
-                      <tr>
+                    <tr>
                         <td scope="col">
                             <input type="checkbox" name="adminNoticeAll" id="checkAll">
                         </td>
@@ -72,7 +72,7 @@
                         <td scope="col">작성자</td>
                         <td scope="col">작성일</td>
                         <td scope="col">조회수</td>
-                      </tr>
+                    </tr>
                     </thead>
                     <tbody>
                         <c:if test="${empty map.voList}">
@@ -95,7 +95,7 @@
                             </c:if>
                         </c:forEach>
                     </tbody>
-                  </table>
+                </table>
             </div>
 
         </div>
@@ -110,7 +110,12 @@
             <a href=""><img src="${root}/resources/img/icon/png/right.png" alt="오른쪽화살표"></a>
         </div>
     </div>
-
+    <c:if test="${loginMember.id != 'admin'}">
+        <script>
+            alert("관리자 및 운영자만 접근 가능합니다.");
+            location.href = '${root}/home';
+        </script>
+    </c:if>
 </body>
 </html>
 <script>

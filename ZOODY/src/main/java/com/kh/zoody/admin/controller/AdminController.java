@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -141,7 +142,7 @@ public class AdminController {
 	
 	//공지사항 목록
 	@RequestMapping("notice/list")
-	public String noticeList(Model model,@RequestParam(defaultValue = "1") Integer page, @RequestParam Map<String, String> searchMap) {
+	public String noticeList(Model model,@RequestParam(defaultValue = "1") Integer page, @RequestParam Map<String, String> searchMap, HttpSession session) {
 	
 		int listCount = as.getNoticeListCnt(searchMap);
 		int currentPage = (page != null) ? page : 1;
@@ -165,6 +166,8 @@ public class AdminController {
 		map.put("searchMap", searchMap);
 		
 		model.addAttribute("map", map);
+		
+		log.info("loginMember : {}" , session.getAttribute("loginMember"));
 		
 		return "admin/notice/list";
 	}

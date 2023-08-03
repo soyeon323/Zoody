@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.gson.Gson;
 import com.kh.zoody.login.service.LoginService;
 import com.kh.zoody.user.vo.UserVo;
 
@@ -33,7 +34,12 @@ public class LoginCotroller {
 			session.setAttribute("msg", "로그인실패");
 			return "member/login";
 		}
+
+		Gson gson = new Gson();
+		String s = gson.toJson(loginMember);
+		
 		session.setAttribute("loginMember", loginMember);
+		
 		return "redirect:/home";
 	}
 	

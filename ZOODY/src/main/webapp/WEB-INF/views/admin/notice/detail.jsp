@@ -105,7 +105,7 @@
                 </c:if>
                 <c:if test="${vo.commentYn == 'Y'}">
                     <div id="commentArea">
-                        <img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진">
+                        <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
                        
                         <form action="${root}/admin/notice/detail" method="POST">
                             <input type="hidden" value="${vo.no}" name="noticeNo">
@@ -117,14 +117,17 @@
                     </div>
                     <div id="commentOk">
                         <c:forEach items="${voList}" var="voList">
-                            <div><img src="${root}/resources/img/icon/png/profileImg.png" alt="프로필사진" width="28px" height="28px"></div>
+                            <div><img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진" width="28px" height="28px"></div>
                             <div id="userName">
-                                <a id="userNameLink">${voList.name}</a>
-                                <a>&nbsp ${voList.rankName}</a>
+                                <a id="userNameLink">${loginMember.name}</a>
+                                <a>&nbsp ${loginMember.rankName}</a>
                             </div>
                             <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>
-                            <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
+
+                            <c:if test="${loginMember.no == voList.userNo}">
+                                <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </c:if>
@@ -138,6 +141,12 @@
         </div>
     </div>
 
+    <c:if test="${loginMember.id != 'admin'}">
+        <script>
+            alert("관리자 및 운영자만 접근할 수 있습니다.");
+            location.href = '${root}/home';
+        </script>
+    </c:if>
 </body>
 </html>
 <script>
