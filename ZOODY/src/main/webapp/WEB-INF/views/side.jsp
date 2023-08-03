@@ -97,6 +97,7 @@
             <li><a href="${root}/community/vote/">투표</a></li>
             <li><a href="${root}/community/survey/">설문 조사</a></li>
             <li><a onclick="goSuggestion('${loginMember.id}');">건의사항</a></li>
+            <li><a onclick="goNotice('${loginMember.id}');">공지사항</a></li>
             </ul>
         </li>
         <li>
@@ -126,11 +127,21 @@
         });
         });
 
+        //건의사항 주소
         function goSuggestion(id){
            if(id == 'admin'){
                 location.href = '${root}/admin/suggestion/list';
            }else if(id != 'admin'){
                 location.href = '${root}/suggestion/list';
            }
+        }
+
+        //공지사항 주소
+        function goNotice(id){
+            if(id == 'admin'){
+                location.href = '${root}/admin/notice/list';
+            }else if(id != 'admin'){
+                location.href = '${root}/notice/list';
+            }
         }
     </script>

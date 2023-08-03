@@ -58,7 +58,7 @@ public interface AdminDao {
 	int getSuggestionListCnt(SqlSessionTemplate sst, Map<String, String> searchMap);
 
 	//건의사항 목록
-	List<NoticeVo> suggstionList(SqlSessionTemplate sst, Map<String, String> searchMap);
+	List<NoticeVo> suggstionList(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap);
 
 	//건의사항 복사
 	int suggestionCopy(SqlSessionTemplate sst, List<String> noList);

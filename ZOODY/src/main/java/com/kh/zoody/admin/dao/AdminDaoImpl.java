@@ -108,8 +108,9 @@ public class AdminDaoImpl implements AdminDao{
 
 	//건의사항 목록
 	@Override
-	public List<NoticeVo> suggstionList(SqlSessionTemplate sst, Map<String, String> searchMap) {
-		return sst.selectList("suggestion.suggstionList", searchMap);
+	public List<NoticeVo> suggstionList(SqlSessionTemplate sst, PageVo pv, Map<String, String> searchMap) {
+		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
+		return sst.selectList("suggestion.suggstionList", searchMap, rb);
 	}
 
 	//건의사항 복사

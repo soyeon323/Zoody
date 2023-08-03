@@ -198,14 +198,16 @@ public class AdminController {
 
 		int listCount = as.getSuggestionListCnt(searchMap);
 		int currentPage = (page != null) ? page : 1;
-		int pageLimit = ConstPool.PAGE_LIMIT;
-		int boardLimit = ConstPool.BOARD_LIMIT;
+		int pageLimit = 5;
+		int boardLimit = 7;
 	
 		//페이징처리
 		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
 		
 		int suggestionListCnt = as.getSuggestionListCnt(searchMap);
 		List<NoticeVo> voList = as.suggstionList(pv, searchMap);
+		
+		log.info("voList : {}", voList);
 		
 		if(voList == null) {
 			throw new RuntimeException();
