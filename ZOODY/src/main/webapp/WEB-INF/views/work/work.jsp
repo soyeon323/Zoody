@@ -7,13 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<!-- fullcalendar CDN -->
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
-<!-- fullcalendar 언어 CDN -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
@@ -33,6 +26,14 @@
         width: 400px;
         height: 20px;
 }
+#title-area{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#title-area h1{
+    font-size: 1.5em;
+}
 </style>
 </head>
 <body>
@@ -42,24 +43,24 @@
 
     <div id="wrap">
         <div id="enroll">업무 할당</div>
+        <div id="title-area">
+            <h1>To-Do</h1>
+            <h1>Doing</h1>
+            <h1>Done</h1>
+        </div>
         <button class="btn btn-primary" id="popup_open_btn">업무 추가</button>
 
         <div class="container">
-           
             <div class="column1">
-                <h1>To-Do</h1>
-                <c:forEach items="${vo}" var="vo">
-	                <div class="list-group-item"> ${vo.workName} / ${vo.endDate} </div>
-                </c:forEach>
                 
             </div>
 
             <div class="column2">
-               <h1>Doing</h1>
+              
             </div>
 
             <div class="column3">
-               <h1>Done</h1>
+              
             </div>
          </div>
          
@@ -103,7 +104,7 @@
                  
                  <fieldset>
                   <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
-                    <input type="text">   <!--value="${workContent}"-->
+                    <input type="text">   <!--value="${workContent}"  뽀이찌문-->
                     <input type="checkbox">
                  </fieldset>
               </div>
@@ -125,12 +126,19 @@
 
 <script>
 
-    // const addBtn = document.querySelector('#addBtn');
-    // addBtn.addEventListener('click' , function () {
-    //    let workName = document.querySelector('#workName').innerHTML;
-    //    let newDivTag = document.querySelector('.list-group-item');
-    //    newDivTag.innerHTML = workName; 
-    // });
+
+// 모달내에 남아있는 요소 초기화 해주기
+document.querySelector('#addBtn').addEventListener('click', function () {
+
+    const inputElements = document.querySelectorAll('#my_modal input[type="text"]');
+    inputElements.forEach(input => {
+        input.value = '';
+    });
+
+    // 모달 내의 textarea 요소 초기화
+    const textareaElement = document.querySelector('#my_modal textarea');
+    textareaElement.value = '';
+});
 
 
     // 추가 버튼 누르면 colum 에 추가됨 
@@ -193,11 +201,6 @@ document.getElementById('plusBtn').addEventListener('click', function() {
     fieldset.appendChild(inputCheckbox);
 });
 
-
-
-
-
-
     // input -
     document.getElementById('minusBtn').addEventListener('click', function() {
         var fieldset = document.querySelector('fieldset');
@@ -236,11 +239,11 @@ document.getElementById('plusBtn').addEventListener('click', function() {
     }
 
 
-// newDivTag 클릭 이벤트 리스너 추가
+// newDivTag 클릭 이벤트 리스너 추가    //업무번호가지고 눌러서 모달에 상세조회 시키고  + 프로그레스바랑 체크리스트 체크표시 다하면 완료버튼나오면서 완료버는누르면 done으로 알아서 옮겨지게하기
 var column1 = document.querySelector('.column1');
 column1.addEventListener('click', function(event) {
     var clickedElement = event.target;
-
+    
     if (clickedElement.classList.contains('list-group-item')) {
         // 모달창 띄우기
             modal('my_modal2');
@@ -308,15 +311,6 @@ function writeComment(userNo){
 				if(x == 'ok'){
 					alert("업무가 등록되었습니다.");
                     modal.style.display='none';
-
-                    // let divTagCnt = 1; 
-                    // let column = document.querySelector('.column1');
-                    // let newDivTag = document.createElement('div');
-                    //     newDivTag.setAttribute('class', 'list-group-item');
-                    //     newDivTag.innerHTML = divTagCnt ; // 여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
-                    //     column.appendChild(newDivTag);
-                    //     divTagCnt++;
-
                         loadComment('${loginMember.no}');
 				}
 			} ,
@@ -326,39 +320,40 @@ function writeComment(userNo){
 		});
 }
 	
-	// 업무제목과 마감일시 불러오기
-	function loadComment(userNo){
-        console.log(userNo);
-		$.ajax({
-            url: '${root}/work/view',
-            type: 'POST',
-            data:{
-                'userNo':userNo
-            },
-            success: function(data) {
-                if(data){
+	// 페이지 로드 시와 업무 추가 후에 업무 목록 가져오기
+function loadComment(userNo) {
+    console.log(userNo);
+    $.ajax({
+        url: '${root}/work/view',
+        type: 'POST',
+        data: {
+            'userNo': userNo
+        },
+        success: function (data) {
+            const x = JSON.parse(data);
+            console.log(x);
 
-                    let divTagCnt = 1; 
-                    let column = document.querySelector('.column1');
-                    let newDivTag = document.createElement('div');
-                        newDivTag.setAttribute('class', 'list-group-item');
-                        newDivTag.innerHTML = divTagCnt ; // 여기에 내가 추가했던 업무 제목이랑 마감일시 박혀야함 아약스로 처리
-                        column.appendChild(newDivTag);
-                        divTagCnt++;
+            let divTagCnt = 1;
+            let column = document.querySelector('.column1');
+            // 이전에 생성된 요소들을 모두 삭제
+            column.innerHTML = '';
+            for (let i = 0; i < x.length; i++) {
+                let newDivTag = document.createElement('div');
+                newDivTag.setAttribute('class', 'list-group-item');
+                newDivTag.innerHTML += x[i].workName + "/" + x[i].endDate +"/"+x[i].workNo;
+                console.log(x[i].workName);
+                column.appendChild(newDivTag);
+            }
+        },
+        error: function(e) {
+            console.log('에러 ㅋㅋ' + e);
+        },
+    });
+}
 
-                    newDivTag = "";
-                    const x = JSON.parse(data);
-                    console.log(x);
-                    for(let i = 0; i <x.length; i++){
-                        newDivTag.innerHTML += x[i].workName +"/"+x[i].endDate  
-                    }
-                }
-                },
-                error: function(e) {
-               console.log('에러 ㅋㅋ' +e);
-                },
-            });
-	}
 
-	loadComment();
+$(document).ready(function () {
+    // 여기에 유저 번호를 전달해서 호출하도록 설정
+        loadComment('${loginMember.no}');
+});
 </script>

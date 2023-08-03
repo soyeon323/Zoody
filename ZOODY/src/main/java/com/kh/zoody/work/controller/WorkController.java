@@ -1,9 +1,11 @@
 package com.kh.zoody.work.controller;
 
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -36,16 +38,16 @@ public class WorkController {
 	@GetMapping("work")
 	public String work(Model m , HttpServletRequest req) {
 		
-		HttpSession session = req.getSession();
-		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-		
+//		HttpSession session = req.getSession();
+//		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+//		
 //		List<WorkVo> vo = ws.workList(loginMember);
 //		log.info("vo : {}",vo);
 //		if(vo ==null) {
 //			throw new RuntimeException();
 //		}
+//		m.addAttribute("loginMember" , loginMember);
 //		m.addAttribute("vo",vo);
-		m.addAttribute("loginMember" , loginMember);
 		
 		return "work/work";
 	}
@@ -62,9 +64,9 @@ public class WorkController {
 	}
 	
 //	업무명과 마감일시 가져오기 AJAX로
-	@PostMapping("view")
+	@PostMapping(value =  "view" , produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String getWorkNameAndDate(Model m , String userNo) {
+	public String getWorkNameAndDate(Model m , String userNo , HttpServletResponse resp) {
 		
 		List<WorkVo> vo = ws.getWorkNameAndDate(userNo);
 		log.info("WorkVo = {}",vo);
@@ -72,10 +74,8 @@ public class WorkController {
 		if(vo ==null) {
 			throw new RuntimeException();
 		}
-		
 		Gson gson = new Gson();
 		String data = gson.toJson(vo);
-		
 		return data;
 	}	
 	

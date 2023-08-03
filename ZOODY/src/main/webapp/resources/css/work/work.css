@@ -28,13 +28,11 @@
     min-height: 50vh;
     padding: 5px;
     border-radius: 6px;
-    margin: 20px 0px 0px;
     }
 
     .column1,.column2,.column3 h1 {
     text-align: center;
     font-size: 22px;
-    margin-top: 20px;
     }
 
     .list-group-item {
@@ -46,7 +44,6 @@
     .list-group-item:hover {
         border: 1px solid black;
     }
-
 
     #enroll{
     margin-top: 40px;
@@ -72,8 +69,7 @@
     }
 
     #popup_open_btn{
-        margin-left: 520px;
-        margin-top: 20px;
+        margin-left: 480px;
     }
 
     
@@ -139,7 +135,7 @@
         z-index: 9999;
     }
 
-    #my_modal2 .modal_close_btn2 {
+    #my_modal2 .modal_close_btn{
         position: absolute;
         top: 10px;
         right: 10px;
