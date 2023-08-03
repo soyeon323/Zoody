@@ -35,9 +35,6 @@ public class LoginCotroller {
 			return "member/login";
 		}
 
-		Gson gson = new Gson();
-		String s = gson.toJson(loginMember);
-		
 		session.setAttribute("loginMember", loginMember);
 		
 		return "redirect:/home";
@@ -46,6 +43,7 @@ public class LoginCotroller {
 	//로그아웃
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
+		
 		session.invalidate();
 		
 		return "member/login";

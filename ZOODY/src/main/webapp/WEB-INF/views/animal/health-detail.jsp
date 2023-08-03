@@ -21,7 +21,6 @@
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
     <div id="wrap">
-        ${hvo}
         <div id="enroll">동물 건강 정보 상세 조회</div>
 
         <div id="chart">
@@ -35,21 +34,19 @@
                     <div>건강검진 종합 소견</div>
                     <br>
                     <span>유질환</span>
-                    <textarea name="" id="t1" cols="30" rows="10" style="">${hvo.disease}</textarea>
+                    <textarea name="" id="t1" cols="30" rows="10" readonly>${hvo.disease}</textarea>
                     <br>
                     <span>생활 습관 관리</span>
-                    <textarea name="" id="t2" cols="30" rows="9">${hvo.lifeStyleManagement}</textarea>
+                    <textarea name="" id="t2" cols="30" rows="9" readonly>${hvo.lifeStyleManagement}</textarea>
                     <br>
                     <span>의사 소견</span>
-                    <textarea name="" id="t3" cols="30" rows="10">${hvo.stateOfHealth}</textarea>
+                    <textarea name="" id="t3" cols="30" rows="10" readonly>${hvo.stateOfHealth}</textarea>
                 </div>
 
                 <div id="btn-area">
                         <div class="btn-upload" onclick="back()">닫기</div>
                 </div>
-              
         </div>
-
     </div>
 
 </body>

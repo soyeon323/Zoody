@@ -186,7 +186,7 @@
 		WHERE ANIMAL_NO = #{no}
   	</select>
   	
-  	<select id="trainingList" resultType="int">
+  	<select id="trainingList" resultType="TrainingVo">
   			 SELECT 
              AT.TRAINING_NO 
             ,AT.TITLE AS TRAINING_TITLE
