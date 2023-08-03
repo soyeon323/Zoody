@@ -30,7 +30,7 @@
                             <a>${list.title}</a>
                         </div>
                         <div>
-                            <a>${list.userName}</a>
+                            <a>d</a>
                         </div>
                         <div>
                             <a>${list.startDate} ~ ${list.endDate}</a>

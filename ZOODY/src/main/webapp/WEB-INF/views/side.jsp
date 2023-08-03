@@ -46,13 +46,15 @@
 	            </ul>
 	        </li>
         </c:if>
-        <li>
-            <a href="#">인사 관리</a>
-            <ul>
-            <li><a href="${root}/employee/enroll">인사등록</a></li>
-            <li><a href="${root}/employee/list">인사목록</a></li>
-            </ul>
-        </li>
+        <c:if test="${loginMember.id == 'admin'}">
+            <li>
+                <a href="#">인사 관리</a>
+                <ul>
+                <li><a href="${root}/employee/enroll">인사등록</a></li>
+                <li><a href="${root}/employee/list">인사목록</a></li>
+                </ul>
+            </li>
+        </c:if>
         <li>
             <a href="${root}/animal/list?page=1">동물 관리</a>
             <ul>
@@ -86,9 +88,6 @@
             <a href="#">프로젝트 관리</a>
             <ul>
             <li><a href="${root}/project/progress">진행중인 프로젝트</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
             </ul>
         </li>
         <li>
@@ -97,7 +96,7 @@
             <li><a href="${root}/community/board/freeBoard/">게시판</a></li>
             <li><a href="${root}/community/vote/">투표</a></li>
             <li><a href="${root}/community/survey/">설문 조사</a></li>
-            <li><a href=""></a></li>
+            <li><a onclick="goSuggestion('${loginMember.id}');">건의사항</a></li>
             </ul>
         </li>
         <li>
@@ -127,4 +126,11 @@
         });
         });
 
+        function goSuggestion(id){
+           if(id == 'admin'){
+                location.href = '${root}/admin/suggestion/list';
+           }else if(id != 'admin'){
+                location.href = '${root}/suggestion/list';
+           }
+        }
     </script>

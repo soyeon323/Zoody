@@ -90,15 +90,18 @@
                 </a>
             </c:if>
             
-            <c:forEach begin="${map.pv.startPage}" end="${map.pv.endPage}" step="1" var="i">
+            <c:forEach begin="${map.pv.startPage}" end="${map.pv.endPage}" var="i">
                 
-                    <c:if test="${map.pv.currentPage ne i}">
-                        <a href="${root}/employee/list?page=${i}">${i}</a>
-                    </c:if>
-
-                    <c:if test="${mpa.pv.currentPage == i}">
-                        <a style="font-size: 0.5em; display: block;">${i}</a>
-                    </c:if>
+                <c:choose>
+                    <c:when test="${i == map.pv.currentPage}">
+                        <button class="active">${i}</button>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${root}/employee/list?page=${i}">
+                            <button class="nomalBtn">${i}</button>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
 
             </c:forEach>
             
