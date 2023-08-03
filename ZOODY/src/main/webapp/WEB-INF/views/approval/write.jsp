@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${root}/resources/css/approval/write.css">
 <script defer src="${root}/resources/js/approval/write/common.js"></script>
 </head>
-<body>
+<body>sender
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	
@@ -21,24 +21,30 @@
 		
 			<div class="wrap-left">
 
+				<form action="/write" method="POST" enctype="multipart/form-data"></form>
+
 				<div class="wrap-left-header">
 					<div class="category-title">결재문서 양식</div>
 					<div class="category-list">
-						<button id="1" class="change-category-btn">품의서</button>
-						<button id="2" class="change-category-btn">휴가 신청서</button>
-						<button id="3" class="change-category-btn">지출 결의서</button>
-						<button id="4" class="change-category-btn">휴일 / 연장 근무 신청서</button>
+						<button type="button" id="1" class="change-category-btn">품의서</button>
+						<button type="button" id="2" class="change-category-btn">휴가 신청서</button>
+						<button type="button" id="3" class="change-category-btn">지출 결의서</button>
+						<button type="button" id="4" class="change-category-btn">휴일 / 연장 근무 신청서</button>
 					</div>
-					<div class="upvote-btn">상신하기</div>
+					<input type="submit" value="상신하기" class="upvote-btn" />
 				</div>
 				
-                ${documentForm}
+					${documentForm}
+				
+				</form>
 
 			</div>
 
 			<div class="wrap-right">
 				<div class="title-area">
-					결재자 설정
+					<div class="set-approver preview-setting-btn">결재자 설정</div>
+
+					<div class="set-cc unseleted-setting-btn preview-setting-btn">참조자 설정</div>
 				</div>
 				<div class="btn-area">
 					<button class="add-btn">
@@ -48,9 +54,13 @@
 						삭제
 					</button>
 				</div>
-				<div class="preview-area">
+				<div class="approver-list preview-area">
 
-					
+
+				</div>
+
+				<div class="cc-list preview-area unselected-preview">
+
 
 				</div>
 
