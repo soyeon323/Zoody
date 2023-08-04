@@ -232,6 +232,19 @@ public class AnimalController {
 		return "redirect:/animal/list?page=1";
 
 	}
+	
+	//동물 담당부서 수정
+	@PostMapping("dept/edit")
+	@ResponseBody
+	public String animalDetpEdit(AnimalVo vo) {
+		
+		int result = as.animalDeptEdit(vo);
+		if(result !=1) {
+			throw new RuntimeException();
+		}
+		
+		return "data";
+	}
 
 	
 }

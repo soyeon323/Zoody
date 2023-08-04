@@ -28,7 +28,6 @@
 
         <div id="enroll">동물 상세 조회</div>
         <div id="chart">
-                
                 <table>
                     <tr id="chart-1">
                         <td rowspan="4"><img src="${root}/resources/img/animal/${animalVo.profile}" alt="${animalVo.profile}" style="width: 208px; height: 198px;"></td>
@@ -41,7 +40,26 @@
                     <tr id="chart-2">
                         <td rowspan="3"><input type="text" name="name" placeholder="이름입력" value="${animalVo.name}"></td>
                         <td>담당 부서</td>
-                        <td><input type="tel" name="departmentNo" placeholder="담당 부서" maxlength="13" value="${animalVo.departmentName}"></td>
+                        <td><input type="tel" name="departmentNo" placeholder="담당 부서" maxlength="13" value="${animalVo.departmentName}">
+                            
+
+                            <select name="departmentNo" id="position" >
+                                <option value="1214">자연학습</option>
+                                <option value="1221">조류팀</option>
+                                <option value="1222">남미팀</option>
+                                <option value="1223">맹수팀</option>
+                                <option value="1224">동양팀</option>
+                                <option value="1231">대동물</option>
+                                <option value="1232">어린이동물</option>
+                                <option value="1233">아프리카</option>
+                                <option value="1234">유인원</option>
+                                <option value="1241">생태연구</option>
+                                <option value="1242">분석연구</option>
+                            </select>
+                            
+                            <input type="button" id="edit" value="수정하기" onclick="animalDeptEdit('${animalVo.no}')">
+                        </td>
+                            
                     </tr>
                     <tr id="chart-3">
                         <td>애칭</td>
@@ -107,7 +125,6 @@
                             <textarea name="trainingContent" id="summernote" cols="30" rows="10"></textarea>
                         </div>
                             <input type="submit" value="작성"  class="btn-upload">
-                  
                 </form>
 
                 </div>
@@ -119,6 +136,15 @@
 </body>
 </html>
 <script>
+
+    const position = document.querySelector('#position');
+    const editBtn = document.querySelector('#edit');
+    const deptNo = document.querySelector('input[name="departmentNo"]');
+    deptNo.addEventListener('click' , function () {
+        deptNo.style.display='none';
+        position.style.display="inline-block";
+        editBtn.style.display="inline-block";
+    });
     
     //건강검진 작성 숨기기
     var healthBtn = document.querySelector('.btn-upload:nth-child(2)');
@@ -153,58 +179,6 @@
             contentArea2.style.display = 'none';
         }
     });
-
-
-    
-
- // sunnerNote
- $('#summernote').summernote({
-        	placeholder: '내용입력',
-        	tabsize: 2,
-        	height: 500,
-        	maxHeight:800,
-        	minHeight:500,
-        	width: 1500,
-		callbacks : {
-			onImageUpload : f01
-		},
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-
-      function f01(FileList) {
-
-        const fd = new FormData();
-        for(let file of FileList){
-            fd.append("f" , file);
-        }
-
-        $.ajax({
-            url :'' ,
-            type : 'post',
-            data : fd,
-            processData : false,
-            contentType : false,
-            dataType:'json',
-            success : (changeNameList)=>{
-                console.log(changeNameList);
-                for(let changeName of changeNameList){
-                    $('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
-                }
-            },
-            error : (e)=>{
-                alert(e);
-            }
-        });
-        }
-
         //동물 폐사 처리
         function die() {
             const result = confirm('폐사처리 하시겠습니까?');
@@ -225,6 +199,31 @@
             });
             }
           
+        }
+
+
+        function animalDeptEdit(animalNo) {
+           
+           const tv = $("#position option:selected").val();
+
+            $.ajax({
+                url : '${root}/animal/dept/edit',
+                method : 'POST',
+                data :{
+                    'animalNo' : animalNo,
+                    'departmentNo': tv
+                },
+                success :(data)=>{
+                    if(data =='data'){
+                        location.href = "${root}/animal/detail?no="+animalNo;
+                    }
+                },
+                error : ()=>{
+
+                }
+                
+            });
+
         }
 
 </script>

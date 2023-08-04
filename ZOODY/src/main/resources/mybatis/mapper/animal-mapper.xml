@@ -247,4 +247,9 @@
  		 WHERE NO = #{no}
   	</update>
   	
+  	<update id="animalDeptEdit">
+  		 UPDATE ANIMAL SET DEPARTMENT_NO= #{departmentNo}
+ 		 WHERE NO = #{animalNo}
+  	</update>
+  	
   </mapper>
