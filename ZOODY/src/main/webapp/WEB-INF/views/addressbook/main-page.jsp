@@ -37,7 +37,7 @@
 	
 					<div class="list-tree-area">
 							
-							<button class="extends-list">
+							<button class="extends-list" id="${departmentList[0].no}">
 	
 								<div class="extend-btn-icon">
 									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
@@ -68,7 +68,7 @@
 								
 									<c:if test="${departmentList[0].no eq departmentVo.upperDepartmentNo}">
 									
-									<button class="extends-list layer">
+									<button class="extends-list layer" id="${departmentVo.no}">
 										<div class="extend-btn-icon">
 											<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 										</div>
@@ -95,7 +95,7 @@
 									
 											<c:if test="${departmentVo.no eq departmentLowerVo.upperDepartmentNo}">
 											
-											<button class="extends-list layer">
+											<button class="extends-list layer" id="${departmentLowerVo.no}">
 												<div class="extend-btn-icon">
 													<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 												</div>
@@ -122,7 +122,7 @@
 										
 													<c:if test="${departmentLowerVo.no eq departmentLowerVo2.upperDepartmentNo}">
 													
-													<button class="extends-list layer">
+													<button class="extends-list layer" id="${departmentLowerVo2.no}">
 														<div class="extend-btn-icon">
 															<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="확장">
 														</div>

@@ -4,7 +4,6 @@ const contextPath = location.href.substring( hostIndex, location.href.indexOf( '
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
 
-
 document.querySelector('.mail-send-form').addEventListener('keydown', function(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -173,43 +172,44 @@ attachmentFileInput.addEventListener('change', (event) => {
 /* ---------------------------------------------------------------------------------------------------------- */
 
 // 메일 보내기 버튼 클릭했을때
-const sendMailBtn = document.querySelector('.send-mail-btn');
-sendMailBtn.addEventListener('click', () => {
+// const sendMailBtn = document.querySelector('.send-mail-btn');
+// sendMailBtn.addEventListener('click', () => {
 
-    // 받는 사람 목록
-    const receiverList = document.querySelectorAll('.reciver-elems');
-    receiverList.forEach(element => {
-        console.log(element.innerText);;
-    });
+//     // 받는 사람 목록
+//     const receiverList = document.querySelectorAll('.reciver-elems');
+//     receiverList.forEach(element => {
+//         console.log(element.innerText);;
+//     });
 
-    // 참조 목록
-    const ccList = document.querySelectorAll('.cc-elems');
-    ccList.forEach(element => {
-        console.log(element.innerText);;
-    });
+//     // 참조 목록
+//     const ccList = document.querySelectorAll('.cc-elems');
+//     ccList.forEach(element => {
+//         console.log(element.innerText);;
+//     });
 
-    // 숨은 참조 목록
-    const bccList = document.querySelectorAll('.bcc-elems');
-    bccList.forEach(element => {
-        console.log(element.innerText);;
-    });
+//     // 숨은 참조 목록
+//     const bccList = document.querySelectorAll('.bcc-elems');
+//     bccList.forEach(element => {
+//         console.log(element.innerText);;
+//     });
 
-    // 제목
-    const titleInput = document.querySelector('.title-input-area');
-    console.log(titleInput.value);
+//     // 제목
+//     const titleInput = document.querySelector('.title-input-area');
+//     console.log(titleInput.value);
 
-    // 첨부파일
-    const fileList = attachmentFileInput.files;
-    console.log(fileList);
+//     // 첨부파일
+//     const fileList = attachmentFileInput.files;
+//     console.log(fileList);
 
 
-})
+// })
 
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------- */
 
+// 썸머노트
 
 $(document).ready(function() {
 	$('#summernote').summernote({
@@ -227,14 +227,18 @@ $(document).ready(function() {
           }
 	});
 	
-	const mailContent = document.querySelector('.note-editable');
-	mailContent.addEventListener('keydown', function(event) {
-	    if (event.keyCode === 13) {
-	      mailContent.innerHTML += '<br>';
-	    };
-	  }
-	);
+    const mailContent = document.querySelector('.note-editable');
+
+    mailContent.addEventListener('keydown', (event)=>addBreak(event, mailContent));
+
 });
+
+function addBreak(event, mailContent) {
+    if (event.keyCode === 13) {
+        mailContent.innerHTML = mailContent.innerHTML.slice(0, mailContent.innerHTML.lastIndexOf('</p>'))
+        + '<br><br>';
+    };
+}
 
 
 function sendFile(file, el) {

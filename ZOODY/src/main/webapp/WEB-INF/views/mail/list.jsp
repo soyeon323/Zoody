@@ -111,7 +111,13 @@
 						</div>
 
 						<c:forEach items="${mailVoList }" var="mailVo">
-							<div class="table-data">
+
+							<c:choose>
+								<c:when test="${mailVo.readCheck eq 'X'}"><div class="table-data"></c:when>
+								<c:when test="${mailVo.readCheck eq 'O'}"><div class="table-data readed-data"></c:when>
+								<c:otherwise><div class="table-data"></c:otherwise>
+							</c:choose>
+							
 								<div class="check-btn-area">
 									<input type="checkbox" name="mailcheck" class="small-check-btn">
 									<label for="mailcheck" id="${mailVo.no}"></label>
@@ -126,7 +132,7 @@
 										<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
 									</c:if>
 									<c:if test="${mailVo.readCheck eq 'O'}">
-										<img src="${root}/resources/img/icon/svg/read-mail.svg" alt="안읽음">
+										<img src="${root}/resources/img/icon/svg/read-mail.svg" alt="읽음">
 									</c:if>
 								</div>
 								<div class="attachment-check-icon">

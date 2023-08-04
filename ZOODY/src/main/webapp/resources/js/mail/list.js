@@ -51,7 +51,7 @@ function selectedMailRead() {
     .then( (response) => response.json() )
     .then( (data) => {
 
-        console.log(data);
+        location.reload();
 
     })
     .catch( err => {})
@@ -90,7 +90,7 @@ function selectedMailDump() {
     .then( (response) => response.json() )
     .then( (data) => {
 
-        console.log(data);
+        location.reload();
 
     })
     .catch( err => {})

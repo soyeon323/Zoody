@@ -287,6 +287,13 @@
 
     border-bottom: 1px solid #989898;
 }
+.table-data > div {
+    font-weight: 500;
+}
+.readed-data > div {
+    color: rgba(150, 150, 150);
+    font-weight: 300;
+}
 .selected-table-data { 
     background-color: rgba(81, 137, 250, 0.44);
 }
