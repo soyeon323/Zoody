@@ -2,6 +2,7 @@ package com.kh.zoody.document.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.document.service.DocumentService;
 import com.kh.zoody.document.vo.DocumentVo;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class DocumentController {
+	
+	private final DocumentService service;
 	
 	// 개인 문서 화면
 	@GetMapping()
@@ -45,9 +50,11 @@ public class DocumentController {
 	}
 	
 	@PostMapping("upload")
+	@ResponseBody
 	public String uploadDocument(
 					@RequestParam("file") MultipartFile file,
 					@RequestParam("loginUserId") String loginUserId,
+					Model model,
 					HttpServletRequest request
 			) {
 		if (file.isEmpty()) {
@@ -58,21 +65,32 @@ public class DocumentController {
 		String root = request.getSession().getServletContext().getRealPath("resources"); 
 		
         try {
-            // 업로드된 파일을 저장할 디렉토리 설정
-            String saveFile = root+"/document/"+ loginUserId; // 원하는 디렉토리 경로로 변경 가능
         	
+        	log.info(root);
+        	log.info(file+"");
+        	log.info(loginUserId);
+        	
+            // 업로드된 파일을 저장할 디렉토리 설정
+            String saveFile = root+"\\document\\"+ loginUserId; // 원하는 디렉토리 경로로 변경 가능
+        	
+            
+            log.info(saveFile);
+            
             // 디렉토리가 없다면 생성
             File uploadDir = new File(saveFile);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-
+            
+            
+            
 //            // 파일 저장 경로 설정
             String filePath = saveFile + File.separator + file.getOriginalFilename();
+            log.info(filePath);
+            
             file.transferTo(new File(filePath));
             
-            log.info(file.getOriginalFilename());
-            log.info(filePath);
+            log.info("dd"+filePath);
             
             String originalFilename = file.getOriginalFilename();
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
@@ -80,14 +98,27 @@ public class DocumentController {
             log.info("파일 이름: " + fileNameWithoutExtension);
             log.info("확장자: " + fileExtension);
             
-//            DocumentVo vo
+            DocumentVo vo = new DocumentVo();
+//            vo.setUserNo(loginUserId);
+            vo.setUserNo("987");
+            vo.setFileName(fileNameWithoutExtension);
+            vo.setExtension(fileExtension);
             
+            log.info(vo+"");
             
-//            // 파일 업로드 성공 처리
-            return "redirect:/uploadSuccess"; // 업로드 성공 페이지로 리다이렉트
+            int result =  service.uploadFile(vo);
+            log.info(result+"");
+            if (result < 1) {
+            	return "uploadFailure";
+			}
+            
+             List<DocumentVo> documentList = service.getDocumentList();
+            
+//           // 파일 업로드 성공 처리
+            return "success"; // 업로드 성공 
         } catch (IOException e) {
 //            // 파일 업로드 실패 처리
-            return "redirect:/uploadFailure"; // 업로드 실패 페이지로 리다이렉트/
+            return "uploadFailure"; // 업로드 실패 페이지로 리다이렉트/
         }
         
         //폴더 용량
