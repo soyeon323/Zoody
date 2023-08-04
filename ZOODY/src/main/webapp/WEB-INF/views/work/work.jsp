@@ -193,33 +193,7 @@ inputCheckboxes.forEach(checkbox => {
 
 
 
-
-
-// // // 체크박스가 체크될 때마다 meter의 value 값 증가
-// const inputCheckbox = document.querySelector('#my_modal2 input[type="checkbox"]');
-// inputCheckbox.addEventListener('change', function() {
-//         var checkedCount = document.querySelectorAll('#my_modal2 input[type="checkbox"]:checked').length;
-//         var totalCount = document.querySelectorAll('#my_modal2 input[type="checkbox"]').length;
-//         var progressPercentage = (checkedCount / totalCount) * 100;
-//         var meter = document.getElementById('meter');
-//         meter.value = progressPercentage;
-
-//          // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
-//      var completeBtn = document.getElementById('completeBtn');
-//      var addBtn = document.querySelector('#addBtn');
-//         if (checkedCount === totalCount) {
-//             completeBtn.style.display = 'block';
-//             addBtn.style.display = 'none';
-//         } else {
-//             completeBtn.style.display = 'none';
-//             addBtn.style.display = 'block';
-//         }
-//     });
-
-
-
-
-//  input +   (프로그레스바 처리)
+//  input 
 document.getElementById('plusBtn').addEventListener('click', function() {
     var fieldset = document.querySelector('fieldset');
 
