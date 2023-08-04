@@ -84,4 +84,9 @@ public class AnimalDao {
 		return sst.update("animal.animalDie" , vo);
 	}
 
+	//동물 담당부서 수정
+	public int animalDeptEdit(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.update("animal.animalDeptEdit" , vo);
+	}
+
 }

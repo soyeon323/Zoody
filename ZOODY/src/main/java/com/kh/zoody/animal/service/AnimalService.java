@@ -91,4 +91,9 @@ public class AnimalService {
 	public int animalDie(AnimalVo vo) {
 		return dao.animalDie(sst,vo);
 	}
+
+	//동물 담당 부서 수정
+	public int animalDeptEdit(AnimalVo vo) {
+		return dao.animalDeptEdit(sst, vo);
+	}
 }

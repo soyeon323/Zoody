@@ -103,3 +103,18 @@
         display: grid;
         grid-gap: 10px;
     }
+
+    #edit{
+        display: none;
+        background: #00BEEA;
+        border-radius: 3px;
+    }
+
+    #edit:hover{
+        size: 0.5em;
+        background-color: rgb(56, 211, 115);
+    }
+
+    #position{
+        display: none;
+    }
