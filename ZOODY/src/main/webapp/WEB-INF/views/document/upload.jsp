@@ -6,19 +6,160 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style>
+
+    #upload-modal {
+        position: absolute;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        background: #26262678;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+       
+        /* display: none; */
+    }
+    
+    .upload-grid-body {
+        width: 730;
+        height: 700;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 7px -2px rgba(0, 0, 0, 0.25);
+        display: grid;
+        grid-template-rows: 40px 150px 510px;
+    
+        overflow: hidden;
+    }
+    
+    .upload-grid-body > div:not(.upload-top-bar) {
+        padding: 40 130 0 130;
+        border-bottom: 1px solid #D9D9D9;
+        border-radius: 0 0 5px 5px;
+    }
+    
+    .upload-top-bar{
+        background-color: #4876EF;
+        width: 730;
+        height: 40;
+    }
+    
+    .upload-grid-body > div:not(.upload-top-bar) {
+        padding: 40 130 0 130;
+        border-bottom: 1px solid #D9D9D9;
+        border-radius: 0 0 5px 5px;
+        font-size: 25;
+        font-weight: 500;
+    }
+    
+    .upload-meddle {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        width: 470;
+        align-content: flex-start;
+    }
+    
+    .upload-meddle > div:not(.flie-upload-area) {
+        font-size: 15;
+        font-weight: 400;
+        height: 40;
+    }
+    
+    .upload-title {
+        width: 290;
+        border: 1px solid #d9d9d9;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+    
+    .upload-title > input {
+        outline: none;
+        border: none;
+        font-size: 15;
+        width: 80%;
+    }
+    
+    .upload-title > span {
+        color: #636567;
+    }
+    
+    .upload-option-area {
+        width: 170;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .upload-option-area > select {
+        width: 100%;
+        height: 45%;
+        outline:1px solid #D9D9D9;
+        box-sizing: border-box;
+        border-radius: 3px;
+        border: #D9D9D9;
+    }
+    
+    .upload-radio-area {
+        font-size: 13px;
+        display: flex;
+        align-items: flex-end;
+        color: #636567;
+    }
+    
+    .flie-upload-area {
+        width: 100%;
+        height: 260;
+        align-self: flex-start;
+        border: 1px solid #d9d9d9;
+        box-sizing: border-box;
+        border-radius: 5px;
+        display: grid;
+        grid-template-rows: 1fr 8fr;
+        margin-top: 12px;
+    }
+    
+    .btn-area {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-top: 10;
+    }
+    
+    .btn-area > div {
+        width: 85;
+        height: 35;
+        background-color: #99b3cd;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    
+    </style>
+
 <script>
     $(document).ready(function() {
         $("#uploadForm").submit(function(e) {
             e.preventDefault();
             var formData = new FormData($(this)[0]);
-            let x = $("#uploadForm > input[type='text']").text;
 
-            
+            console.log(formData);
+
             console.log(root+"/document/upload");
-            let loginUserId = $("input[type='text']").val();
+            let loginUserId = $("#hidden-id").val();
             console.log("Text Input Value:", loginUserId);
             
-            formData.append("textInputValue", loginUserId); // 추가
+            formData.append("loginUserId", loginUserId); // 추가
             $.ajax({
                 url: root+"/document/upload",
                 type: "POST",
@@ -26,25 +167,87 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    $("#result").text(response);
+                console.log(response); // 성공 시 서버 응답을 출력
+                    $("#result").text(response); // 업로드 성공 시 결과를 화면에 출력
                 },
                 error: function(xhr, status, error) {
-                    $("#result").text("파일 업로드 실패: " + error);
+                    console.log(xhr.responseText); // 실패 시 서버 응답을 출력
+                    $("#result").text("파일 업로드 실패: " + error); // 업로드 실패 시 에러 메시지를 화면에 출력
                 }
             });
         });
     });
 </script>
 </head>
+
 <body>
-<h1>파일 업로드 예제 (AJAX)</h1>
-<form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" name="file">
-    <input type="text" value="test">
-    <input type="submit" value="Upload">
-</form>
-<div id="result"></div>
+    
+    <div id="upload-modal">
+        <div class="upload-grid-body">
+            
+            <div class="upload-top-bar"></div>
+
+            
+            <div class="upload-header">
+                업로드
+            </div>
+            
+            <div class="upload-meddle">
+                <div class="upload-title">
+                    <span>제목 |</span>
+                    <input type="text">
+                </div>
+                
+                <div class="upload-option-area">
+                    <select name="" id="">
+                        <option value="1" checked>카테고리</option>
+                        <option value="2" checked>1</option>
+                        <option value="3" checked>2</option>
+                    </select>
+                    <div class="upload-radio-area">공개 설정
+                        <input type="radio" name="right-click" value="yes" checked><div>허용</div>
+                        <input type="radio" name="right-click" value="no"><div>허용안함</div>
+                    </div>
+                </div>
+
+                <div class="flie-upload-area">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <input type="file" name="file">
+
+                        <c:if test="${empty loginMember.name}">
+                            <input id="hidden-id" type="text" value="test">
+                        </c:if>
+                        <c:if test="${not empty loginMember.name}">
+                            <input id="hidden-id" type="text" value="${loginMember.name}">
+                        </c:if>
+
+                        <input type="submit" value="Upload">
+                    </form>
+                    <div id="result"></div>
+                </div>
+                    
+
+                <div class="btn-area">
+                    <div>등록</div>
+                    <div onclick="closeModal()">취소</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        
+
+            
+    
+
 </body>
+
 </html>
 
+<script>
 
+    function closeModal() {
+        $("#upload-modal").css("display","none");
+    }
+
+</script>

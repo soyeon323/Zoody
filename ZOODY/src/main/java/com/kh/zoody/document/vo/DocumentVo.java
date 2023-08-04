@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class DocumentVo {
 	
+	private String no;
 	private String userNo;
 	private String department; //부서
 	private String catNo; // 카테고리

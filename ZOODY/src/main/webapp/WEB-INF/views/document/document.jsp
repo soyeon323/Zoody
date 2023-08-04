@@ -22,7 +22,7 @@
     
             <div class="document-side">
 
-                <div onclick="documentUpload()">작성하기</div>
+                <div onclick="documentUpload()">업로드</div>
 
                 <ul>문서
                     <li>전사 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
@@ -93,83 +93,7 @@
 	                            </tr>
                             </c:forEach>
                             
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>제목입니다</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
 
@@ -178,6 +102,8 @@
             </div>
 
         </div>
+
+        <%@ include file="/WEB-INF/views/document/upload.jsp" %>
 
 
     </div>
@@ -190,6 +116,6 @@
 <script>
 
     function documentUpload() {
-        $(location).attr("href", root + "/document/upload");
+        $("#upload-modal").css("display","grid");
     }
 </script>
