@@ -29,7 +29,7 @@
             <!-- 첫번째 줄 -->
             <div class="att_check" >
                 <p>반갑습니다</p>
-                <p>이동욱님</p>
+                <p>오영택님</p>
                 <button type="submit" name="check-first" id="checkInBtn"  onclick="handleCheckIn()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <g clip-path="url(#clip0_325_6756)">

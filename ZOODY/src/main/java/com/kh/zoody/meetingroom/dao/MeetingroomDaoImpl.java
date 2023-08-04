@@ -1,6 +1,7 @@
 package com.kh.zoody.meetingroom.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,11 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 	@Override
 	public int updateMeetingroom(SqlSessionTemplate sst, MeetingroomVo mvo) {
 		return sst.update("meetingroom.updateMeetingroom", mvo);
+	}
+
+	@Override
+	public List<Map<String, Object>> reserveTime(SqlSessionTemplate sst) {
+		return sst.selectList("meetingroom.reserveTime");
 	}
 
 

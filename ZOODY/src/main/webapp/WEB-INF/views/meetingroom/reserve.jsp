@@ -69,7 +69,58 @@
                         </div>
 	                    <div class="card-body">
 	                      <h5 class="card-title">${vo.name} 회의실</h5>
-	                      <a href="#" class="btn btn-primary">예약하기</a>
+	                      <!-- <a href="#" class="btn btn-primary">예약하기</a> -->
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary reserveBtn" data-bs-toggle="modal" data-vo-no="${vo.no}" data-bs-target="#staticBackdrop" onclick="reserve();">
+                                예약하기
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">예약 가능 시간</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                                <button type="button" class="timeBtn">오전 <span>09:00</span></button>
+                                                <button type="button" class="timeBtn">오전 <span>10:00</span></button>
+                                                <button type="button" class="timeBtn">오전 <span>11:00</span></button>
+                                                <button type="button" class="timeBtn">오후 <span>12:00</span></button>
+                                                <button type="button" class="timeBtn">오후 <span>01:00</span></button>
+                                                <button type="button" class="timeBtn">오후 <span>02:00</span></button>
+                                                <button type="button" class="timeBtn">오후 <span>03:00</span></button>
+                                                <button type="button" class="timeBtn">오후 <span>04:00</span></button>
+                                                <button type="button" class="timeBtn">오후 <span>05:00</span></button>
+                                                <div class="resInfo">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+                                                    <g clip-path="url(#clip0_1585_8779)">
+                                                      <path d="M5.5 0C4.41221 0 3.34884 0.322569 2.44437 0.926917C1.5399 1.53127 0.834947 2.39025 0.418665 3.39524C0.00238307 4.40024 -0.106535 5.5061 0.105683 6.573C0.317902 7.63989 0.841726 8.6199 1.61092 9.38909C2.3801 10.1583 3.36011 10.6821 4.42701 10.8943C5.4939 11.1065 6.59977 10.9976 7.60476 10.5813C8.60976 10.1651 9.46874 9.46011 10.0731 8.55564C10.6774 7.65117 11 6.5878 11 5.5C10.9984 4.04179 10.4185 2.64376 9.38735 1.61265C8.35624 0.581546 6.95821 0.00157716 5.5 0V0ZM5.5 10.0833C4.59351 10.0833 3.70736 9.81453 2.95364 9.3109C2.19991 8.80728 1.61246 8.09146 1.26555 7.25397C0.918653 6.41647 0.827888 5.49492 1.00474 4.60584C1.18159 3.71676 1.61811 2.90008 2.2591 2.25909C2.90009 1.6181 3.71676 1.18158 4.60584 1.00473C5.49492 0.827885 6.41647 0.918651 7.25397 1.26555C8.09146 1.61245 8.80728 2.19991 9.3109 2.95364C9.81453 3.70736 10.0833 4.5935 10.0833 5.5C10.082 6.71517 9.59869 7.88018 8.73943 8.73943C7.88018 9.59869 6.71517 10.082 5.5 10.0833V10.0833Z" fill="#C5C5C5"/>
+                                                      <path d="M5.49935 2.2915C5.37779 2.2915 5.26121 2.33979 5.17526 2.42575C5.0893 2.5117 5.04102 2.62828 5.04102 2.74984V6.4165C5.04102 6.53806 5.0893 6.65464 5.17526 6.74059C5.26121 6.82655 5.37779 6.87484 5.49935 6.87484C5.62091 6.87484 5.73749 6.82655 5.82344 6.74059C5.9094 6.65464 5.95769 6.53806 5.95769 6.4165V2.74984C5.95769 2.62828 5.9094 2.5117 5.82344 2.42575C5.73749 2.33979 5.62091 2.2915 5.49935 2.2915Z" fill="#C5C5C5"/>
+                                                      <path d="M5.95769 8.24984C5.95769 7.99671 5.75248 7.7915 5.49935 7.7915C5.24622 7.7915 5.04102 7.99671 5.04102 8.24984C5.04102 8.50297 5.24622 8.70818 5.49935 8.70818C5.75248 8.70818 5.95769 8.50297 5.95769 8.24984Z" fill="#C5C5C5"/>
+                                                    </g>
+                                                    <defs>
+                                                      <clipPath id="clip0_1585_8779">
+                                                        <rect width="11" height="11" fill="white"/>
+                                                      </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <span>최대 2시간 예약 가능합니다.</span>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary subBtn" data-bs-dismiss="modal">취소</button>
+                                    <button type="submit" class="btn btn-primary subBtn">예약</button>
+                                    </div>
+                                </div>
+                                </div>
+
+                                
+                            </div>
+
+
 	                      <div class="card-text">
 	                        <span>Capacity</span>
 	                        <span>Conference</span>
@@ -103,6 +154,7 @@
         </div>
     </div>
 
+
     <script>
         // 모든 .card 요소 선택
         const cards = document.querySelectorAll('.card');
@@ -128,31 +180,12 @@
     </script>
 
     <script>
-        // function mtUpdate(event) {
-        //     // event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
-        //     const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
-        //     sendAjaxForUpdate(voNo); // Ajax 요청 함수 호출
-        // }
 
         function mtDelete(event) {
-            event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지합니다.
+            event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지
             const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
             sendAjaxForDelete(voNo); // Ajax 요청 함수 호출
         }
-
-        // function sendAjaxForUpdate(voNo) {
-        //     $.ajax({
-        //         url: '${root}/meetingroom/reserve/update',
-        //         method: 'POST',
-        //         data: { no: voNo },
-        //         success: function(response) {
-        //             alert("조회 성공.")
-        //         },
-        //         error: function(error) {
-        //             alert("수정 오류");
-        //         }
-        //     });
-        // }
 
         function sendAjaxForDelete(voNo) {
             $.ajax({
@@ -168,7 +201,64 @@
                 }
             });
         }
+
     </script>
+
+    <!-- <script>
+        function reserve() {
+
+        const reserveBtn = document.querySelector('.reserveBtn');
+        const meetingroomNo = reserveBtn.getAttribute('data-vo-no');
+
+        $.ajax({
+            url:"${root}/meetingroom/time",
+            data : meetingroomNo,
+            dataType: "JSON",
+            method: "GET",
+            success:function(result){
+                console.log(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        })
+
+        console.log("data-vo-no 값:", voNo);
+        }
+    </script> -->
+
+    <script>
+
+        // var reserveBtns = document.querySelectorAll('.reserveBtn');
+        //     reserveBtns.forEach(function(reserveBtn) {
+        //         reserveBtn.addEventListener('click', function() {
+        //             var meetingroomNo = this.dataset.meetingroomNo;
+        //             var meetingroomNoInput = document.querySelector('input[name="meetingroomNo"]');
+        //             meetingroomNoInput.value = meetingroomNo;
+        //         });
+        //     });
+            
+        // console.log(meetingroomNo);
+
+        // function reserve() {
+
+        //     $.ajax({
+        //         url: '${root}/meetingroom/reserve',
+        //         method: "GET",
+        //         data: { voNo: voNo },
+        //         success: function (response) {
+                    
+        //             console.log("서버 응답:", response);
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error("에러 발생:", error);
+        //         }
+        //     });
+        // }
+    </script>
+
     
+
 </body>
 </html>

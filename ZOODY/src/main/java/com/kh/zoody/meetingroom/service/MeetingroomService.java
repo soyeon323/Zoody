@@ -1,6 +1,7 @@
 package com.kh.zoody.meetingroom.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,8 @@ public interface MeetingroomService {
 	MeetingroomVo selectDetail(String no);
 
 	int updateMeetingroom(MeetingroomVo mvo, MultipartFile file);
+
+	List<Map<String, Object>> reserveTime();
 
 
 }
