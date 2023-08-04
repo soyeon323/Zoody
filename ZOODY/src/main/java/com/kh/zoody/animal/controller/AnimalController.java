@@ -149,7 +149,7 @@ public class AnimalController {
 			throw new RuntimeException();
 		}
 
-		return "redirect:/animal/training-list";
+		return "redirect:/animal/training/list?page=1";
 	}
 	
 	//동물 훈련 일지 상세조회
@@ -203,7 +203,7 @@ public class AnimalController {
 			throw new RuntimeException();
 		}
 
-		return "redirect:/animal/health-list";
+		return "redirect:/animal/health/list?page=1";
 	}
 	
 	//동물 건강 상태 상세조회

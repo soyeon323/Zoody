@@ -48,6 +48,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:if test="${empty map.animalHealthList }">
+						<tr class="searchNoResult">
+                            <td colspan="6">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </c:if>
                        <c:forEach items="${map.animalHealthList}" var="animalHealthList">
                         <tr onclick="healthDetail('${animalHealthList.no}');">
                             <td>${animalHealthList.no}</td>
@@ -77,7 +82,7 @@
                         </c:if>
 
                         <c:if test="${mpa.pv.currentPage == i}">
-                            <a style="font-size: 0.5em; display: block;">${i}</a>
+                            <a style="font-size: 0.5em; background-color: aqua;">${i}</a>
                         </c:if>
 
                 </c:forEach>

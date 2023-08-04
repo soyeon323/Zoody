@@ -89,7 +89,6 @@
               </div>
               <div id="btn-area" style="margin-left: 400px;"> 
                  <input class="btn btn-primary" id="addBtn" style="font-size: 1.3em;" type="submit" onclick="writeComment('${loginMember.no}')" value="추가" >
-                 <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
              </div>
           </div>
 
@@ -104,7 +103,13 @@
                  
                  <fieldset>
                   <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
-                    <input type="text">   <!--value="${workContent}"  뽀이찌문-->
+                    <input type="text">   <!--value="${workContent}" -->
+                    <input type="checkbox">
+                    <input type="text">   <!--value="${workContent}" -->
+                    <input type="checkbox">
+                    <input type="text">   <!--value="${workContent}" -->
+                    <input type="checkbox">
+                    <input type="text">   <!--value="${workContent}" -->
                     <input type="checkbox">
                  </fieldset>
               </div>
@@ -115,7 +120,7 @@
                       <input type="date" name="endDate"/><!--value="${endDate}"-->
               </div>
               <div id="btn-area" style="margin-left: 400px;"> 
-                 <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
+                <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
              </div>
           </div>
           
@@ -152,7 +157,7 @@ document.querySelector('#completeBtn').addEventListener('click' , function () {
    //완료 버튼 눌렀을때 실행될 코드 
    alert('업무 완료');
 
-   const modal = document.querySelector('#my_modal');
+   const modal = document.querySelector('#my_modal2');
     modal.style.display = 'none';
 
    var column3 = document.querySelector('.column3');
@@ -161,6 +166,57 @@ document.querySelector('#completeBtn').addEventListener('click' , function () {
    column3.appendChild(selectedTag);
 
 });
+
+
+// 모달 내 체크박스들
+const inputCheckboxes = document.querySelectorAll('#my_modal2 input[type="checkbox"]');
+// 완료 버튼
+const completeBtn = document.querySelector('#completeBtn');
+
+// 체크박스 상태 변경 이벤트 리스너
+inputCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const checkedCount = document.querySelectorAll('#my_modal2 input[type="checkbox"]:checked').length;
+        const totalCount = inputCheckboxes.length;
+        const progressPercentage = (checkedCount / totalCount) * 100;
+        const meter = document.getElementById('meter');
+        meter.value = progressPercentage;
+
+        // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
+        if (checkedCount === totalCount) {
+            completeBtn.style.display = 'block';
+        } else {
+            completeBtn.style.display = 'none';
+        }
+    });
+});
+
+
+
+
+
+// // // 체크박스가 체크될 때마다 meter의 value 값 증가
+// const inputCheckbox = document.querySelector('#my_modal2 input[type="checkbox"]');
+// inputCheckbox.addEventListener('change', function() {
+//         var checkedCount = document.querySelectorAll('#my_modal2 input[type="checkbox"]:checked').length;
+//         var totalCount = document.querySelectorAll('#my_modal2 input[type="checkbox"]').length;
+//         var progressPercentage = (checkedCount / totalCount) * 100;
+//         var meter = document.getElementById('meter');
+//         meter.value = progressPercentage;
+
+//          // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
+//      var completeBtn = document.getElementById('completeBtn');
+//      var addBtn = document.querySelector('#addBtn');
+//         if (checkedCount === totalCount) {
+//             completeBtn.style.display = 'block';
+//             addBtn.style.display = 'none';
+//         } else {
+//             completeBtn.style.display = 'none';
+//             addBtn.style.display = 'block';
+//         }
+//     });
+
+
 
 
 //  input +   (프로그레스바 처리)
@@ -177,25 +233,7 @@ document.getElementById('plusBtn').addEventListener('click', function() {
     inputCheckbox.setAttribute('name', 'chaekListName');
     inputCheckbox.style.width = "25px";
 
-    // // 체크박스가 체크될 때마다 meter의 value 값 증가
-    // inputCheckbox.addEventListener('change', function() {
-    //     var checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-    //     var totalCount = document.querySelectorAll('input[type="checkbox"]').length;
-    //     var progressPercentage = (checkedCount / totalCount) * 100;
-    //     var meter = document.getElementById('meter');
-    //     meter.value = progressPercentage;
-
-    //      // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
-    //  var completeBtn = document.getElementById('completeBtn');
-    //  var addBtn = document.querySelector('#addBtn');
-    //     if (checkedCount === totalCount) {
-    //         completeBtn.style.display = 'block';
-    //         addBtn.style.display = 'none';
-    //     } else {
-    //         completeBtn.style.display = 'none';
-    //         addBtn.style.display = 'block';
-    //     }
-    // });
+    
 
     fieldset.appendChild(inputText);
     fieldset.appendChild(inputCheckbox);

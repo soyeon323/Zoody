@@ -3,7 +3,10 @@
     pageEncoding="UTF-8"%>
 
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
+    <!-- summerNote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <html>
 <head>
 <link rel="stylesheet" href="${root}/resources/css/animal/training.css">
@@ -19,7 +22,8 @@
     
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+     <!-- summerNote -->
+     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <div id="wrap">
 
         <div id="enroll">훈련 일지상세 조회</div>
@@ -29,7 +33,7 @@
                     <textarea name="title" id="t1" cols="30" rows="10">${vo.trainingTitle}</textarea>
                   
                     <span>훈련 내용</span >
-                    <textarea name="content" cols="30" rows="10">${vo.trainingContent}</textarea>
+                    <div style="resize: no;" name="content" id="summernote" readonly cols="30" rows="10">${vo.trainingContent}</div>
                 </div>
                
                 <div id="btn-area">
@@ -41,3 +45,55 @@
 
 </body>
 </html>
+
+<script>
+
+ // sunnerNote
+ $('#summernote').summernote({
+        	placeholder: '내용입력',
+        	tabsize: 2,
+        	height: 500,
+        	maxHeight:800,
+        	minHeight:500,
+        	width: 1500,
+		callbacks : {
+			onImageUpload : f01
+		},
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+
+      function f01(FileList) {
+
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
+
+        $.ajax({
+            url :'' ,
+            type : 'post',
+            data : fd,
+            processData : false,
+            contentType : false,
+            dataType:'json',
+            success : (changeNameList)=>{
+                console.log(changeNameList);
+                for(let changeName of changeNameList){
+                    $('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
+                }
+            },
+            error : (e)=>{
+                alert(e);
+            }
+        });
+        }
+
+</script>
