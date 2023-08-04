@@ -35,7 +35,7 @@
                 
                 <c:if test="${empty loginMember.profile}">
                     <div class="img-profile">
-                            <img class="profile-img" src="${root}/resources/img/employee/default_profile.svg" alt="">
+                            <img class="profile-img" src="${root}/resources/img/profile/default_profile.svg" alt="">
                     </div>
                     <div class="box-profile">
                         이름
@@ -44,13 +44,17 @@
 
                 <c:if test="${not empty loginMember.profile}">
                     <div class="img-profile">
-                        <img class="user-profile-img" src="${root}/resources/img/employee/${loginMember.profile}" alt=" ">
+                        <img class="user-profile-img" src="${root}/resources/img/profile/${loginMember.id}.png" alt=" ">
 
                     </div>
                     
                     <div class="box-profile">
                         ${loginMember.name}
                     </div>
+                    <input id="header-get-loginMember-no" style="display: none;" value="${loginMember.no}">
+                        
+                    
+
                 </c:if>
                 </div>
             </div>

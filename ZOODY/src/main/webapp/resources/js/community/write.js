@@ -104,10 +104,10 @@ $(".registration-btn").on("click" , function () {
     const title = $(".title").val();
     const summernoteCode = $('#summernote').summernote('code');
     const selectCategory = $("select[name=Big-Category]").val();
-
+    const memberNo =  $("#header-get-loginMember-no").val();
  
 
-    console.log(title);
+    console.log(memberNo);
     
     if (title == null || title == '') {
         
@@ -139,7 +139,7 @@ $(".registration-btn").on("click" , function () {
             file : "1.text" ,
             content : summernoteCode,
             catNo : 4 ,//임시 수정 해야됨
-            userNo : 1 ,//임시 수정 해야됨
+            userNo : memberNo ,
         },
         success : function(data) {
             

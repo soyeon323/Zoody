@@ -76,10 +76,10 @@
                             	<tr>
 	                                <td>${ list.rownum }</td>
 	                                <td>${ list.title }</td>
-	                                <td>${ list.userNo }</td>
+	                                <td>${ list.name }</td>
 	                                <td>${ list.hit }</td>
 	                                <td>${ list.enrollDate }</td>
-                                    <td style="display: none;">${ list.no }</td>
+                                    <td style="display: none;">${ list.boardNo }</td>
 	                            </tr>
                             </c:forEach>
                             

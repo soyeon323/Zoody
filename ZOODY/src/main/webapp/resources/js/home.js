@@ -22,7 +22,7 @@ function goToCommunity() {
     window.location.replace(root+"/community/board/freeBoard");
 } 
 
-$(".community-list").on("click",function(e){
+$(".community-list:nth-child(n+2)").on("click",function(e){
 
     let boardNo = null;
     let listTarget = $(e.target).hasClass("community-list");
