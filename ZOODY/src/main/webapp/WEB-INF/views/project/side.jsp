@@ -90,7 +90,7 @@
     <aside class="mini-side">
         <div><a>참여중인 프로젝트</a></div>
         <div>
-            <button>목록으로</button>
+            <button onclick="prjList();">목록으로</button>
         </div>
         <div><a>판다 개체보존 프로젝트</a></div>
         <div>
@@ -153,4 +153,9 @@
             });
         });
         });
+
+        //목록으로
+        function prjList(){
+            location.href = '${root}/project/progress';
+        }
     </script>

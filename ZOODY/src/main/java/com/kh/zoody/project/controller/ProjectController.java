@@ -1,4 +1,4 @@
-package com.kh.zoody.project;
+package com.kh.zoody.project.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +79,6 @@ public class ProjectController {
 		if(result1 != 1 || result2 == 0) {
 			throw new RuntimeException();
 		}
-		
 		return pjVoInfo;
 	}
 	

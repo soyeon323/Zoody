@@ -43,11 +43,11 @@
 	</beans:bean>
 	
 	<!-- 웹소켓 bean등록 -->
-	<beans:bean id="khWebsocketServerBean" class="com.kh.zoody.websocket.server.WebsocketServer"></beans:bean>
+	<beans:bean id="WebsocketServerBean" class="com.kh.zoody.websocket.server.WebsocketServer"></beans:bean>
 	
 	<!-- 웹소켓 핸들러 맵핑 -->
 	<websocket:handlers>
-		<websocket:mapping handler="khWebsocketServerBean" path="/chat"/>
+		<websocket:mapping handler="WebsocketServerBean" path="/project"/>
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
 		</websocket:handshake-interceptors>

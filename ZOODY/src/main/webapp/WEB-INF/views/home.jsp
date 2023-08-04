@@ -10,7 +10,7 @@
 
 <script src="${root}/resources/js/common/weather.js"></script>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     
     <%@ include file="/WEB-INF/views/header.jsp" %>

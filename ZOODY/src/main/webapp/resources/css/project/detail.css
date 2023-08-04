@@ -324,6 +324,17 @@ input::placeholder{
     border: none;
 }
 
+.modal .modal-footer>div:nth-child(2){
+    margin-bottom: 20px;
+}
+
+.modal .modal-footer>div:nth-child(2)>input{
+    height: 25px;
+    width: 400px;
+    border: none;
+    margin-bottom: 10px;
+}
+
 .modal .modal-footer>div:nth-child(2)>textArea:focus{
     outline: none;
 }
@@ -337,3 +348,76 @@ input::placeholder{
     font-size: 17px;
 }
 
+.modal .modal-header{
+    display: grid;
+    grid-template-columns: 130px 350px 50px;
+}
+
+.modal .modal-header div{
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.modal .modal-header>div:nth-child(3){margin-right: 17px;}
+.modal .modal-header>div:first-child{margin-left: 15px;}
+.modal .modal-header>div:first-child>a{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modal .modal-header>div:first-child>svg{
+    margin-left: 8px;
+}
+
+.modal .modal-content .modal-body{
+    overflow-y: auto;
+}
+
+/* 채팅 */
+#toMsg{
+    display: grid;
+    grid-template-columns: 50px 400px;
+    grid-template-rows: 37px 80px;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+#toMsg>div:first-child{
+    grid-row: span 2;
+}
+
+#toMsg>div:first-child>img{
+    width: 35px;
+    height: 35px;
+    border-radius: 70%;
+}
+
+#toMsg>div:nth-child(2){
+    margin-top: 5px;
+}
+
+#toMsg>div:nth-child(3){
+    width: 380px;
+    height: 60px;
+    background-color: #4876EF;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#fromMsg{
+    display: flex;
+    justify-content: end;
+    margin-right: 10px;
+    margin-top: 7px;
+}
+
+#fromMsg>div{
+    width: 380px;
+    height: 60px;
+    background-color: #00CBA4;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
