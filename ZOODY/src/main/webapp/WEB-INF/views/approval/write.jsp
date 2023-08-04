@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${root}/resources/css/approval/write.css">
 <script defer src="${root}/resources/js/approval/write/common.js"></script>
 </head>
-<body>sender
+<body>
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	

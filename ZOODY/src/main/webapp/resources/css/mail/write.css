@@ -160,6 +160,9 @@
 
      overflow-y: scroll;
 }
+.mail-write-area::-webkit-scrollbar {
+    display: none;
+  }
 .mail-send-form {
 	display: flex;
     flex-direction: column;

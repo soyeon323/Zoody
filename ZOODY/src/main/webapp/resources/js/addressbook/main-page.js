@@ -122,12 +122,25 @@ searchInput.addEventListener('keyup', (event) => {
 });
 
 function searchEmployee(event) {
+    let extendsBtns = document.querySelector('.extends-list');
+
     fetch(contextPath + "/addressbook/search?keyword=" + searchInput.value)
         .then( (response) => response.json() )
         .then( (data) => {
 
-            console.log(data);
+            data.forEach(dataInfo => {
 
+                extendsBtns.forEach(element => {
+
+                    console.log(element.id);
+                    console.log(dataInfo.departmentNo);
+
+                    if(element.id != dataInfo.departmentNo) {
+                        element.click();
+                    }
+                });
+
+            });
         })
         .catch( err => {})
 }
