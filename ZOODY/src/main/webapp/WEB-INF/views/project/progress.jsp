@@ -18,28 +18,29 @@
     
     <div id="wrap">
         
+        <script>
+            console.log('${prjList}');
+        </script>
         <div id="progress">
             <a>진행중인 프로젝트</a>
         </div>
 
         <div id="contentArea">
             <div id="content-1">
-                <c:if test="${list.no == 1}">
-                    <c:forEach items="${prjList}" var="list">
-                        <div>
-                            <a>${list.title}</a>
-                        </div>
-                        <div>
-                            <a>d</a>
-                        </div>
-                        <div>
-                            <a>${list.startDate} ~ ${list.endDate}</a>
-                        </div>
-                        <div>
-                            <a href="">더보기 ></a>
-                        </div>
-                    </c:forEach>
-                </c:if>
+                <c:forEach items="${prjList}" var="list">
+                    <div>
+                        <a>${list.title}</a>
+                    </div>
+                    <div>
+                        <a>d</a>
+                    </div>
+                    <div>
+                        <a>${list.startDate} ~ ${list.endDate}</a>
+                    </div>
+                </c:forEach>
+                <div>
+                    <a href="">더보기 ></a>
+                </div>
             </div>
             <div id="content-4">
                 <div>

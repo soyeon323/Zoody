@@ -172,3 +172,30 @@ table tbody tr:hover{
     width: 15px;
     height: 15px;
 }
+
+/* 페이징 */
+button[class='active']{
+    background-color: #4876EF;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+    width: 25px;
+    height: 25px;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+button[class='nomalBtn']{
+    border: none;
+    color: #313131;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 25px;
+    height: 25px;
+}

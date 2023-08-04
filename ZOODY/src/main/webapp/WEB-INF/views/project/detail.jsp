@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -80,7 +79,6 @@
                         <div id="prjProgress">
                             <div>프로젝트 진행도</div>
                             <%@ include file="/WEB-INF/views/project/chart.jsp" %>
-                              
                         </div>
                     </div>
                 </div>
@@ -96,7 +94,7 @@
                 <div class="noticeArea">
                     <div>
                         <a>공지사항</a>
-                        <button type="button">
+                        <button type="button" onclick="goNotice('${loginMember.id}');">
                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12" fill="none">
                                 <path d="M0.706 11.9993L0 11.2933L4.9405 6.35281C5.03424 6.25905 5.08689 6.13189 5.08689 5.99931C5.08689 5.86673 5.03424 5.73958 4.9405 5.64581L0.0085001 0.714813L0.7155 0.0078125L5.6465 4.93881C5.92771 5.2201 6.08568 5.60157 6.08568 5.99931C6.08568 6.39706 5.92771 6.77852 5.6465 7.05981L0.706 11.9993Z" fill="white"/>
                             </svg>
@@ -118,7 +116,7 @@
                 <div class="suggestionArea">
                     <div>
                         <a>건의사항</a>
-                        <button type="button">
+                        <button type="button" onclick="goSuggestion('${loginMember.id}');">
                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12" fill="none">
                                 <path d="M0.706 11.9993L0 11.2933L4.9405 6.35281C5.03424 6.25905 5.08689 6.13189 5.08689 5.99931C5.08689 5.86673 5.03424 5.73958 4.9405 5.64581L0.0085001 0.714813L0.7155 0.0078125L5.6465 4.93881C5.92771 5.2201 6.08568 5.60157 6.08568 5.99931C6.08568 6.39706 5.92771 6.77852 5.6465 7.05981L0.706 11.9993Z" fill="white"/>
                             </svg>
@@ -142,17 +140,27 @@
                 </div>
             </div>
         </div>
-          
+    
         <!-- 채팅창 모달 -->
         <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog">
               <div class="modal-content" style="height: 600px; width: 550px;">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div>
+                        <a>현재접속자</a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" fill="none">
+                            <circle cx="4.5" cy="4.5" r="4.5" fill="#00CBA4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <a>오영택 대리</a>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                 </div>
                 <div class="modal-body">
-                  
+                    <div id="result"></div>
                 </div>
                 <div class="modal-footer">
                   <div>
@@ -163,7 +171,7 @@
                     </button>
                   </div>
                   <div>
-                    <textarea id="contentArea" name="content" placeholder="메세지를 입력하세요."></textarea>
+                    <input id="contentArea" name="content" placeholder="메세지를 입력하세요."></input>
                   </div>
                   <div>
                     <button onclick="sendMsg();">
@@ -189,5 +197,84 @@
 </body>
 </html>
 <script>
+    //웹소켓 만들기
+    let ws = new WebSocket("ws://127.0.0.1:8888/zoody/project");
 
+    //웹소켓이 연결됐을 때 동작할 함수
+    ws.onopen = funcOpen;
+
+    //닫았을 때 동작
+    ws.onclose = funcClose;
+
+    //에러발생했을때
+    ws.onerror = funcError;
+
+    //메세지 받았을 때
+    ws.onmessage = funcMessage;
+
+    function funcOpen(){
+        console.log("소켓연결됨");
+    }
+
+    function funcClose(){
+        console.log("소켓닫힘");
+    }
+
+    function funcError(){
+        console.log("소켓에러남");
+    }
+
+    const fromMsg = document.querySelector("#result");
+    function funcMessage(msg){
+    console.log(msg.data);
+    const obj = JSON.parse(event.data);
+    fromMsg.innerHTML += "<div>" + "<strong>[" + obj.nick + "]</strong> : " + "<span>" + obj.msg + "</span>" + "<sub>" + obj.time + "</sub>" + "</div>";
+    }
+
+    function sendMsg(){
+        const userMsg = document.querySelector("input[name='content']").value;
+        ws.send(userMsg);
+    }
+
+    //채팅 글작성 초기화
+    function contentReset(){
+        document.querySelector("input[name='content']").value = "";
+    }
+
+    function goNotice(id){
+        if(id == 'admin'){
+            location.href = '${root}/admin/notice/list';
+        }else {
+            location.href = '${root}/notice/list';
+        }
+    }
+
+    function goSuggestion(id){
+        if(id == 'admin'){
+            location.href = '${root}/admin/suggestion/list';
+        }else {
+            location.href = '${root}/suggestion/list';
+        }
+    }
 </script>
+
+<!-- 임시저장
+
+    <div id="toMsg">
+        <div>
+            <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
+        </div>
+        <div>
+            <a>오영택 대리</a>
+        </div>
+        <div id="toMsgText">
+            
+        </div>
+    </div>
+    <div id="fromMsg">
+        <div id="fromMsgText">
+            
+        </div>
+    </div>
+
+ -->
