@@ -79,7 +79,26 @@
                     
                         <div class="news-header">뉴스 / 최신글</div>
                         <div class="news-news"></div>
-                        <div class="news-newpost"></div>
+                        <div class="news-newpost">
+                            <div class="community-list">
+                                <div>제목</div>
+                                <div>작성자</div>
+                                <div>조회수</div>
+                                <div></div>
+                            </div>
+                            <c:forEach items="${ newBoardList }" var="list">
+                                
+
+                                <div class="community-list">
+                                    <div>${ list.title }</div>
+                                    <div>${ list.name }</div>
+                                    <div>${ list.hit }</div>
+                                    <div>${ list.boardNo }</div>
+                                </div>
+
+
+                            </c:forEach>
+                        </div>
 
                 </div>
             </div>
@@ -126,16 +145,25 @@
                         </c:if>
                         
                         <c:if test="${not empty boardList }">
-
+                            <div class="community-list">
+                                <div>번호</div>
+                                <div>제목</div>
+                                <div>작성자</div>
+                                <div>조회수</div>
+                                <div>작성일</div>
+                                <div></div>
+                            </div>
+                            
                             <c:forEach items="${ boardList }" var="list">
+
 
                                 <div class="community-list">
                                     <div>${ list.rownum }</div>
                                     <div>${ list.title }</div>
-                                    <div>${ list.userNo }</div>
+                                    <div>${ list.name }</div>
                                     <div>${ list.hit }</div>
                                     <div>${ list.enrollDate }</div>
-                                    <div>${ list.no }</div>
+                                    <div>${ list.boardNo }</div>
                                 </div>
 
                             </c:forEach>

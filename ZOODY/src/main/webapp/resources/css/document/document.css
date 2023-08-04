@@ -36,6 +36,7 @@
     display: flex;
     flex-direction: column;
     width: 199;
+    background-color: #F8F9FC;
 }
 
 .document-side > ul {
@@ -253,4 +254,15 @@ td {
 .boder-grid-footer-page {
     width: 240;
     height: 35;
+}
+
+.upload-modal-open-btn {
+    width: 90%;
+    height: 35;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 7px -2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    place-self: center;
 }

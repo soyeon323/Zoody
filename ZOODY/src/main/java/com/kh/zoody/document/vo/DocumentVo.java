@@ -7,9 +7,9 @@ public class DocumentVo {
 	
 	private String no;
 	private String userNo;
+	private String name;
 	private String department; //부서
 	private String catNo; // 카테고리
-	private String uploaderNo; //업로더
 	private String directoryName; 
 	
 	private String fileName; 

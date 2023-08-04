@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="document">
+
+	<insert id="upload">
+		
+		INSERT INTO DOCUMENT(
+		    NO, 
+		    USER_NO,  
+		    FILE_NAME, 
+		    EXTENSION
+		    )
+		VALUES(
+	    SEQ_DOCUMENT_NO.NEXTVAL , 
+	    #{userNo} , 
+	    #{fileName} , 
+	    #{extension} 
+	    )    
+		
+	</insert>
+	
+	<select id="getDocumentList" resultType="DocumentVo">
+		
+		SELECT 
+			u.NAME,
+            d.CAT_NO,
+			d.USER_NO,
+			d.FILE_NAME, 
+			d.EXTENSION,
+            d.ENOLL_DATE
+		FROM DOCUMENT d
+		LEFT JOIN "USER" u ON d.USER_NO = u.NO
+		
+		
+	</select>
+  
+</mapper>

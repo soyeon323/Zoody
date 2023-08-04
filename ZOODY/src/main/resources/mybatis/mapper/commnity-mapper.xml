@@ -10,15 +10,16 @@
 		
 		SELECT 
 			ROWNUM,
-		    NO,
-		    USER_NO,
-		    CAT_NO,
-		    TITLE,
-		    CONTENT,
-		    ENROLL_DATE,
-		    MODIFY_DATE,
-		    FILE_PATH,
-		    HIT
+		    u.NAME,
+		    b.NO AS BOARD_NO,
+		    b.USER_NO,
+		    b.CAT_NO,
+		    b.TITLE,
+		    b.CONTENT,
+		    b.ENROLL_DATE,
+		    b.MODIFY_DATE,
+		    b.FILE_PATH,
+		    b.HIT
 		FROM (
 		    SELECT NO, USER_NO, CAT_NO, TITLE, CONTENT, ENROLL_DATE, MODIFY_DATE, FILE_PATH, HIT
 		    FROM BOARD
@@ -29,7 +30,8 @@
 			<when test="call != null and call.equals('home')">
 				AND CAT_NO = 4
 				ORDER BY NO
-				)
+				) b
+				LEFT JOIN "USER" u ON b.USER_NO = u.NO
 				ORDER BY ROWNUM DESC
 				FETCH FIRST 5 
 				ROWS ONLY 
@@ -38,8 +40,9 @@
 			<otherwise>
 				AND CAT_NO = #{catNo}
 				ORDER BY NO
-				)
-				ORDER BY NO DESC 
+				) b
+				LEFT JOIN "USER" u ON b.USER_NO = u.NO
+				ORDER BY b.NO DESC 
 			</otherwise>
 			
 			

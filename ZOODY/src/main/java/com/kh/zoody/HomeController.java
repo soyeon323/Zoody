@@ -37,6 +37,10 @@ public class HomeController {
         List<BoardVo> boardList = cs.getBoardListByCount(call);
         List<NoticeVo> getNotice = hs.getNewNotice();
         
+        if (getNotice == null) {
+        	log.info("공지 불러오기 실패");
+        	return "home";
+		}
         log.info(getNotice.get(0).getTitle());
         
         

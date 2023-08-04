@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<%@ include file="/WEB-INF/views/document/upload.jsp" %>
     <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <div id="wrap">
@@ -22,7 +22,7 @@
     
             <div class="document-side">
 
-                <div onclick="documentUpload()">업로드</div>
+                <div class="upload-modal-open-btn" onclick="documentUpload()">업로드</div>
 
                 <ul>문서
                     <li>전사 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
@@ -83,13 +83,13 @@
                         </thead>
 
                         <tbody>
-                            <c:forEach items="${ freeBoardList }" var="list">
+                            <c:forEach items="${ documentList }" var="list">
                             	<tr>
-	                                <td>${ list.no }</td>
-	                                <td>${ list.title }</td>
-	                                <td>${ list.userNo }</td>
-	                                <td>${ list.hit }</td>
-	                                <td>${ list.enrollDate }</td>
+	                                <td>${ list.catNo }</td>
+                                    <td>${ list.no }</td>
+                                    <td>${ list.fileName }</td>
+	                                <td>${ list.name }</td>
+	                                <td>${ list.enollDate }</td>
 	                            </tr>
                             </c:forEach>
                             
@@ -103,10 +103,10 @@
 
         </div>
 
-        <%@ include file="/WEB-INF/views/document/upload.jsp" %>
-
-
+        
+        
     </div>
+    
     
 	
 </body>

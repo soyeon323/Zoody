@@ -32,6 +32,8 @@ public class DocumentController {
 	// 개인 문서 화면
 	@GetMapping()
 	public String privateDocument(Model model) {
+		List<DocumentVo> documentList = service.getDocumentList();
+		model.addAttribute("documentList", documentList);
 		model.addAttribute("documentType", "private");
 		return "document/document";
 	}
@@ -39,6 +41,9 @@ public class DocumentController {
 	// 전사 문서 화면
 	@GetMapping("enterpriseDocument")
 	public String enterpriseDocument(Model model) {
+		
+		List<DocumentVo> documentList = service.getDocumentList();
+		model.addAttribute("documentList", documentList);
 		model.addAttribute("documentType", "enterprise");
 		return "document/document";
 	}
@@ -113,7 +118,10 @@ public class DocumentController {
 			}
             
              List<DocumentVo> documentList = service.getDocumentList();
+             log.info(documentList+"");
             
+             model.addAttribute("list" , documentList);
+             
 //           // 파일 업로드 성공 처리
             return "success"; // 업로드 성공 
         } catch (IOException e) {
