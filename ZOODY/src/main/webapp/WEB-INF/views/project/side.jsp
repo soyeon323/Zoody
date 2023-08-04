@@ -108,7 +108,7 @@
                 채팅하기
             </button>
         </div>
-        <div><a>국가주도 동물사랑 프로젝트</a></div>
+        <!-- <div><a>국가주도 동물사랑 프로젝트</a></div>
         <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <g clip-path="url(#clip0_429_9191)">
@@ -135,7 +135,7 @@
                 </defs>
             </svg>
             <a href="">채팅하기</a>
-        </div>
+        </div> -->
     </aside>
 </head>
 <body>

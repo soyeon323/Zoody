@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +39,12 @@ public class ProjectController {
 		if(voList == null) {
 			throw new RuntimeException();
 		}
-
+		
+		Map<String, String> map = new HashMap<>();
+		for(ProjectVo no : prjList) {
+			String noList = map.put("prjNoList", no.getNo());
+		}
+		
 		log.info("prjList : {}", prjList);
 		
 		model.addAttribute("voList", voList);
