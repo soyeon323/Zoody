@@ -16,7 +16,6 @@
     d.NAME AS DEPARTMENT_NAME,
     u.RANK_NO,
     r.NAME AS RANK_NAME,
-<!--     r.GRADE AS GRADE, -->
     u.POSITION_NO,
     p.NAME AS POSITION_NAME,
     u.STATE_NO,

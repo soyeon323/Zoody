@@ -48,6 +48,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:if test="${empty map.trainingVo }">
+						<tr class="searchNoResult">
+                            <td colspan="6">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </c:if>
                        <c:forEach items="${map.trainingVo}" var="trainingVo">
                         <tr id="tr" onclick=" showTrainingNo()">
                             <td id="td">${trainingVo.trainingNo}</td>
