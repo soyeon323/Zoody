@@ -11,5 +11,7 @@ public interface CalendarDao {
 
 	List<Map<String, Object>> listAll(SqlSessionTemplate sst);
 
+	int addMonth(SqlSessionTemplate sst, CalendarVo vo);
+
 
 }

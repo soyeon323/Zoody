@@ -9,5 +9,7 @@ public interface CalendarService {
 
 	List<Map<String, Object>> listAll();
 
+	int addMonth(CalendarVo vo);
+
 
 }

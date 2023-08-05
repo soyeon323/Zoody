@@ -16,5 +16,11 @@ public class CalendarDaoImpl implements CalendarDao{
 		return sst.selectList("calendar.listAll");
 	}
 
+	@Override
+	public int addMonth(SqlSessionTemplate sst, CalendarVo vo) {
+		return sst.insert("calendar.addMonth", vo);
+	}
+
+
 
 }

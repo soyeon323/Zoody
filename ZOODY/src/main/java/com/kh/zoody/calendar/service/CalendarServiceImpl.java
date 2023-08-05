@@ -23,5 +23,10 @@ public class CalendarServiceImpl implements CalendarService{
 		return dao.listAll(sst);
 	}
 
+	@Override
+	public int addMonth(CalendarVo vo) {
+		return dao.addMonth(sst, vo);
+	}
+
 
 }
