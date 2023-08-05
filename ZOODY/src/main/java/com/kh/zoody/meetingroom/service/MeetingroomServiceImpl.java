@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -122,6 +123,11 @@ public class MeetingroomServiceImpl implements MeetingroomService{
         mvo.setOriginName(originName);
 		
 		return dao.updateMeetingroom(sst, mvo);
+	}
+
+	@Override
+	public List<Map<String, Object>> reserveTime() {
+		return dao.reserveTime(sst);
 	}
 
 }

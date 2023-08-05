@@ -6,11 +6,15 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.meetingroom.service.MeetingroomService;
@@ -43,7 +48,48 @@ public class MeetingroomController {
 		List<MeetingroomVo> list = ms.selectList();
 		model.addAttribute("list", list);
 		
+//		List<MeetingroomVo> timeList = ms.reserveTime();
+//		model.addAttribute("timeList", timeList);
+		
+//		log.info(timeList.toString());
+		
 		return "meetingroom/reserve";
+	}
+	
+//	@GetMapping("reserve/time")
+//	public String timeList(Model model, @RequestParam String voNo) {
+//		List<MeetingroomVo> timeList = ms.reserveTime(voNo);
+//		model.addAttribute("timeList", timeList);
+//		
+//		return "meetingroom/reserve";
+//	}
+//	
+	
+	@GetMapping("time")
+	@ResponseBody
+	public List<Map<String, Object>> time(){
+
+		
+		List<Map<String, Object>> timeList = ms.reserveTime();
+		
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		
+		HashMap<String, Object> hash = new HashMap<>();
+		
+		for (int i = 0; i < timeList.size(); i++) {
+			hash.put("meetingroomNo", timeList.get(i).get("MEETINGROOM_NO"));
+			hash.put("start", timeList.get(i).get("START_TIME"));
+			hash.put("end", timeList.get(i).get("END_TIME"));
+			
+			jsonObj = new JSONObject(hash);
+			jsonArr.add(jsonObj);
+			
+		}
+		
+		log.info("jsonArrCheck: {}", jsonArr);
+		
+		return jsonArr;
 	}
 	
 	//회의실 추가 (화면)
@@ -98,5 +144,7 @@ public class MeetingroomController {
 		
 		return "meetingroom/reserve";
 	}
+	
+	//회의실 예약 조회
 
 }

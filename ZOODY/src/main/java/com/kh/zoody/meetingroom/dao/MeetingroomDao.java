@@ -1,6 +1,7 @@
 package com.kh.zoody.meetingroom.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -17,6 +18,8 @@ public interface MeetingroomDao {
 	MeetingroomVo selectDetail(SqlSessionTemplate sst, String no);
 
 	int updateMeetingroom(SqlSessionTemplate sst, MeetingroomVo mvo);
+
+	List<Map<String, Object>> reserveTime(SqlSessionTemplate sst);
 
 
 }
