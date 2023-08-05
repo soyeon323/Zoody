@@ -83,10 +83,98 @@
                         
                     </tr>
                 </table>
+
                 
                 <div id="enroll-btn">
                         <div class="btn-upload" onclick="die()" ><a>폐사 처리</a></div>
                 </div>
+                <hr style="width: 1500px; margin: auto; margin-top: 20px;">
+
+                <!-- 여기에 해당동물의 훈련일지와 건강검진 리스트 들어가야함 -->
+
+                <div id="th-area">
+
+                     <!-- 훈련일지 리스트 -->
+                <table id="content">
+                    <thead>
+                        <tr>
+                            <td>번호</td>
+                            <td>애칭</td>
+                            <td>훈련일지 제목</td>
+                            <td>작성 날짜</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:if test="${empty map.trainingVo }">
+						<tr class="searchNoResult">
+                            <td colspan="6">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </c:if>
+                       <c:forEach items="${map.trainingVo}" var="trainingVo">
+                        <tr id="tr" onclick=" showTrainingNo()">
+                            <td id="td">${trainingVo.trainingNo}</td>
+                            <td>${trainingVo.nickName}</td>
+                            <td>${trainingVo.trainingTitle}</td>
+                            <td>${trainingVo.trainingDate}</td>
+                        </tr>
+                       </c:forEach>
+                      
+                    </tbody>
+                </table>
+
+
+
+                <!-- 건강검진 일지 리스트 -->
+                <!-- 
+
+                     SELECT 
+                        A.NO AS ANIMAL_NO
+                        ,AHS.STATE_OF_HEALTH
+                        ,TO_CHAR(AHS.CHECKUP_DATE , 'YYYY-MM-DD') AS CHECKUP_DATE
+                        ,A.NICK_NAME 
+                        FROM ANIMAL_HEALTH_SCREENING AHS
+                        JOIN ANIMAL A ON AHS.ANIMAL_NO = A.NO
+                        WHERE A.NO  = #{animalNo}
+                        AND A.STATUS = #{status}
+
+                 -->
+                <table id="content">
+                    <thead>
+                        <tr>
+                            <td>번호</td>
+                            <td>애칭</td>
+                            <td>건강 상태</td>
+                            <td>작성 날짜</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:if test="${empty map.animalHealthList }">
+						<tr class="searchNoResult">
+                            <td colspan="6">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </c:if>
+                       <c:forEach items="${map.animalHealthList}" var="animalHealthList">
+                        <tr onclick="healthDetail('${animalHealthList.no}');">
+                            <td>${animalHealthList.no}</td>
+                            <td>${animalHealthList.nickName}</td>
+                            <td>${animalHealthList.stateOfHealth}</td>
+                            <td>${animalHealthList.checkupDate}</td>
+                        </tr>
+                       </c:forEach>
+                      
+                    </tbody>
+                </table>
+
+                </div>
+
+               
+
+
+
+                <!-- --------------------------------------------------- -->
+
+
+
 
                 <div id="btn-area">
                     <div class="btn-upload" id="trainingWriteBtn">훈련 일지 작성</div>
