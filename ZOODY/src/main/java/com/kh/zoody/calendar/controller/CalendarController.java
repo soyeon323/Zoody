@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -57,6 +62,10 @@ public class CalendarController {
 			hash.put("title", listAll.get(i).get("TITLE"));
 			hash.put("start", listAll.get(i).get("START_TIME"));
 			hash.put("end", listAll.get(i).get("END_TIME"));
+			hash.put("type", listAll.get(i).get("TYPE"));
+			hash.put("username", listAll.get(i).get("NAME"));
+			hash.put("description", listAll.get(i).get("CONTENT"));
+			hash.put("_id", listAll.get(i).get("NO"));
 			
 			jsonObj = new JSONObject(hash);
 			jsonArr.add(jsonObj);
@@ -68,38 +77,30 @@ public class CalendarController {
 		return jsonArr;
 	}
 	
-//	@GetMapping("list")
-//    public String listMonth(Model model) {
-//        List<Map<String, Object>> listAll = cs.listAll();
-//
-//        // FullCalendar에서 사용하는 events 배열
-//        List<Map<String, Object>> events = new ArrayList<>();
-//        
-//        for (Map<String, Object> eventData : listAll) {
-//            Map<String, Object> event = new HashMap<>();
-//            event.put("title", eventData.get("TITLE"));
-//            event.put("start", eventData.get("START_TIME"));
-//            event.put("end", eventData.get("END_TIME"));
-//            events.add(event);
-//        }
-//        
-//        // Model에 events를 추가하여 JSP에서 사용할 수 있도록 함
-//        model.addAttribute("events", events);
-//        
-//        return "calendar/month";
-//    }
+		@PostMapping("main")
+	  @ResponseBody
+	  public ResponseEntity<String> saveEvent(
+	    @RequestParam String title,
+	    @RequestParam String startTime,
+	    @RequestParam String place,
+	    @RequestParam String endTime,
+	    @RequestParam String typeNo,
+	    @RequestParam String content) {
+
+	    // calendarService.saveEvent(title, start, end, type, description);
+		CalendarVo vo = new CalendarVo();
+		vo.setTitle(title);
+		vo.setPlace(place);
+		vo.setStartTime(startTime);
+		vo.setEndTime(endTime);
+		vo.setTypeNo(typeNo);
+		vo.setContent(content);
+		
+		int result = cs.addMonth(vo);
+
+	    return new ResponseEntity<>("일정이 성공적으로 저장되었습니다.", HttpStatus.OK);
+	  }
 	
 	
-//	
-//	@RequestMapping(value = "list", method = RequestMethod.GET)
-//	public ModelAndView listMonth(ModelAndView mv, HttpServletRequest req) {
-//		String viewpage = "calendar/month";
-//		List<CalendarVo> cv = null;
-//		cv = cs.getCalendar();
-//		req.setAttribute("list", cv);
-//		
-//		mv.setViewName(viewpage);
-//		return mv;
-//	}
-	
+
 }

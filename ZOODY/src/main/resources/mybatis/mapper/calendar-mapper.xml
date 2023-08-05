@@ -28,5 +28,19 @@
 		WHERE C.USER_NO = 1
 	</select>
 	
+	<insert id="addMonth">
+	INSERT INTO CALENDAR (NO, USER_NO, TYPE_NO, TITLE, CONTENT, START_TIME, END_TIME, PLACE) 
+	VALUES (
+		SEQ_CALENDAR_NO.NEXTVAL, 
+		1, 
+		#{typeNo},
+		#{title}, 
+		#{content}, 
+		#{startTime}, 
+		#{endTime}, 
+		#{place}
+	)
+</insert>
+	
   
 </mapper>
