@@ -118,3 +118,8 @@
     #position{
         display: none;
     }
+
+    #th-area{
+        display: flex;
+        width: 1580px;
+    }
