@@ -122,4 +122,10 @@
     #th-area{
         display: flex;
         width: 1580px;
+        
+    }
+
+    #th-area{
+        height: 300px; 
+        overflow: auto;
     }

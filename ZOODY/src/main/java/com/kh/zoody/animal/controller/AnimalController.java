@@ -98,14 +98,24 @@ public class AnimalController {
 
 	//동물 상세 조회
 	@GetMapping("detail")
-	public String animalDetail(AnimalVo vo , Model model) {
+	public String animalDetail(AnimalVo vo , TrainingVo tvo, Model model) {
 		
 		AnimalVo animalVo = as.animalDetail(vo);
+		//해당 동물의 동물 훈련일지 리스트
+		List<TrainingVo>  tvList= as.trainingDetail(vo);
+
+		//해당 동물의 건강검진 일지 리스트
+		List<HealthVo> htList = as.healthDetail(vo);
+		
 		log.info("animalVo = {}",animalVo);
+		log.info("trainingVo = {}",tvList);
 		if(animalVo == null) {
 			throw new RuntimeException();
 		}
+		
 		model.addAttribute("animalVo",animalVo); 
+		model.addAttribute("trainingVo",tvList); 
+		model.addAttribute("healthVo",htList); 
 		return "animal/detail";
 	}
 
