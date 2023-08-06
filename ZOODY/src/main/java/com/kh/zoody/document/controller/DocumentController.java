@@ -2,7 +2,9 @@ package com.kh.zoody.document.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.document.service.DocumentService;
 import com.kh.zoody.document.vo.DocumentVo;
+import com.kh.zoody.notice.service.NoticeService;
+import com.kh.zoody.notice.vo.NoticeVo;
+import com.kh.zoody.page.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,36 +36,50 @@ public class DocumentController {
 	private final DocumentService service;
 	
 	// 개인 문서 화면
-	@GetMapping()
-	public String privateDocument(Model model) {
-		List<DocumentVo> documentList = service.getDocumentList();
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("documentType", "private");
-		return "document/document";
-	}
-	
-	// 전사 문서 화면
-	@GetMapping("enterpriseDocument")
-	public String enterpriseDocument(Model model) {
+	@GetMapping("list")
+	public String privateDocument(Model model, @RequestParam(defaultValue = "1") Integer page, @RequestParam Map<String, String> searchMap) {
 		
-		List<DocumentVo> documentList = service.getDocumentList();
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("documentType", "enterprise");
-		return "document/document";
+		log.info(searchMap+"");
+		
+		int listCount = service.getDocumentListCnt(searchMap);
+		int currentPage = (page != null) ? page : 1;
+		int pageLimit = ConstPool.PAGE_LIMIT;
+		int boardLimit = 10;
+		
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		int documentListCnt = service.getDocumentListCnt(searchMap);
+		List<DocumentVo> documentList = service.getDocumentList(pv, searchMap);
+		
+		log.info(documentListCnt+"");
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pv", pv);
+		map.put("documentList", documentList);
+		map.put("documentListCnt", documentListCnt);
+		map.put("searchMap", searchMap);
+		
+		log.info(map+"");
+		
+		model.addAttribute("map", map);
+		model.addAttribute("documentType", "private");
+		
+		return "document/list";
 	}
 	
-	// 업로드 화면
-	@GetMapping("upload")
-	public String uploadDocument() {
-		return "document/upload";
-	}
+//	// 업로드 화면
+//	@GetMapping("upload")
+//	public String uploadDocument() {
+//		return "document/upload";
+//	}
 	
 	@PostMapping("upload")
 	@ResponseBody
 	public String uploadDocument(
 					@RequestParam("file") MultipartFile file,
-					@RequestParam("loginUserId") String loginUserId,
-					Model model,
+					DocumentVo vo,
+					Model model, 
 					HttpServletRequest request
 			) {
 		if (file.isEmpty()) {
@@ -69,14 +89,15 @@ public class DocumentController {
 
 		String root = request.getSession().getServletContext().getRealPath("resources"); 
 		
+	
         try {
         	
         	log.info(root);
         	log.info(file+"");
-        	log.info(loginUserId);
+        	log.info(vo+"");
         	
             // 업로드된 파일을 저장할 디렉토리 설정
-            String saveFile = root+"\\document\\"+ loginUserId; // 원하는 디렉토리 경로로 변경 가능
+            String saveFile = root+"\\document\\"+ vo.getLoginMemberId(); // 원하는 디렉토리 경로로 변경 가능
         	
             
             log.info(saveFile);
@@ -102,12 +123,7 @@ public class DocumentController {
             String fileNameWithoutExtension = originalFilename.substring(0, originalFilename.lastIndexOf("."));
             log.info("파일 이름: " + fileNameWithoutExtension);
             log.info("확장자: " + fileExtension);
-            
-            DocumentVo vo = new DocumentVo();
-//            vo.setUserNo(loginUserId);
-            vo.setUserNo("987");
-            vo.setFileName(fileNameWithoutExtension);
-            vo.setExtension(fileExtension);
+         
             
             log.info(vo+"");
             
@@ -117,7 +133,7 @@ public class DocumentController {
             	return "uploadFailure";
 			}
             
-             List<DocumentVo> documentList = service.getDocumentList();
+             List<DocumentVo> documentList = service.getNewDocument();
              log.info(documentList+"");
             
              model.addAttribute("list" , documentList);

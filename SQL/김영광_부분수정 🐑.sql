@@ -1,31 +1,31 @@
-DROP TABLE BOARD CASCADE CONSTRAINTS;
-CREATE TABLE BOARD (
-	NO              NUMBER		                        NOT NULL
-	,USER_NO        NUMBER		                        NOT NULL
-	,CAT_NO         NUMBER		                        NOT NULL
-	,TITLE          VARCHAR2(100)		                NOT NULL
-	,CONTENT        VARCHAR2(4000)		                NOT NULL
-	,ENROLL_DATE    TIMESTAMP       DEFAULT SYSDATE     NOT NULL
-	,MODIFY_DATE    TIMESTAMP		                    NULL
-	,STATUS         CHAR(1)         DEFAULT 'O'	        NOT NULL
-	,FILE_PATH      VARCHAR2(4000)                      NULL
-    ,HIT            NUMBER          DEFAULT 0           NOT NULL
-);
-
-
-
--- BOARD_REPLY
-DROP TABLE BOARD_REPLY CASCADE CONSTRAINTS;
-CREATE TABLE BOARD_REPLY (
-	NO 	                NUMBER		                            NOT NULL
-    ,BOARD_NO 	        NUMBER		                            NOT NULL
-    ,USER_NO 	        NUMBER		                            NOT NULL
-    ,REPLY_COMMENT 	    VARCHAR2(4000)                          NOT NULL
-    ,REPLY_CLASS 	    NUMBER		                            NOT NULL
-    ,REPLY_GROUP 	    NUMBER		                            NOT NULL
-    ,ENOLLDATE 	        TIMESTAMP	    DEFAULT SYSDATE	NOT     NULL
-    ,STATUS 	        CHAR(1)	        DEFAULT 'O'	            NOT NULL
-);
+--DROP TABLE BOARD CASCADE CONSTRAINTS;
+--CREATE TABLE BOARD (
+--	NO              NUMBER		                        NOT NULL
+--	,USER_NO        NUMBER		                        NOT NULL
+--	,CAT_NO         NUMBER		                        NOT NULL
+--	,TITLE          VARCHAR2(100)		                NOT NULL
+--	,CONTENT        VARCHAR2(4000)		                NOT NULL
+--	,ENROLL_DATE    TIMESTAMP       DEFAULT SYSDATE     NOT NULL
+--	,MODIFY_DATE    TIMESTAMP		                    NULL
+--	,STATUS         CHAR(1)         DEFAULT 'O'	        NOT NULL
+--	,FILE_PATH      VARCHAR2(4000)                      NULL
+--    ,HIT            NUMBER          DEFAULT 0           NOT NULL
+--);
+--
+--
+--
+---- BOARD_REPLY
+--DROP TABLE BOARD_REPLY CASCADE CONSTRAINTS;
+--CREATE TABLE BOARD_REPLY (
+--	NO 	                NUMBER		                            NOT NULL
+--    ,BOARD_NO 	        NUMBER		                            NOT NULL
+--    ,USER_NO 	        NUMBER		                            NOT NULL
+--    ,REPLY_COMMENT 	    VARCHAR2(4000)                          NOT NULL
+--    ,REPLY_CLASS 	    NUMBER		                            NOT NULL
+--    ,REPLY_GROUP 	    NUMBER		                            NOT NULL
+--    ,ENOLLDATE 	        TIMESTAMP	    DEFAULT SYSDATE	NOT     NULL
+--    ,STATUS 	        CHAR(1)	        DEFAULT 'O'	            NOT NULL
+--);
 
 /*=================================================================================================================================================*/
 -- 카테고리

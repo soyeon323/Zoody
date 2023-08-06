@@ -4,7 +4,7 @@
 }
 
 
-#document-wrap {
+#document-wrap {.boder-grid-body-bottom
     width: calc(100% - 330px);
     /* height: 100%; */
     display: grid;
@@ -176,6 +176,7 @@
 .boder-grid-body-bottom {
     display: flex;
     height: 100%;
+    flex-direction: column;
 }
 
 /* 테이블 설정 */
@@ -265,4 +266,66 @@ td {
     align-items: center;
     justify-content: center;
     place-self: center;
+}
+
+/* 페이징 */
+#page{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 80px;
+}
+
+#page a{
+    margin-right: 20px;
+    text-decoration: none;
+    color: #4B4B4B;
+    font-size: 18px;
+}
+
+#page>a img{
+    width: 17px;
+    height: 17px;
+}
+
+table tbody tr:hover{
+    background-color: #4876EF;
+    cursor: pointer;
+}
+
+#firstDiv>a{
+    width: 965px;
+    font-size: 18px;
+    color: #4B4B4B;
+}
+
+.searchNoResult>td{
+    font-size: 20px;
+}
+
+/* 페이징 */
+button[class='active']{
+    background-color: #4876EF;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+    width: 25px;
+    height: 25px;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+button[class='nomalBtn']{
+    border: none;
+    color: #313131;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 25px;
+    height: 25px;
 }
