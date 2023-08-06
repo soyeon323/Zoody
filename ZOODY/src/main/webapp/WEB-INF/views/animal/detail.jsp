@@ -98,7 +98,7 @@
                 <div id="th-area">
 
                      <!-- 훈련일지 리스트 -->
-                <table id="content" style="height: 300px;">
+                <table id="content1" style="height: 300px;">
                     <thead>
                         <tr>
                             <td>번호</td>
@@ -108,7 +108,7 @@
                     </thead>
                     <tbody>
                        <c:forEach items="${trainingVo}" var="trainingVo">
-                        <tr id="tr" onclick=" showTrainingNo()" >
+                        <tr onclick=" showTrainingNo('${trainingVo.trainingNo}')">
                             <td id="td">${trainingVo.trainingNo}</td>
                             <td>${trainingVo.trainingTitle}</td>
                             <td>${trainingVo.trainingDate}</td>
@@ -122,7 +122,7 @@
 
                 <!-- 건강검진 일지 리스트 -->
 
-                <table id="content" style="height: 300px;">
+                <table id="content2" style="height: 300px;">
                     <thead>
                         <tr>
                             <td>번호</td>
@@ -143,15 +143,7 @@
                 </table>
 
                 </div>
-
-               
-
-
-
                 <!-- --------------------------------------------------- -->
-
-
-
 
                 <div id="btn-area">
                     <div class="btn-upload" id="trainingWriteBtn">훈련 일지 작성</div>
@@ -290,5 +282,44 @@
             });
 
         }
+
+
+
+        //해당 동물의 훈련일지 상세 조회
+        function showTrainingNo(trainingNo) {
+
+            $.ajax({
+                url : '${root}/animal/training/detail',
+                method : 'get',
+                data : {
+                    no :trainingNo,
+                },
+                success : ()=>{
+                    alert(123);
+                        location.href = "${root}/animal/training/detail?no="+trainingNo;
+                },
+                error : (e)=>{
+                    console.log('에러 ㅋㅋ');
+                }
+            });
+        }
+
+         //해당 동물의 건강검진일지 상세 조회
+         function healthDetail(healthNo) {
+            $.ajax({
+                url : '${root}/animal/health/detail',
+                method : 'get',
+                data : {
+                    healthNo :healthNo,
+                },
+                success : ()=>{
+                    alert(123);
+                        location.href = "${root}/animal/health/detail?no="+healthNo;
+                },
+                error : (e)=>{
+                    location.href = "${root}/animal/health/detail?no="+healthNo;
+                }
+            });
+            }
 
 </script>

@@ -278,9 +278,14 @@
 		 ,A.NICK_NAME 
 		 FROM ANIMAL_HEALTH_SCREENING AHS
 		 JOIN ANIMAL A ON AHS.ANIMAL_NO = A.NO
-		 WHERE A.NO  = #{no}
+		 <if test="no!=null">
+			 WHERE ANIMAL_NO  = #{no}
+		 </if>
+		 <if test="healthNo !=null">
+		 	WHERE NO = #{healthNo}
+		 </if>
 		 AND A.STATUS = 'O'
-		 ORDER BY NO DESC
+		 
 
   	</select>
   	

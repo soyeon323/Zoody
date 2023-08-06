@@ -106,4 +106,6 @@ public class AnimalService {
 	public List<HealthVo> healthDetail(AnimalVo vo) {
 		return dao.healthDetail(sst,vo);
 	}
+
+
 }

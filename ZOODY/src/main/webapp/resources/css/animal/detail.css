@@ -129,3 +129,9 @@
         height: 300px; 
         overflow: auto;
     }
+
+    #content1 > tbody tr:hover{
+        background-color: gray;
+    }
+
+    
