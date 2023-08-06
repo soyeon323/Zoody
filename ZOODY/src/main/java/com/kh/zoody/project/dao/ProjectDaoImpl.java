@@ -72,4 +72,16 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sst.selectList("project.prjData");
 	}
 
+	//프로젝트 삭제
+	@Override
+	public int prjDelete(SqlSessionTemplate sst, String no) {
+		return sst.delete("project.prjDelete", no);
+	}
+
+	//프로젝트 멤버 삭제
+	@Override
+	public int prjMemberDelete(SqlSessionTemplate sst, String no) {
+		return sst.delete("project.prjMemberDelete", no);
+	}
+
 }
