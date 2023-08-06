@@ -176,13 +176,13 @@ form#uploadForm {
 
             console.log(root+"/document/upload");
             let loginUserId = $("#hidden-id").val();
-            console.log("Text Input Value:", loginUserId);
             
             formData.append("loginUserId", loginUserId); // 추가
             $.ajax({
                 url: root+"/document/upload",
                 type: "POST",
                 data: formData,
+                dataType: 'json',
                 processData: false,
                 contentType: false,
                 success: function(response) {
@@ -220,10 +220,11 @@ form#uploadForm {
                 </div>
                 
                 <div class="upload-option-area">
-                    <select name="upload-cat" id="upload-cat">
-                        <option value="1" checked>카테고리</option>
-                        <option value="2" checked>부서</option>
-                        <option value="3" checked>개인</option>
+                    <select name="scope" id="upload-cat">
+                        <option checked>카테고리</option>
+                        <option value="1" checked>전사</option>
+                        <option value="2">부서</option>
+                        <option value="3">개인</option>
                     </select>
                     <div class="upload-radio-area">공개 설정
                         <input type="radio" name="right-click" value="yes" checked><div>허용</div>
@@ -236,10 +237,10 @@ form#uploadForm {
                         <input type="file" name="file">
 
                         <c:if test="${empty loginMember.name}">
-                            <input id="hidden-id" type="text" value="test">
+                            <input id="hidden-id" type="text" name="" value="test">
                         </c:if>
                         <c:if test="${not empty loginMember.name}">
-                            <input id="hidden-id" type="text" value="${loginMember.name}">
+                            <input id="hidden-id" type="text" name="loginMemberId"  value="${loginMember.id}">
                         </c:if>
 
                         
