@@ -23,22 +23,63 @@
         </div>
 
         <div id="contentArea">
-            <div id="content-1" oncontextmenu="delPrj(event);">
-                <c:forEach items="${prjList}" var="list">
+            <c:if test="${!empty map.no1List}">
+                <div id="content-1">
                     <div>
-                        <a>${list.title}</a>
+                        <a>${map.no1List[0].title}</a>
                     </div>
                     <div>
-                        <a>d</a>
+                        <c:forEach items="${map.no1List}" var="no1List">
+                            <a>${no1List.userName}</a>
+                        </c:forEach>        
                     </div>
                     <div>
-                        <a>${list.startDate} ~ ${list.endDate}</a>
+                        <a>${map.no1List[0].startDate} ~ ${map.no1List[0].endDate}</a>
                     </div>
-                </c:forEach>
-                <div>
-                    <a href="">더보기 ></a>
+                    <div>
+                        <a href="">삭제</a>
+                        <a href="">더보기 ></a>
+                    </div>
                 </div>
-            </div>
+            </c:if>
+            <c:if test="${!empty map.no2List}">
+            <div id="content-2">
+                    <div>
+                        <a>${map.no2List[0].title}</a>
+                    </div>
+                    <div>
+                        <c:forEach items="${map.no2List}" var="no2List">
+                            <a>${no2List.userName}</a>
+                        </c:forEach>        
+                    </div>
+                    <div>
+                        <a>${map.no2List[0].startDate} ~ ${map.no2List[0].endDate}</a>
+                    </div>
+                    <div>
+                        <a href="">삭제</a>
+                        <a href="">더보기 ></a>
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${!empty map.no3List}">
+            <div id="content-3">
+                    <div>
+                        <a>${map.no3List[0].title}</a>
+                    </div>
+                    <div>
+                        <c:forEach items="${map.no3List}" var="no3List">
+                            <a>${no3List.userName}</a>
+                        </c:forEach>        
+                    </div>
+                    <div>
+                        <a>${map.no3List[0].startDate} ~ ${map.no3List[0].endDate}</a>
+                    </div>
+                    <div>
+                        <a href="">삭제</a>
+                        <a href="">더보기 ></a>
+                    </div>
+                </div>
+            </c:if>
             <div id="content-4">
                 <div>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -222,106 +263,5 @@
         }
     }
 
-    //삭제
-    function delPrj(event){
-        event.preventDefault();
-    }
-
-    $(function(){
-            $.contextMenu({
-                selector: '.context-menu-one', 
-                items: {
-                    // <input type="text">
-                    name: {
-                        name: "Text", 
-                        type: 'text', 
-                        value: "Hello World", 
-                        events: {
-                            keyup: function(e) {
-                                // add some fancy key handling here?
-                                window.console && console.log('key: '+ e.keyCode); 
-                            }
-                        }
-                    },
-                    sep1: "---------",
-                    // <input type="checkbox">
-                    yesno: {
-                        name: "Boolean", 
-                        type: 'checkbox', 
-                        selected: true
-                    },
-                    sep2: "---------",
-                    // <input type="radio">
-                    radio1: {
-                        name: "Radio1", 
-                        type: 'radio', 
-                        radio: 'radio', 
-                        value: '1'
-                    },
-                    radio2: {
-                        name: "Radio2", 
-                        type: 'radio', 
-                        radio: 'radio', 
-                        value: '2', 
-                        selected: true
-                    },
-                    radio3: {
-                        name: "Radio3", 
-                        type: 'radio', 
-                        radio: 'radio', 
-                        value: '3'
-                    },
-                    radio4: {
-                        name: "Radio3", 
-                        type: 'radio', 
-                        radio: 'radio', 
-                        value: '4', 
-                        disabled: true
-                    },
-                    sep3: "---------",
-                    // <select>
-                    select: {
-                        name: "Select", 
-                        type: 'select', 
-                        options: {1: 'one', 2: 'two', 3: 'three'}, 
-                        selected: 2
-                    },
-                    // <textarea>
-                    area1: {
-                        name: "Textarea with height", 
-                        type: 'textarea', 
-                        value: "Hello World", 
-                        height: 40
-                    },
-                    area2: {
-                        name: "Textarea", 
-                        type: 'textarea', 
-                        value: "Hello World"
-                    },
-                    sep4: "---------",
-                    key: {
-                        name: "Something Clickable", 
-                        callback: $.noop
-                    }
-                }, 
-                events: {
-                    show: function(opt) {
-                        // this is the trigger element
-                        var $this = this;
-                        // import states from data store 
-                        $.contextMenu.setInputValues(opt, $this.data());
-                        // this basically fills the input commands from an object
-                        // like {name: "foo", yesno: true, radio: "3", &hellip;}
-                    }, 
-                    hide: function(opt) {
-                        // this is the trigger element
-                        var $this = this;
-                        // export states to data store
-                        $.contextMenu.getInputValues(opt, $this.data());
-                        // this basically dumps the input commands' values to an object
-                        // like {name: "foo", yesno: true, radio: "3", &hellip;}
-                    }
-                }
-            });
-        });     
+    
 </script>

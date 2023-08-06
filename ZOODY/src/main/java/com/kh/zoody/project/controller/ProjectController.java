@@ -1,5 +1,6 @@
 package com.kh.zoody.project.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,15 +41,29 @@ public class ProjectController {
 			throw new RuntimeException();
 		}
 		
-		Map<String, String> map = new HashMap<>();
-		for(ProjectVo no : prjList) {
-			String noList = map.put("prjNoList", no.getNo());
-		}
-		
-		log.info("prjList : {}", prjList);
-		
-		model.addAttribute("voList", voList);
-		model.addAttribute("prjList", prjList);
+	  Map<String, List<ProjectVo>> map = new HashMap<>();
+	    List<ProjectVo> no1List = new ArrayList<>();
+	    List<ProjectVo> no2List = new ArrayList<>();
+	    List<ProjectVo> no3List = new ArrayList<>();
+
+	    for (ProjectVo project : prjList) {
+	        if (project.getNo().equals("1")) {
+	            no1List.add(project);
+	        } else if (project.getNo().equals("2")) {
+	            no2List.add(project);
+	        } else if(project.getNo().equals("3")) {
+	        	no3List.add(project);
+	        }
+	    }
+	    map.put("no1List", no1List);
+	    map.put("no2List", no2List);
+	    map.put("no3List", no3List);
+	    
+	    log.info("map : {}", map);
+	    
+	    model.addAttribute("voList", voList);
+	    model.addAttribute("prjList", prjList);
+	    model.addAttribute("map", map);
 	}
 	
 	@PostMapping("progress")
