@@ -54,7 +54,7 @@
                         </tr>
                         </c:if>
                        <c:forEach items="${map.trainingVo}" var="trainingVo">
-                        <tr id="tr" onclick=" showTrainingNo()">
+                        <tr id="tr" onclick=" showTrainingNo('${trainingVo.trainingNo}')">
                             <td id="td">${trainingVo.trainingNo}</td>
                             <td>${trainingVo.nickName}</td>
                             <td>${trainingVo.trainingTitle}</td>
@@ -101,30 +101,9 @@
 <script>
 
 // 훈련일지 상세 조회
-function showTrainingNo() {
-        var trainingNo = document.getElementById("td").innerText;
+function showTrainingNo(trainingNo) {
+        alert(trainingNo);
         location.href = '${root}/animal/training/detail?no='+trainingNo;
     }
 
-
-
-   
-    //훈련 일지 상세 조회
-    // function trainingdetail(no){
-
-    //     $.ajax({
-    //         url : '${root}/animal/training/detail',
-    //         method : 'GET',
-    //         data : {
-    //             no : no
-    //         },
-    //         success : ()=>{
-    //             location.href = '${root}/animal/training/detail?no='+no;
-    //         },
-    //         error : ()=>{
-    //             location.href = '${root}/animal/training/detail?no='+no;
-    //         }
-    //     });
-    // }
-  
 </script>
