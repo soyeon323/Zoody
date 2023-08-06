@@ -88,7 +88,7 @@
         <div class="wrapper">
                <div id="circle-wrap">
                 <div id="score">
-                    <div>현재 사내 부패도 점수</div>
+                    <div> &nbsp;&nbsp; 현재 사내 부패도 점수 <br> (점수가 높을수록 안좋음)</div>
                     <br>
                     <div id="avgScore">${vo.totalScore}</div>
                 </div>

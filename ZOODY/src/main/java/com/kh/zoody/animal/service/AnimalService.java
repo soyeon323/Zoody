@@ -96,4 +96,14 @@ public class AnimalService {
 	public int animalDeptEdit(AnimalVo vo) {
 		return dao.animalDeptEdit(sst, vo);
 	}
+
+	//해당동물의 훈련일지 리스트
+	public List<TrainingVo> trainingDetail(AnimalVo vo) {
+		return dao.trainingDetail(sst, vo);
+	}
+
+	//해당 동물의 건강검진 일지 리스트
+	public List<HealthVo> healthDetail(AnimalVo vo) {
+		return dao.healthDetail(sst,vo);
+	}
 }

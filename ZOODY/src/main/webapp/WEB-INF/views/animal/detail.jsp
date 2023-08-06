@@ -16,6 +16,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<style>
+
+</style>
 </head>
 <body>
     
@@ -95,25 +98,18 @@
                 <div id="th-area">
 
                      <!-- 훈련일지 리스트 -->
-                <table id="content">
+                <table id="content" style="height: 300px;">
                     <thead>
                         <tr>
                             <td>번호</td>
-                            <td>애칭</td>
                             <td>훈련일지 제목</td>
                             <td>작성 날짜</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:if test="${empty map.trainingVo }">
-						<tr class="searchNoResult">
-                            <td colspan="6">조회된 결과가 없습니다.</td>
-                        </tr>
-                        </c:if>
-                       <c:forEach items="${map.trainingVo}" var="trainingVo">
-                        <tr id="tr" onclick=" showTrainingNo()">
+                       <c:forEach items="${trainingVo}" var="trainingVo">
+                        <tr id="tr" onclick=" showTrainingNo()" >
                             <td id="td">${trainingVo.trainingNo}</td>
-                            <td>${trainingVo.nickName}</td>
                             <td>${trainingVo.trainingTitle}</td>
                             <td>${trainingVo.trainingDate}</td>
                         </tr>
@@ -125,38 +121,19 @@
 
 
                 <!-- 건강검진 일지 리스트 -->
-                <!-- 
 
-                     SELECT 
-                        A.NO AS ANIMAL_NO
-                        ,AHS.STATE_OF_HEALTH
-                        ,TO_CHAR(AHS.CHECKUP_DATE , 'YYYY-MM-DD') AS CHECKUP_DATE
-                        ,A.NICK_NAME 
-                        FROM ANIMAL_HEALTH_SCREENING AHS
-                        JOIN ANIMAL A ON AHS.ANIMAL_NO = A.NO
-                        WHERE A.NO  = #{animalNo}
-                        AND A.STATUS = #{status}
-
-                 -->
-                <table id="content">
+                <table id="content" style="height: 300px;">
                     <thead>
                         <tr>
                             <td>번호</td>
-                            <td>애칭</td>
                             <td>건강 상태</td>
                             <td>작성 날짜</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:if test="${empty map.animalHealthList }">
-						<tr class="searchNoResult">
-                            <td colspan="6">조회된 결과가 없습니다.</td>
-                        </tr>
-                        </c:if>
-                       <c:forEach items="${map.animalHealthList}" var="animalHealthList">
+                       <c:forEach items="${healthVo}" var="animalHealthList">
                         <tr onclick="healthDetail('${animalHealthList.no}');">
                             <td>${animalHealthList.no}</td>
-                            <td>${animalHealthList.nickName}</td>
                             <td>${animalHealthList.stateOfHealth}</td>
                             <td>${animalHealthList.checkupDate}</td>
                         </tr>
