@@ -81,4 +81,16 @@ public class ProjectServiceImpl implements ProjectService{
 		return dao.prjData(sst);
 	}
 
+	//프로젝트 삭제
+	@Override
+	public int prjDelete(String no) {
+		return dao.prjDelete(sst, no);
+	}
+
+	//프로젝트 멤버 삭제
+	@Override
+	public int prjMemberDelete(String no) {
+		return dao.prjMemberDelete(sst, no);
+	}
+
 }

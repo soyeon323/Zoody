@@ -35,4 +35,10 @@ public interface ProjectService {
 	//프로젝트 정보 가져오기
 	List<ProjectVo> prjData();
 
+	//프로젝트 삭제
+	int prjDelete(String no);
+
+	//프로젝트 멤버 삭제
+	int prjMemberDelete(String no);
+
 }

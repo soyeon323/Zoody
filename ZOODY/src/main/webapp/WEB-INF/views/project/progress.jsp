@@ -37,8 +37,8 @@
                         <a>${map.no1List[0].startDate} ~ ${map.no1List[0].endDate}</a>
                     </div>
                     <div>
-                        <a href="">삭제</a>
-                        <a href="">더보기 ></a>
+                        <button onclick="delPrj('${map.no1List[0].no}');">삭제</button>
+                        <a href="${root}/project/detail?title=${map.no1List[0].title}">더보기 ></a>
                     </div>
                 </div>
             </c:if>
@@ -56,8 +56,8 @@
                         <a>${map.no2List[0].startDate} ~ ${map.no2List[0].endDate}</a>
                     </div>
                     <div>
-                        <a href="">삭제</a>
-                        <a href="">더보기 ></a>
+                        <button onclick="delPrj('${map.no2List[0].no}');">삭제</button>
+                        <a href="${root}/project/detail?title=${map.no2List[0].title}">더보기 ></a>
                     </div>
                 </div>
             </c:if>
@@ -75,8 +75,8 @@
                         <a>${map.no3List[0].startDate} ~ ${map.no3List[0].endDate}</a>
                     </div>
                     <div>
-                        <a href="">삭제</a>
-                        <a href="">더보기 ></a>
+                        <button onclick="delPrj('${map.no3List[0].no}');">삭제</button>
+                        <a href="${root}/project/detail?title=${map.no3List[0].title}">더보기 ></a>
                     </div>
                 </div>
             </c:if>
@@ -126,8 +126,8 @@
                                 <button onclick="addUser();" type="button">추가</button>
                             </div> 
                             <div id="userNameArea">
-                                <input type="hidden" value="" name="no">
-                                <div width="80" class="xNo"><a></a></div>
+                                <input type="hidden" value="${loginMember.no}" name="no">
+                                <div width="80" class="xNo"><a>${loginMember.name}</a></div>
                                 <button>
                                     
                                 </button>
@@ -263,5 +263,26 @@
         }
     }
 
-    
+    //프로젝트 삭제
+    function delPrj(no){
+        if(confirm("해당 프로젝트를 정말 삭제하시겠습니까?")){
+
+            $.ajax({
+                url : '${root}/project/delete',
+                type : 'post',
+                data : {
+                    no : no
+                },
+                success : function(){
+                    alert("삭제되었습니다.");
+                    location.reload();
+                },
+                error : function(err){
+                    alert("삭제되었습니다.");
+                    location.reload();
+                }
+            })
+
+        }
+    }
 </script>
