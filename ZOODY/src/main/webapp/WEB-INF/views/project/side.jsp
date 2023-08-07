@@ -16,6 +16,7 @@
     }
 </style>
 <body>
+
     <aside class="side-bar">
      
         <ul>
@@ -91,7 +92,7 @@
         <div>
             <button onclick="prjList();">목록으로</button>
         </div>
-        <div><a>${prjVoList[0].title}</a></div>
+        <div><a>판다 개체보존 프로젝트</a></div>
         <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <g clip-path="url(#clip0_429_9191)">
