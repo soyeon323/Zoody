@@ -7,7 +7,7 @@ function goToNotice() {
 }
 
 function goToCalender() {
-    window.location.replace(root+"/calendar/month");
+    window.location.replace(root+"/calendar/main");
 }
 
 function goToProject() {

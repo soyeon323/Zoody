@@ -126,7 +126,89 @@
                         <img onclick="goToAttendance()" class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
 
-                    
+                    <c:if test="${not empty getAttendance }">
+                                
+
+                        <div class="attendance-area">
+                            <div class="attendance-enrolldate">${ getAttendance.enrolldate }</div>
+                            <div class="officehours">근무한 시간</div>
+                            <div>[${ getAttendance.type }]</div>
+                            <div class="checkInTime">${ getAttendance.checkInTime }</div>
+                            <div class="checkOutTime">${ getAttendance.checkOutTime }</div>
+                           
+                        </div>
+
+
+                    </c:if>
+
+                    <style>
+                        .attendance-area {
+                            padding: 15;
+                        }
+
+                        .attendance-area > div:first-child {
+                            font-size: 19;
+                        }
+                        
+                    </style>
+
+
+
+                    <script>
+                        const checkOutTime = $(".checkOutTime").text();
+                        if (checkOutTime === null || checkOutTime === '') {
+                                
+                            setInterval(()=> { officehoursCheck()},1000)
+                        }
+                        else {
+                            const checkInTime = $(".checkInTime").text().trim();
+
+                            const enrolldate = $(".attendance-enrolldate").text()+"T";
+                            const checkInDate = new Date(enrolldate + checkInTime);
+                            const checkOutDate = new Date(enrolldate + checkOutTime);
+
+                            const timeDifferenceMs = checkOutDate - checkInDate;
+
+                            const hours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
+                            const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+
+                            // 결과 출력
+                            $(".officehours").text("근무한 시간: " + hours + "시간 " + minutes + "분 " + seconds + "초");
+                        }
+
+                        
+
+                        function officehoursCheck() {
+                            const checkInTime = $(".checkInTime").text().trim();
+
+                            const enrolldate = $(".attendance-enrolldate").text()+"T";
+                            const checkInDate = new Date(enrolldate + checkInTime);
+
+                            // 현재 시간 가져오기
+                            const currentDate = new Date();
+
+                            // 밀리초로 시간 차이 계산
+                            const timeDifferenceMs = currentDate - checkInDate;
+
+                            const hours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
+                            const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+
+                            // 결과 출력
+                            return $(".officehours").text("근무한 시간: " + hours + "시간 " + minutes + "분 " + seconds + "초")
+                        }
+
+                    </script>
+
+
+
+                    <c:if test="${empty getAttendance}">
+                        <div>
+                            데이터 없음
+                        </div>
+
+                    </c:if>
 
                 </div>
 
