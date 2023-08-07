@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.zoody.document.vo.DocumentVo;
 import com.kh.zoody.page.vo.PageVo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Repository
+@Slf4j
 public class DocumentDaoImpl implements DocumentDao{
 
 	@Override
@@ -33,7 +36,16 @@ public class DocumentDaoImpl implements DocumentDao{
 	public List<DocumentVo> getNewDocument(SqlSessionTemplate sst) {
 		return sst.selectOne("document.getNewDocument");
 	}
+	
+	@Override
+	public List<DocumentVo> getLoginMemberDirectory(SqlSessionTemplate sst , int loginMemberNo) {
+		return sst.selectList("document.getLoginMemberDirectory", loginMemberNo);
+	}
 
+	@Override
+	public int newDirctory(SqlSessionTemplate sst, DocumentVo vo) {
+		return sst.insert("document.newDirctory", vo);
+	}
 	
 	
 }
