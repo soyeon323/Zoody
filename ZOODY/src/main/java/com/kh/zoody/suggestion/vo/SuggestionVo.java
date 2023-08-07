@@ -21,4 +21,5 @@ public class SuggestionVo {
 	
 	private String name;
 	private String rankName;
+	private String profile;
 }

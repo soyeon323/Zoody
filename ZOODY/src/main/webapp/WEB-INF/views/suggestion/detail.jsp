@@ -114,7 +114,7 @@
                        
                         <form action="${root}/suggestion/detail" method="POST">
                             <input type="hidden" value="${map.vo.no}" name="suggestionNo">
-                            <input type="hidden" value="${map.vo.userNo}" name="userNo">
+                            <input type="hidden" value="${loginMember.no}" name="userNo">
                             <div id="commentZone">
                                 <div><input type="text" placeholder="댓글을 남겨보세요." name="content"></div>
                                 <div><input type="submit" value="등록"></div>
@@ -123,10 +123,10 @@
                     </div>
                     <div id="commentOk">
                         <c:forEach items="${map.voList}" var="voList">
-                            <div><img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진" width="28px" height="28px"></div>
+                            <div><img src="${root}/resources/img/employee/${voList.profile}" alt="프로필사진" width="28px" height="28px"></div>
                             <div id="userName">
-                                <a id="userNameLink">${loginMember.name}</a>
-                                <a>&nbsp ${loginMember.rankName}</a>
+                                <a id="userNameLink">${voList.name}</a>
+                                <a>&nbsp ${voList.rankName}</a>
                             </div>
                             <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>

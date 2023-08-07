@@ -1,5 +1,8 @@
 package com.kh.zoody.project.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -18,6 +22,7 @@ import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.project.service.ProjectService;
 import com.kh.zoody.project.vo.ProjectAllVo;
+import com.kh.zoody.project.vo.ProjectTodoVo;
 import com.kh.zoody.project.vo.ProjectVo;
 import com.kh.zoody.suggestion.vo.SuggestionVo;
 
@@ -100,9 +105,15 @@ public class ProjectController {
 	
 	//프로젝트 상세화면
 	@GetMapping("detail")
-	public void detail(Model model) {
+	public void detail(String title, Model model) {
 		List<NoticeVo> noticeList = ps.getNoticeList(new PageVo(4, 1, 1, 4));
 		List<SuggestionVo> suggestionList = ps.getSuggestionList(new PageVo(4, 1, 1, 4));
+		
+		//프로젝트 제목으로 번호 조회
+		List<ProjectVo> prjVoList = ps.getByPrjNo(title);
+
+		//프로젝트 할일 목록에 추가
+		List<ProjectTodoVo> todoList = ps.selectTodo(prjVoList.get(0).getNo());
 		
 		if(noticeList == null) {
 			throw new RuntimeException();
@@ -110,11 +121,30 @@ public class ProjectController {
 			
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("suggestionList", suggestionList);
+		model.addAttribute("prjVoList", prjVoList);
+		model.addAttribute("todoList", todoList);
 	}
 	
 	@PostMapping("detail")
-	public void detail() {
+	public String detail(@RequestParam Map<String, String> todoMap){
+		log.info("todoMap : {}", todoMap);
 		
+		String title = ps.getTitle(todoMap.get("projectNo"));
+		
+		try {
+			title = URLEncoder.encode(title, StandardCharsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		//할일 DB에 저장
+		int result = ps.insertTodo(todoMap);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/project/detail?title=" + title;
 	}
 
 	//프로젝트 삭제
@@ -130,4 +160,15 @@ public class ProjectController {
 		return "redirect:/project/progress";
 	}
 	
+	//프로젝트 할일 삭제
+	@PostMapping("todo/delete")
+	public void todoDelete(String no) {
+		log.info("no : {}", no);
+		
+		int result = ps.todoDelete(no);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+	}
 }

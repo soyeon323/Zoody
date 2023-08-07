@@ -156,6 +156,8 @@ public class SuggestionController {
 	//건의사항 댓글 달기
 	@PostMapping("detail")
 	public String suggestionReply(ReplyVo vo) {
+		log.info("회원건의사항댓글 : {}", vo);
+		
 		int result = ss.suggestionReply(vo);
 		
 		if(result != 1) {
