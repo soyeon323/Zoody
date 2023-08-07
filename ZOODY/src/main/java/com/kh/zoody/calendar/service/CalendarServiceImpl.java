@@ -28,5 +28,15 @@ public class CalendarServiceImpl implements CalendarService{
 		return dao.addMonth(sst, vo);
 	}
 
+	@Override
+	public int updateMonth(CalendarVo vo) {
+		return dao.updateMonth(sst, vo);
+	}
+
+	@Override
+	public int deleteMonth(String no) {
+		return dao.deleteMonth(sst, no);
+	}
+
 
 }

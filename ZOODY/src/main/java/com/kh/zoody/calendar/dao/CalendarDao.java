@@ -13,5 +13,9 @@ public interface CalendarDao {
 
 	int addMonth(SqlSessionTemplate sst, CalendarVo vo);
 
+	int updateMonth(SqlSessionTemplate sst, CalendarVo vo);
+
+	int deleteMonth(SqlSessionTemplate sst, String no);
+
 
 }

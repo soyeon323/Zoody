@@ -65,7 +65,9 @@ public class CalendarController {
 			hash.put("type", listAll.get(i).get("TYPE"));
 			hash.put("username", listAll.get(i).get("NAME"));
 			hash.put("description", listAll.get(i).get("CONTENT"));
-			hash.put("_id", listAll.get(i).get("NO"));
+			hash.put("id", listAll.get(i).get("NO"));
+			hash.put("allDay", listAll.get(i).get("ALL_DAY"));
+			hash.put("color", listAll.get(i).get("COLOR"));
 			
 			jsonObj = new JSONObject(hash);
 			jsonArr.add(jsonObj);
@@ -75,11 +77,12 @@ public class CalendarController {
 		log.info("jsonArrCheck: {}", jsonArr);
 		
 		return jsonArr;
-	}
+	 }
 	
-		@PostMapping("main")
+	  @PostMapping("main")
 	  @ResponseBody
 	  public ResponseEntity<String> saveEvent(
+		@RequestParam String allDay,
 	    @RequestParam String title,
 	    @RequestParam String startTime,
 	    @RequestParam String place,
@@ -87,8 +90,8 @@ public class CalendarController {
 	    @RequestParam String typeNo,
 	    @RequestParam String content) {
 
-	    // calendarService.saveEvent(title, start, end, type, description);
 		CalendarVo vo = new CalendarVo();
+		vo.setAllDay(allDay);
 		vo.setTitle(title);
 		vo.setPlace(place);
 		vo.setStartTime(startTime);
@@ -100,6 +103,45 @@ public class CalendarController {
 
 	    return new ResponseEntity<>("일정이 성공적으로 저장되었습니다.", HttpStatus.OK);
 	  }
+	  
+	  @PostMapping("update")
+	  @ResponseBody
+	  public ResponseEntity<String> updateEvent(
+		@RequestParam String no,
+		@RequestParam String allDay,
+	    @RequestParam String title,
+	    @RequestParam String startTime,
+	    @RequestParam String place,
+	    @RequestParam String endTime,
+	    @RequestParam String typeNo,
+	    @RequestParam String content) {
+
+		CalendarVo vo = new CalendarVo();
+		vo.setNo(no);
+		vo.setAllDay(allDay);
+		vo.setTitle(title);
+		vo.setPlace(place);
+		vo.setStartTime(startTime);
+		vo.setEndTime(endTime);
+		vo.setTypeNo(typeNo);
+		vo.setContent(content);
+		
+		int result = cs.updateMonth(vo);
+
+	    return new ResponseEntity<>("일정이 성공적으로 수정되었습니다.", HttpStatus.OK);
+	  }
+	  
+	  @PostMapping("delete")
+	  @ResponseBody
+	  public ResponseEntity<String> deleteEvent(
+		@RequestParam String no) {
+
+		int result = cs.deleteMonth(no);
+
+	    return new ResponseEntity<>("일정이 성공적으로 삭제되었습니다.", HttpStatus.OK);
+	  }
+	  
+	  
 	
 	
 
