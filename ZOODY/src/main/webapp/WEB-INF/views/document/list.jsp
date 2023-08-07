@@ -25,17 +25,123 @@
                 <div class="upload-modal-open-btn" onclick="documentUpload()">업로드</div>
 
                 <ul>문서
-                    <li>전사 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
-                    <li>부서 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
+                    <li onclick="goToDirectory(1)"><div>전사 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></div></li>
+                    <li onclick="goToDirectory(2)"><div>부서 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></div></li>
                 </ul>
-                <ul>개인 문서
-                    <li>새 폴더 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
-                    <li>새새 폴더 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>
+                <ul class="private-document-list">
+                    
+                    
+                 
+                        개인 문서
+                        <c:if test="${empty directoryList }">
 
-                    <li>새 폴더 추가 <span>+</span></li>
+                        </c:if>
+
+                        <c:if test="${not empty directoryList }">
+                            
+                            <c:forEach items="${ directoryList }" var="list">
+        
+                                <li>
+                                    <div onclick="goToUserDirectory('enterprise')">
+                                        <input class="private-document-item" type="text" value="${list.directoryName} ">
+                                        <span>
+                                            <img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt="">
+                                        </span>
+                                    </div>
+                                    <img class="hover_icon" src="${root}/resources/img/icon/svg/rename.svg"></img>
+                                </li>
+        
+                            </c:forEach>
+
+                        </c:if>
+
+                    
+
+                    <li class="add-new-directory">새 폴더 추가 <span>+</span></li>
                 </ul>
             </div>
-    
+            
+            <script>
+
+                $(document).ready(function () {
+                    $(".private-document-list > li").hover(
+                        function () {
+                        // 마우스 호버 상태에 진입했을 때
+                        $(this).find(".hover_icon").css("display", "block");
+                        }
+                        ,
+                        function () {
+                        // 마우스 호버 상태에서 벗어났을 때
+                        $(this).find(".hover_icon").css("display", "none");
+                        }
+                    );
+                });
+
+                $(document).ready(function () {
+                    checkAndToggleAddButton();
+                });
+
+                function checkAndToggleAddButton() {
+                    var childCount = $(".private-document-list li").length;
+                    var addButton = $(".add-new-directory");
+
+                    if (childCount > 5) {
+                        addButton.hide(); // 5개 이상인 경우 숨기기
+                    } else {
+                        addButton.show(); // 5개 미만인 경우 보이기
+                    }
+                }
+
+                function goToDirectory(path) {
+                    location.href = root+'/document/list?scope='+path;
+                };
+
+
+
+                $(".add-new-directory").on("click", function () {
+
+
+                    
+
+                        // "add-new-directory" 요소가 이미 비활성화되어 있는지 확인 (중복 클릭 방지)
+                        if ($(".add-new-directory").hasClass("disabled")) {
+                            return; // 이미 비활성화된 상태이면 아무 작업도 수행하지 않음
+                        }
+                        
+
+                        // "비활성화" 클래스를 추가하여 요소를 임시적으로 비활성화하여 중복 클릭 방지
+                        $(".add-new-directory").addClass("disabled");
+
+                        
+
+                        // AJAX 요청
+                        $.ajax({
+                            url: root+"/document/directory",
+                            method: "POST", 
+                            data: { 
+                                directoryName: "새 폴더",
+                                userNo : headerGetLoginMemberNo,
+                            }, // 필요한 경우 추가 데이터를 전송할 수 있음
+                            success: function (response) {
+                                console.log("성공");
+                                let newListItem = '<li>새 폴더<span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></li>';
+                                $(".add-new-directory").parent().children().eq(-2).after(newListItem);
+                            },
+                            error: function (xhr, status, error) {
+                                // AJAX 요청 실패 시 처리
+                                console.log("AJAX 요청 실패:", error);
+                            },
+                            complete: function () {
+                                // AJAX 요청이 완료되면 "비활성화" 클래스를 제거하여 요소를 다시 활성화
+                                checkAndToggleAddButton();
+                                $(".add-new-directory").removeClass("disabled");
+                            }
+                        });
+                    });
+
+
+
+            </script>
 
 
 

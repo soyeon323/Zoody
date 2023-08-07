@@ -45,6 +45,15 @@ public class DocumentServiceImpl implements DocumentService {
 	public List<DocumentVo> getNewDocument() {
 		return dao.getNewDocument(sst);
 	}
+	
+	@Override
+	public List<DocumentVo> getLoginMemberDirectory(int loginMemberNo) {
+		return dao.getLoginMemberDirectory(sst, loginMemberNo);
+	}
 
+	@Override
+	public int newDirctory(DocumentVo vo) {
+		return dao.newDirctory(sst, vo);
+	}
 
 }

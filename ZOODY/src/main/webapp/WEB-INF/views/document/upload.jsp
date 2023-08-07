@@ -56,7 +56,7 @@
 }
 
 .upload-meddle {
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -64,7 +64,7 @@
     align-content: flex-start;
 }
 
-.upload-meddle > div:not(.flie-upload-area) {
+.upload-meddle > form > div:not(.flie-upload-area) {
     font-size: 15;
     font-weight: 400;
     height: 40;
@@ -158,9 +158,17 @@
     height: 35;
 }
 
+
+
 form#uploadForm {
     padding: 10;
     border-bottom: 1px solid #d9d9d9;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 470;
+    align-content: flex-start;
 }
     
     </style>
@@ -177,7 +185,7 @@ form#uploadForm {
             console.log(root+"/document/upload");
             let loginUserId = $("#hidden-id").val();
             
-            formData.append("loginUserId", loginUserId); // 추가
+            // formData.append("loginUserId", loginUserId); // 추가
             $.ajax({
                 url: root+"/document/upload",
                 type: "POST",
@@ -197,7 +205,21 @@ form#uploadForm {
                 }
             });
         });
+
+        $("#select-scope").on("change", function() {
+                $("#select-scope option:first-child").hide();
+           
+        });
+
+        $("#select-directory").on("change", function() {
+                $("#select-directory option:first-child").hide();
+           
+        });
+
     });
+
+    
+
 </script>
 </head>
 
@@ -214,46 +236,54 @@ form#uploadForm {
             </div>
             
             <div class="upload-meddle">
-                <div class="upload-title">
-                    <span>제목 |</span>
-                    <input type="text">
-                </div>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="upload-title">
+                        <span>제목 |</span>
+                        <input type="text">
+                    </div>
+
                 
-                <div class="upload-option-area">
-                    <select name="scope" id="upload-cat">
-                        <option checked>카테고리</option>
-                        <option value="1" checked>전사</option>
-                        <option value="2">부서</option>
-                        <option value="3">개인</option>
-                    </select>
-                    <div class="upload-radio-area">공개 설정
-                        <input type="radio" name="right-click" value="yes" checked><div>허용</div>
-                        <input type="radio" name="right-click" value="no"><div>허용안함</div>
-                    </div>
-                </div>
-
-                <div class="flie-upload-area">
-                    <form id="uploadForm" enctype="multipart/form-data">
-                        <input type="file" name="file">
-
-                        <c:if test="${empty loginMember.name}">
-                            <input id="hidden-id" type="text" name="" value="test">
-                        </c:if>
-                        <c:if test="${not empty loginMember.name}">
-                            <input id="hidden-id" type="text" name="loginMemberId"  value="${loginMember.id}">
-                        </c:if>
-
+                    <div class="upload-option-area">
+                        <select name="scope" id="select-scope">
+                            <option checked>공개 범위</option>
+                            <option value="1">전사</option>
+                            <option value="2">부서</option>
+                            <option value="3">개인</option>
+                        </select>
                         
-                        <div id="result"></div>
-                    
-                    </div>
-                    
+                        <select name="directoryNo" id="select-directory">
+                            <option checked>폴더 선택</option>
+                            <c:forEach items="${ directoryList }" var="list" varStatus="status">
+                                <option value="<c:out value="${status.index}" />">${list.directoryName}</option>
+                            </c:forEach>
+                                
 
-                <div class="btn-area">
-                    <input class="upload-submit-btn" type="submit" value="등록">
-                    <div onclick="closeModal()">취소</div>
-                </div>
-                    </form>
+                        </select>
+                    </div>
+
+                    <div class="flie-upload-area">
+                        
+                            <input type="file" name="file">
+
+                            <c:if test="${empty loginMember.name}">
+                                <input id="hidden-id" type="text" name="loginMemberId" value="test">
+                            </c:if>
+                            <c:if test="${not empty loginMember.name}">
+                                <input id="hidden-id" type="text" name="loginMemberId"  value="${loginMember.id}">
+                            </c:if>
+
+                            
+                            <div id="result"></div>
+                        
+                        </div>
+                        
+
+                    <div class="btn-area">
+                        <input class="upload-submit-btn" type="submit" value="등록">
+                        <div onclick="closeModal()">취소</div>
+                    </div>
+                </form>
+
             </div>
         </div>
 

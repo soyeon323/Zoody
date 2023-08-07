@@ -18,4 +18,8 @@ public interface DocumentDao {
 
 	List<DocumentVo> getNewDocument(SqlSessionTemplate sst);
 
+	List<DocumentVo> getLoginMemberDirectory(SqlSessionTemplate sst, int loginMemberNo);
+
+	int newDirctory(SqlSessionTemplate sst, DocumentVo vo);
+
 }

@@ -52,7 +52,6 @@
                         ${loginMember.name}
                     </div>
                     <input id="header-get-loginMember-no" style="display: none;" value="${loginMember.no}">
-                        
                     
 
                 </c:if>
@@ -64,4 +63,7 @@
     
 </body>
 
+<script>
+    let headerGetLoginMemberNo = $("#header-get-loginMember-no").val();
 
+</script>

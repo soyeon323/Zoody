@@ -18,6 +18,10 @@ public interface DocumentService {
 	int uploadFile(DocumentVo vo);
 
 	List<DocumentVo> getNewDocument();
+
+	List<DocumentVo> getLoginMemberDirectory(int loginMemberNo);
+
+	int newDirctory(DocumentVo vo);
 	
 	
 	
