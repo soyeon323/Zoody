@@ -13,18 +13,25 @@
 </head>
 <body>
     <div id="wrap">
-        <a href="${root}/pwd/setting" id="pwdSetting">비밀번호 설정</a>
         <form id="login-form" action="${root}/member/login" method="POST" >
             <img src="${root}/resources/img/logo/logo.svg" alt="로고 이미지">
             <input type="text" name="id" placeholder="ID">
             <input type="text" name="pwd" placeholder="PWD">
-            <input class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
+            <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
+            <c:if test="${result == 1}">
+	            <input id="loginBtn" class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
+            </c:if>
         </form>
 		</div>
 </body>
 </html>
 
 <script>
+
+    function pwdSet() {
+        location.href = "${root}/pwd/setting";
+    }
+
     function check() {
     const pwdVal = document.querySelector('input[name="pwd"]').value;
     
@@ -33,5 +40,4 @@
         location.href = "/zoody/pwd/setting";
     }
 }
-
 </script>

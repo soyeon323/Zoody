@@ -99,7 +99,7 @@
    				 <button id="surveyButton" class="btn btn-primary" onclick="go()">설문 조사 하기</button>
 			</c:if>
             <c:if test="${status.status == 'O'}">
-   				 <div id="surveyButton" class="btn btn-primary">설문 조사 완료</div>
+   				 <div id="surveyButton" class="btn btn-primary" style="display: none;"></div>
 			</c:if>
         </div>
 
