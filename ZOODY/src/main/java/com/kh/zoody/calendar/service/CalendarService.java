@@ -11,5 +11,9 @@ public interface CalendarService {
 
 	int addMonth(CalendarVo vo);
 
+	int updateMonth(CalendarVo vo);
+
+	int deleteMonth(String no);
+
 
 }

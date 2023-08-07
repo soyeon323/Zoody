@@ -18,29 +18,53 @@
 		    ,TO_CHAR(C.END_TIME, 'YYYY-MM-DD HH24:MI') AS END_TIME
 		    ,C.PLACE
 		    ,C.STATUS
+		    ,C.ALL_DAY
 		    ,U.NAME
 		    ,CT.TYPE
+		    ,CT.COLOR
 		FROM CALENDAR C
 		JOIN "USER" U
 		ON C.USER_NO = U.NO
 		JOIN CALENDAR_TYPE CT
 		ON C.TYPE_NO = CT.NO
 		WHERE C.USER_NO = 1
+		AND C.STATUS = 0
 	</select>
 	
 	<insert id="addMonth">
-	INSERT INTO CALENDAR (NO, USER_NO, TYPE_NO, TITLE, CONTENT, START_TIME, END_TIME, PLACE) 
-	VALUES (
-		SEQ_CALENDAR_NO.NEXTVAL, 
-		1, 
-		#{typeNo},
-		#{title}, 
-		#{content}, 
-		#{startTime}, 
-		#{endTime}, 
-		#{place}
-	)
-</insert>
+		INSERT INTO CALENDAR (NO, USER_NO, TYPE_NO, TITLE, CONTENT, START_TIME, END_TIME, PLACE ,ALL_DAY) 
+		VALUES (
+			SEQ_CALENDAR_NO.NEXTVAL, 
+			1, 
+			#{typeNo},
+			#{title}, 
+			#{content}, 
+			#{startTime}, 
+			#{endTime}, 
+			#{place},
+			#{allDay}
+		)
+	</insert>
+	
+	<update id="updateMonth">
+		UPDATE CALENDAR
+		SET 
+			TYPE_NO = #{typeNo},
+			CONTENT = #{content},
+			START_TIME = #{startTime},
+			END_TIME = #{endTime},
+			TITLE = #{title},
+			PLACE = #{place},
+			ALL_DAY = #{allDay}
+		WHERE NO=#{no}
+	</update>
+	
+	<update id="deleteMonth">
+		UPDATE CALENDAR
+		SET STATUS = 1
+		WHERE NO=#{no}
+	</update>
+
 	
   
 </mapper>

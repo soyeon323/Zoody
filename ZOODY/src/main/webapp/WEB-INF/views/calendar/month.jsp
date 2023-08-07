@@ -18,11 +18,6 @@
 <link rel="stylesheet" href="${root}/resources/css/calendar/month.css">
 
 <!-- //fullcalendar css -->
-<link rel="stylesheet" href="vendor/css/fullcalendar.min.css" />
-<link rel="stylesheet" href="vendor/css/bootstrap.min.css">
-<link rel="stylesheet" href='vendor/css/select2.min.css' />
-<link rel="stylesheet" href='vendor/css/bootstrap-datetimepicker.min.css' />
-
 <link th:href="@{/Dashio/fullcalendar/main.css}" rel="stylesheet">
 <link th:href="@{/Dashio/fullcalendar/main.min.css}" rel="stylesheet">
 <script th:src="@{/Dashio/fullcalendar/main.min.js}"></script>
@@ -35,6 +30,7 @@
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- <script type="text/javascript" src="./fullcalendar-2.9.1/gcal.js"></script> -->
 <!-- //fullcalendar 언어 설정관련 script -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
@@ -211,15 +207,27 @@
             </div>
             <div class="panel-body">
               <div class="col-lg-4">
-                <label for="calendar_view">카테고리</label>
-                <div class="input-group">
-                  <select class="filter" id="type_filter" multiple="multiple">
-                    <option value="개인">개인</option>
-                    <option value="부서">부서</option>
-                    <option value="회사">회사</option>
-                    <option value="회의">회의</option>
-                  </select>
-                </div>
+                <!-- <label for="calendar_view">카테고리</label> -->
+                  <!-- <div class="input-group">
+                    <select class="filter" id="type_filter" multiple="multiple">
+                      <option value="all">전체</option>
+                      <option value="개인">개인</option>
+                      <option value="부서">부서</option>
+                      <option value="회사">회사</option>
+                      <option value="회의">회의</option>
+                    </select>
+                  </div> -->
+                  <label for="calendar_view">카테고리</label>
+                  <div class="input-group">
+                    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                      <option selected>선택...</option>
+                      <option value="0">개인</option>
+                      <option value="1">부서</option>
+                      <option value="2">회사</option>
+                      <option value="3">회의</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button">검색</button>
+                  </div>
               </div>
               <div class="col-lg-2">
                 <div class="form-group">
@@ -320,13 +328,24 @@
                     </div>
                     <div class="modal-body">
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-allDay">하루종일</label>
-                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
+                                <input class='allDayNewEvent' id="edit-allDay" type="text"></label>
+                            </div>
+                        </div> -->
+                        <div class="row" id="allDayCheck">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
+                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox" value="1"></label>
                             </div>
                         </div>
-
+                        <div class="row">
+                          <div class="col-xs-12">
+                              <input class="inputModal" type="hidden" name="edit-id" id="edit-id"
+                                  required="required" />
+                          </div>
+                        </div>
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">일정명</label>
@@ -378,14 +397,16 @@
                         <button type="submit" class="btn btn-primary" id="save-event" onclick="saveEventToServer()">저장</button>
                     </div>
                     <!-- 일정 추가 버튼 -->
-                    <!-- <div class="modal-footer modalBtnContainer-modifyEvent">
+                    <div class="modal-footer modalBtnContainer-modifyEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-                    </div> -->
+                        <button type="button" class="btn btn-danger" id="deleteEvent" onclick="deleteEventToServer()">삭제</button>
+                        <button type="button" class="btn btn-primary" id="updateEvent" onclick="updateEventToServer()">저장</button>
+                    </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+        
 
 
 
@@ -397,6 +418,14 @@
 
       var newEvent;
       var editEvent;
+
+      var addBtnContainer = $('.modalBtnContainer-addEvent');
+      var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
+      var allDayCheck = $('#allDayCheck');
+
+      
+
+      
     
       document.addEventListener('DOMContentLoaded', function () {
         $(function () {
@@ -413,6 +442,14 @@
             var calendarEl = document.getElementById('calendar');
             // full-calendar 생성하기
             var calendar = new FullCalendar.Calendar(calendarEl, {
+              googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
+              eventSources :[ 
+                  {
+                      googleCalendarId : 'akak3927%40gmail.com&ctz=Asia%2FSeoul' // an option!
+                  },
+                  { googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com'
+                    , className : 'ko_event' }
+              ],
               // 해더에 표시할 툴바
               headerToolbar: {
                 left: 'prev,next today,printButton',
@@ -487,12 +524,21 @@
                   var startDate = moment(info.start).format("YYYY-MM-DD HH:mm");
                   var endDate = moment(info.end).format("YYYY-MM-DD HH:mm");
 
+                  addBtnContainer.show();
+                  modifyBtnContainer.hide();
+
                   // 모달 열릴 때마다 입력 필드 초기화
                   $('#eventModal input, #eventModal textarea').val('');
 
-                  if(info.view.type == "dayGridMonth"){
-                    
+                  // 타입이 'dayGridMonth'인 경우 하루종일(allDay) 부분 체크
+                  if (info.view.type === "dayGridMonth") {
+                      $('#edit-allDay').prop('checked', true);
+                  } else {
+                      $('#edit-allDay').prop('checked', false);
                   }
+
+                  
+                  
 
                   // 시작 시간과 종료 시간 입력 필드에 값 설정
                   $('#edit-start').val(startDate);
@@ -502,9 +548,64 @@
 
                   
 
-                }
+                },
+                eventClick: function(info,jsEvent,view){
 
-            
+                  var event = info.event;
+                  var allDay = event.allDay;
+                  var _id = event.id;
+                  var place = event.place;
+                  var start = event.start;
+                  var end = event.end;
+                  var title = event.title;
+                  var username = event.extendedProps.username;
+                  var description = event.extendedProps.description;
+                  var type = event.extendedProps.type;
+
+                  var formatStart = moment(start).format("YYYY/MM/DD HH:mm");
+                  var formatEnd = end ? moment(end).format("YYYY/MM/DD HH:mm") : "-";
+                  var formatPlace = place ? place : "-";
+
+                  addBtnContainer.hide();
+                  modifyBtnContainer.show();
+
+                  // 일정 작성자가 내가 아닐 때
+                  // if (username == 1) {
+                  //   $('#eventModal').modal('show');
+                  // }else{
+
+                  //   var message = "\n구분 : " + type + "\n장소 : " + formatPlace + "\n시작시간 : " + formatStart + "\n종료시간 : " + formatEnd + "\n내용 : \n" + description;
+
+                  //   swal(title,message,'info');
+
+                  // }
+
+                  allDayCheck
+                  if (info.view.type === "dayGridMonth") {
+                      allDayCheck.show();
+                  } else {
+                      allDayCheck.hide();
+                  }
+
+                  if (allDay === true) {
+                    $('#edit-allDay').prop('checked', true);
+                  } else {
+                    $('#edit-allDay').prop('checked', false);
+                  }
+
+                  // $('#edit-allDay').val(allDay)
+                  $('#edit-id').val(_id);
+                  $('#edit-title').val(title);
+                  $('#edit-place').val(place);
+                  $('#edit-start').val(formatStart);
+                  $('#edit-end').val(formatEnd);
+                  $('#edit-desc').val(description);
+                  $("#edit-type option").filter(function() {
+                    return $(this).text() === type;
+                  }).prop('selected', true);
+                  
+                  $('#eventModal').modal('show');
+                },
                 });
 
         
@@ -512,19 +613,20 @@
                 calendar.render();
               });
 
+              
+
         });
 
         
       });
 
-
-    
     </script>
 
     <!-- 일정 추가 -->
     <script>
       function saveEventToServer() {
       // 모달의 입력 값을 가져옵니다.
+      var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
       var title = $('#edit-title').val();
       var place = $('#edit-place').val();
       var startTime = $('#edit-start').val();
@@ -532,8 +634,11 @@
       var typeNo = $('#edit-type').val();
       var content = $('#edit-desc').val();
 
+      
+
       // AJAX 호출을 위한 데이터 객체 생성
       var eventData = {
+        allDay: allDay,
         title: title,
         place: place,
         startTime: startTime,
@@ -544,23 +649,80 @@
 
       // AJAX 호출 설정
       $.ajax({
-  type: 'POST',
-  url: '${root}/calendar/main',
-  data: eventData, // JSON.stringify를 제거하고, 객체 그대로 전달
-  success: function (response) {
-    // 성공적으로 서버에 저장되었을 경우 실행할 코드를 작성합니다.
-    console.log('일정이 성공적으로 서버에 저장되었습니다.');
-    location.reload();
-    // 여기에서 추가적인 처리를 할 수 있습니다.
-  },
-  error: function (error) {
-    // 서버에 저장 중 에러가 발생했을 경우 실행할 코드를 작성합니다.
-    console.error('일정 저장 중 에러가 발생했습니다.', error);
-    // 에러 처리를 할 수 있습니다.
-  }
-});
+          type: 'POST',
+          url: '${root}/calendar/main',
+          data: eventData,
+          success: function (response) {
+            console.log('일정이 성공적으로 서버에 저장');
+            location.reload();
+          },
+          error: function (error) {
+            console.error('일정 저장 중 에러가 발생', error);
+          }
+        });
       }
-</script>
+  </script>
+
+  <!-- 일정 수정 -->
+  <script>
+    function updateEventToServer() {
+      var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
+      var id = $('#edit-id').val();
+      var title = $('#edit-title').val();
+      var place = $('#edit-place').val();
+      var startTime = $('#edit-start').val();
+      var endTime = $('#edit-end').val();
+      var typeNo = $('#edit-type').val();
+      var content = $('#edit-desc').val();
+
+      // var startTime = moment(start).format("YYYY/MM/DD HH:mm");
+      // var endTime = moment(end).format("YYYY/MM/DD HH:mm");
+
+      var eventData = {
+        no : id,
+        allDay: allDay,
+        title: title,
+        place: place,
+        startTime: startTime,
+        endTime: endTime,
+        typeNo: typeNo,
+        content: content
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: '${root}/calendar/update',
+        data: eventData,
+        success: function(response) {
+          console.log('일정이 성공적으로 서버에 업데이트');
+          location.reload();
+        },
+        error: function(error) {
+          console.error('일정 업데이트 중 에러가 발생', error);
+        }
+      });
+    }
+  </script>
+
+  <!-- 일정 삭제 -->
+  <script>
+    function deleteEventToServer() {
+      var id = $('#edit-id').val();
+
+      $.ajax({
+        type: 'POST',
+        url: '${root}/calendar/delete',
+        data: {no : id},
+        success: function(response) {
+          console.log('일정이 성공적으로 서버에 삭제');
+          location.reload();
+        },
+        error: function(error) {
+          console.error('일정 삭제 중 에러가 발생', error);
+        }
+      });
+    }
+  </script>
 
 
     

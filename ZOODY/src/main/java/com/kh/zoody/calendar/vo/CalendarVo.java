@@ -15,8 +15,10 @@ public class CalendarVo {
 	private String endTime;
 	private String place;
 	private String status;
+	private String allDay;
 	
 	private String name;
 	private String type;
+	private String color;
 
 }
