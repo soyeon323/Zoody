@@ -16,6 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
+<h1>${voList}</h1>
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/admin/longside.jsp" %>
     <c:if test="${vo.rightclickYn == 'N'}">
@@ -109,6 +110,7 @@
                        
                         <form action="${root}/admin/notice/detail" method="POST">
                             <input type="hidden" value="${vo.no}" name="noticeNo">
+                            <input type="hidden" value="${loginMember.no}" name="userNo">
                             <div id="commentZone">
                                 <div><input type="text" placeholder="댓글을 남겨보세요." name="content"></div>
                                 <div><input type="submit" value="등록"></div>
@@ -117,10 +119,10 @@
                     </div>
                     <div id="commentOk">
                         <c:forEach items="${voList}" var="voList">
-                            <div><img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진" width="28px" height="28px"></div>
+                            <div><img src="${root}/resources/img/employee/${voList.profile}" alt="프로필사진" width="28px" height="28px"></div>
                             <div id="userName">
-                                <a id="userNameLink">${loginMember.name}</a>
-                                <a>&nbsp ${loginMember.rankName}</a>
+                                <a id="userNameLink">${voList.name}</a>
+                                <a>&nbsp ${voList.rankName}</a>
                             </div>
                             <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>

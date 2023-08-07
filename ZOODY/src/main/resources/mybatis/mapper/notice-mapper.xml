@@ -192,7 +192,7 @@
 			SEQ_REPLY_NO.NEXTVAL
 			, #{suggestionNo}
 			, #{noticeNo}
-			, 2
+			, #{userNo}
 			, #{content}
 			, SYSDATE
 			, #{modifyDate}
@@ -212,6 +212,7 @@
 		    , TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD HH24:MI') AS ENROLL_DATE
 		    , TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD HH24:MI') AS MODIFY_DATE
 		    , R.STATUS
+		    , U.PROFILE
 		FROM REPLY R JOIN "USER" U ON R.USER_NO = U.NO
 		JOIN RANK K ON K.NO = U.RANK_NO
 		WHERE 

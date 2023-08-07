@@ -18,4 +18,6 @@ public class NoticeVo {
 	private String commentYn;
 	private String boardLimit;
 	private String hit;
+
+	private String profile;
 }

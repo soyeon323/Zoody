@@ -131,6 +131,8 @@ public class AdminController {
 	//공지사항 댓글달기
 	@PostMapping("notice/detail")
 	public String noticeReply(ReplyVo vo) {
+		log.info("댓글정보 : {}", vo);
+		
 		int result = as.reply(vo);
 		
 		if(result != 1) {
@@ -166,8 +168,6 @@ public class AdminController {
 		map.put("searchMap", searchMap);
 		
 		model.addAttribute("map", map);
-		
-		log.info("loginMember : {}" , session.getAttribute("loginMember"));
 		
 		return "admin/notice/list";
 	}
@@ -206,8 +206,6 @@ public class AdminController {
 		
 		int suggestionListCnt = as.getSuggestionListCnt(searchMap);
 		List<NoticeVo> voList = as.suggstionList(pv, searchMap);
-		
-		log.info("voList : {}", voList);
 		
 		if(voList == null) {
 			throw new RuntimeException();

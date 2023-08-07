@@ -71,12 +71,9 @@
 }
 
 /* 내용영역 */
-#tableArea{
-}
-
 #tableArea>table{
     width: 1518px;
-    margin-top: 40px;
+    margin-top: 115px;
 }
 
 #tableArea thead{
