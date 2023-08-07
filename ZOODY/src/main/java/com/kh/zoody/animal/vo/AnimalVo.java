@@ -41,6 +41,7 @@ public class AnimalVo {
 	
 	
 	private String trainingTitle;	
+	private String trainingNo;	
 	private String trainingContent;	
 	private String trainingDate;	
 	

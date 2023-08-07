@@ -27,19 +27,25 @@
     <div id="wrap">
 
         <div id="enroll">훈련 일지상세 조회</div>
-                <div id="content-area">
-                    <br>
-                    <span>제목</span>
-                    <textarea name="title" id="t1" cols="30" rows="10">${vo.trainingTitle}</textarea>
-                  
-                    <span>훈련 내용</span >
-                    <div style="resize: no;" name="content" id="summernote" readonly cols="30" rows="10">${vo.trainingContent}</div>
-                </div>
-               
-                <div id="btn-area">
-                        <a href="${root}/animal/training/list?page=1"><div class="btn-upload">닫기</div></a>
-                </div>
-        </div>
+        <form action="${root}/animal/training/edit" method="POST">
+            <input type="hidden" value="${vo.trainingNo}" name="trainingNo">
+            <div id="content-area">
+                <br>
+                <span>제목</span>
+                <textarea name="trainingTitle" id="t1" cols="30" rows="10" style="display: none;">${vo.trainingTitle}</textarea>
+                <div name="title" id="t1" cols="30" rows="10">${vo.trainingTitle}</div>
+              
+                <span>훈련 내용 /작성일시  :  ${vo.trainingDate}</span> 
+                <div style="resize: no;" name="trainingContent" id="summernote" readonly cols="30" rows="10">${vo.trainingContent}</div>
+            </div>
+           
+            <div id="btn-area">
+                    <a href="${root}/animal/training/list?page=1"><div class="btn-upload">닫기</div></a>
+                    <input class="btn-upload" style="display: none;" type="submit" id="editBtn" value="수정하기"/>
+            </div>
+    </div>
+        </form>
+       
 
     </div>
 
@@ -47,6 +53,20 @@
 </html>
 
 <script>
+
+// 서머노트 쓰기 비활성화
+$('#summernote').summernote('disable');
+
+    const div = document.querySelector('div[name="title"]');
+    const textarea = document.querySelector('textarea[name="trainingTitle"]');
+    const editBtn = document.querySelector('#editBtn');
+    div.addEventListener('click' , function () {
+        textarea.style.display = 'block';
+        div.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+        // 서머노트 쓰기 활성화
+        $('#summernote').summernote('enable');
+    });
 
  // sunnerNote
  $('#summernote').summernote({

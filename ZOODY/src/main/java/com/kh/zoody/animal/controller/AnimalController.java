@@ -255,5 +255,18 @@ public class AnimalController {
 		return "data";
 	}
 	
+	//훈련일지 수정
+	@PostMapping("training/edit")
+	public String trainingEdit(AnimalVo vo) {
+		
+		int result = as.trainingEdit(vo);
+		
+		if(result !=1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/animal/training/list";
+	}
+	
 	
 }

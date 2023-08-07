@@ -295,7 +295,6 @@
                     no :trainingNo,
                 },
                 success : ()=>{
-                    alert(123);
                         location.href = "${root}/animal/training/detail?no="+trainingNo;
                 },
                 error : (e)=>{
