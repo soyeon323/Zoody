@@ -217,18 +217,18 @@
                       <option value="회의">회의</option>
                     </select>
                   </div> -->
-                  <label for="calendar_view">카테고리</label>
-                  <div class="input-group">
-                    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                      <option selected>선택...</option>
-                      <option value="0">개인</option>
-                      <option value="1">부서</option>
-                      <option value="2">회사</option>
-                      <option value="3">회의</option>
-                    </select>
-                    <button class="btn btn-outline-secondary" type="button">검색</button>
-                  </div>
-              </div>
+                    <label for="calendar_view">카테고리</label>
+                    <div class="input-group">
+                      <select class="form-select" id="type_filter" aria-label="Example select with button addon">
+                        <option value="all" selected>선택...</option>
+                        <option value="0">개인</option>
+                        <option value="1">부서</option>
+                        <option value="2">회사</option>
+                        <option value="3">회의</option>
+                      </select>
+                      <button class="btn btn-outline-secondary" type="button" onclick="filterCalendarEvents()">검색</button>
+                    </div>
+                </div>
               <div class="col-lg-2">
                 <div class="form-group">
                   <label for="calendar_view">달력 유형</label>
@@ -423,8 +423,7 @@
       var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
       var allDayCheck = $('#allDayCheck');
 
-      
-
+      var loginMember = '${loginMember.name}';
       
     
       document.addEventListener('DOMContentLoaded', function () {
@@ -520,6 +519,7 @@
                   
                   // alert('selected ' + info.startStr + ' to ' + info.endStr + info.view.type);
 
+                  
                   var today = moment();
                   var startDate = moment(info.start).format("YYYY-MM-DD HH:mm");
                   var endDate = moment(info.end).format("YYYY-MM-DD HH:mm");
@@ -569,24 +569,6 @@
                   addBtnContainer.hide();
                   modifyBtnContainer.show();
 
-                  // 일정 작성자가 내가 아닐 때
-                  // if (username == 1) {
-                  //   $('#eventModal').modal('show');
-                  // }else{
-
-                  //   var message = "\n구분 : " + type + "\n장소 : " + formatPlace + "\n시작시간 : " + formatStart + "\n종료시간 : " + formatEnd + "\n내용 : \n" + description;
-
-                  //   swal(title,message,'info');
-
-                  // }
-
-                  allDayCheck
-                  if (info.view.type === "dayGridMonth") {
-                      allDayCheck.show();
-                  } else {
-                      allDayCheck.hide();
-                  }
-
                   if (allDay === true) {
                     $('#edit-allDay').prop('checked', true);
                   } else {
@@ -603,14 +585,37 @@
                   $("#edit-type option").filter(function() {
                     return $(this).text() === type;
                   }).prop('selected', true);
+
+
+
+                  //일정 작성자가 내가 아닐 때
+                  if (username === loginMember) {
+                    $('#eventModal').modal('show');
+                  }else{
+
+                    var message = "\n구분 : " + type + "\n장소 : " + formatPlace + "\n시작시간 : " + formatStart + "\n종료시간 : " + formatEnd + "\n내용 : \n" + description;
+
+                    swal(title,message,'info');
+
+                  }
+
+                  /* allDayCheck
+                  if (info.view.type === "dayGridMonth") {
+                      allDayCheck.show();
+                  } else {
+                      allDayCheck.hide();
+                  } */
+
                   
-                  $('#eventModal').modal('show');
+                  
+                  // $('#eventModal').modal('show');
                 },
                 });
 
         
                 // 캘린더 랜더링
                 calendar.render();
+
               });
 
               
@@ -633,10 +638,7 @@
       var endTime = $('#edit-end').val();
       var typeNo = $('#edit-type').val();
       var content = $('#edit-desc').val();
-
       
-
-      // AJAX 호출을 위한 데이터 객체 생성
       var eventData = {
         allDay: allDay,
         title: title,
@@ -647,7 +649,6 @@
         content: content
       };
 
-      // AJAX 호출 설정
       $.ajax({
           type: 'POST',
           url: '${root}/calendar/main',
@@ -722,6 +723,12 @@
         }
       });
     }
+  </script>
+
+  <!-- 일정 타입 별 검색 -->
+  <script>
+
+
   </script>
 
 

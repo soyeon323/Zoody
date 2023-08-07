@@ -269,3 +269,11 @@ button[class='active']{
 .table>thead>tr>th {
     vertical-align: middle;
 }
+
+/* 승인 후 상태 결정 부분 */
+.choiceOption > .form-select {
+    height: 38px;
+    font-size: 14px;
+    color: #494949;
+    font-weight: 400;
+}

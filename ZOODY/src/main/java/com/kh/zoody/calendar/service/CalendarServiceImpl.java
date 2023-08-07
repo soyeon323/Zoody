@@ -19,8 +19,8 @@ public class CalendarServiceImpl implements CalendarService{
 	private final SqlSessionTemplate sst;
 
 	@Override
-	public List<Map<String, Object>> listAll() {
-		return dao.listAll(sst);
+	public List<Map<String, Object>> listAll(CalendarVo cv) {
+		return dao.listAll(sst, cv);
 	}
 
 	@Override

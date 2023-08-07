@@ -126,7 +126,7 @@
 	                    <c:choose> 
 							<c:when test="${obj.approvalStatus == 0}">
                       <td>
-                        <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-obj-objectionReason="${obj.objectionReason}">
+                        <button type="button" class="btn btn-primary toggle-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-obj-objectionReason="${obj.objectionReason}"  data-obj-currentNo="${obj.currentNo}">
                           확인하기
                         </button>
                         
@@ -142,6 +142,19 @@
                               <div class="modal-body">
                                 <textarea name="" id="recipient-name" cols="30" rows="10"></textarea>
                                 <!-- <p>${obj.objectionReason}</p> -->
+                                
+                                <div class="choiceOption">
+                                  <select class="form-select" aria-label="Default select example" id="currentNo" name="currentNo">
+                                    <!-- <option selected>승인 시 상태 변경해 주세요.</option> -->
+                                    <option value="0">결근</option>
+                                    <option value="1">정상출근</option>
+                                    <option value="2">휴가</option>
+                                    <option value="3">출장</option>
+                                    <option value="4">외근</option>
+                                    <option value="5">업무</option>
+                                    <option value="6">지각</option>
+                                  </select>
+                                </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" id="bt3" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -228,68 +241,25 @@
       searchDateTagTwo.value = z;
     </script>
 
-    <!-- <script>
-      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
-      document.addEventListener("DOMContentLoaded", function() {
-        // "신청" 버튼들을 가져옵니다.
-        const toggleButtons = document.querySelectorAll(".toggle-button");
-
-        // 각 버튼에 이벤트 리스너를 추가
-        toggleButtons.forEach(button => {
-          button.addEventListener("click", function() {
-            // 버튼이 클릭된 행의 번호를 가져옴
-            const no = this.getAttribute("data-att-no");
-
-            $.ajax({
-              url : '${root}/attendance/admin/objection',
-              type : "GET",
-              data : {no : no},
-              success : function (result) {
-                  alert("제출 완료");
-                  location.reload();
-              },
-              error : function (error) {
-                alert("서버 오류");
-              }
-            })
-            
-          });
-        });
-      });
-    </script> -->
-
-    <!-- <script>
-      // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
-      document.addEventListener("DOMContentLoaded", function() {
-        // "신청" 버튼들을 가져옵니다.
-        const toggleButtons = document.querySelectorAll(".toggle-button");
-
-        // 각 버튼에 이벤트 리스너를 추가
-        toggleButtons.forEach(button => {
-          button.addEventListener("click", function() {
-            const objectionReason = this.getAttribute("data-obj-data-obj-objectionReason");
-            
-            const modalBody = modal.querySelector('.modal-body');
-            modalBody.innerHTML = `<p>${rowData.objectionReason}</p>`;
-
-            // inputField.setAttribute("readonly", "readonly");
-          });
-        });
-      });
-    </script> -->
-
     <script>
       document.addEventListener("DOMContentLoaded", function() {
       const toggleButtons = document.querySelectorAll(".toggle-button");
 
       toggleButtons.forEach(button => {
         button.addEventListener("click", function() {
-          // 이벤트 리스너에서 모달 요소를 가져옵니다.
+          // 이벤트 리스너에서 모달 요소를 가져옴.
           const modal = document.getElementById("staticBackdrop");
           const objectionReason = this.getAttribute("data-obj-objectionReason");
-          
+          const currentType = this.getAttribute("data-obj-currentNo");
+
           const textareaField = document.querySelector("#recipient-name");
           textareaField.value = objectionReason;
+
+          // const currentNo = document.querySelector("#form-select");
+          // currentNo.value = currentNo;
+
+          const currentNo = document.querySelector("#currentNo");
+          currentNo.value = currentType;
 
           textareaField.setAttribute("readonly", "readonly");
         });
@@ -297,66 +267,48 @@
     });
     </script>
 
-<!-- <script>
-  // DOM이 완전히 로드된 후에 이벤트 리스너를 추가
-  document.addEventListener("DOMContentLoaded", function() {
-    // "신청" 버튼들을 가져옵니다.
-    const toggleButtons = document.querySelectorAll(".toggle-button");
+    <script>
+      // 승인 버튼 눌렀을 때
+      $(".btn-approve").click(function() {
+        var no = $(this).attr("data-obj-no");
+        var currentNo = $('#currentNo').val();
 
-    // 각 버튼에 이벤트 리스너를 추가
-    toggleButtons.forEach(button => {
-      button.addEventListener("click", function() {
-        // 버튼이 클릭된 행의 번호를 가져옵니다.
-        const attNo = this.getAttribute("data-att-no");
-        
-        // 모달창 내의 input 요소
-        const inputField = document.querySelector("#recipient-name");
-        
-        // input 필드에 해당 행의 번호를 설정
-        inputField.value = attNo;
-
-        inputField.setAttribute("readonly", "readonly");
+        var objParams = {
+          approvalStatus: 1,
+          no: no,
+          currentNo : currentNo
+        };
+        sendApprovalStatus(objParams);
       });
-    });
-  });
-</script> -->
 
-<script>
-  // 승인 버튼 눌렀을 때
-  $(".btn-approve").click(function() {
-    var no = $(this).attr("data-obj-no");
-    var objParams = {
-      approvalStatus: 1,
-      no: no
-    };
-    sendApprovalStatus(objParams);
-  });
+      // 반려 버튼 눌렀을 때
+      $(".btn-reject").click(function() {
+        var no = $(this).attr("data-obj-no");
+        var currentNo = $('#currentNo').val();
 
-  // 반려 버튼 눌렀을 때
-  $(".btn-reject").click(function() {
-    var no = $(this).attr("data-obj-no");
-    var objParams = {
-      approvalStatus: 2,
-      no: no
-    };
-    sendApprovalStatus(objParams);
-  });
+        var objParams = {
+          approvalStatus: 2,
+          no: no,
+          currentNo : currentNo
+        };
+        sendApprovalStatus(objParams);
+      });
 
-  // Ajax로 데이터를 서버로 보내는 함수
-  function sendApprovalStatus(objParams) {
-    $.ajax({
-      type: "POST",
-      url: "${root}/attendance/admin/objection",
-      data: objParams,
-      success: function(response) {
-        location.reload();
-      },
-      error: function(xhr, status, error) {
-        console.error("요청 실패:", error);
+      //서버로 보냄
+      function sendApprovalStatus(objParams) {
+        $.ajax({
+          type: "POST",
+          url: "${root}/attendance/admin/objection",
+          data: objParams,
+          success: function(response) {
+            location.reload();
+          },
+          error: function(xhr, status, error) {
+            console.error("요청 실패:", error);
+          }
+        });
       }
-    });
-  }
-</script>
+    </script>
 
 </body>
 </html>

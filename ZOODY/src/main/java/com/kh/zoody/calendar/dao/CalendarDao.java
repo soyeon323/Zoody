@@ -9,7 +9,7 @@ import com.kh.zoody.calendar.vo.CalendarVo;
 
 public interface CalendarDao {
 
-	List<Map<String, Object>> listAll(SqlSessionTemplate sst);
+	List<Map<String, Object>> listAll(SqlSessionTemplate sst, CalendarVo cv);
 
 	int addMonth(SqlSessionTemplate sst, CalendarVo vo);
 

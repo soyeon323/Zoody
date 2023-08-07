@@ -12,9 +12,9 @@
 		FROM ATTENDANCE A
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE USER_NO=1
+		<!-- WHERE USER_NO=#{no} -->
 		<if test="searchValue != null and searchValue != ''">
-			AND AC.TYPE LIKE '%${searchValue}%'
+			WHERE AC.TYPE LIKE '%${searchValue}%'
 		</if>
 	</select>
 
@@ -46,7 +46,7 @@
 		ON A.USER_NO = U.NO
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE U.NO = 1
+		WHERE U.NO = #{no}
 		<if test="searchValue != null and searchValue != ''">
 			AND AC.TYPE LIKE '%${searchValue}%'
 		</if>
@@ -57,7 +57,7 @@
 	<select id="getLeaveCnt" resultType="int">
 		SELECT COUNT(NO)
 		FROM LEAVE
-		WHERE USER_NO = 1
+		WHERE USER_NO = #{no}
 	</select>
 	
 	<!-- 휴가 요청 목록 조회 -->
@@ -78,7 +78,7 @@
 		ON U.NO = L.USER_NO
 		JOIN LEAVE_TYPE LT
 		ON LT.NO = L.LEAVE_NO
-		WHERE U.NO = 1
+		WHERE U.NO = #{no}
 		ORDER BY L.NO DESC
 	</select>
 	
@@ -152,14 +152,14 @@
 	<select id="getMainAttCnt" resultType="int">
 		SELECT COUNT(NO)
 		FROM ATTENDANCE
-		WHERE USER_NO=1
+		WHERE USER_NO=#{no}
 	</select>
 	
 	<!-- 메인 내 휴가 조회 페이징 -->
 	<select id="getMainLeaveCnt" resultType="int">
 	 	SELECT COUNT(NO)
 	 	FROM LEAVE
-	 	WHERE USER_NO=1
+	 	WHERE USER_NO=#{no}
 	</select>
 	
 	<!-- 메인 내 출결 조회 -->
@@ -190,7 +190,7 @@
 		ON A.USER_NO = U.NO
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE U.NO = 1
+		WHERE U.NO = #{no}
 		ORDER BY A.ENROLLDATE DESC
 	</select>
 	
@@ -212,7 +212,7 @@
 		ON U.NO = L.USER_NO
 		JOIN LEAVE_TYPE LT
 		ON LT.NO = L.LEAVE_NO
-		WHERE U.NO = 1
+		WHERE U.NO = #{no}
 		ORDER BY L.NO DESC
 	</select>
 	
@@ -329,7 +329,7 @@
 		JOIN POSITION P
 		ON P.NO = U.POSITION_NO
 		WHERE US.NAME = '정상'
-		AND U.DEPARTMENT_NO = 1
+		AND U.DEPARTMENT_NO = #{departmentNo}
 		AND TRUNC(A.ENROLLDATE) = TRUNC(SYSDATE)
 		ORDER BY CHECK_IN_TIME DESC
 	</select>
@@ -378,7 +378,7 @@
         ORDER BY A.CHECK_IN_TIME DESC
   	</select>
   	
-  	<select id="selectCalendarList" resultType="AttendanceVo">
+  	<!-- <select id="selectCalendarList" resultType="AttendanceVo">
   		SELECT 
 		    A.NO
 		    ,A.USER_NO
@@ -406,7 +406,7 @@
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
 		WHERE U.NO = 1
-  	</select>
+  	</select> -->
   	
   	<select id="getCurrentTypeOneCnt" resultType="int">
   		SELECT 
@@ -414,7 +414,7 @@
 		FROM ATTENDANCE A
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE USER_NO=1
+		WHERE USER_NO=#{no}
 		AND AC.NO = 1
   	</select>
   	
@@ -424,7 +424,7 @@
 		FROM ATTENDANCE A
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE USER_NO=1
+		WHERE USER_NO=#{no}
 		AND AC.NO = 6
   	</select>
   	
@@ -434,14 +434,14 @@
 		FROM ATTENDANCE A
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE USER_NO=1
+		WHERE USER_NO=#{no}
 		AND AC.NO = 4
   	</select>
   	
   	<select id="getCurrentTypeLeaveCnt" resultType="int">
   		SELECT COUNT(NO)
 		FROM LEAVE
-		WHERE USER_NO = 1
+		WHERE USER_NO = #{no}
   	</select>
   	
   	<!-- 이의신청 사유 작성 -->
@@ -462,7 +462,7 @@
 		    "APPROVAL_STATUS", 
 		    "REASON"
 		FROM "EXTRA_WORK"
-		WHERE USER_NO = 1
+		WHERE USER_NO = #{no}
 		ORDER BY ENROLLDATE DESC
   	</select>
   	
@@ -475,6 +475,7 @@
 	<update id="updateStatus">
 		UPDATE ATTENDANCE
 		SET APPROVAL_STATUS = #{approvalStatus}
+			,CURRENT_NO = #{currentNo}
 		WHERE NO = #{no}
 	</update>
 	
@@ -489,7 +490,7 @@
 		    "APPROVAL_STATUS", 
 		    "REASON"
 		FROM "EXTRA_WORK"
-		WHERE USER_NO = 1
+		WHERE USER_NO = #{no}
 		ORDER BY ENROLLDATE DESC
 	</select>
 	
@@ -502,7 +503,7 @@
 	<select id="getWorkCnt" resultType="int">
 		SELECT COUNT(NO)
 		FROM EXTRA_WORK
-		WHERE NO = 1
+		WHERE NO = #{no}
 	</select>
 	
 	<!-- 출근 기록이 있는지 확인하는 쿼리 -->
@@ -534,7 +535,20 @@
 		FROM ATTENDANCE A
 		JOIN ATTENDANCE_CURRENT AC
 		ON A.CURRENT_NO = AC.NO
-		WHERE USER_NO = 1
+		WHERE USER_NO = #{no}
+	</select>
+	
+	<select id="dataChart" resultType="Map" parameterType="String">
+	
+		SELECT 
+		    TO_CHAR(ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE
+		    ,NVL(TO_CHAR(CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME
+		    ,NVL(TO_CHAR(CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME
+		    ,NVL(TO_CHAR(PLUS_WORK_TIME, 'HH24:MI:SS'), '00:00:00') AS PLUS_WORK_TIME
+		    ,TO_CHAR(CAST(CHECK_OUT_TIME - CHECK_IN_TIME + PLUS_WORK_TIME AS INTERVAL DAY(0) TO SECOND(0)), 'HH24:MI') AS TOTAL_WORK_TIME
+		FROM ATTENDANCE
+		WHERE USER_NO = #{no}
+		
 	</select>
   
 </mapper>
