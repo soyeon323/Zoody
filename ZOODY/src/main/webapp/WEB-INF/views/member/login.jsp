@@ -17,8 +17,10 @@
             <img src="${root}/resources/img/logo/logo.svg" alt="로고 이미지">
             <input type="text" name="id" placeholder="ID">
             <input type="text" name="pwd" placeholder="PWD">
-            <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
-            <c:if test="${result == 1}">
+            <c:if test="${result eq null }">
+	            <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
+            </c:if>
+            <c:if test="${result eq 1}">
 	            <input id="loginBtn" class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
             </c:if>
         </form>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,16 +39,16 @@ public class WorkController {
 	@GetMapping("work")
 	public String work(Model m , HttpServletRequest req) {
 		
-//		HttpSession session = req.getSession();
-//		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-//		
-//		List<WorkVo> vo = ws.workList(loginMember);
-//		log.info("vo : {}",vo);
-//		if(vo ==null) {
-//			throw new RuntimeException();
-//		}
-//		m.addAttribute("loginMember" , loginMember);
-//		m.addAttribute("vo",vo);
+		HttpSession session = req.getSession();
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		
+		List<WorkVo> vo = ws.workList(loginMember);
+		log.info("vo : {}",vo);
+		if(vo ==null) {
+			throw new RuntimeException();
+		}
+		m.addAttribute("loginMember" , loginMember);
+		m.addAttribute("vo",vo);
 		
 		return "work/work";
 	}
@@ -55,13 +56,23 @@ public class WorkController {
 //	업무 추가 버튼을 눌러서 업무명 , 업무내용 , 마감날짜 추가  AJAX 
 	@PostMapping("insert")
 	@ResponseBody
-	public String workInsert(WorkVo vo ) {
-		int result = ws.workInsert(vo);
-		if (result != 2) {
-			throw new RuntimeException();
-		}
+	public String workInsert( WorkVo vo , HttpServletRequest req) {
+	    String[] workNameArr = req.getParameterValues("workName");
+	    String workName = "";
+	    
+	    if (workNameArr != null) {
+	        workName = String.join(",", workNameArr); // 여러 개의 업무 이름을 쉼표로 구분하여 문자열로 합침
+	    }
+	    
+	    vo.setWorkName(workName); // 합쳐진 업무 이름을 VO 객체에 설정
+	    
+	    int result = ws.workInsert(vo);
+	    if (result != 2) {
+	        throw new RuntimeException();
+	    }
 	    return "ok";
 	}
+
 	
 //	업무명과 마감일시 가져오기 AJAX로
 	@PostMapping(value =  "view" , produces="text/plain;charset=UTF-8")
