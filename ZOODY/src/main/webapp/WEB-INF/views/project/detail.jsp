@@ -26,14 +26,13 @@
     });
 </script>
 </head>
-<body>
+<body style="overflow-x: hidden">
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/project/side.jsp" %>
 
     <div id="wrap">
-
         <div id="projectName">
-            <a>판다 개체보존 프로젝트</a>
+            <a>${prjVoList[0].title}</a>
         </div>
 
         <div id="back">
@@ -44,61 +43,27 @@
                     </div>
                     <div>
                         <div id="todoList">
-                            <div>
-                                <input type="checkbox" name="todoList">
-                                <a>판다 교배시키기</a>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <g clip-path="url(#clip0_458_8737)">
-                                          <path d="M18.3346 3.33333H14.168V1.66667C14.168 1.22464 13.9924 0.800716 13.6798 0.488155C13.3673 0.175595 12.9433 0 12.5013 0L7.5013 0C7.05927 0 6.63535 0.175595 6.32279 0.488155C6.01023 0.800716 5.83464 1.22464 5.83464 1.66667V3.33333H1.66797V5H3.33464V17.5C3.33464 18.163 3.59803 18.7989 4.06687 19.2678C4.53571 19.7366 5.17159 20 5.83464 20H14.168C14.831 20 15.4669 19.7366 15.9357 19.2678C16.4046 18.7989 16.668 18.163 16.668 17.5V5H18.3346V3.33333ZM7.5013 1.66667H12.5013V3.33333H7.5013V1.66667ZM15.0013 17.5C15.0013 17.721 14.9135 17.933 14.7572 18.0893C14.6009 18.2455 14.389 18.3333 14.168 18.3333H5.83464C5.61362 18.3333 5.40166 18.2455 5.24538 18.0893C5.0891 17.933 5.0013 17.721 5.0013 17.5V5H15.0013V17.5Z" fill="#888A8C"/>
-                                          <path d="M9.16666 8.33203H7.5V14.9987H9.16666V8.33203Z" fill="#888A8C"/>
-                                          <path d="M12.5026 8.33203H10.8359V14.9987H12.5026V8.33203Z" fill="#888A8C"/>
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_458_8737">
-                                            <rect width="20" height="20" fill="white"/>
-                                          </clipPath>
-                                        </defs>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div>
-                                <input type="checkbox" name="todoList">
-                                <a>판다 교배시키기</a>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <g clip-path="url(#clip0_458_8737)">
-                                          <path d="M18.3346 3.33333H14.168V1.66667C14.168 1.22464 13.9924 0.800716 13.6798 0.488155C13.3673 0.175595 12.9433 0 12.5013 0L7.5013 0C7.05927 0 6.63535 0.175595 6.32279 0.488155C6.01023 0.800716 5.83464 1.22464 5.83464 1.66667V3.33333H1.66797V5H3.33464V17.5C3.33464 18.163 3.59803 18.7989 4.06687 19.2678C4.53571 19.7366 5.17159 20 5.83464 20H14.168C14.831 20 15.4669 19.7366 15.9357 19.2678C16.4046 18.7989 16.668 18.163 16.668 17.5V5H18.3346V3.33333ZM7.5013 1.66667H12.5013V3.33333H7.5013V1.66667ZM15.0013 17.5C15.0013 17.721 14.9135 17.933 14.7572 18.0893C14.6009 18.2455 14.389 18.3333 14.168 18.3333H5.83464C5.61362 18.3333 5.40166 18.2455 5.24538 18.0893C5.0891 17.933 5.0013 17.721 5.0013 17.5V5H15.0013V17.5Z" fill="#888A8C"/>
-                                          <path d="M9.16666 8.33203H7.5V14.9987H9.16666V8.33203Z" fill="#888A8C"/>
-                                          <path d="M12.5026 8.33203H10.8359V14.9987H12.5026V8.33203Z" fill="#888A8C"/>
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_458_8737">
-                                            <rect width="20" height="20" fill="white"/>
-                                          </clipPath>
-                                        </defs>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div>
-                                <input type="checkbox" name="todoList">
-                                <a>판다 교배시키기</a>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <g clip-path="url(#clip0_458_8737)">
-                                          <path d="M18.3346 3.33333H14.168V1.66667C14.168 1.22464 13.9924 0.800716 13.6798 0.488155C13.3673 0.175595 12.9433 0 12.5013 0L7.5013 0C7.05927 0 6.63535 0.175595 6.32279 0.488155C6.01023 0.800716 5.83464 1.22464 5.83464 1.66667V3.33333H1.66797V5H3.33464V17.5C3.33464 18.163 3.59803 18.7989 4.06687 19.2678C4.53571 19.7366 5.17159 20 5.83464 20H14.168C14.831 20 15.4669 19.7366 15.9357 19.2678C16.4046 18.7989 16.668 18.163 16.668 17.5V5H18.3346V3.33333ZM7.5013 1.66667H12.5013V3.33333H7.5013V1.66667ZM15.0013 17.5C15.0013 17.721 14.9135 17.933 14.7572 18.0893C14.6009 18.2455 14.389 18.3333 14.168 18.3333H5.83464C5.61362 18.3333 5.40166 18.2455 5.24538 18.0893C5.0891 17.933 5.0013 17.721 5.0013 17.5V5H15.0013V17.5Z" fill="#888A8C"/>
-                                          <path d="M9.16666 8.33203H7.5V14.9987H9.16666V8.33203Z" fill="#888A8C"/>
-                                          <path d="M12.5026 8.33203H10.8359V14.9987H12.5026V8.33203Z" fill="#888A8C"/>
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_458_8737">
-                                            <rect width="20" height="20" fill="white"/>
-                                          </clipPath>
-                                        </defs>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
+                            <c:forEach items="${todoList}" var="todoList">
+                                <div>
+                                    <input type="checkbox" name="todoList" data-todo-id="${todo.no}" ${todo.no.checked ? 'checked' : ''}>
+                                    <a>${todoList.content}</a>
+                                    <button onclick="deleteTodo('${todoList.no}');">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <g clip-path="url(#clip0_458_8737)">
+                                              <path d="M18.3346 3.33333H14.168V1.66667C14.168 1.22464 13.9924 0.800716 13.6798 0.488155C13.3673 0.175595 12.9433 0 12.5013 0L7.5013 0C7.05927 0 6.63535 0.175595 6.32279 0.488155C6.01023 0.800716 5.83464 1.22464 5.83464 1.66667V3.33333H1.66797V5H3.33464V17.5C3.33464 18.163 3.59803 18.7989 4.06687 19.2678C4.53571 19.7366 5.17159 20 5.83464 20H14.168C14.831 20 15.4669 19.7366 15.9357 19.2678C16.4046 18.7989 16.668 18.163 16.668 17.5V5H18.3346V3.33333ZM7.5013 1.66667H12.5013V3.33333H7.5013V1.66667ZM15.0013 17.5C15.0013 17.721 14.9135 17.933 14.7572 18.0893C14.6009 18.2455 14.389 18.3333 14.168 18.3333H5.83464C5.61362 18.3333 5.40166 18.2455 5.24538 18.0893C5.0891 17.933 5.0013 17.721 5.0013 17.5V5H15.0013V17.5Z" fill="#888A8C"/>
+                                              <path d="M9.16666 8.33203H7.5V14.9987H9.16666V8.33203Z" fill="#888A8C"/>
+                                              <path d="M12.5026 8.33203H10.8359V14.9987H12.5026V8.33203Z" fill="#888A8C"/>
+                                            </g>
+                                            <defs>
+                                              <clipPath id="clip0_458_8737">
+                                                <rect width="20" height="20" fill="white"/>
+                                              </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </c:forEach>
+                        </div>  
                         <div id="prjProgress">
                             <div>프로젝트 진행도</div>
                             <%@ include file="/WEB-INF/views/project/chart.jsp" %>
@@ -108,8 +73,9 @@
                 <div id='calendar'></div>
             </div>
             <div>
-                <form action="${root}/project/detail" method="POST">
-                    <input type="text" name="todo" placeholder="내용을 입력하세요. ToDo를 추가할 수 있습니다.">
+                <form action="${root}/project/detail" method="POST" onsubmit="return showConfirm();">
+                    <input type="hidden" value="${prjVoList[0].no}" name="projectNo">
+                    <input type="text" name="content" placeholder="내용을 입력하세요. ToDo를 추가할 수 있습니다.">
                     <input type="submit" value='+'>
                 </form>
             </div>
@@ -194,7 +160,7 @@
                     </button>
                   </div>
                   <div>
-                    <input id="contentArea" name="content" placeholder="메세지를 입력하세요."></input>
+                    <input id="contentArea" name="content" placeholder="메세지를 입력하세요." onkeydown="handleKeyPress(event)"></input>
                   </div>
                   <div>
                     <button onclick="sendMsg();">
@@ -220,6 +186,13 @@
 </body>
 </html>
 <script>
+    //엔터로 메세지 전송하기
+    function handleKeyPress(event) {
+        if (event.keyCode === 13 || event.which === 13) {
+            sendMsg();
+        }
+    }
+
     //웹소켓 만들기
     let ws = new WebSocket("ws://127.0.0.1:8888/zoody/project");
 
@@ -255,13 +228,15 @@
     }
 
     function sendMsg(){
-        const userMsg = document.querySelector("input[name='content']").value;
+        const userMsg = document.querySelector("#contentArea").value;
         ws.send(userMsg);
+
+        document.querySelector("#contentArea").value = "";
     }
 
     //채팅 글작성 초기화
     function contentReset(){
-        document.querySelector("input[name='content']").value = "";
+        document.querySelector("#contentArea").value = "";
     }
 
     function goNotice(id){
@@ -279,6 +254,40 @@
             location.href = '${root}/suggestion/list';
         }
     }
+
+    //할일등록시 confirm창
+    function showConfirm(){
+        if(confirm("Todo를 등록하시겠습니까?")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //휴지통 버튼 누르면 삭제
+    function deleteTodo(no){
+        if(confirm("해당 Todo를 삭제하시겠습니까?")){
+            $.ajax({
+                url : '${root}/project/todo/delete',
+                type : 'post',
+                data : {
+                    no : no
+                },
+                success : () => {
+                    alert("삭제 되었습니다.");
+                    location.reload();
+                },
+                error : () => {
+                    alert("삭제 되었습니다.");
+                    location.reload();
+                }
+            })
+        } else {
+            return;
+        }
+    }
+
+    
 </script>
 
 <!-- 임시저장
