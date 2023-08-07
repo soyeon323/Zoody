@@ -1,6 +1,7 @@
 package com.kh.zoody.pwd.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,13 +44,14 @@ public class PwdSettingController {
 	
 	//이제 최종 비밀번호 설정 로직 (암호화)
 	@PostMapping("pwdSetting")
-	public String PwdSetting(UserVo vo) {
+	public String PwdSetting(UserVo vo , Model m) {
 		
 		int result = ps.pwdSetting(vo);
 		log.info("result :{}",result);
 		if(result != 1) {
 			throw new RuntimeException();
 		}
+		m.addAttribute("result",result);
 		return "member/login";
 	}
 }

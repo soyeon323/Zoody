@@ -14,17 +14,20 @@
 </style>
 </head>
 <body>
+
 		<div id="wrap">
             <form action="${root}/pwd/pwdSetting" method="POST">   
-                <span>아이디 (사번)</span> 
+                <span>아이디</span> 
                 <input type="text" name="id" id="id" placeholder="사번">
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="button" value="사번 확인" onclick="success();"> 
                 <br><br><br>
-                <span>비밀번호 설정</span>
+                    <span>비밀번호 설정</span><span id="lengthMsg" style="color: red; font-size: 0.8em;">(5글자 이상)</span><span id="specialCharMsg" style="color: red;  font-size: 0.8em;"> (특수문자가 하나 이상)</span>
                 <input type="password"  placeholder="비밀번호" id="pwdSet1">
+                
                 <br>
-                <span>비밀번호 설정</span>
+                <span>비밀번호 일치 확인</span>
                 <input type="password" name="pwd" placeholder="비밀번호" id="pwdSet2">
+                
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em;" type="button" id="pwdCheck" value="비밀번호 일치 확인"> 
                 <br><br>
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="submit" value="비밀번호 설정 하기"> 
@@ -70,5 +73,35 @@
             alert('불일치');
         }
     });
+   
+
+  
+
+
+
+       // 비밀번호 keyup
+       const pwdSet1Input = document.getElementById('pwdSet1');
+    pwdSet1Input.addEventListener('keyup', validatePassword);
+
+    // 비밀번호 설정
+    function setPassword() {
+        const pwdSet1 = document.getElementById('pwdSet1').value;
+        const pwdSet2 = document.getElementById('pwdSet2').value;
+
+    }
+
+    function validatePassword() {
+        const pwdSet1 = pwdSet1Input.value;
+        
+        const lengthMsg = document.getElementById('lengthMsg');
+        const specialCharMsg = document.getElementById('specialCharMsg');
+
+        lengthMsg.style.display = pwdSet1.length < 5 ? 'block' : 'block';
+        lengthMsg.style.color = pwdSet1.length < 5 ? 'red' : 'blue';
+
+        const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        specialCharMsg.style.display = specialChars.test(pwdSet1) ? 'block' : 'block';
+        specialCharMsg.style.color = specialChars.test(pwdSet1) ? 'blue' : 'red';
+    }
 
 </script>
