@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,6 +32,7 @@ import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,25 +47,34 @@ public class AttendanceController {
 	
 	//(서브메뉴) 근무현황 메인 화면
 	@GetMapping("main")
-	public String workStatus(Integer page, Model model) {
+	public String workStatus(Integer page, Model model, HttpSession session) {
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String no = loginMember.getNo();
+        String departmentNo = loginMember.getDepartmentNo();
+        
+//        AttendanceVo vo = new AttendanceVo();
+//        vo.setUserNo(no);
 		
 		//근무 현황 그래프
-		int allAttCnt = attService.getUserAttendanceCnt();
+		int allAttCnt = attService.getUserAttendanceCnt(no);
 		model.addAttribute("allAttCnt",allAttCnt);
 		
 		//휴가,출결,초과근무 목록 조회
-		int listCount = attService.getMainAttCnt();
-		int leaveListCount = attService.getMainLeaveCnt();
+		int listCount = attService.getMainAttCnt(no);
+		int leaveListCount = attService.getMainLeaveCnt(no);
 		
 		int currentPage = (page != null) ? page: 1;
 		
 		PageVo mPv = new PageVo(listCount, currentPage, 2, 3);
-		List<AttendanceVo> mainAttList = attService.mainAttlist(mPv);
-		List<LeaveVo> mainLeList = attService.mainLeList(mPv);
-		List<ExtraWorkVo> mainWorkList = attService.mainWorkList(mPv);
+		List<AttendanceVo> mainAttList = attService.mainAttlist(mPv, no);
+		List<LeaveVo> mainLeList = attService.mainLeList(mPv, no);
+		List<ExtraWorkVo> mainWorkList = attService.mainWorkList(mPv, no);
 		
 		//부서별 목록 조회
-		List<AttendanceVo> deList = attService.mainDeList();
+		List<AttendanceVo> deList = attService.mainDeList(departmentNo);
 		
 		model.addAttribute("mainAttList", mainAttList);
 		model.addAttribute("mainLeList", mainLeList);
@@ -77,9 +88,14 @@ public class AttendanceController {
 	//출결 달력 json으로 정보 넘기기
 	@GetMapping("monthList")
 	@ResponseBody
-	public List<Map<String, Object>> monthList(){
+	public List<Map<String, Object>> monthList(HttpSession session, Model model){
 		
-		List<Map<String, Object>> attMonth = attService.monthList();
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String no = loginMember.getNo();
+		
+		List<Map<String, Object>> attMonth = attService.monthList(no);
 		
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
@@ -107,10 +123,16 @@ public class AttendanceController {
 	
 	//메인화면 출퇴근 등록
 	@PostMapping("main")
-	public ResponseEntity<String> workStatus(@RequestParam String loginMemberNo, @RequestParam String action) {
+	public ResponseEntity<String> workStatus(@RequestParam String action, HttpSession session, Model model) {
 	    try {
+	    	
+	    	UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+	        model.addAttribute("loginMember", loginMember);
+	        
+	        String no = loginMember.getNo();
+	    	
 	        AttendanceVo attendanceVo = new AttendanceVo();
-	        attendanceVo.setLoginMemberNo(loginMemberNo);
+	        attendanceVo.setLoginMemberNo(no);
 
 	        if ("check-in".equals(action)) {
 	            if (attService.hasCheckInRecordToday(attendanceVo)) {
@@ -139,36 +161,41 @@ public class AttendanceController {
 	
 	//(서브메뉴) 근무현황 목록 조회
 	@GetMapping("list")
-	public String list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int lp,@RequestParam(defaultValue = "1") int wp, Model model, String searchValue) {
+	public String list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int lp,@RequestParam(defaultValue = "1") int wp, Model model, String searchValue, HttpSession session) {
 
-	    int listCount = attService.getMyAttendanceCnt(searchValue);
-	    int leaveListCount = attService.getLeaveCnt();
-	    int workListCount = attService.getWorkCnt();
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String no = loginMember.getNo();
+		
+	    int listCount = attService.getMyAttendanceCnt(searchValue, no); //여기랑
+	    int leaveListCount = attService.getLeaveCnt(no);
+	    int workListCount = attService.getWorkCnt(no);
 	    int currentPage = page;
 //	    int pageLimit = 5;
 //	    int boardLimit = 10;
 	    
 	    //내 출결 조회
 	    PageVo pv = new PageVo(listCount, currentPage, 5, 10);
-	    List<AttendanceVo> attVoList = attService.list(pv, searchValue);
+	    List<AttendanceVo> attVoList = attService.list(pv, searchValue, no); //여기 처리
 	    model.addAttribute("attVoList", attVoList);
 	    model.addAttribute("searchValue", searchValue);
 	    
 	    //휴가 요청 조회
 	    PageVo leavePv = new PageVo(leaveListCount, lp, 2, 4);
-	    List<LeaveVo> leVoList = attService.leaveList(leavePv);
+	    List<LeaveVo> leVoList = attService.leaveList(leavePv, no);
 	    model.addAttribute("leVoList", leVoList);
 	    
 	    //초과근무 요청 조회
 	    PageVo workPv = new PageVo(workListCount, wp, 2, 4);
-	    List<ExtraWorkVo> ewList = attService.extraWorkList(workPv);
+	    List<ExtraWorkVo> ewList = attService.extraWorkList(workPv, no);
 	    model.addAttribute("ewList", ewList);
 	    
 	    //출근 타입 카운팅
-	    int currentTypeOne = attService.getCurrentTypeOneCnt();
-	    int currentTypeSix = attService.getCurrentTypeSixCnt();
-	    int currentTypeLeave = attService.getCurrentTypeLeaveCnt();
-	    int currentTypeFour = attService.getCurrentTypeFourCnt(); 
+	    int currentTypeOne = attService.getCurrentTypeOneCnt(no);
+	    int currentTypeSix = attService.getCurrentTypeSixCnt(no);
+	    int currentTypeLeave = attService.getCurrentTypeLeaveCnt(no);
+	    int currentTypeFour = attService.getCurrentTypeFourCnt(no); 
 	    
 	    model.addAttribute("currentTypeOne", currentTypeOne);
 	    model.addAttribute("currentTypeSix", currentTypeSix);
@@ -181,45 +208,44 @@ public class AttendanceController {
 	    return "attendance/list";
 	}
 	
+	@GetMapping("chart")
+	@ResponseBody
+	public List<Map<String, Object>> chart(Model model, HttpSession session){
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String no = loginMember.getNo();
+		
+		List<Map<String, Object>> dataChart = attService.dataChart(no);
+		
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		
+		HashMap<String, Object> hash = new HashMap<>();
+		
+		for (int i = 0; i < dataChart.size(); i++) {
+			
+			hash.put("lables", dataChart.get(i).get("ENROLLDATE"));
+			hash.put("data", dataChart.get(i).get("TOTAL_WORK_TIME"));
+			
+			jsonObj = new JSONObject(hash);
+			jsonArr.add(jsonObj);
+			
+		}
+		
+		log.info("jsonArrCheck: {}", jsonArr);
+		
+		return jsonArr;
+	}
+	
 	@PostMapping("list")
 	public String list(@RequestParam Map<String, String> params) {
-		
-//		try {
-//			
-//			String no = params.get("no");
-//	        
-//	        if (loginMemberNo == null || action == null) {
-//	            return "redirect:/attendance/main"; // 또는 적절한 경로로 리다이렉트 처리
-//	        }
-//
-//	        AttendanceVo attendanceVo = new AttendanceVo();
-//	        attendanceVo.setLoginMemberNo(loginMemberNo);
-//
-//	        if ("check-in".equals(action)) {
-//	            if (attService.hasCheckInRecordToday(attendanceVo)) {
-//	                // 이미 출근 등록을 완료한 경우 처리
-//	            } else {
-//	                // 출근 완료 처리
-//	                attService.checkInWork(attendanceVo);
-//	            }
-//	        } else if ("check-out".equals(action)) {
-//	            if (attService.hasCheckOutRecordToday(attendanceVo)) {
-//	                // 이미 퇴근 등록을 완료한 경우 처리
-//	            } else {
-//	                // 퇴근 완료 처리
-//	                attService.checkOutWork(attendanceVo);
-//	            }
-//	        } else {
-//	            return "redirect:/attendance/main"; // 또는 적절한 경로로 리다이렉트 처리
-//	        }
 
 	        int result = attService.submitOjection(params);
 
 	        return "attendance/list";
-//	    } catch (Exception e) {
-//	        // 오류 발생 시 적절한 에러 처리
-//	        return "redirect:/attendance/main"; // 또는 적절한 경로로 리다이렉트 처리
-//	    }
+
 	}
 	
 	//(관리자권한) 유저 전체 근무 조회

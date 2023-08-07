@@ -12,8 +12,8 @@ import com.kh.zoody.calendar.vo.CalendarVo;
 public class CalendarDaoImpl implements CalendarDao{
 
 	@Override
-	public List<Map<String, Object>> listAll(SqlSessionTemplate sst) {
-		return sst.selectList("calendar.listAll");
+	public List<Map<String, Object>> listAll(SqlSessionTemplate sst, CalendarVo cv) {
+		return sst.selectList("calendar.listAll", cv);
 	}
 
 	@Override

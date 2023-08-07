@@ -20,25 +20,25 @@ public class AttendanceDaoImpl implements AttendanceDao{
 
 	//내 출결 목록 조회 영역
 	@Override
-	public int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue) {
+	public int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue, String no) {
 		return sst.selectOne("attendance.getMyAttendanceCnt", searchValue);
 	}
 	
 	@Override
-	public List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue) {
+	public List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue, String no) {
 		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
 		return sst.selectList("attendance.selectList", searchValue, rb);
 	}
 
 	@Override
-	public List<LeaveVo> leaveList(SqlSessionTemplate sst, PageVo leavePv) {
+	public List<LeaveVo> leaveList(SqlSessionTemplate sst, PageVo leavePv, String no) {
 		RowBounds rb = new RowBounds(leavePv.getOffset(), leavePv.getBoardLimit());
-		return sst.selectList("attendance.selectLeaveList", null, rb);
+		return sst.selectList("attendance.selectLeaveList", no, rb);
 	}
 
 	@Override
-	public int getLeaveCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getLeaveCnt");
+	public int getLeaveCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getLeaveCnt", no);
 	}
 
 	//관리자 목록 조회 영역
@@ -55,30 +55,30 @@ public class AttendanceDaoImpl implements AttendanceDao{
 
 	//메인 영역
 	@Override
-	public int getMainAttCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getMainAttCnt");
+	public int getMainAttCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getMainAttCnt", no);
 	}
 
 	@Override
-	public int getMainLeaveCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getMainLeaveCnt");
+	public int getMainLeaveCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getMainLeaveCnt", no);
 	}
 
 	@Override
-	public List<AttendanceVo> mainAttlist(SqlSessionTemplate sst, PageVo mPv) {
+	public List<AttendanceVo> mainAttlist(SqlSessionTemplate sst, PageVo mPv, String no) {
 		RowBounds rb = new RowBounds(mPv.getOffset(), mPv.getBoardLimit());
-		return sst.selectList("attendance.selectMainAttlist", null, rb);
+		return sst.selectList("attendance.selectMainAttlist", no, rb);
 	}
 
 	@Override
-	public List<LeaveVo> mainLeList(SqlSessionTemplate sst, PageVo mPv) {
+	public List<LeaveVo> mainLeList(SqlSessionTemplate sst, PageVo mPv, String no) {
 		RowBounds rb = new RowBounds(mPv.getOffset(), mPv.getBoardLimit());
-		return sst.selectList("attendance.selectMainLeList", null, rb);
+		return sst.selectList("attendance.selectMainLeList", no, rb);
 	}
 
 	@Override
-	public List<AttendanceVo> mainDeList(SqlSessionTemplate sst) {
-		return sst.selectList("attendance.selectMainDeList");
+	public List<AttendanceVo> mainDeList(SqlSessionTemplate sst, String departmentNo) {
+		return sst.selectList("attendance.selectMainDeList", departmentNo);
 	}
 	
 	//이의신청 조회 영역
@@ -123,23 +123,23 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public int getCurrentTypeOneCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getCurrentTypeOneCnt");
+	public int getCurrentTypeOneCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getCurrentTypeOneCnt", no);
 	}
 
 	@Override
-	public int getCurrentTypeSixCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getCurrentTypeSixCnt");
+	public int getCurrentTypeSixCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getCurrentTypeSixCnt", no);
 	}
 
 	@Override
-	public int getCurrentTypeLeaveCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getCurrentTypeLeaveCnt");
+	public int getCurrentTypeLeaveCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getCurrentTypeLeaveCnt", no);
 	}
 
 	@Override
-	public int getCurrentTypeFourCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getCurrentTypeFourCnt");
+	public int getCurrentTypeFourCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getCurrentTypeFourCnt", no);
 	}
 
 	@Override
@@ -148,9 +148,9 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo workPv) {
+	public List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo workPv, String no) {
 		RowBounds rb = new RowBounds(workPv.getOffset(), workPv.getBoardLimit());
-		return sst.selectList("attendance.selectExtraWorkList", null, rb);
+		return sst.selectList("attendance.selectExtraWorkList", no, rb);
 	}
 
 	@Override
@@ -164,19 +164,19 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv) {
+	public List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv, String no) {
 		RowBounds rb = new RowBounds(mPv.getOffset(), mPv.getBoardLimit());
-		return sst.selectList("attendance.selectMainWorkList", null, rb);
+		return sst.selectList("attendance.selectMainWorkList", no, rb);
 	}
 
 	@Override
-	public int getUserAttendanceCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getUserAttendanceCnt");
+	public int getUserAttendanceCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getUserAttendanceCnt", no);
 	}
 
 	@Override
-	public int getWorkCnt(SqlSessionTemplate sst) {
-		return sst.selectOne("attendance.getWorkCnt");
+	public int getWorkCnt(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("attendance.getWorkCnt", no);
 	}
 
 	@Override
@@ -196,8 +196,13 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	}
 
 	@Override
-	public List<Map<String, Object>> monthList(SqlSessionTemplate sst) {
-		return sst.selectList("attendance.monthList");
+	public List<Map<String, Object>> monthList(SqlSessionTemplate sst, String no) {
+		return sst.selectList("attendance.monthList", no);
+	}
+
+	@Override
+	public List<Map<String, Object>> dataChart(SqlSessionTemplate sst, String no) {
+		return sst.selectList("attendance.dataChart", no);
 	}
 
 	

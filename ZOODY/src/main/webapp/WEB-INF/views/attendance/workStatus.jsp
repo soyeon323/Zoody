@@ -125,7 +125,7 @@ element.style {
             <!-- 첫번째 줄 -->
             <div class="att_check" >
                 <p>반갑습니다</p>
-                <p>오영택님</p>
+                <p>${loginMember.name}님</p>
                 <button type="submit" name="check-first" id="checkInBtn"  onclick="handleCheckIn()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <g clip-path="url(#clip0_325_6756)">
@@ -173,7 +173,7 @@ element.style {
                         </defs>
                       </svg>
                 </div>
-                <p></p>
+                <p>${loginMember.leaveCount}</p>
                 <a href="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M8.73419 12.6666C8.60234 12.6661 8.47361 12.6264 8.36429 12.5527C8.25497 12.479 8.16996 12.3745 8.12001 12.2525C8.07006 12.1305 8.05741 11.9964 8.08367 11.8672C8.10992 11.738 8.1739 11.6195 8.26752 11.5266L11.3342 8.47329C11.3967 8.41132 11.4463 8.33758 11.4801 8.25634C11.514 8.1751 11.5314 8.08797 11.5314 7.99996C11.5314 7.91195 11.514 7.82481 11.4801 7.74357C11.4463 7.66233 11.3967 7.5886 11.3342 7.52663L8.26752 4.47329C8.20503 4.41132 8.15544 4.33758 8.12159 4.25634C8.08774 4.1751 8.07032 4.08797 8.07032 3.99996C8.07032 3.91195 8.08774 3.82481 8.12159 3.74357C8.15544 3.66233 8.20503 3.5886 8.26752 3.52663C8.39243 3.40246 8.56139 3.33276 8.73752 3.33276C8.91364 3.33276 9.08261 3.40246 9.20752 3.52663L12.2675 6.58663C12.6421 6.96163 12.8524 7.46996 12.8524 7.99996C12.8524 8.52996 12.6421 9.03829 12.2675 9.41329L9.20752 12.4733C9.14523 12.5351 9.07135 12.584 8.99012 12.6171C8.9089 12.6503 8.82192 12.6671 8.73419 12.6666Z" fill="white"/>
@@ -416,7 +416,6 @@ element.style {
 
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
 
-    <!-- workStatus.jsp -->
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -484,56 +483,77 @@ element.style {
 
 
     <script>
-    // 이번주 월요일부터 일요일까지의 데이터
-    const data = [12, 19, 3, 5, 2];
-    // 이번주 월요일부터 일요일까지의 라벨
-    const labels = ['24일', '25일', '26일', '27일', '28일'];
 
-    const ctx = document.getElementById('myChart').getContext('2d');
+      var data2;
 
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: '일별 총 근무시간',
-          data: data,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
+      var options = {
         scales: {
-          x: {
-            ticks: {
-              autoSkip: false, // 모든 라벨을 보여줍니다.
-              maxRotation: 0, // 라벨을 90도로 회전하여 긴 라벨도 표시합니다.
-              minRotation: 0
-            }
-          },
           y: {
-            beginAtZero: true
+            beginAtZero: true, // y축 시작값을 0으로 설정합니다.
+            ticks: {
+              callback: function(value) {
+                // y축 라벨을 시간 형식으로 변환합니다.
+                var hours = Math.floor(value / 60);
+                var minutes = value % 60;
+                return hours + "시간 " + minutes + "분";
+              }
+            }
           }
         }
-      }
-    });
+      };
+
+      $.ajax({
+        url : "${root}/attendance/chart",
+        dataType : "json",
+        type : "GET",
+      }).done(function(data){
+
+          console.log(data);
+          
+          const labels = data.map(item => item.labels);
+
+          console.log("labels : " + labels);
+          // const timeData = data.map(item => {
+          //   const time = item.data.replace("+0","");
+          //   const [hours, minutes, seconds] = time.split(':');
+          //   return parseInt(hours) * 60 + parseInt(minutes);
+          // });
+
+          const ctx = document.getElementById('myChart').getContext('2d');
+      
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: '일일 근무 시간',
+                // data: timeData,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 159, 64)',
+                  'rgb(255, 205, 86)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                  'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: options
+          });
+
+      })
+
 
     </script>
 
@@ -604,12 +624,10 @@ element.style {
       }
 
       function checkInOutWork(action) {
-          var loginMemberNo = 1; // 클라이언트에서 적절한 회원 번호를 가져와 설정
           $.ajax({
               url: "${root}/attendance/main",
               type: "POST",
               data: {
-                  loginMemberNo: loginMemberNo,
                   action: action // 출근 버튼인지 퇴근 버튼인지 구분하는 파라미터
               },
               success: function(result) {

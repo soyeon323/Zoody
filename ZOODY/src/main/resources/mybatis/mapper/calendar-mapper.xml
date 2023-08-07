@@ -22,20 +22,25 @@
 		    ,U.NAME
 		    ,CT.TYPE
 		    ,CT.COLOR
+		    ,U.DEPARTMENT_NO
 		FROM CALENDAR C
 		JOIN "USER" U
 		ON C.USER_NO = U.NO
 		JOIN CALENDAR_TYPE CT
 		ON C.TYPE_NO = CT.NO
-		WHERE C.USER_NO = 1
-		AND C.STATUS = 0
+		WHERE C.STATUS = 0
+	      AND (
+	          (C.TYPE_NO = 0 AND C.USER_NO = #{userNo})
+	          OR (C.TYPE_NO = 1 AND U.DEPARTMENT_NO = #{departmentNo})
+	          OR C.TYPE_NO IN (2, 3, 4)
+	      )
 	</select>
 	
 	<insert id="addMonth">
 		INSERT INTO CALENDAR (NO, USER_NO, TYPE_NO, TITLE, CONTENT, START_TIME, END_TIME, PLACE ,ALL_DAY) 
 		VALUES (
 			SEQ_CALENDAR_NO.NEXTVAL, 
-			1, 
+			#{no}, 
 			#{typeNo},
 			#{title}, 
 			#{content}, 

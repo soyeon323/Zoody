@@ -14,13 +14,13 @@ import com.kh.zoody.page.vo.PageVo;
 public interface AttendanceDao {
 
 	//유저 개별 조회 영역	
-	List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue);
+	List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue, String no);
 
-	int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue);
+	int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue, String no);
 
-	List<LeaveVo> leaveList(SqlSessionTemplate sst, PageVo leavePv);
+	List<LeaveVo> leaveList(SqlSessionTemplate sst, PageVo leavePv, String no);
 
-	int getLeaveCnt(SqlSessionTemplate sst);
+	int getLeaveCnt(SqlSessionTemplate sst, String no);
 
 	//관리자 전체 조회 영역
 	int getAllAttendanceCnt(SqlSessionTemplate sst, Map<String, String> paramMap);
@@ -33,15 +33,15 @@ public interface AttendanceDao {
 	int checkOutWork(SqlSessionTemplate sst, AttendanceVo attendanceVo);
 	
 	//메인 영역
-	int getMainAttCnt(SqlSessionTemplate sst);
+	int getMainAttCnt(SqlSessionTemplate sst, String no);
 
-	int getMainLeaveCnt(SqlSessionTemplate sst);
+	int getMainLeaveCnt(SqlSessionTemplate sst, String no);
 
-	List<AttendanceVo> mainAttlist(SqlSessionTemplate sst, PageVo mPv);
+	List<AttendanceVo> mainAttlist(SqlSessionTemplate sst, PageVo mPv, String no);
 
-	List<LeaveVo> mainLeList(SqlSessionTemplate sst, PageVo mPv);
+	List<LeaveVo> mainLeList(SqlSessionTemplate sst, PageVo mPv, String no);
 
-	List<AttendanceVo> mainDeList(SqlSessionTemplate sst);
+	List<AttendanceVo> mainDeList(SqlSessionTemplate sst, String departmentNo);
 	
 	//이의신청 조회 영역
 	int getObjCnt(SqlSessionTemplate sst, Map<String, String> paramMap);
@@ -53,34 +53,36 @@ public interface AttendanceDao {
 	List<AttendanceVo> mainCalendarList(SqlSessionTemplate sst);
 
 	//출근 타입 카운팅
-	int getCurrentTypeOneCnt(SqlSessionTemplate sst);
+	int getCurrentTypeOneCnt(SqlSessionTemplate sst, String no);
 
-	int getCurrentTypeSixCnt(SqlSessionTemplate sst);
+	int getCurrentTypeSixCnt(SqlSessionTemplate sst, String no);
 
-	int getCurrentTypeLeaveCnt(SqlSessionTemplate sst);
+	int getCurrentTypeLeaveCnt(SqlSessionTemplate sst, String no);
 
-	int getCurrentTypeFourCnt(SqlSessionTemplate sst);
+	int getCurrentTypeFourCnt(SqlSessionTemplate sst, String no);
 
 	//이의신
 	int submitOjection(SqlSessionTemplate sst, Map<String, String> params);
 
-	List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo workPv);
+	List<ExtraWorkVo> extraWorkList(SqlSessionTemplate sst, PageVo workPv, String no);
 
 	int getObjectionCnt(SqlSessionTemplate sst);
 
 	int updateStatus(SqlSessionTemplate sst, Map<String, String> objParams);
 
-	List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv);
+	List<ExtraWorkVo> mainWorkList(SqlSessionTemplate sst, PageVo mPv, String no);
 
-	int getUserAttendanceCnt(SqlSessionTemplate sst);
+	int getUserAttendanceCnt(SqlSessionTemplate sst, String no);
 
-	int getWorkCnt(SqlSessionTemplate sst);
+	int getWorkCnt(SqlSessionTemplate sst, String no);
 
 	boolean hasCheckInRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo);
 
 	boolean hasCheckOutRecordToday(SqlSessionTemplate sst, AttendanceVo attendanceVo);
 
-	List<Map<String, Object>> monthList(SqlSessionTemplate sst);
+	List<Map<String, Object>> monthList(SqlSessionTemplate sst, String no);
+
+	List<Map<String, Object>> dataChart(SqlSessionTemplate sst, String no);
 
 
 

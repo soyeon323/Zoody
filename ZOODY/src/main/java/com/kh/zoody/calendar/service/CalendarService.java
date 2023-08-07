@@ -7,7 +7,7 @@ import com.kh.zoody.calendar.vo.CalendarVo;
 
 public interface CalendarService {
 
-	List<Map<String, Object>> listAll();
+	List<Map<String, Object>> listAll(CalendarVo cv);
 
 	int addMonth(CalendarVo vo);
 

@@ -29,7 +29,7 @@
             <!-- 첫번째 줄 -->
             <div class="att_check" >
                 <p>반갑습니다</p>
-                <p>오영택님</p>
+                <p>${loginMember.name}님</p>
                 <button type="submit" name="check-first" id="checkInBtn"  onclick="handleCheckIn()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <g clip-path="url(#clip0_325_6756)">
@@ -262,7 +262,7 @@
                                 </c:when>
                                 <c:when test="${att.approvalStatus == 1}">
                                   <button type="button" class="btn btn-primary toggle-button" style="display: none; background-color: rgb(208, 165, 66); border-color: rgb(208, 165, 66);">
-                                    승인
+                                    정정
                                   </button>
                                 </c:when>
                                 <c:when test="${att.approvalStatus == 2}">

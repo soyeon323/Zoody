@@ -27,26 +27,26 @@ public class AttendanceServiceImpl implements AttendanceService{
 	
 	//(서브메뉴) 근무현황 목록 조회	
 	@Override
-	public List<AttendanceVo> list(PageVo pv, String searchValue) {
-		return dao.list(sst, pv, searchValue);
+	public List<AttendanceVo> list(PageVo pv, String searchValue, String no) {
+		return dao.list(sst, pv, searchValue, no);
 	}
 
 
 	@Override
-	public int getMyAttendanceCnt(String searchValue) {
-		return dao.getMyAttendanceCnt(sst, searchValue);
+	public int getMyAttendanceCnt(String searchValue, String no) {
+		return dao.getMyAttendanceCnt(sst, searchValue, no);
 	}
 
 
 	@Override
-	public List<LeaveVo> leaveList(PageVo leavePv) {
-		return dao.leaveList(sst, leavePv);
+	public List<LeaveVo> leaveList(PageVo leavePv, String no) {
+		return dao.leaveList(sst, leavePv, no);
 	}
 
 
 	@Override
-	public int getLeaveCnt() {
-		return dao.getLeaveCnt(sst);
+	public int getLeaveCnt(String no) {
+		return dao.getLeaveCnt(sst, no);
 	}
 
 
@@ -63,26 +63,26 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public int getMainAttCnt() {
-		return dao.getMainAttCnt(sst);
+	public int getMainAttCnt(String no) {
+		return dao.getMainAttCnt(sst, no);
 	}
 
 
 	@Override
-	public int getMainLeaveCnt() {
-		return dao.getMainLeaveCnt(sst);
+	public int getMainLeaveCnt(String no) {
+		return dao.getMainLeaveCnt(sst, no);
 	}
 
 
 	@Override
-	public List<AttendanceVo> mainAttlist(PageVo mPv) {
-		return dao.mainAttlist(sst, mPv);
+	public List<AttendanceVo> mainAttlist(PageVo mPv, String no) {
+		return dao.mainAttlist(sst, mPv, no);
 	}
 
 
 	@Override
-	public List<LeaveVo> mainLeList(PageVo mPv) {
-		return dao.mainLeList(sst, mPv);
+	public List<LeaveVo> mainLeList(PageVo mPv, String no) {
+		return dao.mainLeList(sst, mPv, no);
 	}
 
 
@@ -99,8 +99,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public List<AttendanceVo> mainDeList() {
-		return dao.mainDeList(sst);
+	public List<AttendanceVo> mainDeList(String departmentNo) {
+		return dao.mainDeList(sst, departmentNo);
 	}
 
 
@@ -129,26 +129,26 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public int getCurrentTypeOneCnt() {
-		return dao.getCurrentTypeOneCnt(sst);
+	public int getCurrentTypeOneCnt(String no) {
+		return dao.getCurrentTypeOneCnt(sst, no);
 	}
 
 
 	@Override
-	public int getCurrentTypeSixCnt() {
-		return dao.getCurrentTypeSixCnt(sst);
+	public int getCurrentTypeSixCnt(String no) {
+		return dao.getCurrentTypeSixCnt(sst, no);
 	}
 
 
 	@Override
-	public int getCurrentTypeLeaveCnt() {
-		return dao.getCurrentTypeLeaveCnt(sst);
+	public int getCurrentTypeLeaveCnt(String no) {
+		return dao.getCurrentTypeLeaveCnt(sst, no);
 	}
 
 
 	@Override
-	public int getCurrentTypeFourCnt() {
-		return dao.getCurrentTypeFourCnt(sst);
+	public int getCurrentTypeFourCnt(String no) {
+		return dao.getCurrentTypeFourCnt(sst, no);
 	}
 
 
@@ -159,8 +159,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public List<ExtraWorkVo> extraWorkList(PageVo workPv) {
-		return dao.extraWorkList(sst, workPv);
+	public List<ExtraWorkVo> extraWorkList(PageVo workPv, String no) {
+		return dao.extraWorkList(sst, workPv, no);
 	}
 
 
@@ -177,20 +177,20 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public List<ExtraWorkVo> mainWorkList(PageVo mPv) {
-		return dao.mainWorkList(sst, mPv);
+	public List<ExtraWorkVo> mainWorkList(PageVo mPv, String no) {
+		return dao.mainWorkList(sst, mPv, no);
 	}
 
 
 	@Override
-	public int getUserAttendanceCnt() {
-		return dao.getUserAttendanceCnt(sst);
+	public int getUserAttendanceCnt(String no) {
+		return dao.getUserAttendanceCnt(sst, no);
 	}
 
 
 	@Override
-	public int getWorkCnt() {
-		return dao.getWorkCnt(sst);
+	public int getWorkCnt(String no) {
+		return dao.getWorkCnt(sst, no);
 	}
 
 
@@ -207,9 +207,17 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 
 	@Override
-	public List<Map<String, Object>> monthList() {
-		return dao.monthList(sst);
+	public List<Map<String, Object>> monthList(String no) {
+		return dao.monthList(sst, no);
 	}
+
+
+	@Override
+	public List<Map<String, Object>> dataChart(String no) {
+		return dao.dataChart(sst, no);
+	}
+
+
 
 
 

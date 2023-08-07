@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,6 +28,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kh.zoody.calendar.service.CalendarService;
 import com.kh.zoody.calendar.vo.CalendarVo;
+import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,13 @@ public class CalendarController {
 	
 	//달력 (화면)
 	@GetMapping("main")
-	public String listMonthMain() {
+	public String listMonthMain(HttpSession session, Model model) {
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String no = loginMember.getNo();
+        
 		return "calendar/month";
 	}
 	
@@ -49,9 +57,20 @@ public class CalendarController {
 	//json 으로 일정 정보 넘기기
 	@GetMapping("list")
 	@ResponseBody
-	public List<Map<String, Object>> listMonth() {
+	public List<Map<String, Object>> listMonth(HttpSession session, Model model) {
 		
-		List<Map<String, Object>> listAll = cs.listAll();
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String userNo = loginMember.getNo();
+        String departmentNo = loginMember.getDepartmentNo();
+        
+        CalendarVo cv = new CalendarVo();
+        cv.setUserNo(userNo);
+        cv.setDepartmentNo(departmentNo);
+	
+		
+		List<Map<String, Object>> listAll = cs.listAll(cv);
 		
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
@@ -68,6 +87,7 @@ public class CalendarController {
 			hash.put("id", listAll.get(i).get("NO"));
 			hash.put("allDay", listAll.get(i).get("ALL_DAY"));
 			hash.put("color", listAll.get(i).get("COLOR"));
+//			hash.put("typeNo", listAll.get(i).get("CURRENT_NO"));
 			
 			jsonObj = new JSONObject(hash);
 			jsonArr.add(jsonObj);
@@ -88,7 +108,12 @@ public class CalendarController {
 	    @RequestParam String place,
 	    @RequestParam String endTime,
 	    @RequestParam String typeNo,
-	    @RequestParam String content) {
+	    @RequestParam String content, Model model, HttpSession session) {
+		  
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String no = loginMember.getNo();
 
 		CalendarVo vo = new CalendarVo();
 		vo.setAllDay(allDay);
@@ -98,6 +123,7 @@ public class CalendarController {
 		vo.setEndTime(endTime);
 		vo.setTypeNo(typeNo);
 		vo.setContent(content);
+		vo.setUserNo(no);
 		
 		int result = cs.addMonth(vo);
 
