@@ -293,4 +293,8 @@
   		UPDATE ANIMAL_TRAINING SET TITLE = #{trainingTitle} , CONTENT = #{trainingContent} WHERE TRAINING_NO = #{trainingNo}
   	</update>
   	
+  	<update id="healthEdit">
+  		UPDATE ANIMAL_HEALTH_SCREENING SET DISEASE = #{disease} , LIFE_STYLE_MANAGEMENT = #{lifeStyleManagement}  ,STATE_OF_HEALTH  =#{stateOfHealth}  WHERE NO = #{no}
+  	</update>
+  	
   </mapper>

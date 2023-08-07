@@ -257,7 +257,7 @@ public class AnimalController {
 	
 	//훈련일지 수정
 	@PostMapping("training/edit")
-	public String trainingEdit(AnimalVo vo) {
+	public String trainingEdit(TrainingVo vo) {
 		
 		int result = as.trainingEdit(vo);
 		
@@ -266,6 +266,19 @@ public class AnimalController {
 		}
 		
 		return "redirect:/animal/training/list";
+	}
+	
+	//건강검진 수정
+	@PostMapping("health/edit")
+	public String healthEdit(HealthVo vo) {
+		
+		int result = as.healthEdit(vo);
+		
+		if(result !=1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/animal/health/list";
 	}
 	
 	
