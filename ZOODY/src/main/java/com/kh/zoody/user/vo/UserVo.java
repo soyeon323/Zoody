@@ -41,4 +41,8 @@ public class UserVo {
 	private String dName2;
 	private String dName3;
 	private String dName4;
+
+	private String userNo;
+	
+	
 }

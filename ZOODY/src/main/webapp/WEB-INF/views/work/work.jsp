@@ -78,8 +78,8 @@
                  </div>
                  <fieldset>
                   <legend>업무 내용</legend>
-                  
-                 </fieldset>
+
+                </fieldset>
               </div>
               <br>
               <br>
@@ -200,11 +200,11 @@ document.getElementById('plusBtn').addEventListener('click', function() {
     var inputText = document.createElement('input');
     inputText.setAttribute('type', 'text');
     inputText.setAttribute('name', 'workContent');
-    inputText.setAttribute('id', 'workContent');
+    inputText.setAttribute('id', 'chaekListName');
 
     var inputCheckbox = document.createElement('input');
     inputCheckbox.setAttribute('type', 'checkbox');
-    inputCheckbox.setAttribute('name', 'chaekListName');
+    
     inputCheckbox.style.width = "25px";
 
     
@@ -305,7 +305,7 @@ column1.addEventListener('click', function(event) {
 function writeComment(userNo){
 
     const workName = document.getElementById('workName').value;
-    const workContent = document.getElementById('workContent').value;
+    const chaekListName = document.getElementById('chaekListName').value;
     const endDate = document.querySelector('input[name=endDate]').value;
     const modal = document.querySelector('#my_modal');
     
@@ -314,7 +314,7 @@ function writeComment(userNo){
 			type : "POST" ,
             data :{
                 'workName' : workName,
-                'workContent' : workContent ,
+                'chaekListName' : chaekListName ,
                 'endDate' :endDate , 
                 'userNo' : userNo
             },
