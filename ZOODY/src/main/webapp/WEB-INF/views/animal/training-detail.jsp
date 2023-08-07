@@ -31,12 +31,14 @@
             <input type="hidden" value="${vo.trainingNo}" name="trainingNo">
             <div id="content-area">
                 <br>
+                <div>작성일시  :  ${vo.trainingDate}</div>
+                <hr>
                 <span>제목</span>
-                <textarea name="trainingTitle" id="t1" cols="30" rows="10" style="display: none;">${vo.trainingTitle}</textarea>
+                <input name="trainingTitle" id="t1" cols="30" rows="10" style="display: none;" value="${vo.trainingTitle}"/>
                 <div name="title" id="t1" cols="30" rows="10">${vo.trainingTitle}</div>
-              
-                <span>훈련 내용 /작성일시  :  ${vo.trainingDate}</span> 
-                <div style="resize: no;" name="trainingContent" id="summernote" readonly cols="30" rows="10">${vo.trainingContent}</div>
+                
+                <span>훈련 내용</span> 
+                <div style="resize: no;" name="trainingContent" id="summernote" readonly cols="30" rows="10">${vo.trainingTitle} <input type="hidden" name="trainingContent"></div>
             </div>
            
             <div id="btn-area">
@@ -58,10 +60,10 @@
 $('#summernote').summernote('disable');
 
     const div = document.querySelector('div[name="title"]');
-    const textarea = document.querySelector('textarea[name="trainingTitle"]');
+    const input = document.querySelector('input[name="trainingTitle"]');
     const editBtn = document.querySelector('#editBtn');
     div.addEventListener('click' , function () {
-        textarea.style.display = 'block';
+        input.style.display = 'block';
         div.style.display = 'none';
         editBtn.style.display = 'inline-block';
         // 서머노트 쓰기 활성화
@@ -75,7 +77,7 @@ $('#summernote').summernote('disable');
         	height: 500,
         	maxHeight:800,
         	minHeight:500,
-        	width: 1500,
+        	width: 1200,
 		callbacks : {
 			onImageUpload : f01
 		},

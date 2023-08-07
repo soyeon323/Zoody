@@ -100,8 +100,14 @@ public class AnimalDao {
 	}
 
 	//훈련일지 수정
-	public int trainingEdit(SqlSessionTemplate sst, AnimalVo vo) {
+	public int trainingEdit(SqlSessionTemplate sst, TrainingVo vo) {
 		return sst.update("animal.trainingEdit" , vo);
+	}
+
+	
+	//건강검진 수정
+	public int healthEdit(SqlSessionTemplate sst, HealthVo vo) {
+		return sst.update("animal.healthEdit" ,vo);
 	}
 
 

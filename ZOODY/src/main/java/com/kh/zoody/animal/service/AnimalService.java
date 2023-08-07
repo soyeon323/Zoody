@@ -108,8 +108,13 @@ public class AnimalService {
 	}
 
 	//훈련일지 수정
-	public int trainingEdit(AnimalVo vo) {
+	public int trainingEdit(TrainingVo vo) {
 		return dao.trainingEdit(sst,vo);
+	}
+
+	//건강검진 수정
+	public int healthEdit(HealthVo vo) {
+		return dao.healthEdit(sst,vo);
 	}
 
 
