@@ -4,7 +4,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="home">
- 
+ 	
+ 	<select id="newBoardList" resultType="BoardVo">
+ 		SELECT 
+			ROWNUM,
+		    u.NAME,
+		    b.NO AS BOARD_NO,
+		    b.USER_NO,
+		    b.CAT_NO,
+		    b.TITLE,
+		    b.CONTENT,
+		    b.ENROLL_DATE,
+		    b.MODIFY_DATE,
+		    b.FILE_PATH,
+		    b.HIT
+		FROM (
+		    SELECT NO, USER_NO, CAT_NO, TITLE, CONTENT, ENROLL_DATE, MODIFY_DATE, FILE_PATH, HIT
+		    FROM BOARD
+		    WHERE STATUS = 'O' ORDER BY NO
+				) b
+		LEFT JOIN "USER" u ON b.USER_NO = u.NO
+		ORDER BY b.NO DESC 
+              FETCH FIRST 5 ROW ONLY
+ 	</select>
+ 	
  	<select id="getNewNotice" resultType="NoticeVo">
  		SELECT
 	    NO,
@@ -25,5 +48,36 @@
 		ORDER BY NO DESC
 		FETCH FIRST 2 ROWS ONLY
  	</select>
- 
+ 	
+ 	<select id="getHomeAttendanceList" resultType="AttendanceVo">
+ 		SELECT 
+		    ROWNUM,
+		    A.NO,
+		    A.USER_NO,
+		    A.CURRENT_NO,
+		    TO_CHAR(A.ENROLLDATE, 'YYYY-MM-DD') AS ENROLLDATE,
+		    NVL(TO_CHAR(A.CHECK_IN_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_IN_TIME,
+		    NVL(TO_CHAR(A.CHECK_OUT_TIME, 'HH24:MI:SS'), '00:00:00') AS CHECK_OUT_TIME,
+		    TRUNC(
+		        CASE 
+		            WHEN TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) = 0 THEN NULL
+		            ELSE TRUNC(EXTRACT(DAY FROM A.PLUS_WORK_TIME)) || '일 '
+		        END
+		    ) || EXTRACT(HOUR FROM A.PLUS_WORK_TIME) || '시간 ' ||
+		    EXTRACT(MINUTE FROM A.PLUS_WORK_TIME) || '분 ' ||
+		    EXTRACT(SECOND FROM A.PLUS_WORK_TIME) || '초' AS PLUS_WORK_TIME,
+		    TO_CHAR(A.CHECK_OUT_TIME - A.CHECK_IN_TIME + A.PLUS_WORK_TIME, 'HH24:MI:SS') AS TOTAL_WORK_TIME,
+		    A.OBJECTION_REASON,
+		    A.APPROVAL_STATUS,
+		    AC.TYPE AS TYPE,
+		    U.NAME AS NAME
+		FROM ATTENDANCE A
+		JOIN "USER" U ON A.USER_NO = U.NO
+		JOIN ATTENDANCE_CURRENT AC ON A.CURRENT_NO = AC.NO
+		WHERE U.NO = #{loginMemberNo}
+		ORDER BY ENROLLDATE DESC
+		FETCH FIRST 1 ROW ONLY
+ 	</select>
+ 	
+ 	
   </mapper>

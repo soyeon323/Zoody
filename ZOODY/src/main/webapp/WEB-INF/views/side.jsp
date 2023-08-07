@@ -107,7 +107,7 @@
             </ul>
         </li>
         </ul>
-        <a href="${root}/document/list"> <div id="storage"> &nbsp;&nbsp;&nbsp; 현재용량 500MB</div> </a>
+        <a href="${root}/document/list"> <div id="storage"> &nbsp;&nbsp;&nbsp; ${loginMember.capacity}중 N 사용</div> </a>
        
     </aside>
 
