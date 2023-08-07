@@ -2,9 +2,12 @@ package com.kh.zoody.document.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.document.service.DocumentService;
 import com.kh.zoody.document.vo.DocumentVo;
+import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,36 +36,64 @@ public class DocumentController {
 	private final DocumentService service;
 	
 	// 개인 문서 화면
-	@GetMapping()
-	public String privateDocument(Model model) {
-		List<DocumentVo> documentList = service.getDocumentList();
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("documentType", "private");
-		return "document/document";
-	}
-	
-	// 전사 문서 화면
-	@GetMapping("enterpriseDocument")
-	public String enterpriseDocument(Model model) {
+	@GetMapping("list")
+	public String privateDocument(
+			Model model, 
+			HttpServletRequest req, 
+			@RequestParam(defaultValue = "1") Integer page, 
+			@RequestParam Map<String, String> searchMap, 
+			@RequestParam(defaultValue = "1") Integer scope
+		) {
 		
-		List<DocumentVo> documentList = service.getDocumentList();
-		model.addAttribute("documentList", documentList);
-		model.addAttribute("documentType", "enterprise");
-		return "document/document";
+		HttpSession session = req.getSession();
+		searchMap.put("scope", String.valueOf(scope));
+		
+		int loginMemberNo = 0;
+		
+		if (session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+	    }
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        loginMemberNo = Integer.parseInt(loginMember.getNo());
+		
+		int listCount = service.getDocumentListCnt(searchMap);
+		int currentPage = (page != null) ? page : 1;
+		int pageLimit = ConstPool.PAGE_LIMIT;
+		int boardLimit = 10;
+		
+		log.info(scope+"");
+		
+		//페이징처리
+		PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+		
+		int documentListCnt = service.getDocumentListCnt(searchMap);
+		List<DocumentVo> documentList = service.getDocumentList(pv, searchMap);
+        List<DocumentVo> directoryList = service.getLoginMemberDirectory(loginMemberNo);
+        log.info(directoryList+"");
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pv", pv);
+		map.put("documentList", documentList);
+		map.put("documentListCnt", documentListCnt);
+		map.put("searchMap", searchMap);
+		
+		
+		model.addAttribute("map", map);
+		model.addAttribute("documentType", "전사 문서");
+		model.addAttribute("directoryList", directoryList);
+		
+		return "document/list";
 	}
 	
-	// 업로드 화면
-	@GetMapping("upload")
-	public String uploadDocument() {
-		return "document/upload";
-	}
-	
+
+
 	@PostMapping("upload")
 	@ResponseBody
 	public String uploadDocument(
 					@RequestParam("file") MultipartFile file,
-					@RequestParam("loginUserId") String loginUserId,
-					Model model,
+					DocumentVo vo,
+					Model model, 
 					HttpServletRequest request
 			) {
 		if (file.isEmpty()) {
@@ -69,14 +103,11 @@ public class DocumentController {
 
 		String root = request.getSession().getServletContext().getRealPath("resources"); 
 		
+	
         try {
         	
-        	log.info(root);
-        	log.info(file+"");
-        	log.info(loginUserId);
-        	
             // 업로드된 파일을 저장할 디렉토리 설정
-            String saveFile = root+"\\document\\"+ loginUserId; // 원하는 디렉토리 경로로 변경 가능
+            String saveFile = root+"\\document\\"+ vo.getLoginMemberId(); // 원하는 디렉토리 경로로 변경 가능
         	
             
             log.info(saveFile);
@@ -89,87 +120,80 @@ public class DocumentController {
             
             
             
-//            // 파일 저장 경로 설정
+            // 파일 저장 경로 설정
             String filePath = saveFile + File.separator + file.getOriginalFilename();
-            log.info(filePath);
             
             file.transferTo(new File(filePath));
             
-            log.info("dd"+filePath);
             
             String originalFilename = file.getOriginalFilename();
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String fileNameWithoutExtension = originalFilename.substring(0, originalFilename.lastIndexOf("."));
             log.info("파일 이름: " + fileNameWithoutExtension);
             log.info("확장자: " + fileExtension);
+         
             
-            DocumentVo vo = new DocumentVo();
-//            vo.setUserNo(loginUserId);
-            vo.setUserNo("987");
             vo.setFileName(fileNameWithoutExtension);
-            vo.setExtension(fileExtension);
+            vo.setExtension(fileNameWithoutExtension);
             
-            log.info(vo+"");
             
             int result =  service.uploadFile(vo);
-            log.info(result+"");
             if (result < 1) {
             	return "uploadFailure";
 			}
             
-             List<DocumentVo> documentList = service.getDocumentList();
-             log.info(documentList+"");
+             List<DocumentVo> documentList = service.getNewDocument();
             
              model.addAttribute("list" , documentList);
              
-//           // 파일 업로드 성공 처리
-            return "success"; // 업로드 성공 
+            return "success"; 
         } catch (IOException e) {
-//            // 파일 업로드 실패 처리
-            return "uploadFailure"; // 업로드 실패 페이지로 리다이렉트/
+            return "uploadFailure";
         }
         
-        //폴더 용량
-//        public String getFolderSize() {
-//            String folderPath = "/path/to/your/folder"; // 대상 폴더 경로를 지정합니다.
-//
-//            long folderSize = calculateFolderSize(new File(folderPath));
-//
-//            return "Folder size: " + formatSize(folderSize);
-//        }
-//
-//        private long calculateFolderSize(File folder) {
-//            if (folder == null || !folder.exists()) {
-//                return 0L;
-//            }
-//
-//            if (!folder.isDirectory()) {
-//                return folder.length();
-//            }
-//
-//            long size = 0L;
-//            File[] files = folder.listFiles();
-//            if (files != null) {
-//                for (File file : files) {
-//                    size += calculateFolderSize(file);
-//                }
-//            }
-//            return size;
-//        }
-//
-//        private String formatSize(long size) {
-//            // 용량을 가독성 좋게 포맷팅하는 메서드 (예: KB, MB, GB)
-//            if (size < 1024) {
-//                return size + " bytes";
-//            } else if (size < 1024 * 1024) {
-//                return size / 1024 + " KB";
-//            } else if (size < 1024 * 1024 * 1024) {
-//                return size / (1024 * 1024) + " MB";
-//            } else {
-//                return size / (1024 * 1024 * 1024) + " GB";
-//            }
-//        }
-    
+        
 	}
 	
+	@PostMapping("directory")
+	@ResponseBody
+    public String newDirctory(DocumentVo vo, HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		int loginMemberNo = 0;
+		
+		if (session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+	    }
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        vo.setUserNo(loginMember.getNo());
+		
+		int result = service.newDirctory(vo);
+		
+		if (result < 1) {
+			return "error";
+		}
+		
+		return "success";
+		
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

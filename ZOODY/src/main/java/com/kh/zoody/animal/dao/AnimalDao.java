@@ -89,4 +89,15 @@ public class AnimalDao {
 		return sst.update("animal.animalDeptEdit" , vo);
 	}
 
+	//해당 동물의 훈련일지 조회
+	public List<TrainingVo> trainingDetail(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.selectList("animal.trainingDetail",vo);
+	}
+
+	//해당 동물의 건강검진 일지 리스트
+	public List<HealthVo> healthDetail(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.selectList("animal.healthDetail" , vo);
+	}
+
+
 }

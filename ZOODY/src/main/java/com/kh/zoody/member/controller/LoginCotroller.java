@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.zoody.login.service.LoginService;
@@ -31,8 +32,7 @@ public class LoginCotroller {
 		
 		UserVo loginMember = ls.login(vo);
 		if(loginMember == null) {
-			session.setAttribute("msg", "로그인실패");
-			return "member/login";
+			throw new RuntimeException();
 		}
 
 		session.setAttribute("loginMember", loginMember);

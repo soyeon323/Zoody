@@ -30,6 +30,7 @@ public class AnimalVo {
 	private String content;
 	private String disease;
 	private String lifeStyleManagement;
+	private String healthNo;
 	
 	
 	private String endangered;

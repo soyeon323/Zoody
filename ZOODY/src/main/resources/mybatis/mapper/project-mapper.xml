@@ -97,17 +97,17 @@
 	)
   </insert>
   
- <select id="getPrjNo" resultType="ProjectVo">
-  	SELECT
-  		NO
-		, TITLE
-		, CONTENT
-		, START_DATE
-		, END_DATE
-		, TEAM_NAME
-	FROM PROJECT
-	WHERE TEAM_NAME = #{teamName}
-  </select>
+	<select id="getPrjNo" resultType="ProjectVo">
+	  	SELECT
+	  		NO
+			, TITLE
+			, CONTENT
+			, START_DATE
+			, END_DATE
+			, TEAM_NAME
+		FROM PROJECT
+		WHERE TEAM_NAME = #{teamName}
+	 </select>
 
 	<select id="getNoticeList" resultType="NoticeVo">
 		SELECT
@@ -144,4 +144,14 @@
 		JOIN "USER" U ON M.USER_NO = U.NO
 		ORDER BY P.NO DESC
 	</select>
+	
+	<delete id="prjDelete">
+		DELETE FROM PROJECT
+		WHERE NO = #{no}
+	</delete>
+	
+	<delete id="prjMemberDelete">
+		DELETE FROM PROJECT_TEAM_MEMBER
+		WHERE PROJECT_NO = #{no}
+	</delete>
 </mapper>

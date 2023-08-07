@@ -252,4 +252,41 @@
  		 WHERE NO = #{animalNo}
   	</update>
   	
+  	<select id="trainingDetail" resultType="TrainingVo">
+  		SELECT 
+             AT.TRAINING_NO 
+            ,AT.TITLE AS TRAINING_TITLE
+            ,TO_CHAR(AT."DATE",'YYYY-DD-MM')AS TRAINING_DATE
+            ,A.NICK_NAME AS NICK_NAME
+            ,A.NO AS ANIMAL_NO
+            FROM ANIMAL_TRAINING  AT 
+            JOIN ANIMAL A ON AT.NO = A.NO
+            WHERE
+             AT.STATUS = 'O'
+             AND A.NO = #{no}
+             ORDER BY AT.NO DESC
+             
+  	</select>
+  	
+  	<select id="healthDetail" resultType="com.kh.zoody.animal.health.vo.HealthVo">
+  		
+		 SELECT 
+		 A.NO AS ANIMAL_NO
+		 ,AHS.NO AS NO
+		 ,AHS.STATE_OF_HEALTH
+		 ,TO_CHAR(AHS.CHECKUP_DATE , 'YYYY-MM-DD') AS CHECKUP_DATE
+		 ,A.NICK_NAME 
+		 FROM ANIMAL_HEALTH_SCREENING AHS
+		 JOIN ANIMAL A ON AHS.ANIMAL_NO = A.NO
+		 <if test="no!=null">
+			 WHERE ANIMAL_NO  = #{no}
+		 </if>
+		 <if test="healthNo !=null">
+		 	WHERE NO = #{healthNo}
+		 </if>
+		 AND A.STATUS = 'O'
+		 
+
+  	</select>
+  	
   </mapper>

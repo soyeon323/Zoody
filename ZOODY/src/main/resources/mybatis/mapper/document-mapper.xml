@@ -9,33 +9,139 @@
 	<insert id="upload">
 		
 		INSERT INTO DOCUMENT(
-		    NO, 
-		    USER_NO,  
-		    FILE_NAME, 
-		    EXTENSION
+		    "NO",
+			"SCOPE",
+			DIRECTORY_NO,
+			FILE_NAME,
+			EXTENSION
 		    )
 		VALUES(
 	    SEQ_DOCUMENT_NO.NEXTVAL , 
-	    #{userNo} , 
+	    #{scope},
+	    #{directoryNo},
 	    #{fileName} , 
 	    #{extension} 
 	    )    
 		
 	</insert>
 	
-	<select id="getDocumentList" resultType="DocumentVo">
-		
-		SELECT 
-			u.NAME,
-            d.CAT_NO,
-			d.USER_NO,
-			d.FILE_NAME, 
-			d.EXTENSION,
-            d.ENOLL_DATE
-		FROM DOCUMENT d
-		LEFT JOIN "USER" u ON d.USER_NO = u.NO
-		
-		
+	 <select id="getDocumenListCnt" resultType="int">
+	  	SELECT COUNT(NO)
+		FROM DOCUMENT
+		WHERE STATUS = 'O'
+		<if test="scope != null and scope != 3">
+			AND SCOPE = #{scope}
+		</if>
+		<if test="searchType != null and searchType != '' and searchValue != null and searchValue != '' ">
+			AND ${searchType} LIKE '%${searchValue}%'
+		</if>
+	  </select>
+	
+	
+	<select id="getDocumentList" resultType="DocumentVo" parameterType="java.util.Map">
+	    SELECT ROWNUM, result."NO", result."SCOPE", result.USER_NO, result."NAME",
+	           result.DIRECTORY_NO, result.DIRECTORY_NAME, result.FILE_NAME,
+	           result.EXTENSION, result.ENROLL_DATE, result.MODIFY_DATE
+	    FROM (
+	        SELECT d."NO",
+	               d."SCOPE",
+	               dt.USER_NO,
+	               u."NAME",
+	               d.DIRECTORY_NO,
+	               dt.DIRECTORY_NAME,
+	               d.FILE_NAME,
+	               d.EXTENSION,
+	               d.ENROLL_DATE,
+	               d.MODIFY_DATE
+	        FROM DOCUMENT d
+	        LEFT JOIN "DIRECTORY" dt ON d.DIRECTORY_NO = dt."NO"
+	        LEFT JOIN "USER" u ON dt.USER_NO = u."NO"
+	        <where>
+	            <!-- 검색 조건이 제목일 때, 제목에 해당하는 문서만 조회합니다. -->
+	            <if test="searchType == 'title'">
+	                AND d.FILE_NAME LIKE '%' || #{searchValue} || '%'
+	            </if>
+	            <!-- 검색 조건이 작성자일 때, 작성자에 해당하는 문서만 조회합니다. -->
+	            <if test="searchType == 'writer'">
+	                AND u.NAME LIKE '%' || #{searchValue} || '%'
+	            </if>
+	            <!-- 다른 검색 조건이 추가되는 경우에도 if 태그를 추가하여 조건에 따른 쿼리를 작성할 수 있습니다. -->
+	        </where>
+	        WHERE d.STATUS = 'O'
+	        AND d."SCOPE" = #{scope}
+	        ORDER BY d."NO" 
+	    ) result
+	    ORDER BY ROWNUM DESC
 	</select>
-  
+	
+	<select id="getNewDocument" resultType="int">
+		INSERT INTO "DOCUMENT" (
+		    "NO",
+		    "SCOPE" ,
+		    DIRECTORY_NO,
+		    FILE_NAME,
+		    EXTENSION
+		)
+		VALUES (
+		    SEQ_DOCUMENT_NO.NEXTVAL ,
+		    #{scope} ,
+		    #{DIRECTORY_NO} ,
+		    #{fileName},
+		    #{extension}
+		)
+	</select>
+
+  	<select id="getLoginMemberDirectory" resultType="DocumentVo">
+  		
+  		SELECT 
+		    ROWNUM,
+		    NO,
+		    USER_NO,
+		    DIRECTORY_NAME,
+		    STATUS
+		FROM (
+		    SELECT 
+		        NO,
+		        USER_NO,
+		        DIRECTORY_NAME,
+		        STATUS
+		    FROM "DIRECTORY"
+		    ORDER BY NO 
+		) 
+		WHERE USER_NO = #{loginMemberNo}
+		
+  	</select>
+  	
+  	<insert id="newDirctory" >
+  		
+  		INSERT INTO "DIRECTORY" (
+  			NO,
+  			USER_NO,
+  			DIRECTORY_NAME
+  		)
+  		VALUES (
+  			SEQ_DIRECTORY_NO.NEXTVAL,	
+  			#{userNo},
+  			#{directoryName}  			
+  		)
+  		
+  	
+  	</insert>
+  	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
