@@ -21,7 +21,7 @@
 		
 			<div class="wrap-left">
 
-				<form action="/write" method="POST" enctype="multipart/form-data"></form>
+				<form action="${root}/approval/write" method="POST" enctype="multipart/form-data">
 
 				<div class="wrap-left-header">
 					<div class="category-title">결재문서 양식</div>
@@ -34,7 +34,7 @@
 					<input type="submit" value="상신하기" class="upvote-btn" />
 				</div>
 				
-					${documentForm}
+				${documentForm}
 				
 				</form>
 
