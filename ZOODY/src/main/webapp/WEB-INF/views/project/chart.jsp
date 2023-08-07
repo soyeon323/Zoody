@@ -82,52 +82,66 @@
 </div>
 
 <script>
+    // JavaScript 코드
     $(function () {
-      // perNum 변수에 0을 저장
-      var perNum = 0;
-  
-      // 'second.circle' 클래스를 가진 요소에 circleProgress 플러그인 적용
-      $('.second.circle').circleProgress({
-        // value 옵션에 perNum의 값을 100으로 나눈 결과를 지정하여 진행 막대의 값으로 설정
+    var perNum = 0;
+
+    $('.second.circle').circleProgress({
         value: perNum / 100,
-  
-        // 진행 막대의 시작 각도를 300도로 설정
         startAngle: 300,
-  
-        // 진행 막대의 크기를 150픽셀로 설정
         size: 150,
-  
-        // 진행 막대의 채우기 설정을 그라데이션으로 지정
         fill: {
-          gradient: ["#4876ef", "#00cba4"], // 그라데이션 색상 배열
-          gradientAngle: Math.PI / 2 // 그라데이션의 각도를 90도로 설정 (수직 방향)
+            gradient: ["#4876ef", "#00cba4"],
+            gradientAngle: Math.PI / 2
         },
-  
-        // 애니메이션 설정
         animation: {
-          duration: 200, // 애니메이션 지속 시간을 2200밀리초(2.2초)로 설정
-          easing: "swing" // 애니메이션 이징 함수를 swing으로 설정
+            duration: 200,
+            easing: "swing"
         },
-  
-        // 진행 막대의 선 끝 모양을 'round'로 설정
         lineCap: "round",
-  
-        // 애니메이션의 진행 방향을 반대로 설정
         reverse: true
-      }).on('circle-animation-progress', function (event, progress) {
-        // 애니메이션 진행 중에 호출되는 이벤트 핸들러
-        // 현재 진행 중인 애니메이션의 진행률을 이용하여 진행 막대에 표시할 텍스트를 갱신
-  
-        // 체크된 todoList의 개수를 가져와서 진행률을 계산
-        const numChecked = document.querySelectorAll("input[name='todoList']:checked").length;
-        const totalTodos = document.querySelectorAll("input[name='todoList']").length;
+    }).on('circle-animation-progress', function (event, progress) {
+        const numChecked = document.querySelectorAll("input[type='checkbox']:checked").length;
+        const totalTodos = document.querySelectorAll("input[type='checkbox']").length;
         perNum = (numChecked / totalTodos) * 100;
-  
-        // 현재 진행률을 업데이트하여 진행 막대에 표시
+
         $(this).find('strong').html(Math.round(perNum) + '<i>%</i>');
-  
-        // 진행 막대의 값 업데이트
         $(this).circleProgress('value', perNum / 100);
-      });
+
+        saveCheckboxState();
     });
+
+    function saveCheckboxState() {
+        const todoList = {};
+        $("input[type='checkbox']").each(function () {
+            const todoId = $(this).data('todo-id');
+            const isChecked = $(this).prop('checked');
+            todoList[todoId] = isChecked;
+        });
+        localStorage.setItem('todoList', JSON.stringify(todoList));
+    }
+
+    function restoreCheckboxState() {
+        const savedTodoList = localStorage.getItem('todoList');
+        const todoList = JSON.parse(savedTodoList) || {};
+        $("input[type='checkbox']").each(function () {
+            const todoId = $(this).data('todo-id');
+            const isChecked = todoList[todoId];
+            $(this).prop('checked', isChecked || false);
+        });
+    }
+
+    // 페이지 로드 시 체크박스 상태를 복원
+    restoreCheckboxState();
+
+    // 페이지를 떠날 때(언로드될 때) 로컬 저장소에 체크박스 상태를 저장
+    $(window).on('beforeunload', function () {
+        saveCheckboxState();
+    });
+
+    // 체크박스를 클릭할 때마다 로컬 저장소에 체크박스 상태를 저장
+    $("input[type='checkbox']").on('click', function () {
+        saveCheckboxState();
+    });
+});
 </script>

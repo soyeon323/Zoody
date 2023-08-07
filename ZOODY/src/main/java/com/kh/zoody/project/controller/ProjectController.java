@@ -104,47 +104,48 @@ public class ProjectController {
 	}
 	
 	//프로젝트 상세화면
-    @GetMapping("detail")
-    public void detail(String title, Model model) {
-        List<NoticeVo> noticeList = ps.getNoticeList(new PageVo(4, 1, 1, 4));
-        List<SuggestionVo> suggestionList = ps.getSuggestionList(new PageVo(4, 1, 1, 4));
-        
-        //프로젝트 제목으로 번호 조회
-        List<ProjectVo> prjVoList = ps.getByPrjNo(title);
+	@GetMapping("detail")
+	public void detail(String title, Model model) {
+		List<NoticeVo> noticeList = ps.getNoticeList(new PageVo(4, 1, 1, 4));
+		List<SuggestionVo> suggestionList = ps.getSuggestionList(new PageVo(4, 1, 1, 4));
+		
+		//프로젝트 제목으로 번호 조회
+		List<ProjectVo> prjVoList = ps.getByPrjNo(title);
 
-        //프로젝트 할일 목록에 추가
-        List<ProjectTodoVo> todoList = ps.selectTodo(prjVoList.get(0).getNo());
-        
-        if(noticeList == null) {
-            throw new RuntimeException();
-        }
-            
-        model.addAttribute("noticeList", noticeList);
-        model.addAttribute("suggestionList", suggestionList);
-        model.addAttribute("prjVoList", prjVoList);
-        model.addAttribute("todoList", todoList);
-    }
+		//프로젝트 할일 목록에 추가
+		List<ProjectTodoVo> todoList = ps.selectTodo(prjVoList.get(0).getNo());
+		
+		if(noticeList == null) {
+			throw new RuntimeException();
+		}
+			
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("suggestionList", suggestionList);
+		model.addAttribute("prjVoList", prjVoList);
+		model.addAttribute("todoList", todoList);
+	}
 	
-    @PostMapping("detail")
-    public String detail(@RequestParam Map<String, String> todoMap){
-        log.info("todoMap : {}", todoMap);
-        
-        String title = ps.getTitle(todoMap.get("projectNo"));
-        
-        try {
-            title = URLEncoder.encode(title, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        
-        //할일 DB에 저장
-        int result = ps.insertTodo(todoMap);
-        
-        if(result != 1) {
-            throw new RuntimeException();
-        }
-        return "redirect:/project/detail?title=" + title;
-    }
+	@PostMapping("detail")
+	public String detail(@RequestParam Map<String, String> todoMap){
+		log.info("todoMap : {}", todoMap);
+		
+		String title = ps.getTitle(todoMap.get("projectNo"));
+		
+		try {
+			title = URLEncoder.encode(title, StandardCharsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		//할일 DB에 저장
+		int result = ps.insertTodo(todoMap);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		
+		return "redirect:/project/detail?title=" + title;
+	}
 
 	//프로젝트 삭제
 	@PostMapping("delete")
@@ -159,13 +160,15 @@ public class ProjectController {
 		return "redirect:/project/progress";
 	}
 	
-    //프로젝트 할일 삭제
-    @PostMapping("todo/delete")
-    public void todoDelete(String no) {
-        int result = ps.todoDelete(no);
-        
-        if(result != 1) {
-            throw new RuntimeException();
-        }
-    }
+	//프로젝트 할일 삭제
+	@PostMapping("todo/delete")
+	public void todoDelete(String no) {
+		log.info("no : {}", no);
+		
+		int result = ps.todoDelete(no);
+		
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+	}
 }

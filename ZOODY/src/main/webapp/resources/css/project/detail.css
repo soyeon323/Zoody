@@ -92,7 +92,7 @@
     grid-template-columns: 1.5fr 1fr;
 }
 
-#back>div:nth-child(2)>form>input[name='todo']{
+#back>div:nth-child(2)>form>input[name='content']{
     width: 1000px;
     height: 45px;
     border: none;

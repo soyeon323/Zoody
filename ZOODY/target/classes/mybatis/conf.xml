@@ -26,7 +26,6 @@
 		<typeAlias type="com.kh.zoody.animal.training.vo.TrainingVo" alias="TrainingVo"/>
 		<typeAlias type="com.kh.zoody.project.vo.ProjectVo" alias="ProjectVo"/>
 		<typeAlias type="com.kh.zoody.document.vo.DocumentVo" alias="DocumentVo"/>
-        <typeAlias type="com.kh.zoody.project.vo.ProjectTodoVo" alias="ProjectTodoVo"/>
 	</typeAliases>
 
 </configuration>

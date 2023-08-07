@@ -33,17 +33,23 @@ public class WebsocketServer extends TextWebSocketHandler{
 	//메세지 받았을 때 동작
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        UserVo loginMember = (UserVo) session.getAttributes().get("loginMember");
-        String nick = loginMember.getName();
-        
-        log.info("내용 : {}", message.getPayload());
-        log.info("닉네임 : {}", nick);
-        
-        Gson gson = new Gson();
-        HashMap<String, String> msgVo = new HashMap<String, String>();
-        msgVo.put("nick", nick);
-        msgVo.put("msg", message.getPayload());
-        msgVo.put("time", System.currentTimeMillis()+"");
+		UserVo loginMember = (UserVo) session.getAttributes().get("loginMember");
+		String nick = loginMember.getName();
+		
+		log.info("내용 : {}", message.getPayload());
+		log.info("닉네임 : {}", nick);
+		
+		Gson gson = new Gson();
+		HashMap<String, String> msgVo = new HashMap<String, String>();
+		msgVo.put("nick", nick);
+		msgVo.put("msg", message.getPayload());
+		msgVo.put("time", System.currentTimeMillis()+"");
+		
+		String jsonMsg = gson.toJson(msgVo);
+		
+		for(WebSocketSession s : sessionSet) {
+			s.sendMessage(new TextMessage(jsonMsg));
+		}
 	}
 
 }

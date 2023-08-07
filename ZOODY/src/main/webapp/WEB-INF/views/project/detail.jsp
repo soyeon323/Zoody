@@ -31,7 +31,6 @@
     <%@ include file="/WEB-INF/views/project/side.jsp" %>
 
     <div id="wrap">
-
         <div id="projectName">
             <a>${prjVoList[0].title}</a>
         </div>
@@ -64,7 +63,7 @@
                                     </button>
                                 </div>
                             </c:forEach>
-                        </div>
+                        </div>  
                         <div id="prjProgress">
                             <div>프로젝트 진행도</div>
                             <%@ include file="/WEB-INF/views/project/chart.jsp" %>
@@ -257,7 +256,7 @@
     }
 
     //할일등록시 confirm창
-        function showConfirm(){
+    function showConfirm(){
         if(confirm("Todo를 등록하시겠습니까?")){
             return true;
         } else {
@@ -287,6 +286,8 @@
             return;
         }
     }
+
+    
 </script>
 
 <!-- 임시저장
