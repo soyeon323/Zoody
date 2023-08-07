@@ -85,34 +85,33 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sst.delete("project.prjMemberDelete", no);
 	}
 
-	//프로젝트 번호 가져오기
+	//프로젝트 번호 받아오기
 	@Override
 	public List<ProjectVo> getByPrjNo(SqlSessionTemplate sst, String title) {
 		return sst.selectList("project.getByPrjNo", title);
 	}
 
-	//플젝 제목 가져오기
-	@Override
-	public String getTitle(SqlSessionTemplate sst, String no) {
-		return sst.selectOne("project.getTitle", no);
-	}
+    //플젝 제목 가져오기
+    @Override
+    public String getTitle(SqlSessionTemplate sst, String no) {
+        return sst.selectOne("project.getTitle", no);
+    }
 
-	//할일 DB에 저장
-	@Override
-	public int insertTodo(SqlSessionTemplate sst, Map<String, String> todoMap) {
-		return sst.insert("project.insertTodo", todoMap);
-	}
+    //할일 DB에 저장
+    @Override
+    public int insertTodo(SqlSessionTemplate sst, Map<String, String> todoMap) {
+        return sst.insert("project.insertTodo", todoMap);
+    }
 
-	//할일 목록 보여주기
-	@Override
-	public List<ProjectTodoVo> selectTodo(SqlSessionTemplate sst, String no) {
-		return sst.selectList("project.selectTodo", no);
-	}
+    //할일 목록 보여주기
+    @Override
+    public List<ProjectTodoVo> selectTodo(SqlSessionTemplate sst, String no) {
+        return sst.selectList("project.selectTodo", no);
+    }
 
-	//할일 삭제
-	@Override
-	public int todoDelete(SqlSessionTemplate sst, String no) {
-		return sst.delete("project.todoDelete", no);
-	}
-
+    //할일 삭제
+    @Override
+    public int todoDelete(SqlSessionTemplate sst, String no) {
+        return sst.delete("project.todoDelete", no);
+    }
 }
