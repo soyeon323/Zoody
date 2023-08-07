@@ -294,7 +294,7 @@
   	</update>
   	
   	<update id="healthEdit">
-  		UPDATE ANIMAL_HEALTH_SCREENING SET DISEASE = #{disease} , LIFE_STYLE_MANAGEMENT = #{lifeStyleManagement}  ,STATE_OF_HEALTH  =#{stateOfHealth}  WHERE NO = #{no}
+  		UPDATE ANIMAL_HEALTH_SCREENING SET DISEASE = #{disease} , LIFE_STYLE_MANAGEMENT = #{lifeStyleManagement}  , STATE_OF_HEALTH = #{stateOfHealth}  WHERE NO = #{no}
   	</update>
   	
   </mapper>

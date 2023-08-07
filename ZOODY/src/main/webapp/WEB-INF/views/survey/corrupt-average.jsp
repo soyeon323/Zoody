@@ -82,9 +82,7 @@
     <%@ include file="/WEB-INF/views/side.jsp" %>
 
     <div id="wrap">
-
         <div id="title">사내 부패도 평균 점수</div>
-
         <div class="wrapper">
                <div id="circle-wrap">
                 <div id="score">
@@ -96,20 +94,79 @@
                </div>
         </div>
         <div id="btn-area">
-            <button onclick="go();" class="btn btn-primary"> 설문 조사 하기</button>
+            
+        	<c:if test="${status.status == 'X'}">
+   				 <button id="surveyButton" class="btn btn-primary" onclick="go()">설문 조사 하기</button>
+			</c:if>
+            <c:if test="${status.status == 'O'}">
+   				 <div id="surveyButton" class="btn btn-primary">설문 조사 완료</div>
+			</c:if>
         </div>
 
     </div>
 
     <script>
-        window.onload = function() {
-            document.querySelector('.circle').style.animationPlayState = 'running';
-            checkScoreColor();
-        };
+    
+  var isButtonClickable = true;
 
-        function go() {
+// 버튼을 보여주거나 숨기는 함수
+function toggleSurveyButton(show) {
+    var surveyButton = document.getElementById("surveyButton");
+    if (show) {
+        surveyButton.style.display = "block";
+    } else {
+        surveyButton.style.display = "none";
+    }
+}
+
+// 매월 16일인지 확인하는 함수
+function is16thDay() {
+    var now = new Date();
+    return now.getDate() === 16;
+}
+
+// 페이지 로딩 시 호출되는 함수
+function checkAndToggle() {
+    if (is16thDay()) {
+        toggleSurveyButton(true); // 매월 16일이면 버튼 보이기
+        // 버튼 클릭 가능 여부 초기화
+        setButtonClickable(true);
+    } else {
+        toggleSurveyButton(false); // 그 외에는 버튼 숨기기
+    }
+}
+
+// 버튼 클릭 이벤트 핸들러
+function buttonClickHandler() {
+    if (isButtonClickable) {
+        // 버튼을 숨기rl
+        toggleSurveyButton(false);
+
+        // 버튼 클릭 후 클릭 가능 여부
+        setButtonClickable(false);
+    }
+}
+
+// 버튼을 클릭할 수 있는 상태
+function setButtonClickable(clickable) {
+    isButtonClickable = clickable;
+    var surveyButton = document.getElementById("surveyButton");
+    if (clickable) {
+        surveyButton.removeAttribute("disabled"); // 클릭 가능
+    } else {
+        surveyButton.setAttribute("disabled", "true"); // 클릭 비활성화 
+    }
+}
+
+// 페이지 로딩 시 함수 호출
+checkAndToggle();
+
+function go() {
             location.href = "${root}/corrupt/survey/";
         }
+       
+
+
 
     //부패도 평균 점수에 따라 원 태두리 색 변함
     // 0~30  초록 31~60 주황 60~100 빨강 

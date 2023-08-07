@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.zoody.corrupt.survey.dao.CorruptSurveyDao;
 import com.kh.zoody.survey.vo.SurveyVo;
+import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +34,23 @@ public class CorruptSurveyService {
 	}
 
 	//설문조사 마치고 합산점수 가져가기
-	public int increaseScore(String score) {
-		return dao.increaseScore(sst,score);
+	public int increaseScore(String score, UserVo loginMember ) {
+		
+		//설문조사 후 참여여부를 o 로 바꾸는 메소드
+		int result = dao.updateStatus(sst,loginMember);
+		
+		int avgScore  = 0;
+		if(result ==1) {
+			//설문조사 마치고 합산점수 가져가기
+			avgScore = dao.increaseScore(sst,score);
+		}
+		
+		return avgScore;
 	}
+
+	//참여자의 설문조사 참가여부 가져오기(X)
+	public SurveyVo getjoinStatus(UserVo loginMember) {
+		return dao.getjoinStatus(sst,loginMember);
+	}
+
 }

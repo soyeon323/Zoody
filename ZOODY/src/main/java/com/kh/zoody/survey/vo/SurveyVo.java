@@ -10,6 +10,7 @@ public class SurveyVo {
 	
 	private String researchNo;
 	private String totalScore;
+	private String status;
 	
 	private String userNo;
 	private String surveyNo;

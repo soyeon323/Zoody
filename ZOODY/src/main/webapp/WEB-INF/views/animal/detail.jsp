@@ -163,7 +163,6 @@
                         <br>
                         <span>건강 상태</span>
                         <textarea name="stateOfHealth" id="t3" cols="30" rows="10"></textarea>
-
                             <input type="submit" value="작성하기"  class="btn-upload">
                     </div>
     
@@ -218,7 +217,6 @@
             contentArea.style.display = 'none';
         }
     });
-
 
 
     //훈련 일지 작성 숨기기

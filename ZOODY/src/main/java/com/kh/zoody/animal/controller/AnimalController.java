@@ -277,7 +277,6 @@ public class AnimalController {
 		if(result !=1) {
 			throw new RuntimeException();
 		}
-		
 		return "redirect:/animal/health/list";
 	}
 	

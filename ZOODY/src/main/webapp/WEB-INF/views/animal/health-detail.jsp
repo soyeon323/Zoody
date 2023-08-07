@@ -29,25 +29,21 @@
                     <div>건강검진 종합 소견</div>
                     <br>
                     <form action="${root}/animal/health/edit" method="POST">
-                        <input type="hidden" value="${hvo.no}">
+                        <input type="hidden" value="${hvo.no}" name="no">
                         <span>유질환</span>
-                        <textarea id="t1" cols="30" rows="10" readonly>${hvo.disease}</textarea>
-                        <textarea name="disease"  id="t11" cols="30" rows="10" style="display: none;">${hvo.disease}</textarea>
-                        
+                        <textarea name="disease"  id="t1" cols="30" rows="10" readonly>${hvo.disease}</textarea>
                         <br>
                         <span>생활 습관 관리</span>
-                        <textarea  id="t2" cols="30" rows="9" readonly>${hvo.lifeStyleManagement}</textarea>
-                        <textarea name="lifeStyleManagement" id="t22" cols="30" rows="9" style="display: none;">${hvo.lifeStyleManagement}</textarea>
+                        <textarea name="lifeStyleManagement" id="t2" cols="30" rows="9" readonly>${hvo.lifeStyleManagement}</textarea>
                         <br>
                         <span>의사 소견</span>
-                        <textarea  id="t3" cols="30" rows="10" readonly>${hvo.stateOfHealth}</textarea>
-                        <textarea name="stateOfHealth" id="t33" cols="30" rows="10" style="display: none;" >${hvo.stateOfHealth}</textarea>
+                        <textarea name="stateOfHealth" id="t3" cols="30" rows="10" readonly>${hvo.stateOfHealth}</textarea>
                     </div>
 
                     <div id="btn-area">
-                            <div class="btn-upload" onclick="back()">닫기</div>
-                            <input type="submit" class="btn-upload"  style="display: none;" value="수정하기"/>
-                            <input type="button" style="" class="btn-upload" value="수정">
+                        <div class="btn-upload" onclick="back()">닫기</div>
+                        <input type="submit" class="btn-upload"  style="display: none;" value="수정하기"/>
+                        <input type="button" class="btn-upload" value="수정">
                     </div>
                         
                     </form>
@@ -62,22 +58,15 @@
     const t2 = document.querySelector('#t2');
     const t3 = document.querySelector('#t3');
 
-    const t11 = document.querySelector('#t11');
-    const t22 = document.querySelector('#t22');
-    const t33 = document.querySelector('#t33');
-    
-    
     const inputBtn = document.querySelector('input[type="submit"]');
     
     const btn = document.querySelector('input[type="button"]');
     btn.addEventListener('click' ,function () {
-        t1.style.display='none';
-        t2.style.display='none';
-        t3.style.display='none';
+        t1.readOnly=false;
+        t2.readOnly=false;
+        t3.readOnly=false;
 
-        t11.style.display='block';
-        t22.style.display='block';
-        t33.style.display='block';
+       
         inputBtn.style.display='block';
         btn.style.display='none';
     });
