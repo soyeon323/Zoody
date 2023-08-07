@@ -102,7 +102,6 @@
 
 // 훈련일지 상세 조회
 function showTrainingNo(trainingNo) {
-        alert(trainingNo);
         location.href = '${root}/animal/training/detail?no='+trainingNo;
     }
 

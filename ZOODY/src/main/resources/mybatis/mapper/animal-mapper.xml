@@ -213,6 +213,7 @@
   	
   		 SELECT 
 		  TITLE AS TRAINING_TITLE
+		  , NO AS TRAINING_NO
 		 ,CONTENT AS TRAINING_CONTENT
 		 ,TO_CHAR("DATE" , 'YYYY-MM-DD') AS TRAINING_DATE
 		 FROM ANIMAL_TRAINING
@@ -286,7 +287,10 @@
 		 </if>
 		 AND A.STATUS = 'O'
 		 
-
   	</select>
+  	
+  	<update id="trainingEdit">
+  		UPDATE ANIMAL_TRAINING SET TITLE = #{trainingTitle} , CONTENT = #{trainingContent} WHERE TRAINING_NO = #{trainingNo}
+  	</update>
   	
   </mapper>

@@ -99,5 +99,10 @@ public class AnimalDao {
 		return sst.selectList("animal.healthDetail" , vo);
 	}
 
+	//훈련일지 수정
+	public int trainingEdit(SqlSessionTemplate sst, AnimalVo vo) {
+		return sst.update("animal.trainingEdit" , vo);
+	}
+
 
 }

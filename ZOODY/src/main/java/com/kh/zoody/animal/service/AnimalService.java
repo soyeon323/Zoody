@@ -107,5 +107,10 @@ public class AnimalService {
 		return dao.healthDetail(sst,vo);
 	}
 
+	//훈련일지 수정
+	public int trainingEdit(AnimalVo vo) {
+		return dao.trainingEdit(sst,vo);
+	}
+
 
 }
