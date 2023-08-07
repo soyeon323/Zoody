@@ -7,6 +7,8 @@
 .wrap {
     width: 1650px;
     height: 100%;
+    
+    padding-left : 270px;
 
     display: flex;
     flex-direction: column;

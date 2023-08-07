@@ -13,7 +13,131 @@
 		WHERE NO = #{category}
 	
 	</select>
+	
+	
+	<insert id="insertApproval">
+	
+		<selectKey resultType="String" keyProperty="no" order="BEFORE">
+			SELECT SEQ_ELECTRONIC_APPROVAL_NO.NEXTVAL
+			FROM DUAL
+		</selectKey>
+	
+		INSERT INTO ELECTRONIC_APPROVAL
+		(
+			NO,
+			DRAFTER,
+			CATEGORY_NO,
+			REQUEST_DATE,
+			TITLE
+		)
+		VALUES
+		(
+			#{no},
+			#{drafter},
+			#{categoryNo},
+			SYSDATE,
+			#{title}
+		)
+		
+	</insert>
 
 
+	<insert id="insertApprover">
+		
+		INSERT INTO APPROVER
+		(
+			NO,
+			APPROVAL_NO,
+			APPROVAL_STATE,
+			APPROVER_NO,
+			NEXT_APPROVAER_NO,
+			APPROVAL_DATE
+		)
+		SELECT 
+			SEQ_APPROVER_NO.NEXTVAL,
+			TEMP.* FROM 
+			(
+				<foreach item="item" collection="list" separator="UNION ALL " >
+				SELECT 
+					#{item.approvalNo} AS APPROVAL_NO,
+					0,
+					#{item.approverNo} AS APPROVER_NO,
+					#{item.nextApprovaerNo} AS NEXT_APPROVAER_NO,
+					SYSDATE
+				FROM DUAL
+				</foreach>
+			) TEMP
+	
+	</insert>
+
+
+	<insert id="insertCC">
+	
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" " >
+			INTO APPROVAL_CC
+			(
+				NO,
+				CC_NO
+			)
+			VALUES (
+				#{item.no},
+				#{item.ccNo}
+			)
+		</foreach>
+	
+	</insert>
+
+
+	<insert id="insertLOA">
+	
+		INSERT INTO LETTER_OF_APPROVAL
+		(
+			NO,
+			APPROVAL_NO,
+			CONTENT,
+			INSTRUCTION
+		)
+		VALUES
+		(
+			SEQ_LETTER_OF_APPROVAL.NEXTVAL,
+			#{approvalNo},
+			#{content},
+			null
+		)
+	
+	</insert>
+	
+	
+	<select id="getLeaveType" resultType="LeaveTypeVo">
+	
+		SELECT NO, TYPE
+		FROM LEAVE_TYPE 
+	
+	</select>	
+	
+	<insert id="insertAFL">
+	
+		INSERT INTO APPLICATION_FOR_LEAVE
+		(
+			"NO",
+			"APPROVAL_NO",
+			"TYPE_NO",
+			"REASON",
+			"FROM",
+			"TO"
+		)
+		VALUES
+		(
+			SEQ_APPLICATION_FOR_LEAVE_NO.NEXTVAL,
+			#{approvalNo},
+			#{typeNo},
+			#{reason},
+			#{from},
+			#{to}
+		)
+	
+	</insert>
+	
+	
 
 </mapper>

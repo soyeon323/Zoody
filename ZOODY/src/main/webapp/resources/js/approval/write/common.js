@@ -2,10 +2,21 @@ const contextPath = location.href.substring( hostIndex, location.href.indexOf( '
 
 /* ========================================================================================================= */
 
+let modalType = "approver";
+
 const modalWrap = document.querySelector('.modal-wrap');
 
 const addBtn = document.querySelector('.add-btn');
 addBtn.addEventListener('click', ()=>{
+    const previewList = document.querySelector('.preview-list');
+    previewList.replaceChildren();
+
+    const previewHeader = document.querySelector(".preview-header");
+    if(modalType === "approver") {
+        previewHeader.innerText = "결재자";
+    } else if (modalType === "CC") {
+        previewHeader.innerText = "참조자";
+    }
     modalWrap.classList.toggle('modal-wrap-active');
 });
 
@@ -13,6 +24,7 @@ const closeBtn = document.querySelector('.modal-close-btn');
 closeBtn.addEventListener('click', ()=>{
     modalWrap.classList.toggle('modal-wrap-active');
 });
+
 
 
 /* ========================================================================================================= */
@@ -49,9 +61,25 @@ function getLoginMemberInSession() {
         const yy = today.getFullYear();
         const mm = ('0' + (today.getMonth() + 1)).slice(-2);
         const dd = ('0' + today.getDate()).slice(-2);
-        const hh = today.getHours();
-        const min = today.getMinutes();
-        draftDate.innerText = yy + '-' + mm + '-' + dd + ' / ' + hh + ':' + min;
+        draftDate.innerText = yy + '-' + mm + '-' + dd;
+
+
+
+        const formInputArea = document.querySelector(".wrap-left-header");
+
+        const drafter = document.createElement("input");
+        drafter.name = "drafter";
+        drafter.value = data.no;
+        drafter.classList.add('invisible-input');
+
+        const url = window.location.pathname;
+        const categoryNo = document.createElement('input');
+        categoryNo.value = url.substring(url.lastIndexOf('/')+1);
+        categoryNo.name = 'categoryNo';
+        categoryNo.classList.add('invisible-input');
+
+        formInputArea.append(drafter);
+        formInputArea.append(categoryNo);
 
     })
 
@@ -93,6 +121,9 @@ function toggleExtendList(event) {
 let approverArray = [];
 let approverArrIdx = 0;
 
+let ccArray = [];
+let ccArrIdx = 0;
+
 const userBriefInfoList = document.querySelectorAll('.name-rank');
 
 userBriefInfoList.forEach(element => {
@@ -105,27 +136,30 @@ userBriefInfoList.forEach(element => {
         const userGradeValue = userGrade.innerText;
 
         let ableCheck = 1;
+        if(modalType === 'approver') {
 
-        if(userGradeValue < toppestGrade) {
-            toppestGrade = userGradeValue;
-        } else {
-            alert('이전 결재자보다 낮은 결재권한자를 추가 할 수 없습니다.');
-            ableCheck = 0;
-        }
-
-        approverArray.forEach(element => {
-            if(element.no == userNoValue) {
-                alert('같은 결재자를 두명 이상 선택할 수 없습니다.');
+            if(userGradeValue < toppestGrade) {
+                toppestGrade = userGradeValue;
+            } else {
+                alert('이전 결재자보다 낮은 결재권한자를 추가 할 수 없습니다.');
                 ableCheck = 0;
             }
-        });
-
-        if(approverArrIdx < 4 && ableCheck == 1) {
+    
+            approverArray.forEach(element => {
+                if(element.no == userNoValue) {
+                    alert('같은 결재자를 두명 이상 선택할 수 없습니다.');
+                    ableCheck = 0;
+                }
+            });
+    
+            if(approverArrIdx < 4 && ableCheck == 1) {
+                setPreview(event);
+            } else if (approverArrIdx >= 4) {
+                alert('결재자는 최대 4명까지만 설정 가능합니다.');
+            }
+        } else if (modalType === "CC") {
             setPreview(event);
-        } else if (approverArrIdx >= 4) {
-            alert('결재자는 최대 4명까지만 설정 가능합니다.');
         }
-
     })
 });
 
@@ -146,15 +180,28 @@ function setPreview(event) {
         if(data.dName3 != null) { departmentInfo += data.dName3 + ' > '; }
         departmentInfo += data.dName4;
 
-        approverArray[approverArrIdx] = {
-            'no' : data.no,
-            'name' : data.name,
-            'grade' : data.grade,
-            'rank' : data.rankName,
-            'profile' : data.profile,
-            'department' : departmentInfo,
+        if(modalType === "approver") {
+            approverArray[approverArrIdx] = {
+                'no' : data.no,
+                'name' : data.name,
+                'grade' : data.grade,
+                'rank' : data.rankName,
+                'profile' : data.profile,
+                'department' : departmentInfo,
+            }
+            approverArrIdx++;
+        } else if (modalType === "CC") {
+            ccArray[ccArrIdx] = {
+                'no' : data.no,
+                'name' : data.name,
+                'grade' : data.grade,
+                'rank' : data.rankName,
+                'profile' : data.profile,
+                'department' : departmentInfo,
+            }
+            ccArrIdx++;
         }
-        approverArrIdx++;
+        
 
         const approverMember = document.createElement('div');
         approverMember.classList.add('approver-memeber');
@@ -241,90 +288,158 @@ addApproverBtn.addEventListener('click', ()=>{
     const modalWrap = document.querySelector('.modal-wrap');
     modalWrap.classList.toggle('modal-wrap-active')
 
-    // 오른쪽 창에 추가
-    const approverList = document.querySelector('.approver-list');
-    approverArray.forEach(element => {
+    if(modalType === "approver") {
+        // 오른쪽 창에 추가
+        const approverList = document.querySelector('.approver-list');
+        approverArray.forEach(element => {
 
-        const approver = document.createElement('div');
-        approver.classList.add('approver');
+            const approver = document.createElement('div');
+            approver.classList.add('approver');
 
-        const profileArea = document.createElement('div');
-        profileArea.classList.add('profile-area');
+            const profileArea = document.createElement('div');
+            profileArea.classList.add('profile-area');
 
-        const profileImg = document.createElement('img');
-        profileImg.classList.add('profile-img');
-        profileImg.src = contextPath + '/resources/img/employee/' + element.profile;
+            const profileImg = document.createElement('img');
+            profileImg.classList.add('profile-img');
+            profileImg.src = contextPath + '/resources/img/employee/' + element.profile;
 
-        profileArea.append(profileImg);
+            profileArea.append(profileImg);
 
-        const infoArea = document.createElement('div');
-        infoArea.classList.add('info-area');
+            const infoArea = document.createElement('div');
+            infoArea.classList.add('info-area');
 
-        const approverNameRank = document.createElement('div');
-        approverNameRank.classList.add('approver-name-rank');
+            const approverNameRank = document.createElement('div');
+            approverNameRank.classList.add('approver-name-rank');
 
-        const approverName = document.createElement('div');
-        approverName.classList.add('approver-name');
-        approverName.innerText = element.name;
+            const approverName = document.createElement('div');
+            approverName.classList.add('approver-name');
+            approverName.innerText = element.name;
 
-        const approverNRank = document.createElement('div');
-        approverNRank.classList.add('approver-rank');
-        approverNRank.innerText = element.rank;
+            const approverNRank = document.createElement('div');
+            approverNRank.classList.add('approver-rank');
+            approverNRank.innerText = element.rank;
 
-        approverNameRank.append(approverName);
-        approverNameRank.append(approverNRank);
+            approverNameRank.append(approverName);
+            approverNameRank.append(approverNRank);
 
-        const department = document.createElement('div');
-        department.classList.add('department');
-        department.innerText = element.department;
-        
+            const department = document.createElement('div');
+            department.classList.add('department');
+            department.innerText = element.department;
+            
 
-        infoArea.append(approverNameRank);
-        infoArea.append(department);
+            infoArea.append(approverNameRank);
+            infoArea.append(department);
 
-        approver.append(profileArea);
-        approver.append(infoArea);
+            approver.append(profileArea);
+            approver.append(infoArea);
 
-        approverList.append(approver);
-    });
-
-
-    // 문서에 추가
-    approverArray.forEach(element=>{
-
-        const tableHeaderRank = document.querySelector('.table-header-rank');
-
-        const newHeader = document.createElement('th');
-        newHeader.classList.add('table-rank');
-        newHeader.innerText = element.rank;
-
-        tableHeaderRank.append(newHeader);
+            approverList.append(approver);
+        });
 
 
-        const tableBodyName = document.querySelector('.table-body-name');
+        // 문서에 추가
+        approverArray.forEach(element=>{
 
-        const newBodyName = document.createElement('td');
-        newBodyName.classList.add('table-name');
-        newBodyName.innerText = element.name;
+            const tableHeaderRank = document.querySelector('.table-header-rank');
 
-        tableBodyName.append(newBodyName);
+            const newHeader = document.createElement('th');
+            newHeader.classList.add('table-rank');
+            newHeader.innerText = element.rank;
 
-        const approvalResult = document.querySelector('.approval-result');
+            tableHeaderRank.append(newHeader);
 
-        const newTableBody = document.createElement('td');
-        newTableBody.classList.add('table-approval');
 
-        approvalResult.append(newTableBody);
+            const tableBodyName = document.querySelector('.table-body-name');
 
-        const tableDateArea = document.querySelector('.table-date-area');
+            const newBodyName = document.createElement('td');
+            newBodyName.classList.add('table-name');
+            newBodyName.innerText = element.name;
 
-        const newDateTd = document.createElement('td');
-        newDateTd.classList.add('table-date');
+            tableBodyName.append(newBodyName);
 
-        tableDateArea.append(newDateTd);
+            const approvalResult = document.querySelector('.approval-result');
 
-    });
+            const newTableBody = document.createElement('td');
+            newTableBody.classList.add('table-approval');
 
+            approvalResult.append(newTableBody);
+
+            const tableDateArea = document.querySelector('.table-date-area');
+
+            const newDateTd = document.createElement('td');
+            newDateTd.classList.add('table-date');
+
+            tableDateArea.append(newDateTd);
+
+
+            const formInputArea = document.querySelector(".wrap-left-header");
+
+            const approver = document.createElement("input");
+            approver.name = "approver";
+            approver.value = element.no;
+            approver.classList.add('invisible-input');
+
+            formInputArea.append(approver);
+
+        });
+    } else if (modalType == "CC") {
+
+        const ccList = document.querySelector('.cc-list');
+        ccArray.forEach(element => {
+
+            const cc = document.createElement('div');
+            cc.classList.add('approver');
+
+            const profileArea = document.createElement('div');
+            profileArea.classList.add('profile-area');
+
+            const profileImg = document.createElement('img');
+            profileImg.classList.add('profile-img');
+            profileImg.src = contextPath + '/resources/img/employee/' + element.profile;
+
+            profileArea.append(profileImg);
+
+            const infoArea = document.createElement('div');
+            infoArea.classList.add('info-area');
+
+            const ccNameRank = document.createElement('div');
+            ccNameRank.classList.add('approver-name-rank');
+
+            const ccName = document.createElement('div');
+            ccName.classList.add('approver-name');
+            ccName.innerText = element.name;
+
+            const ccRank = document.createElement('div');
+            ccRank.classList.add('approver-rank');
+            ccRank.innerText = element.rank;
+
+            ccNameRank.append(ccName);
+            ccNameRank.append(ccRank);
+
+            const department = document.createElement('div');
+            department.classList.add('department');
+            department.innerText = element.department;
+            
+
+            infoArea.append(ccNameRank);
+            infoArea.append(department);
+
+            cc.append(profileArea);
+            cc.append(infoArea);
+
+            ccList.append(cc);
+
+            const formInputArea = document.querySelector(".wrap-left-header");
+
+            const ccMember = document.createElement("input");
+            ccMember.name = "cc";
+            ccMember.value = element.no;
+            ccMember.classList.add('invisible-input');
+
+            formInputArea.append(ccMember);
+
+        });
+    }
 
 });
 
@@ -350,13 +465,15 @@ previewSettingBtnArr.forEach(previewSettingBtn => {
                 }
             });
 
-            // 프리뷰 화며 전환
+            // 프리뷰 화면 전환
             if(event.currentTarget.classList.contains('set-approver')) {
                 document.querySelector('.approver-list').classList.toggle('unselected-preview');
                 document.querySelector('.cc-list').classList.toggle('unselected-preview');
+                modalType = "approver";
             } else {
                 document.querySelector('.cc-list').classList.toggle('unselected-preview');
                 document.querySelector('.approver-list').classList.toggle('unselected-preview');
+                modalType = "CC";
             }
 
         }
@@ -367,14 +484,61 @@ previewSettingBtnArr.forEach(previewSettingBtn => {
 });
 
 
+/* ========================================================================================================= */
+
+/* ========================================================================================================= */
+
+/* ========================================================================================================= */
+
+const startDate = document.querySelector('input[name="startDate"]');
+const endDate = document.querySelector('input[name="endDate"]');
+
+startDate.addEventListener('change', ()=>{
+    const sd = new Date(startDate.value);
+    const ed = new Date(endDate.value);
+
+    const diffDate = sd.getTime() - ed.getTime();
+    const dd = Math.abs(diffDate/(1000*60*60*24)) + 1;
+
+    if(!isNaN(dd)){
+        document.querySelector(".date").value = dd;
+    }
+});
+
+endDate.addEventListener('change', ()=>{
+    const sd = new Date(startDate.value);
+    const ed = new Date(endDate.value);
+
+    const diffDate = sd.getTime() - ed.getTime();
+    const dd = Math.abs(diffDate/(1000*60*60*24)) + 1;
+
+    if(!isNaN(dd)){
+        document.querySelector(".date").value = dd;
+    }
+});
 
 
 
+/* ========================================================================================================= */
 
+fetch(contextPath + "/approval/ltype")
+.then(response => response.json())
+.then(data => {
 
+    const typeArr = data;
+    const typeCategory = document.querySelector('.leave-category');
+    const selectElem = document.createElement('select');
+    selectElem.name = "leaveTypeNo";
 
+    typeArr.forEach(element => {
+        const optionElem = document.createElement('option');
+        optionElem.value = element.no;
+        optionElem.innerText = element.type;
+        selectElem.append(optionElem);
+    });
 
-
+    typeCategory.append(selectElem);
+})
 
 
 

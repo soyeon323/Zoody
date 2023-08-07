@@ -8,6 +8,8 @@
     width: 1650px;
     height: 100%;
     
+    padding-left : 270px;
+    
     display: flex;
     align-items: flex-start;
 }
@@ -843,4 +845,8 @@
     margin: 20px 20px;
 
     border: 0px;
+}
+
+.invisible-input {
+    display: none;
 }
