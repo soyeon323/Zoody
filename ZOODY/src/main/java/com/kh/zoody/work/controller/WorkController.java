@@ -1,26 +1,18 @@
 package com.kh.zoody.work.controller;
 
-import java.net.URLEncoder;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.kh.zoody.user.vo.UserVo;
 import com.kh.zoody.work.service.WorkService;
 import com.kh.zoody.work.vo.WorkVo;
 
@@ -81,7 +73,6 @@ public class WorkController {
 	public String getWorkNameAndDate(Model m , String userNo , HttpServletResponse resp) {
 		
 		List<WorkVo> vo = ws.getWorkNameAndDate(userNo);
-		log.info("WorkVo = {}",vo);
 		
 		if(vo ==null) {
 			throw new RuntimeException();
@@ -93,7 +84,7 @@ public class WorkController {
 	}	
 	
 	//모달창을 눌러 해당 업무 상세 조회
-	@PostMapping("detail")
+	@PostMapping(value = "detail" , produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String getWorkDetail(WorkVo vo) {
 		
