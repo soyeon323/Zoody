@@ -28,6 +28,7 @@ import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.meetingroom.dao.MeetingroomDao;
+import com.kh.zoody.meetingroom.vo.MeetingroomReservationVo;
 import com.kh.zoody.meetingroom.vo.MeetingroomVo;
 
 import lombok.RequiredArgsConstructor;
@@ -126,8 +127,18 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	}
 
 	@Override
-	public List<Map<String, Object>> reserveTime() {
-		return dao.reserveTime(sst);
+	public List<Map<String, Object>> reserveTime(String meetingroomNo) {
+		return dao.reserveTime(sst, meetingroomNo);
+	}
+
+	@Override
+	public int addReserve(MeetingroomReservationVo mrv) {
+		return dao.addReserve(sst, mrv);
+	}
+
+	@Override
+	public List<String> getReservedTimes(String meetingroomNo, String date) {
+		return dao.getReservedTimes(sst, meetingroomNo, date);
 	}
 
 }

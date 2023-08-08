@@ -62,20 +62,39 @@
 		WHERE NO = #{no}
 	</update>
 	
-	<select id="reserveTime" resultType="com.kh.zoody.meetingroom.vo.MeetingroomReservationVo">
+	<select id="getReservedTimes" resultType="com.kh.zoody.meetingroom.vo.MeetingroomReservationVo">
 		SELECT
 		    MR.NO
 		    ,MR.MEETINGROOM_NO
+		    ,MR.USER_NO
 		    ,MR."DATE"
-		    ,LPAD(MR.START_TIME, 2, '0') || ':00' AS START_TIME
+		    ,MR.START_TIME
     		,LPAD(MR.END_TIME, 2, '0') || ':00' AS END_TIME
 		    ,MR.STATUS
 		FROM MEETINGROOM_RESERVATION MR
 		JOIN MEETINGROOM M
 		ON MR.MEETINGROOM_NO = M.NO
 		WHERE MR.STATUS = 0
+		AND MR.MEETINGROOM_NO = #{meetingroomNo}
+		AND MR."DATE" = #{date}
 	</select>
 	
+	<insert id="addReserve">
+		INSERT INTO MEETINGROOM_RESERVATION (
+				"NO", 
+				"MEETINGROOM_NO", 
+				"USER_NO", 
+				"DATE", 
+				"START_TIME"
+			)
+   			VALUES (
+	    		SEQ_MEETINGROOM_RESERVATION_NO.NEXTVAL, 
+	    		#{meetingroomNo}, 
+	    		#{userNo}, 
+	    		#{date}, 
+	    		#{startTime}
+    		)
+	</insert>
 
   
 </mapper>

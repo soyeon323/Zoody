@@ -16,6 +16,7 @@
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/meetingroom/reserve.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Document</title>
 </head>
 <body>
@@ -40,7 +41,7 @@
             </div>
             <div class="mt_search">
                 <span>날짜</span>
-                <input type="date" name="" id="">
+                <input type="date" name="date" id="date">
             </div>
             <div class="mt_box">
             	<c:forEach items="${list}" var="vo">
@@ -72,7 +73,7 @@
 	                      <!-- <a href="#" class="btn btn-primary">예약하기</a> -->
 
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary reserveBtn" data-bs-toggle="modal" data-vo-no="${vo.no}" data-bs-target="#staticBackdrop" onclick="reserve();">
+                            <button type="button" class="btn btn-primary reserveBtn" data-bs-toggle="modal" data-vo-no="${vo.no}" data-bs-target="#staticBackdrop" onclick="reserve(this);">
                                 예약하기
                             </button>
                             
@@ -82,18 +83,19 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">예약 가능 시간</h1>
+                                    <input type="hidden" id="meetingroomNo" name="meetingroomNo" value="">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                                <button type="button" class="timeBtn">오전 <span>09:00</span></button>
-                                                <button type="button" class="timeBtn">오전 <span>10:00</span></button>
-                                                <button type="button" class="timeBtn">오전 <span>11:00</span></button>
-                                                <button type="button" class="timeBtn">오후 <span>12:00</span></button>
-                                                <button type="button" class="timeBtn">오후 <span>01:00</span></button>
-                                                <button type="button" class="timeBtn">오후 <span>02:00</span></button>
-                                                <button type="button" class="timeBtn">오후 <span>03:00</span></button>
-                                                <button type="button" class="timeBtn">오후 <span>04:00</span></button>
-                                                <button type="button" class="timeBtn">오후 <span>05:00</span></button>
+                                                <button type="button" class="timeBtn" value="9">오전 <span>09:00</span></button>
+                                                <button type="button" class="timeBtn" value="10">오전 <span>10:00</span></button>
+                                                <button type="button" class="timeBtn" value="11">오전 <span>11:00</span></button>
+                                                <button type="button" class="timeBtn" value="12">오후 <span>12:00</span></button>
+                                                <button type="button" class="timeBtn" value="1">오후 <span>01:00</span></button>
+                                                <button type="button" class="timeBtn" value="2">오후 <span>02:00</span></button>
+                                                <button type="button" class="timeBtn" value="3">오후 <span>03:00</span></button>
+                                                <button type="button" class="timeBtn" value="4">오후 <span>04:00</span></button>
+                                                <button type="button" class="timeBtn" value="5">오후 <span>05:00</span></button>
                                                 <div class="resInfo">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
                                                     <g clip-path="url(#clip0_1585_8779)">
@@ -111,8 +113,9 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
+                                    <input type="hidden" name="timeValue" id="timeValue" value="">
                                     <button type="button" class="btn btn-secondary subBtn" data-bs-dismiss="modal">취소</button>
-                                    <button type="submit" class="btn btn-primary subBtn">예약</button>
+                                    <button type="submit" class="btn btn-primary subBtn" onclick="reserveMt(event)">예약</button>
                                     </div>
                                 </div>
                                 </div>
@@ -191,7 +194,10 @@
             $.ajax({
                 url: '${root}/meetingroom/reserve/delete',
                 method: 'POST',
-                data: { no: voNo },
+                data: { 
+                    no: voNo,
+
+                },
                 success: function(response) {
                     alert("성공적으로 삭제 처리 되었습니다.");
                     window.location.href = '${root}/meetingroom/reserve';
@@ -204,15 +210,65 @@
 
     </script>
 
+    <!-- hidden에 회의실 번호 넣기 -->
+    <script>
+
+        function reserve(button) {
+            const meetingroomNo = button.getAttribute('data-vo-no');
+            document.getElementById('meetingroomNo').value = meetingroomNo;
+        }
+
+    </script>
+
+    <!-- 예약하기 -->
+    <script>
+
+        $('.timeBtn').on('click', (e) => {
+            document.getElementById('timeValue').value = e.target.value;
+            
+            })
+
+        function reserveMt(event) {
+            var meetingroomNo = $('#meetingroomNo').val();
+            var startTime = $('#timeValue').val(); // 포커스된 버튼의 값 가져오기
+            var date = $('#date').val();
+
+            console.log("Meeting Room No:", meetingroomNo);
+            console.log("startTime:", startTime);
+            console.log("date:", date);
+
+            $.ajax({
+                url : '${root}/meetingroom/reserve',
+                data : {
+                    meetingroomNo : meetingroomNo,
+                    startTime : startTime,
+                    date : date
+                },
+                method : "POST",
+                success : function(result){
+                    alert("예약이 성공적으로 처리되었습니다.")
+                    location.reload();
+                },
+                error: function(xhr, status, error){
+                    swal("예약 실패!", "예약에 실패하셨습니다. 날짜 선택을 확인해주세요.", "error");
+                    console.error(error);
+                }
+            })
+        
+        }
+    </script>
+
+
+    <!-- 예약 이미 된 시간 가져오기 -->
     <!-- <script>
         function reserve() {
 
         const reserveBtn = document.querySelector('.reserveBtn');
-        const meetingroomNo = reserveBtn.getAttribute('data-vo-no');
+        const mNo = reserveBtn.getAttribute('data-vo-no');
 
         $.ajax({
             url:"${root}/meetingroom/time",
-            data : meetingroomNo,
+            data : mNo,
             dataType: "JSON",
             method: "GET",
             success:function(result){
@@ -227,6 +283,8 @@
         console.log("data-vo-no 값:", voNo);
         }
     </script> -->
+
+
 
     <script>
 
@@ -256,6 +314,42 @@
         //         }
         //     });
         // }
+    </script>
+
+    <!-- 예약된 시간 확인하기 -->
+    <script>
+        $(document).ready(function() {
+            $('.reserveBtn').on('click', function() {
+                var meetingroomNo = $(this).data('vo-no');
+                var date = $('#date').val(); // 선택한 날짜
+
+                $.ajax({
+                    url: '${root}/meetingroom/time',
+                    data: { meetingroomNo: meetingroomNo, date: date },
+                    method: 'GET',
+                    // dataType: "json",
+                    success: function(reservedTimes) {
+                        // reservedTimes에는 예약된 시간 정보가 배열로 담겨 있습니다.
+                        // 예약 가능한 시간과 예약 불가능한 시간을 표시하는 로직을 구현합니다.
+                        console.log(reservedTimes);
+                        $('.timeBtn').each(function() {
+                            var value = $(this).val();
+                            if (reservedTimes.includes(value)) {
+
+                                $(this).prop('disabled', true);
+                                $(this).css('backgroundColor', 'gray');
+                            } else {
+                                $(this).prop('disabled', false);
+                                $(this).css('background-color', '');
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
     </script>
 
     

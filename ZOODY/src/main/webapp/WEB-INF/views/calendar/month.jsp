@@ -424,6 +424,8 @@
       var allDayCheck = $('#allDayCheck');
 
       var loginMember = '${loginMember.name}';
+
+      let typeFilter = document.querySelector('#type_filter');
       
     
       document.addEventListener('DOMContentLoaded', function () {
@@ -508,6 +510,13 @@
                     container: 'body'
                   });
                   $(info.el).popover('show');
+                },
+
+                eventDidMount: function(arg) {
+                  let val = typeFilter.value;
+                  if (!(val == arg.event.extendedProps.type || val == "all")) {
+                    arg.el.style.display = "none";
+                  }
                 },
 
                 // 이벤트 호버 벗어날 때 동작 - 팝오버 숨기기

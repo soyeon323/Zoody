@@ -205,6 +205,21 @@ public class AttendanceDaoImpl implements AttendanceDao{
 		return sst.selectList("attendance.dataChart", no);
 	}
 
+	@Override
+	public List<AttendanceVo> chartList(SqlSessionTemplate sst, String no, String formattedStartDate, String formattedEndDate) {
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("no", no);
+	    paramMap.put("formattedStartDate", formattedStartDate);
+	    paramMap.put("formattedEndDate", formattedEndDate);
+	    return sst.selectList("attendance.chartList", paramMap);
+	}
+
+//	@Override
+//	public Integer countSum(SqlSessionTemplate sst, int num1) {
+//		return ;
+//	}
+
+
 	
 
 

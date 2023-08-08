@@ -84,6 +84,11 @@ public interface AttendanceDao {
 
 	List<Map<String, Object>> dataChart(SqlSessionTemplate sst, String no);
 
+	List<AttendanceVo> chartList(SqlSessionTemplate sst, String no, String formattedStartDate, String formattedEndDate);
+
+//	Integer countSum(SqlSessionTemplate sst, int num1);
+
+
 
 
 

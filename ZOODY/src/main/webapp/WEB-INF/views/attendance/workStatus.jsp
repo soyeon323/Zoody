@@ -19,6 +19,9 @@
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <title>Document</title>
 
 <style>
@@ -112,6 +115,7 @@ element.style {
   </style>
 </head>
 <body>
+
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
@@ -226,7 +230,7 @@ element.style {
                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
                     <circle cx="2.5" cy="2.5" r="2.5" fill="#00CBA4"/>
                   </svg>
-                  <p>외근</p>
+                  <p>출장</p>
                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
                     <circle cx="2.5" cy="2.5" r="2.5" fill="#A574EE"/>
                   </svg>
@@ -234,10 +238,10 @@ element.style {
                 </div>
                 <!-- 프로그레스 -->
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-label="Segment one" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="progress-bar bg-success" role="progressbar" aria-label="Segment two" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="progress-bar bg-info" role="progressbar" aria-label="Segment three" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="progress-bar bg-info2" role="progressbar" aria-label="Segment three" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" aria-label="Segment one" style="width: ${currentTypeOnePercentage}%" aria-valuenow="${currentTypeOnePercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-success" role="progressbar" aria-label="Segment two" style="width: ${currentTypeSixPercentage}%; background-color: #EF4898!important;" aria-valuenow="${currentTypeSixPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-info" role="progressbar" aria-label="Segment three" style="width: ${currentTypeFourPercentage}%" aria-valuenow="${currentTypeFourPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-info2" role="progressbar" aria-label="Segment three" style="width: ${currentTypeLeavePercentage}%" aria-valuenow="${currentTypeLeavePercentage}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
               <div class="total-percent">
@@ -248,19 +252,19 @@ element.style {
                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                     <circle cx="5" cy="5" r="5" fill="#00BEEA"/>
                   </svg>
-                  <p>90%</p>
+                  <p>${currentTypeOnePercentage}%</p>
                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                     <circle cx="5" cy="5" r="5" fill="#EF4898"/>
                   </svg>
-                  <p>3%</p>
+                  <p>${currentTypeSixPercentage}%</p>
                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                     <circle cx="5" cy="5" r="5" fill="#00CBA4"/>
                   </svg>
-                  <p>10%</p>
+                  <p>${currentTypeFourPercentage}%</p>
                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                     <circle cx="5" cy="5" r="5" fill="#A574EE"/>
                   </svg>
-                  <p>13%</p>
+                  <p>${currentTypeLeavePercentage}%</p>
                 </div>
               </div>
             </div>
@@ -446,8 +450,10 @@ element.style {
 
                 // moment 객체로 변환 후 원하는 형식으로 포맷팅
                 var formatStart = moment(start).format("MM월 DD일 - HH시 mm분");
-                var formatEnd = moment(end).format("MM월 DD일 - HH시 mm분");
+                var formatEnd = end ? moment(end).format("MM월 DD일 - HH시 mm분") : "-";
+                // end ? moment(end).format("YYYY/MM/DD HH:mm") 
 
+                console.log("출근시간 : " + start + "\n퇴근시간 : " + end);
                 var message = "출근시간 : " + formatStart + "\n퇴근시간 : " + formatEnd;
 
                 swal(title,message,'info');
@@ -481,132 +487,64 @@ element.style {
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
     <script>
 
-      var data2;
+      // $(document).ready(function(){
+      //   getGraph();
+      //   getSumGraph();
+      // })
 
-      var options = {
-        scales: {
-          y: {
-            beginAtZero: true, // y축 시작값을 0으로 설정합니다.
-            ticks: {
-              callback: function(value) {
-                // y축 라벨을 시간 형식으로 변환합니다.
-                var hours = Math.floor(value / 60);
-                var minutes = value % 60;
-                return hours + "시간 " + minutes + "분";
+      // function getSumGraph(){
+      //   let sumList = [];
+
+      //   $.ajax({
+      //     url : '${root}/attendance/weekChart',
+      //     dataType : "json",
+      //     type : "GET",
+      //     success : function(data){
+      //       for(let i = 0; i<data.length; i++){
+      //         sumList.push(data[i]);
+      //       }
+            new Chart(document.getElementById("myChart"),{
+              
+              type : 'bar',
+              data : {
+                labels : ["4주 전", "3주 전", "2주 전", "1주 전"],
+                datasets : [{
+                  label : "주간 근무 시간",
+                  backgroundColor : [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                  ],
+                  borderColor : [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)'                 
+                  ],
+                  borderWidth : 1,
+                  data : [49,42,40,40,43]
+                }]
+              },
+              options : {
+                legend : {display : true},
+                animation: {
+                    animateScale: true
+                },
+                responsive: false
               }
-            }
-          }
-        }
-      };
-
-      $.ajax({
-        url : "${root}/attendance/chart",
-        dataType : "json",
-        type : "GET",
-      }).done(function(data){
-
-          console.log(data);
-          
-          const labels = data.map(item => item.labels);
-
-          console.log("labels : " + labels);
-          // const timeData = data.map(item => {
-          //   const time = item.data.replace("+0","");
-          //   const [hours, minutes, seconds] = time.split(':');
-          //   return parseInt(hours) * 60 + parseInt(minutes);
-          // });
-
-          const ctx = document.getElementById('myChart').getContext('2d');
-      
-          new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: labels,
-              datasets: [{
-                label: '일일 근무 시간',
-                // data: timeData,
-                backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 205, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                  'rgb(255, 99, 132)',
-                  'rgb(255, 159, 64)',
-                  'rgb(255, 205, 86)',
-                  'rgb(75, 192, 192)',
-                  'rgb(54, 162, 235)',
-                  'rgb(153, 102, 255)',
-                  'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: options
-          });
-
-      })
-
+              
+            })
+      //     },
+      //     error:function(){
+      //       alert("실패");
+      //     }
+      //   })
+      // }
 
     </script>
-
-    
-
-    <!-- <script>
-      // JSP에서 데이터를 JSON 형식의 문자열로 변환하도록 수정
-      const enrolldateArr = JSON.parse('${enrolldateData}');
-            const totalWorkTimeArr = JSON.parse('${totalWorkTimeData}');
-
-            // Chart.js code
-            const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: enrolldateArr,
-                    datasets: [{
-                        label: '일별 총 근무시간',
-                        data: totalWorkTimeArr,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)',
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        x: {
-                            ticks: {
-                                autoSkip: false, // 모든 라벨을 보여줍니다.
-                                maxRotation: 0, // 라벨을 90도로 회전하여 긴 라벨도 표시합니다.
-                                minRotation: 0
-                            }
-                        },
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-    </script> -->
-
 
 
     <script>

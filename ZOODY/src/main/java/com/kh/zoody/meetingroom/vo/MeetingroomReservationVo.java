@@ -7,6 +7,7 @@ public class MeetingroomReservationVo {
 	
 	private String no;
 	private String meetingroomNo;
+	private String userNo;
 	private String date;
 	private String startTime;
 	private String endTime;

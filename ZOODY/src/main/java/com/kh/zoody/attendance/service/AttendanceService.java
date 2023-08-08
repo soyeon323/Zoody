@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.attendance.vo.ExtraWorkVo;
 import com.kh.zoody.attendance.vo.LeaveVo;
@@ -81,6 +83,10 @@ public interface AttendanceService {
 	List<Map<String, Object>> monthList(String no);
 
 	List<Map<String, Object>> dataChart(String no);
+
+	List<AttendanceVo> chartList(String no, String formattedStartDate, String formattedEndDate);
+
+//	Integer countSum(AttendanceVo vo, int i);
 
 
 

@@ -576,3 +576,20 @@
     border-top: 0;
     text-align: center;
 }
+
+/* 그래프 */
+.bg-success {
+    background-color: #EF4898!important;
+}
+
+.progress-bar {
+    background-color: #00BEEA!important;
+}
+
+.bg-info {
+    background-color: #00CBA4!important;
+}
+
+.bg-info2 {
+    background-color: #A574EE!important;
+}
