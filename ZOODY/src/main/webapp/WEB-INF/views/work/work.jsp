@@ -381,22 +381,6 @@ function myF(workNo) {
     const userNo = document.querySelector('#userNo').value;
 
 
-    alert(workNo);
-    
-    //모달2 창 안에 인풋테그,체크박스 만드는것
-    let modal2 = document.querySelector('#my_modal2');
-
-
-    let inputTag = document.createElement('input');
-    inputTag.setAttribute('type' , 'text');
-    inputTag.setAttribute('id' , 'chcheckListName');
-    
-    let checkbox = document.createElement('input');
-    checkbox.setAttribute('type' , 'checkbox');
-    
-    modal2.appendChild(inputTag);
-    modal2.appendChild(checkbox);
-
     $.ajax({
         url  :'${root}/work/detail',
         data : {
@@ -406,21 +390,25 @@ function myF(workNo) {
         method : 'POST',
         success : (data)=>{
         const x = JSON.parse(data);
-        const checkListNames = x.checkListName.split(','); // 여러 개의 값이 쉼표로 구분되어 있는 경우
 
+        workName.innerHTML = x.workName; ///여기안댐
+        endDate.innerHTML = x.endDate;  ////여기안댐
+        
+        const checkListNames = x.checkListName.split(','); // 여러 개의 값이 쉼표로 구분되어 있는 경우
+        
         // 모달2 창 가져오기
         let modal2 = document.querySelector('#my_modal2');
 
-        // 각 checkListName을 인풋 테그와 체크박스로 추가
+        //각 checkListName을 인풋 테그와 체크박스로 추가
         checkListNames.forEach(checkListName => {
+            
             let inputTag = document.createElement('input');
-            inputTag.setAttribute('type', 'text');
-            inputTag.setAttribute('class', 'checklist-input'); // 클래스 추가 (옵션)
+            inputTag.setAttribute('type' , 'text');
+            inputTag.setAttribute('id' , 'checkListName');
             inputTag.value = checkListName; // 인풋 테그 값 설정
 
             let checkbox = document.createElement('input');
-            checkbox.setAttribute('type', 'checkbox');
-            checkbox.setAttribute('class', 'checklist-checkbox'); // 클래스 추가 (옵션)
+            checkbox.setAttribute('type' , 'checkbox');
 
             // 인풋 테그와 체크박스를 모달2 창에 추가
             modal2.appendChild(inputTag);
