@@ -43,6 +43,7 @@
 
     <div id="wrap">
         <div id="enroll">업무 할당</div>
+        ${vo}
         <div id="title-area">
             <h1>To-Do</h1>
             <h1>Doing</h1>
@@ -78,7 +79,7 @@
                  </div>
                  <fieldset>
                   <legend>업무 내용</legend>
-
+                    
                 </fieldset>
               </div>
               <br>
@@ -99,25 +100,18 @@
             <br>
             <div id="modal-area">
              <a class="modal_close_btn">닫기</a>
-                 <input type="text" name="workName" id="workName" placeholder="업무 명">    <!--value="${workName}"-->
+                 <input type="text" name="workName" id="workName"  value="${workName}"> 
                  
                  <fieldset>
                   <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
-                    <input type="text">   <!--value="${workContent}" -->
-                    <input type="checkbox">
-                    <input type="text">   <!--value="${workContent}" -->
-                    <input type="checkbox">
-                    <input type="text">   <!--value="${workContent}" -->
-                    <input type="checkbox">
-                    <input type="text">   <!--value="${workContent}" -->
-                    <input type="checkbox">
+                    
                  </fieldset>
               </div>
               <br>
               <br>
               <div id="date">
                   마감날짜
-                      <input type="date" name="endDate"/><!--value="${endDate}"-->
+                      <input type="text" value="${endDate}"/><!--value="${endDate}"-->
               </div>
               <div id="btn-area" style="margin-left: 400px;"> 
                 <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
@@ -199,18 +193,10 @@ document.getElementById('plusBtn').addEventListener('click', function() {
 
     var inputText = document.createElement('input');
     inputText.setAttribute('type', 'text');
-    inputText.setAttribute('name', 'workContent');
-    inputText.setAttribute('id', 'chaekListName');
-
-    var inputCheckbox = document.createElement('input');
-    inputCheckbox.setAttribute('type', 'checkbox');
+    inputText.setAttribute('name', 'checkListName');
+    inputText.setAttribute('id', 'checkListName');
     
-    inputCheckbox.style.width = "25px";
-
-    
-
     fieldset.appendChild(inputText);
-    fieldset.appendChild(inputCheckbox);
 });
 
     // input -
@@ -305,16 +291,23 @@ column1.addEventListener('click', function(event) {
 function writeComment(userNo){
 
     const workName = document.getElementById('workName').value;
-    const chaekListName = document.getElementById('chaekListName').value;
     const endDate = document.querySelector('input[name=endDate]').value;
     const modal = document.querySelector('#my_modal');
     
+    const inputElements = document.querySelectorAll('input[name="checkListName"]');
+
+    const inputValues = Array.from(inputElements).map(input => input.value);
+    const checkListName = inputValues.join(', ');
+    
+
+    console.log(checkListName);
+
 		$.ajax({
 			url : "${root}/work/insert" ,
 			type : "POST" ,
             data :{
                 'workName' : workName,
-                'chaekListName' : chaekListName ,
+                'checkListName' : checkListName ,
                 'endDate' :endDate , 
                 'userNo' : userNo
             },
@@ -345,7 +338,6 @@ function loadComment(userNo) {
             const x = JSON.parse(data);
             console.log(x);
 
-            let divTagCnt = 1;
             let column = document.querySelector('.column1');
             // 이전에 생성된 요소들을 모두 삭제
             column.innerHTML = '';
@@ -353,8 +345,10 @@ function loadComment(userNo) {
                 let newDivTag = document.createElement('div');
                 newDivTag.setAttribute('class', 'list-group-item');
                 newDivTag.innerHTML += x[i].workName + "/" + x[i].endDate +"/"+x[i].workNo;
-                console.log(x[i].workName);
                 column.appendChild(newDivTag);
+                newDivTag.addEventListener('click' ,function () {
+                    myF(x[i].workNo);
+                });
             }
         },
         error: function(e) {
@@ -368,4 +362,9 @@ $(document).ready(function () {
     // 여기에 유저 번호를 전달해서 호출하도록 설정
         loadComment('${loginMember.no}');
 });
+
+// 해당업무번호로 조회
+function myF(no) {
+    alert(no);
+}
 </script>

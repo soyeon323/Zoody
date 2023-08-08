@@ -57,14 +57,14 @@ public class WorkController {
 	@PostMapping("insert")
 	@ResponseBody
 	public String workInsert( WorkVo vo , HttpServletRequest req) {
-	    String[] workNameArr = req.getParameterValues("workName");
-	    String workName = "";
+	    String[] checkListNameArr = req.getParameterValues("checkListName");
+	    String checkListName = "";
 	    
-	    if (workNameArr != null) {
-	        workName = String.join(",", workNameArr); // 여러 개의 업무 이름을 쉼표로 구분하여 문자열로 합침
+	    if (checkListNameArr != null) {
+	    	checkListName = String.join(",", checkListNameArr); // 여러 개의 업무 이름을 쉼표로 구분하여 문자열로 합침
 	    }
 	    
-	    vo.setWorkName(workName); // 합쳐진 업무 이름을 VO 객체에 설정
+	    vo.setCheckListName(checkListName); // 합쳐진 업무 이름을 VO 객체에 설정
 	    
 	    int result = ws.workInsert(vo);
 	    if (result != 2) {
@@ -87,6 +87,7 @@ public class WorkController {
 		}
 		Gson gson = new Gson();
 		String data = gson.toJson(vo);
+		log.info(data);
 		return data;
 	}	
 	
