@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.zoody.constpool.ConstPool;
 import com.kh.zoody.document.service.DocumentService;
 import com.kh.zoody.document.vo.DocumentVo;
@@ -108,6 +109,7 @@ public class DocumentController {
         	
             // 업로드된 파일을 저장할 디렉토리 설정
             String saveFile = root+"\\document\\"+ vo.getLoginMemberId(); // 원하는 디렉토리 경로로 변경 가능
+            // root(resources) +  document + loginMemberId + 디렉토리 번호(no)
         	
             
             log.info(saveFile);
@@ -154,13 +156,11 @@ public class DocumentController {
         
 	}
 	
-	@PostMapping("directory")
+	@PostMapping(value="directory", produces="application/json;charset=UTF-8")
 	@ResponseBody
-    public String newDirctory(DocumentVo vo, HttpServletRequest req) {
+    public String newDirctory(DocumentVo vo, HttpServletRequest req , Model model) {
 		
 		HttpSession session = req.getSession();
-		
-		int loginMemberNo = 0;
 		
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
@@ -170,12 +170,20 @@ public class DocumentController {
         vo.setUserNo(loginMember.getNo());
 		
 		int result = service.newDirctory(vo);
-		
 		if (result < 1) {
 			return "error";
 		}
+		DocumentVo newDirctoryInfo = service.getNewDirctoryInfo(vo);
+		if (newDirctoryInfo == null) {
+			return "error";
+		}
 		
-		return "success";
+		Gson gson = new Gson();
+		String info = gson.toJson(newDirctoryInfo);
+		
+		log.info(info);
+		
+		return info;
 		
 	}
 	

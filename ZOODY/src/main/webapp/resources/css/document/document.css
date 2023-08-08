@@ -61,14 +61,14 @@
     margin-top: 30;
 }
 
-.private-document-list > li {
+.private-document-list > li >form {
     display: flex;
     align-items: center;
     width: 125%;
 }
 
 
-.document-side > ul > li > div {
+.document-side > ul > li div {
     font-size: 14;
     padding: 10;
     color: #69757e;
@@ -81,30 +81,37 @@
     height: 15;
 }
 
-.document-side > ul > li > div:hover {
+.document-side > ul > li div:hover {
     background-color: #EBF0FD;
     border-radius: 5px;
 }
 
 
-.document-side > ul > li > div:first-child {
+.document-side > ul > li div:first-child {
     margin-top: 10;
 }
 
-.document-side > ul:nth-child(3) > li > div:last-child {
+.add-new-directory {
     /* margin-top: 10; */
     color: #cbcbcb;
     border: 1px dashed #cbcbcb;
     border-radius: 5px;
 }
 
-.document-side > ul:nth-child(3) > li > div:last-child:hover {
+.add-new-directory:hover {
     border-radius: 5px;
     background-color: #EBF0FD;
     color: #3A3A3A;
 }
 
-.document-side > ul > li > div > span {
+li.add-new-directory {
+    width: 90%;
+    padding: 10;
+    display: flex;
+    justify-content: space-around;
+}
+
+.document-side > ul > li div > span {
     display: flex;
     width: 15;
     font-weight: bold;
@@ -113,7 +120,7 @@
 
 
 
-.document-side > ul > li > div > span > img {
+.document-side > ul > li div > span > img {
     max-width: 15;
     max-height: 15;
 }
