@@ -43,7 +43,7 @@
 
     <div id="wrap">
         <div id="enroll">업무 할당</div>
-        ${vo}
+        <input type="hidden" id="userNo" value="${loginMember.no}">
         <div id="title-area">
             <h1>To-Do</h1>
             <h1>Doing</h1>
@@ -104,14 +104,14 @@
                  
                  <fieldset>
                   <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
-                    
+                    <input type="text" name="checkListName" id="checkListName"> <input type="checkbox">
                  </fieldset>
               </div>
               <br>
               <br>
               <div id="date">
                   마감날짜
-                      <input type="text" value="${endDate}"/><!--value="${endDate}"-->
+                      <input type="text" name="endDate" value="${endDate}"/><!--value="${endDate}"-->
               </div>
               <div id="btn-area" style="margin-left: 400px;"> 
                 <input class="btn btn-primary" id="completeBtn" style="font-size: 1.3em; display: none;" type="button" value="완료">
@@ -364,7 +364,73 @@ $(document).ready(function () {
 });
 
 // 해당업무번호로 조회
-function myF(no) {
-    alert(no);
+function myF(workNo) {
+    //업무 이름
+    const workName = document.querySelector('#my_modal2 #workName');
+    workName.style.backgroundColor = 'red';
+
+    //체크리스트들
+    const checkListName = document.querySelector('#my_modal2 #checkListName');
+    checkListName.style.backgroundColor = 'red';
+
+    //마감날짜
+    const endDate = document.querySelector('#my_modal2 input[type="text"][name="endDate"]');
+    endDate.style.backgroundColor = 'red';
+
+    //유저 번호
+    const userNo = document.querySelector('#userNo').value;
+
+
+    alert(workNo);
+    
+    //모달2 창 안에 인풋테그,체크박스 만드는것
+    let modal2 = document.querySelector('#my_modal2');
+
+
+    let inputTag = document.createElement('input');
+    inputTag.setAttribute('type' , 'text');
+    inputTag.setAttribute('id' , 'chcheckListName');
+    
+    let checkbox = document.createElement('input');
+    checkbox.setAttribute('type' , 'checkbox');
+    
+    modal2.appendChild(inputTag);
+    modal2.appendChild(checkbox);
+
+    $.ajax({
+        url  :'${root}/work/detail',
+        data : {
+            'workNo': workNo,
+            'userNo' : userNo
+        },
+        method : 'POST',
+        success : (data)=>{
+        const x = JSON.parse(data);
+        const checkListNames = x.checkListName.split(','); // 여러 개의 값이 쉼표로 구분되어 있는 경우
+
+        // 모달2 창 가져오기
+        let modal2 = document.querySelector('#my_modal2');
+
+        // 각 checkListName을 인풋 테그와 체크박스로 추가
+        checkListNames.forEach(checkListName => {
+            let inputTag = document.createElement('input');
+            inputTag.setAttribute('type', 'text');
+            inputTag.setAttribute('class', 'checklist-input'); // 클래스 추가 (옵션)
+            inputTag.value = checkListName; // 인풋 테그 값 설정
+
+            let checkbox = document.createElement('input');
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('class', 'checklist-checkbox'); // 클래스 추가 (옵션)
+
+            // 인풋 테그와 체크박스를 모달2 창에 추가
+            modal2.appendChild(inputTag);
+            modal2.appendChild(checkbox);
+        });
+
+        },
+        error : (e)=>{ console.log('myFErroㅋㅋ');}
+
+    });
+
 }
 </script>

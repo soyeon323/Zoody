@@ -39,4 +39,17 @@
 		WHERE A.USER_NO = #{no}
   </select>
   
+  <select id="getWorkDetail" resultType="com.kh.zoody.work.vo.WorkVo">
+  	 SELECT 
+		A.NO AS WORK_NO
+		, A.NAME AS WORK_NAME
+		, A.USER_NO AS NO
+		, TO_CHAR(A."DATE",'YYYY-MM-DD') AS END_DATE
+		, W.NAME AS CHECK_LIST_NAME
+		FROM WORK_CHECKLIST W
+		JOIN ANIMAL_WORK A ON W.NO = A.NO
+		WHERE A.NO = #{workNo}
+        AND A.USER_NO =#{userNo}
+  </select>
+  
 </mapper>

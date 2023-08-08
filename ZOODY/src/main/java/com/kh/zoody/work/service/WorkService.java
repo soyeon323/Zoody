@@ -41,6 +41,11 @@ public class WorkService {
 	public List<WorkVo> getWorkNameAndDate(String userNo) {
 		return dao.getWorkNameAndDate(sst , userNo);
 	}
+
+	//모달창을 눌러 해당 업무 상세 조회
+	public WorkVo getWorkDetail(WorkVo vo) {
+		return dao.getWorkDetail(sst,vo);
+	}
 	
 	
 }
