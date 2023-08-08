@@ -138,6 +138,75 @@
 	
 	</insert>
 	
+	<select id="getWorkType" resultType="ExtraWorkCategoryVo">
 	
+		SELECT NO,CATEGORY
+		FROM EXTRA_WORK_CATEGORY
+	
+	</select>
+	
+	<insert id="insertAFE">
+	
+		INSERT INTO APPLICATION_FOR_EXTRA_WORK
+		(
+			"NO",
+			"APPROVAL_NO",
+			"CATEGORY_NO",
+			"DATE",
+			"START_TIME",
+			"END_TIME",
+			"REASON"
+		)
+		VALUES
+		(
+			SEQ_APP_FOR_EXTRA_WORK_NO.NEXTVAL,
+			#{approvalNo},
+			#{categoryNo},
+			#{date},
+			#{startTime},
+			#{endTime},
+			#{reason}
+		)
+	
+	</insert>
+	
+	
+	<select id="getApprovalList" resultType="ApprovalVo">
+	
+		SELECT EA.NO, DRAFTER, U.NAME AS DRAFTER_NAME, CATEGORY_NO, AC.CATEGORY AS CATEGORY_NAME, REQUEST_DATE, TITLE
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN "USER" U ON EA.DRAFTER = U.NO
+		    JOIN APPROVAL_CATEGORY AC ON EA.CATEGORY_NO = AC.NO
+		WHERE EA.NO IN ( SELECT APPROVAL_NO
+		                FROM APPROVER
+		                WHERE APPROVER_NO = #{userNo}
+		                )
+	
+	</select>
+	
+	<select id="getApprovalDetail" resultType="ApprovalVo">
+	
+		SELECT EA.NO, DRAFTER, CATEGORY_NO, REQUEST_DATE, TITLE, CATEGORY AS CATEGORY_NAME, FORM
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN APPROVAL_CATEGORY AC ON EA.CATEGORY_NO = AC.NO
+		WHERE EA.NO = #{no}
+	
+	</select>
+	
+	<select id="getDrafterInfo" resultType="DrafterVo">
+	
+		SELECT NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4, TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD (DAY)') AS DRAFTER_DATE, EA.NO AS EA_NO
+		FROM "USER" U
+		    JOIN ELECTRONIC_APPROVAL EA ON U.NO = EA.DRAFTER
+		    JOIN (
+		            SELECT D.NO AS TOP_MOST_NO, A.NAME AS D_NAME1, B.NAME AS D_NAME2, C.NAME AS D_NAME3, D.NAME AS D_NAME4
+		            FROM DEPARTMENT A
+		                RIGHT JOIN DEPARTMENT B ON A.NO = B.UPPER_DEPARTMENT_NO
+		                RIGHT JOIN DEPARTMENT C ON B.NO = C.UPPER_DEPARTMENT_NO
+		                RIGHT JOIN DEPARTMENT D ON C.NO = D.UPPER_DEPARTMENT_NO
+		        ) B ON U.DEPARTMENT_NO = B.TOP_MOST_NO
+		WHERE EA.NO = #{no}
+	
+	</select>
 
 </mapper>

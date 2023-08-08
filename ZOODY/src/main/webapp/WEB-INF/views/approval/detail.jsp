@@ -9,20 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Zoody</title>
-<link rel="stylesheet" href="${root}/resources/css/approval/write.css">
-<script defer src="${root}/resources/js/approval/write/common.js"></script>
-
-<c:choose>
-	<c:when test="${fn:contains(url, '2')}">
-		<script defer src="${root}/resources/js/approval/write/applicationForLeave.js"></script>
-	</c:when>
-	<c:when test="${fn:contains(url, '3')}">
-		<script defer src="${root}/resources/js/approval/write/applicationForExtraWork.js"></script>
-	</c:when>
-</c:choose>
+<link rel="stylesheet" href="${root}/resources/css/approval/detail.css">
+<script defer src="${root}/resources/js/approval/detail.js"></script>
 
 </head>
-
 <body>
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
@@ -35,134 +25,23 @@
 		
 			<div class="wrap-left">
 
-				<form action="${root}/approval/write" method="POST" enctype="multipart/form-data"></form>
-
-				<div class="wrap-left-header">
-					<div class="category-title">결재문서 양식</div>
-					<div class="category-list">
-						<button class="change-category-btn">품의서</button>
-						<button class="change-category-btn">휴가 신청서</button>
-						<button class="change-category-btn">지출 결의서</button>
-						<button class="change-category-btn">휴일 / 연장 근무 신청서</button>
-					</div>
-					<div class="upvote-btn">상신하기</div>
-				</div>
-				
-				<div class="document-form">
-					<div class="document-title">
-						지 출 결 의 서
-					</div>
-					
-					<div class="info-inst">
-						<div class="approval-info">
-							<table class="info-table">
-								<tr>
-									<th class="info-header">기안자</th>
-									<td class="info-text drafter-name"></td>
-								</tr>
-								<tr>
-									<th class="info-header">소속</th>
-									<td class="info-text drafter-depart"></td>
-								</tr>
-								<tr>
-									<th class="info-header">기안일</th>
-									<td class="info-text draft-date">
-									</td>
-								</tr>
-								<tr>
-									<th class="info-header">문서번호</th>
-									<td class="info-text"></td>
-								</tr>
-							</table>
-						</div>
-
-						<div class="approval-line">
-							<table class="approval-line-table">
-								<tr class="table-header-rank">
-									<th class="vertical-cell" rowspan="4">상신인</th>
-									<th class="table-rank sender-rank"></th>
-									<th class="vertical-cell" rowspan="4">결재자</th>
-								</tr>
-								<tr class="table-body-name">
-									<td class="table-name sender-name"></td>
-									<input class="sender-no" name="SenderNo" type="text">
-								</tr>
-								<tr class="approval-result">
-									<td class="table-approval"></td>
-								</tr>
-								<tr class="table-date-area">
-									<td class="table-date"></td>
-								</tr>
-							</table>
-						</div>
-
-					</div>
-					<div class="main-text-area">
-						<table class="main-text-table">
-							<tr>
-								<td class="table-title">제목</td>
-								<td class="title-input-cell">
-									<input class="title-input" type="text" name="receiptTitle">
-								</td>
-							</tr>
-							<tr>
-								<td class="table-main-area" colspan="2">
-									<div class="table-area">
-										<table class="receipt-table">
-											<thead>
-												<tr>
-													<th class="receipt-category">항목</th>
-													<th class="receipt-breakdown">내역</th>
-													<th class="receipt-cost">금액</th>
-													<th class="receipt-note">비고</th>
-												</tr>
-											</thead>
-	
-											<tbody>
-												<tr>
-													<td>
-														<input type="text">
-													</td>
-													<td>
-														<input type="text">
-													</td>
-													<td>
-														<input type="number">
-													</td>
-													<td>
-														<input type="text">
-													</td>
-												</tr>
-											</tbody>
-											
-										</table>
-									</div>
-									<div class="main-form1">위 금액을 청구하오니 결재 바랍니다.</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-
-				</form>
+				${approvalVo.form}
 
 			</div>
 
 			<div class="wrap-right">
 				<div class="title-area">
-					결재자 설정
-				</div>
-				<div class="btn-area">
-					<button class="add-btn">
-						추가
-					</button>
-					<button class="delete-btn">
-						삭제
-					</button>
-				</div>
-				<div class="preview-area">
+					<div class="set-approver preview-setting-btn">결재자 설정</div>
 
-					
+					<div class="set-cc unseleted-setting-btn preview-setting-btn">참조자 설정</div>
+				</div>
+				<div class="approver-list preview-area">
+
+
+				</div>
+
+				<div class="cc-list preview-area unselected-preview">
+
 
 				</div>
 
@@ -344,7 +223,6 @@
 
 					</div>
 					
-
 				</div>
 
 			</div>
