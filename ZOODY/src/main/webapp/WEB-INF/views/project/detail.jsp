@@ -15,6 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -154,9 +155,8 @@
                             <circle cx="4.5" cy="4.5" r="4.5" fill="#00CBA4"/>
                         </svg>
                     </div>
-                    <div>
-                        <a>오영택 대리 |&nbsp</a>
-                        <a>오영택 대리 |&nbsp</a>
+                    <div class="connectUser">
+                        <a>|&nbsp</a>
                     </div>
                     <div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -260,6 +260,7 @@
         //상대쪽
         const nick = document.querySelector("#toMsg .name-area>a");
         const msg = document.querySelector("#toMsg #toMsgText");
+
         nick.innerHTML = obj.nick;
         msg.innerHTML = obj.msg;
 
@@ -322,11 +323,11 @@
                     no : no
                 },
                 success : () => {
-                    alert("삭제 되었습니다.");
+                    swal("삭제되었습니다.");
                     location.reload();
                 },
                 error : () => {
-                    alert("삭제 되었습니다.");
+                    swal("삭제되었습니다.");
                     location.reload();
                 }
             })
@@ -334,8 +335,6 @@
             return;
         }
     }
-
-    
 </script>
 
 <!-- 임시저장

@@ -237,6 +237,7 @@ input[type='text']::placeholder{
 #commentOk #deleteArea{
     margin-left: 75px;
 }
+
 /* 목록으로 */
 #btnArea button{
     width: 160px;
