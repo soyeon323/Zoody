@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.meetingroom.vo.MeetingroomReservationVo;
 import com.kh.zoody.meetingroom.vo.MeetingroomVo;
 
 public interface MeetingroomService {
@@ -21,7 +22,11 @@ public interface MeetingroomService {
 
 	int updateMeetingroom(MeetingroomVo mvo, MultipartFile file);
 
-	List<Map<String, Object>> reserveTime();
+	List<Map<String, Object>> reserveTime(String meetingroomNo);
+
+	int addReserve(MeetingroomReservationVo mrv);
+
+	List<String> getReservedTimes(String meetingroomNo, String date);
 
 
 }

@@ -29,4 +29,5 @@ public class AttendanceVo {
 	private String loginMemberNo;
 
 
+
 }

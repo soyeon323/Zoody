@@ -218,6 +218,22 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 
+	@Override
+	public List<AttendanceVo> chartList(String no, String formattedStartDate, String formattedEndDate) {
+		return dao.chartList(sst, no, formattedStartDate, formattedEndDate);
+	}
+
+
+//	@Override
+//	public Integer countSum(AttendanceVo vo, int i) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+
+
+
+
 
 
 

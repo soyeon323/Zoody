@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.zoody.meetingroom.vo.MeetingroomReservationVo;
 import com.kh.zoody.meetingroom.vo.MeetingroomVo;
 
 public interface MeetingroomDao {
@@ -19,7 +20,11 @@ public interface MeetingroomDao {
 
 	int updateMeetingroom(SqlSessionTemplate sst, MeetingroomVo mvo);
 
-	List<Map<String, Object>> reserveTime(SqlSessionTemplate sst);
+	List<Map<String, Object>> reserveTime(SqlSessionTemplate sst, String meetingroomNo);
+
+	int addReserve(SqlSessionTemplate sst, MeetingroomReservationVo mrv);
+
+	List<String> getReservedTimes(SqlSessionTemplate sst, String meetingroomNo, String date);
 
 
 }

@@ -259,3 +259,7 @@
     background-color: #F4F7FD !important;
     border-radius: 4px;
 }
+
+.timeBtn:focus{
+    background-color: #007089;
+}

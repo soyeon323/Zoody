@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.kh.zoody.attendance.service.AttendanceService;
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.attendance.vo.ExtraWorkVo;
@@ -44,6 +47,30 @@ import lombok.extern.slf4j.Slf4j;
 public class AttendanceController {
 	
 	private final AttendanceService attService;
+	
+	private void addCurrentTypeAttributes(Model model, String userNo) {
+	    int currentTypeOne = attService.getCurrentTypeOneCnt(userNo);
+	    int currentTypeSix = attService.getCurrentTypeSixCnt(userNo);
+	    int currentTypeLeave = attService.getCurrentTypeLeaveCnt(userNo);
+	    int currentTypeFour = attService.getCurrentTypeFourCnt(userNo);
+
+	    model.addAttribute("currentTypeOne", currentTypeOne);
+	    model.addAttribute("currentTypeSix", currentTypeSix);
+	    model.addAttribute("currentTypeLeave", currentTypeLeave);
+	    model.addAttribute("currentTypeFour", currentTypeFour);
+	    
+	    int totalCount = currentTypeOne + currentTypeSix + currentTypeLeave + currentTypeFour;
+	    
+	    double currentTypeOnePercentage = ((double) currentTypeOne / totalCount) * 100;
+	    double currentTypeSixPercentage = ((double) currentTypeSix / totalCount) * 100;
+	    double currentTypeLeavePercentage = ((double) currentTypeLeave/ totalCount) * 100;
+	    double currentTypeFourPercentage = ((double) currentTypeFour/ totalCount) * 100;
+	    
+	    model.addAttribute("currentTypeOnePercentage", currentTypeOnePercentage);
+	    model.addAttribute("currentTypeSixPercentage", currentTypeSixPercentage);
+	    model.addAttribute("currentTypeLeavePercentage", currentTypeLeavePercentage);
+	    model.addAttribute("currentTypeFourPercentage", currentTypeFourPercentage);
+	}
 	
 	//(서브메뉴) 근무현황 메인 화면
 	@GetMapping("main")
@@ -82,8 +109,23 @@ public class AttendanceController {
 		model.addAttribute("mainWorkList", mainWorkList);
 		model.addAttribute("mPv", mPv);
 		
+		 addCurrentTypeAttributes(model, no);
+		
+		
 		return "attendance/workStatus";
 	}
+//	
+//	@GetMapping("weekChart")
+//	@ResponseBody
+//	public List<Integer> countSum(AttendanceVo vo){
+//		
+//		List<Integer> sumSum = new ArrayList<>();
+//		for (int i = 0; i < 22; i+=7) {
+//			sumSum.add(0, attService.countSum(vo,i));
+//		}
+//		
+//		return sumSum;
+//	}
 
 	//출결 달력 json으로 정보 넘기기
 	@GetMapping("monthList")
@@ -191,16 +233,19 @@ public class AttendanceController {
 	    List<ExtraWorkVo> ewList = attService.extraWorkList(workPv, no);
 	    model.addAttribute("ewList", ewList);
 	    
-	    //출근 타입 카운팅
-	    int currentTypeOne = attService.getCurrentTypeOneCnt(no);
-	    int currentTypeSix = attService.getCurrentTypeSixCnt(no);
-	    int currentTypeLeave = attService.getCurrentTypeLeaveCnt(no);
-	    int currentTypeFour = attService.getCurrentTypeFourCnt(no); 
+//	    //출근 타입 카운팅
+//	    int currentTypeOne = attService.getCurrentTypeOneCnt(no);
+//	    int currentTypeSix = attService.getCurrentTypeSixCnt(no);
+//	    int currentTypeLeave = attService.getCurrentTypeLeaveCnt(no);
+//	    int currentTypeFour = attService.getCurrentTypeFourCnt(no); 
+//	    
+//	    model.addAttribute("currentTypeOne", currentTypeOne);
+//	    model.addAttribute("currentTypeSix", currentTypeSix);
+//	    model.addAttribute("currentTypeLeave", currentTypeLeave);
+//	    model.addAttribute("currentTypeFour", currentTypeFour);
 	    
-	    model.addAttribute("currentTypeOne", currentTypeOne);
-	    model.addAttribute("currentTypeSix", currentTypeSix);
-	    model.addAttribute("currentTypeLeave", currentTypeLeave);
-	    model.addAttribute("currentTypeFour", currentTypeFour);
+	    addCurrentTypeAttributes(model, no);
+	    
 	    model.addAttribute("pv", pv);
 	    model.addAttribute("leavePv", leavePv);
 	    model.addAttribute("workPv", workPv);
@@ -208,7 +253,7 @@ public class AttendanceController {
 	    return "attendance/list";
 	}
 	
-	@GetMapping("chart")
+	@GetMapping("day")
 	@ResponseBody
 	public List<Map<String, Object>> chart(Model model, HttpSession session){
 		
@@ -216,6 +261,25 @@ public class AttendanceController {
         model.addAttribute("loginMember", loginMember);
         
         String no = loginMember.getNo();
+        
+////		차트 생성
+//		Calendar cal = Calendar.getInstance();
+//        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//        Date startDate = cal.getTime();
+//        cal.add(Calendar.DATE, 4);
+//        Date endDate = cal.getTime();
+//        
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String formattedStartDate = sdf.format(startDate);
+//        String formattedEndDate = sdf.format(endDate);
+////        
+//        log.info("시작 : {} / 종료 : {}", formattedStartDate, formattedEndDate);
+//
+//        
+//        List<AttendanceVo> chartList = attService.chartList(no, formattedStartDate, formattedEndDate);
+//        model.addAttribute("chartList", chartList);
+//        
+//        log.info("chartList : {}",chartList);
 		
 		List<Map<String, Object>> dataChart = attService.dataChart(no);
 		
@@ -226,8 +290,7 @@ public class AttendanceController {
 		
 		for (int i = 0; i < dataChart.size(); i++) {
 			
-			hash.put("lables", dataChart.get(i).get("ENROLLDATE"));
-			hash.put("data", dataChart.get(i).get("TOTAL_WORK_TIME"));
+			hash.put("labels", dataChart.get(i).get("ENROLLDATE"));
 			
 			jsonObj = new JSONObject(hash);
 			jsonArr.add(jsonObj);
