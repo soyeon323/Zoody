@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body style="overflow-x: hidden">
     <%@ include file="/WEB-INF/views/header.jsp" %>
@@ -62,28 +63,48 @@
                         </c:if>
                         <c:forEach items="${map.voList}" var="voList">
                             <c:if test="${!empty map.voList}">                                
-                                <tr onclick="detail(event);">
-                                <c:if test="${voList.boardLimit == '2'}">
-                                    <td scope="col" class="suggestionNo">${voList.no}</td>
-                                    <td scope="col">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16" fill="none">
-                                            <path d="M11.6668 5.33333V4.66667C11.6668 3.42899 11.1752 2.242 10.3 1.36684C9.42482 0.491665 8.23784 0 7.00016 0C5.76249 0 4.5755 0.491665 3.70033 1.36684C2.82516 2.242 2.3335 3.42899 2.3335 4.66667V5.33333H0.333496V14C0.333496 14.5304 0.54421 15.0391 0.919283 15.4142C1.29436 15.7893 1.80306 16 2.3335 16H11.6668C12.1973 16 12.706 15.7893 13.081 15.4142C13.4561 15.0391 13.6668 14.5304 13.6668 14V5.33333H11.6668ZM3.66683 4.66667C3.66683 3.78261 4.01802 2.93477 4.64314 2.30964C5.26826 1.68452 6.11611 1.33333 7.00016 1.33333C7.88422 1.33333 8.73206 1.68452 9.35719 2.30964C9.98231 2.93477 10.3335 3.78261 10.3335 4.66667V5.33333H3.66683V4.66667ZM12.3335 14C12.3335 14.1768 12.2633 14.3464 12.1382 14.4714C12.0132 14.5964 11.8436 14.6667 11.6668 14.6667H2.3335C2.15669 14.6667 1.98712 14.5964 1.86209 14.4714C1.73707 14.3464 1.66683 14.1768 1.66683 14V6.66667H12.3335V14Z" fill="#374957"/>
-                                            <path d="M7.66684 9.33301H6.3335V11.9997H7.66684V9.33301Z" fill="#374957"/>
-                                        </svg>
-                                        비밀글은 본인 및 관리자만 열람할 수 있습니다.
-                                    </td>
-                                    <td scope="col">${voList.name}</td>
-                                    <td scope="col">${voList.enrollDate}</td>
-                                    <td scope="col">${voList.hit}</td>
-                                </c:if>
-                                <c:if test="${voList.boardLimit == '1'}">
-                                    <td scope="col" class="suggestionNo">${voList.no}</td>
-                                    <td scope="col">${voList.title}</td>
-                                    <td scope="col">${voList.name}</td>
-                                    <td scope="col">${voList.enrollDate}</td>
-                                    <td scope="col">${voList.hit}</td>
-                                </c:if>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${voList.boardLimit == '2'}">
+                                        <c:choose>
+                                            <c:when test="${loginMember.no == voList.userNo}">
+                                                <tr onclick="detail(event);">
+                                                    <td scope="col" class="suggestionNo">${voList.no}</td>
+                                                    <td scope="col">
+                                                        <img src="${root}/resources/img/icon/png/open.png" alt="열린자물쇠">
+                                                        비밀글은 본인 및 관리자만 열람할 수 있습니다.
+                                                    </td>
+                                                    <td scope="col">${voList.name}</td>
+                                                    <td scope="col">${voList.enrollDate}</td>
+                                                    <td scope="col">${voList.hit}</td>
+                                                </tr>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr onclick="dontOpen();">
+                                                    <td scope="col" class="suggestionNo">${voList.no}</td>
+                                                    <td scope="col">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16" fill="none">
+                                                            <path d="M11.6668 5.33333V4.66667C11.6668 3.42899 11.1752 2.242 10.3 1.36684C9.42482 0.491665 8.23784 0 7.00016 0C5.76249 0 4.5755 0.491665 3.70033 1.36684C2.82516 2.242 2.3335 3.42899 2.3335 4.66667V5.33333H0.333496V14C0.333496 14.5304 0.54421 15.0391 0.919283 15.4142C1.29436 15.7893 1.80306 16 2.3335 16H11.6668C12.1973 16 12.706 15.7893 13.081 15.4142C13.4561 15.0391 13.6668 14.5304 13.6668 14V5.33333H11.6668ZM3.66683 4.66667C3.66683 3.78261 4.01802 2.93477 4.64314 2.30964C5.26826 1.68452 6.11611 1.33333 7.00016 1.33333C7.88422 1.33333 8.73206 1.68452 9.35719 2.30964C9.98231 2.93477 10.3335 3.78261 10.3335 4.66667V5.33333H3.66683V4.66667ZM12.3335 14C12.3335 14.1768 12.2633 14.3464 12.1382 14.4714C12.0132 14.5964 11.8436 14.6667 11.6668 14.6667H2.3335C2.15669 14.6667 1.98712 14.5964 1.86209 14.4714C1.73707 14.3464 1.66683 14.1768 1.66683 14V6.66667H12.3335V14Z" fill="#374957"/>
+                                                            <path d="M7.66684 9.33301H6.3335V11.9997H7.66684V9.33301Z" fill="#374957"/>
+                                                        </svg>
+                                                        비밀글은 본인 및 관리자만 열람할 수 있습니다.
+                                                    </td>
+                                                    <td scope="col">${voList.name}</td>
+                                                    <td scope="col">${voList.enrollDate}</td>
+                                                    <td scope="col">${voList.hit}</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:when>
+                                    <c:when test="${voList.boardLimit == '1'}">
+                                        <tr onclick="detail(event);">
+                                            <td scope="col" class="suggestionNo">${voList.no}</td>
+                                            <td scope="col">${voList.title}</td>
+                                            <td scope="col">${voList.name}</td>
+                                            <td scope="col">${voList.enrollDate}</td>
+                                            <td scope="col">${voList.hit}</td>
+                                        </tr>
+                                    </c:when>
+                                </c:choose>
                             </c:if>
                         </c:forEach>
                     </tbody>
@@ -151,4 +172,9 @@
         location.href = "${root}/suggestion/detail?no=" + no;
     }
 
+    //비밀글 본인 아닌데 열람하면 알림창
+    function dontOpen(){
+        swal("접근권한이 없습니다.");
+        return;
+    }
 </script>

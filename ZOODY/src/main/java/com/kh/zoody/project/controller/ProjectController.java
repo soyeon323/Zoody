@@ -64,6 +64,8 @@ public class ProjectController {
 	    map.put("no2List", no2List);
 	    map.put("no3List", no3List);
 	    
+	    log.info("map : {}", map);
+	    
 	    model.addAttribute("voList", voList);
 	    model.addAttribute("prjList", prjList);
 	    model.addAttribute("map", map);

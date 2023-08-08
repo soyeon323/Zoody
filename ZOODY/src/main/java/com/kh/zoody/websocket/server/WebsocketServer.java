@@ -34,18 +34,12 @@ public class WebsocketServer extends TextWebSocketHandler{
 	
 	//메세지 받았을 때 동작
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        UserVo loginMember = (UserVo) session.getAttributes().get("loginMember");
-        String nick = loginMember.getName();
-		
-		log.info("내용 : {}", message.getPayload());
-        log.info("닉네임 : {}", nick);
-		
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {		
 		Gson gson = new Gson();
-		HashMap<String, String> msgVo = new HashMap<String, String>();
-		msgVo.put("nick", nick);
-		msgVo.put("msg", message.getPayload());
-		msgVo.put("time", System.currentTimeMillis()+"");
+		HashMap<String, String> msgVo = gson.fromJson(message.getPayload(), HashMap.class);
+		String nick = msgVo.get("nick");
+		String msg = msgVo.get("msg");
+		String time = msgVo.get("time");
 		
 		String jsonMsg = gson.toJson(msgVo);
 		

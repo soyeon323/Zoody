@@ -23,63 +23,69 @@
         </div>
 
         <div id="contentArea">
-            <c:if test="${!empty map.no1List}">
-                <div id="content-1">
-                    <div>
-                        <a>${map.no1List[0].title}</a>
+            <c:forEach items="${map.no1List}" var="no1List">
+                <c:if test="${loginMember.no eq no1List.userNo}">
+                    <div id="content-1">
+                        <div>
+                            <a>${map.no1List[0].title}</a>
+                        </div>
+                        <div>
+                            <c:forEach items="${map.no1List}" var="no1List">
+                                <a>${no1List.userName}</a>
+                            </c:forEach>        
+                        </div>
+                        <div>
+                            <a>${map.no1List[0].startDate} ~ ${map.no1List[0].endDate}</a>
+                        </div>
+                        <div>
+                            <button onclick="delPrj('${map.no1List[0].no}');">삭제</button>
+                            <a href="${root}/project/detail?title=${map.no1List[0].title}">더보기 ></a>
+                        </div>
                     </div>
-                    <div>
-                        <c:forEach items="${map.no1List}" var="no1List">
-                            <a>${no1List.userName}</a>
-                        </c:forEach>        
+                </c:if>
+            </c:forEach>
+            <c:forEach items="${map.no2List}" var="no2List">
+                <c:if test="${loginMember.no eq no2List.userNo}">
+                    <div id="content-2">
+                        <div>
+                            <a>${map.no2List[0].title}</a>
+                        </div>
+                        <div>
+                            <c:forEach items="${map.no2List}" var="no2List">
+                                <a>${no2List.userName}</a>
+                            </c:forEach>        
+                        </div>
+                        <div>
+                            <a>${map.no2List[0].startDate} ~ ${map.no2List[0].endDate}</a>
+                        </div>
+                        <div>
+                            <button onclick="delPrj('${map.no2List[0].no}');">삭제</button>
+                            <a href="${root}/project/detail?title=${map.no2List[0].title}">더보기 ></a>
+                        </div>
                     </div>
-                    <div>
-                        <a>${map.no1List[0].startDate} ~ ${map.no1List[0].endDate}</a>
+                </c:if>
+            </c:forEach>
+            <c:forEach items="${map.no3List}" var="no3List">
+                <c:if test="${loginMember.no eq no3List.userNo}">
+                    <div id="content-3">
+                        <div>
+                            <a>${map.no3List[0].title}</a>
+                        </div>
+                        <div>
+                            <c:forEach items="${map.no3List}" var="no3List">
+                                <a>${no3List.userName}</a>
+                            </c:forEach>        
+                        </div>
+                        <div>
+                            <a>${map.no3List[0].startDate} ~ ${map.no3List[0].endDate}</a>
+                        </div>
+                        <div>
+                            <button onclick="delPrj('${map.no3List[0].no}');">삭제</button>
+                            <a href="${root}/project/detail?title=${map.no3List[0].title}">더보기 ></a>
+                        </div>
                     </div>
-                    <div>
-                        <button onclick="delPrj('${map.no1List[0].no}');">삭제</button>
-                        <a href="${root}/project/detail?title=${map.no1List[0].title}">더보기 ></a>
-                    </div>
-                </div>
-            </c:if>
-            <c:if test="${!empty map.no2List}">
-            <div id="content-2">
-                    <div>
-                        <a>${map.no2List[0].title}</a>
-                    </div>
-                    <div>
-                        <c:forEach items="${map.no2List}" var="no2List">
-                            <a>${no2List.userName}</a>
-                        </c:forEach>        
-                    </div>
-                    <div>
-                        <a>${map.no2List[0].startDate} ~ ${map.no2List[0].endDate}</a>
-                    </div>
-                    <div>
-                        <button onclick="delPrj('${map.no2List[0].no}');">삭제</button>
-                        <a href="${root}/project/detail?title=${map.no2List[0].title}">더보기 ></a>
-                    </div>
-                </div>
-            </c:if>
-            <c:if test="${!empty map.no3List}">
-            <div id="content-3">
-                    <div>
-                        <a>${map.no3List[0].title}</a>
-                    </div>
-                    <div>
-                        <c:forEach items="${map.no3List}" var="no3List">
-                            <a>${no3List.userName}</a>
-                        </c:forEach>        
-                    </div>
-                    <div>
-                        <a>${map.no3List[0].startDate} ~ ${map.no3List[0].endDate}</a>
-                    </div>
-                    <div>
-                        <button onclick="delPrj('${map.no3List[0].no}');">삭제</button>
-                        <a href="${root}/project/detail?title=${map.no3List[0].title}">더보기 ></a>
-                    </div>
-                </div>
-            </c:if>
+                </c:if>
+            </c:forEach>
             <div id="content-4">
                 <div>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
