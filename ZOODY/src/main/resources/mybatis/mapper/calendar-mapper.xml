@@ -40,7 +40,7 @@
 		INSERT INTO CALENDAR (NO, USER_NO, TYPE_NO, TITLE, CONTENT, START_TIME, END_TIME, PLACE ,ALL_DAY) 
 		VALUES (
 			SEQ_CALENDAR_NO.NEXTVAL, 
-			#{no}, 
+			#{userNo}, 
 			#{typeNo},
 			#{title}, 
 			#{content}, 

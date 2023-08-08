@@ -203,116 +203,89 @@
 
           <div class="panel panel-default hidden-print">
             <div class="panel-heading">
-              <h3 class="panel-title">검색 설정</h3>
+              <h3 class="panel-title">카테고리 검색 설정</h3>
             </div>
             <div class="panel-body">
               <div class="col-lg-4">
-                <!-- <label for="calendar_view">카테고리</label> -->
-                  <!-- <div class="input-group">
-                    <select class="filter" id="type_filter" multiple="multiple">
-                      <option value="all">전체</option>
-                      <option value="개인">개인</option>
-                      <option value="부서">부서</option>
-                      <option value="회사">회사</option>
-                      <option value="회의">회의</option>
-                    </select>
-                  </div> -->
-                    <label for="calendar_view">카테고리</label>
-                    <div class="input-group">
-                      <select class="form-select" id="type_filter" aria-label="Example select with button addon">
-                        <option value="all" selected>선택...</option>
-                        <option value="0">개인</option>
-                        <option value="1">부서</option>
-                        <option value="2">회사</option>
-                        <option value="3">회의</option>
-                      </select>
-                      <button class="btn btn-outline-secondary" type="button" onclick="filterCalendarEvents()">검색</button>
-                    </div>
-                </div>
-              <div class="col-lg-2">
-                <div class="form-group">
-                  <label for="calendar_view">달력 유형</label>
-                  <select class="form-control" id="calendar_view">
-                    <option value="month">Month</option>
-                    <option value="agendaWeek">Week</option>
-                    <option value="agendaDay">Day</option>
-                    <option value="listWeek">Event List</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-2">
-                <div class="form-group">
-                  <label for="calendar_start_time">시작 시간</label>
-                  <select class="form-control" id="calendar_start_time">
-                    <option value="01:00:00">01:00 AM</option>
-                    <option value="02:00:00">02:00 AM</option>
-                    <option value="03:00:00">03:00 AM</option>
-                    <option value="04:00:00">04:00 AM</option>
-                    <option value="05:00:00">05:00 AM</option>
-                    <option value="06:00:00">06:00 AM</option>
-                    <option value="07:00:00">07:00 AM</option>
-                    <option value="08:00:00">08:00 AM</option>
-                    <option value="09:00:00">09:00 AM</option>
-                    <option value="10:00:00">10:00 AM</option>
-                    <option value="11:00:00">11:00 AM</option>
-                    <option value="12:00:00">12:00 PM</option>
-                    <option value="13:00:00">13:00 PM</option>
-                    <option value="14:00:00">14:00 PM</option>
-                    <option value="15:00:00">15:00 PM</option>
-                    <option value="16:00:00">16:00 PM</option>
-                    <option value="17:00:00">17:00 PM</option>
-                    <option value="18:00:00">18:00 PM</option>
-                    <option value="19:00:00">19:00 PM</option>
-                    <option value="20:00:00">20:00 PM</option>
-                    <option value="21:00:00">21:00 PM</option>
-                    <option value="22:00:00">22:00 PM</option>
-                    <option value="23:00:00">23:00 PM</option>  
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-2">
-                <div class="form-group">
-                  <label for="calendar_end_time">종료 시간</label>
-                  <select class="form-control" id="calendar_end_time">
-                    <option value="01:00:00">01:00 AM</option>
-                    <option value="02:00:00">02:00 AM</option>
-                    <option value="03:00:00">03:00 AM</option>
-                    <option value="04:00:00">04:00 AM</option>
-                    <option value="05:00:00">05:00 AM</option>
-                    <option value="06:00:00">06:00 AM</option>
-                    <option value="07:00:00">07:00 AM</option>
-                    <option value="08:00:00">08:00 AM</option>
-                    <option value="09:00:00">09:00 AM</option>
-                    <option value="10:00:00">10:00 AM</option>
-                    <option value="11:00:00">11:00 AM</option>
-                    <option value="12:00:00">12:00 PM</option>
-                    <option value="13:00:00">13:00 PM</option>
-                    <option value="14:00:00">14:00 PM</option>
-                    <option value="15:00:00">15:00 PM</option>
-                    <option value="16:00:00">16:00 PM</option>
-                    <option value="17:00:00">17:00 PM</option>
-                    <option value="18:00:00">18:00 PM</option>
-                    <option value="19:00:00">19:00 PM</option>
-                    <option value="20:00:00">20:00 PM</option>
-                    <option value="21:00:00">21:00 PM</option>
-                    <option value="22:00:00">22:00 PM</option>
-                    <option value="23:00:00">23:00 PM</option> 
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-2">
-                <div class="form-group">
-                  <label for="ShowWeekends">주말 표시</label>
-                  <div class="input-group">
-                    <input class="showHideWeekend" type="checkbox" checked>
+                <div class="filter">
+                  <div class="event_filter_wrapper">
+                    <input id="개인" class="event_filter" name="event_filter_sel" type="checkbox" value="개인" data-type="state"  checked="true" />
+                    <label for="개인">
+                      개인
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                        <g clip-path="url(#clip0_1656_8789)">
+                          <path d="M16.8448 8.62247C16.7016 9.03266 16.4677 9.40527 16.1606 9.71259L9.71475 16.1584C9.40711 16.4625 9.03433 16.6926 8.62463 16.8313C8.51123 16.1642 8.49121 15.4845 8.56513 14.8119C8.74995 13.2176 9.46812 11.7325 10.6031 10.5976C11.7381 9.46278 13.2232 8.74478 14.8176 8.56014C15.4929 8.48602 16.1753 8.507 16.8448 8.62247V8.62247ZM7.15342 14.6624C7.37449 12.7474 8.23661 10.9635 9.59971 9.60038C10.9628 8.23729 12.7468 7.37517 14.6618 7.1541C15.4231 7.07243 16.1918 7.091 16.9483 7.20935C16.7057 5.65465 16.0376 4.19742 15.0178 2.99906C13.9981 1.80071 12.6666 0.907993 11.1707 0.419796C9.67487 -0.0683998 8.07308 -0.133025 6.54276 0.233079C5.01243 0.599183 3.61331 1.38173 2.50035 2.49404C1.38739 3.60635 0.604037 5.00502 0.237042 6.53512C-0.129952 8.06523 -0.0662593 9.66706 0.421066 11.1632C0.908392 12.6593 1.80033 13.9914 2.99809 15.0118C4.19586 16.0323 5.65269 16.7012 7.20725 16.9447C7.08933 16.1896 7.07124 15.4222 7.15342 14.6624V14.6624Z" fill="#FFA500"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1656_8789">
+                            <rect width="17" height="17" fill="white"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </label>
+                  </div>
+                  <div class="event_filter_wrapper">
+                    <input id="부서" class="event_filter" name="event_filter_sel" type="checkbox" value="부서" data-type="state"  checked="true" />
+                    <label for="부서">
+                      부서
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                        <g clip-path="url(#clip0_1656_8789)">
+                          <path d="M16.8448 8.62247C16.7016 9.03266 16.4677 9.40527 16.1606 9.71259L9.71475 16.1584C9.40711 16.4625 9.03433 16.6926 8.62463 16.8313C8.51123 16.1642 8.49121 15.4845 8.56513 14.8119C8.74995 13.2176 9.46812 11.7325 10.6031 10.5976C11.7381 9.46278 13.2232 8.74478 14.8176 8.56014C15.4929 8.48602 16.1753 8.507 16.8448 8.62247V8.62247ZM7.15342 14.6624C7.37449 12.7474 8.23661 10.9635 9.59971 9.60038C10.9628 8.23729 12.7468 7.37517 14.6618 7.1541C15.4231 7.07243 16.1918 7.091 16.9483 7.20935C16.7057 5.65465 16.0376 4.19742 15.0178 2.99906C13.9981 1.80071 12.6666 0.907993 11.1707 0.419796C9.67487 -0.0683998 8.07308 -0.133025 6.54276 0.233079C5.01243 0.599183 3.61331 1.38173 2.50035 2.49404C1.38739 3.60635 0.604037 5.00502 0.237042 6.53512C-0.129952 8.06523 -0.0662593 9.66706 0.421066 11.1632C0.908392 12.6593 1.80033 13.9914 2.99809 15.0118C4.19586 16.0323 5.65269 16.7012 7.20725 16.9447C7.08933 16.1896 7.07124 15.4222 7.15342 14.6624V14.6624Z" fill="#800080"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1656_8789">
+                            <rect width="17" height="17" fill="white"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </label>
+                  </div>
+                  <div class="event_filter_wrapper">
+                    <input id="회사" class="event_filter" name="event_filter_sel"  type="checkbox" value="회사" data-type="kind" checked="true" />
+                    <label for="회사">
+                      회사
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                        <g clip-path="url(#clip0_1656_8789)">
+                          <path d="M16.8448 8.62247C16.7016 9.03266 16.4677 9.40527 16.1606 9.71259L9.71475 16.1584C9.40711 16.4625 9.03433 16.6926 8.62463 16.8313C8.51123 16.1642 8.49121 15.4845 8.56513 14.8119C8.74995 13.2176 9.46812 11.7325 10.6031 10.5976C11.7381 9.46278 13.2232 8.74478 14.8176 8.56014C15.4929 8.48602 16.1753 8.507 16.8448 8.62247V8.62247ZM7.15342 14.6624C7.37449 12.7474 8.23661 10.9635 9.59971 9.60038C10.9628 8.23729 12.7468 7.37517 14.6618 7.1541C15.4231 7.07243 16.1918 7.091 16.9483 7.20935C16.7057 5.65465 16.0376 4.19742 15.0178 2.99906C13.9981 1.80071 12.6666 0.907993 11.1707 0.419796C9.67487 -0.0683998 8.07308 -0.133025 6.54276 0.233079C5.01243 0.599183 3.61331 1.38173 2.50035 2.49404C1.38739 3.60635 0.604037 5.00502 0.237042 6.53512C-0.129952 8.06523 -0.0662593 9.66706 0.421066 11.1632C0.908392 12.6593 1.80033 13.9914 2.99809 15.0118C4.19586 16.0323 5.65269 16.7012 7.20725 16.9447C7.08933 16.1896 7.07124 15.4222 7.15342 14.6624V14.6624Z" fill="#0000FF"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1656_8789">
+                            <rect width="17" height="17" fill="white"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </label>
+                  </div>
+                  <div class="event_filter_wrapper">
+                    <input id="회의" class="event_filter" name="event_filter_sel" type="checkbox" value="회의" data-type="kind" checked="true" />
+                    <label for="회의">
+                      회의
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                        <g clip-path="url(#clip0_1656_8789)">
+                          <path d="M16.8448 8.62247C16.7016 9.03266 16.4677 9.40527 16.1606 9.71259L9.71475 16.1584C9.40711 16.4625 9.03433 16.6926 8.62463 16.8313C8.51123 16.1642 8.49121 15.4845 8.56513 14.8119C8.74995 13.2176 9.46812 11.7325 10.6031 10.5976C11.7381 9.46278 13.2232 8.74478 14.8176 8.56014C15.4929 8.48602 16.1753 8.507 16.8448 8.62247V8.62247ZM7.15342 14.6624C7.37449 12.7474 8.23661 10.9635 9.59971 9.60038C10.9628 8.23729 12.7468 7.37517 14.6618 7.1541C15.4231 7.07243 16.1918 7.091 16.9483 7.20935C16.7057 5.65465 16.0376 4.19742 15.0178 2.99906C13.9981 1.80071 12.6666 0.907993 11.1707 0.419796C9.67487 -0.0683998 8.07308 -0.133025 6.54276 0.233079C5.01243 0.599183 3.61331 1.38173 2.50035 2.49404C1.38739 3.60635 0.604037 5.00502 0.237042 6.53512C-0.129952 8.06523 -0.0662593 9.66706 0.421066 11.1632C0.908392 12.6593 1.80033 13.9914 2.99809 15.0118C4.19586 16.0323 5.65269 16.7012 7.20725 16.9447C7.08933 16.1896 7.07124 15.4222 7.15342 14.6624V14.6624Z" fill="#008000"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1656_8789">
+                            <rect width="17" height="17" fill="white"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </label>
                   </div>
                 </div>
               </div>
+              
             </div>
           </div>
           
           <!-- 캘린더 -->
-          <div id="wrapper">
+          <div id="wrapper" style="
+          background-color: white;
+          border-radius: 5px;
+          padding-bottom: 30px;
+          margin-bottom: 23px;
+          margin-top: 10px;
+      ">
             <div id="loading"></div>
             <div class="print-visible" id="calendar"></div>
           </div>
@@ -512,12 +485,14 @@
                   $(info.el).popover('show');
                 },
 
-                eventDidMount: function(arg) {
-                  let val = typeFilter.value;
-                  if (!(val == arg.event.extendedProps.type || val == "all")) {
-                    arg.el.style.display = "none";
-                  }
-                },
+                // eventDidMount: function(info) {
+                //     let selectedType = typeFilter.value;
+                //     let eventType = info.event.extendedProps.type;
+
+                //     if (selectedType !== "all" && selectedType !== eventType) {
+                //         info.el.style.display = "none";
+                //     }
+                // },
 
                 // 이벤트 호버 벗어날 때 동작 - 팝오버 숨기기
                 eventMouseLeave: function (info) {
@@ -619,11 +594,48 @@
                   
                   // $('#eventModal').modal('show');
                 },
+                eventClassNames : function(info) {
+
+                  var result = true;
+                  var types = [];
+
+                  $("input[name='event_filter_sel']:checked").each(function(){
+                    types.push($(this).val());
+                  });
+
+                  if(types.length){
+                    result = result && types.indexOf(info.event.extendedProps.type) >= 0;
+                  }
+
+                  if(!result){
+                    result = "hidden";
+                  }
+
+                  return result;
+
+                }
                 });
 
-        
                 // 캘린더 랜더링
                 calendar.render();
+
+                $('input[class=event_filter]').change(function(){
+                  calendar.render();
+                });
+
+                // typeFilter.addEventListener("change", function() {
+                //     let selectedType = typeFilter.value;
+
+                //     // 모든 이벤트를 표시한 후 선택된 타입 이외의 이벤트를 숨김
+                //     calendar.getEvents().forEach(function(event) {
+                //         let eventType = event.extendedProps.type;
+                //         if (selectedType === "all" || selectedType === eventType) {
+                //             event.el.style.display = "";
+                //         } else {
+                //             event.el.style.display = "none";
+                //         }
+                //     });
+                // });
 
               });
 

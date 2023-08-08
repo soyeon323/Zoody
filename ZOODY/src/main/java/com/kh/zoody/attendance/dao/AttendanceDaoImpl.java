@@ -21,13 +21,24 @@ public class AttendanceDaoImpl implements AttendanceDao{
 	//내 출결 목록 조회 영역
 	@Override
 	public int getMyAttendanceCnt(SqlSessionTemplate sst, String searchValue, String no) {
-		return sst.selectOne("attendance.getMyAttendanceCnt", searchValue);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("no", no);
+	    paramMap.put("searchValue", searchValue);
+		
+		return sst.selectOne("attendance.getMyAttendanceCnt", paramMap);
 	}
 	
 	@Override
 	public List<AttendanceVo> list(SqlSessionTemplate sst, PageVo pv, String searchValue, String no) {
 		RowBounds rb = new RowBounds(pv.getOffset(), pv.getBoardLimit());
-		return sst.selectList("attendance.selectList", searchValue, rb);
+		
+		
+		Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("no", no);
+	    paramMap.put("searchValue", searchValue);
+	    
+		return sst.selectList("attendance.selectList", paramMap, rb);
 	}
 
 	@Override
