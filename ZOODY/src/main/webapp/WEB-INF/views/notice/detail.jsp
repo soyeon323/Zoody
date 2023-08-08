@@ -110,6 +110,9 @@
                             <c:if test="${loginMember.no eq voList.userNo}">
                                 <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
                             </c:if>
+                            <c:if test="${loginMember.no != voList.userNo}">
+                                <div></div>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </c:if>
