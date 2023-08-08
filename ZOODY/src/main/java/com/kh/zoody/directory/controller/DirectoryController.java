@@ -1,17 +1,64 @@
-//package com.kh.zoody.directory.controller;
-//
-//import java.io.File;
-//
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//
-//@RestController
-//@RequestMapping("directory")
-//public class DirectoryController{
-//
+package com.kh.zoody.directory.controller;
+
+import java.io.File;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kh.zoody.document.vo.DocumentVo;
+
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
+
+
+@RestController
+@RequestMapping("directory")
+@Slf4j
+public class DirectoryController{
+
+	
+		@PostMapping("rename")
+		public String renameDirectory(DocumentVo vo) {
+			
+			
+			if (vo.getDirectoryName() == "" || vo.getDirectoryName() == null) {
+				return "error";
+			}
+			
+			log.info("새로운 디렉토리 이름 : " + vo);
+			log.info("새로운 디렉토리 이름 : " + vo.getDirectoryName());
+			
+			
+//			try {
+//	            File folder = new File(path);
+//	            
+//	            if (folder.exists() && folder.isDirectory()) {
+//	                String parentPath = folder.getParent(); // 폴더의 상위 경로
+//	                File newFolder = new File(parentPath, newName); // 새로운 폴더 객체 생성
+//	                
+//	                if (folder.renameTo(newFolder)) {
+//	                    // 이름 변경 성공
+//	                    return "redirect:/success-page"; // 성공 페이지로 리다이렉트
+//	                } else {
+//	                    // 이름 변경 실패
+//	                    return "redirect:/error-page"; // 에러 페이지로 리다이렉트
+//	                }
+//	            } else {
+//	                // 폴더가 존재하지 않거나 폴더가 아닌 경우
+//	                return "redirect:/error-page"; // 에러 페이지로 리다이렉트
+//	            }
+//	        } catch (Exception e) {
+//	            e.printStackTrace();
+//	            return "redirect:/error-page"; // 에러 페이지로 리다이렉트
+//	        }
+			
+			
+			return null;
+		}
+	
 //    @GetMapping("/check")
 //    public long get폴더용량(@RequestParam("경로") String 경로) {
 //        // 주어진 경로로 File 객체 생성
@@ -49,4 +96,4 @@
 //
 //        return 총용량;
 //    }
-//}
+}

@@ -56,4 +56,9 @@ public class DocumentServiceImpl implements DocumentService {
 		return dao.newDirctory(sst, vo);
 	}
 
+	@Override
+	public DocumentVo getNewDirctoryInfo(DocumentVo vo) {
+		return dao.getNewDirctoryInfo(sst, vo);
+	}
+
 }

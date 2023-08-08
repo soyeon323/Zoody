@@ -128,6 +128,30 @@
   	
   	</insert>
   	
+  	<select id="getNewDirctoryInfo" resultType="DocumentVo">
+  		
+  		SELECT 
+		    ROWNUM,
+		    NO,
+		    USER_NO,
+		    DIRECTORY_NAME,
+		    STATUS
+		FROM (
+		    SELECT 
+		        NO,
+		        USER_NO,
+		        DIRECTORY_NAME,
+		        STATUS
+		    FROM "DIRECTORY"
+		    ORDER BY NO DESC
+		) 
+		WHERE USER_NO = #{userNo}
+        AND STATUS = 'O'
+        AND ROWNUM = 1
+        
+  	</select>
+  	
+  	
 </mapper>
 
 

@@ -46,6 +46,11 @@ public class DocumentDaoImpl implements DocumentDao{
 	public int newDirctory(SqlSessionTemplate sst, DocumentVo vo) {
 		return sst.insert("document.newDirctory", vo);
 	}
+
+	@Override
+	public DocumentVo getNewDirctoryInfo(SqlSessionTemplate sst, DocumentVo vo) {
+		return sst.selectOne("document.getNewDirctoryInfo" , vo);
+	}
 	
 	
 }

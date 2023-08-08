@@ -21,5 +21,7 @@ public interface DocumentDao {
 	List<DocumentVo> getLoginMemberDirectory(SqlSessionTemplate sst, int loginMemberNo);
 
 	int newDirctory(SqlSessionTemplate sst, DocumentVo vo);
-
+	
+	DocumentVo getNewDirctoryInfo(SqlSessionTemplate sst, DocumentVo vo);
+	
 }
