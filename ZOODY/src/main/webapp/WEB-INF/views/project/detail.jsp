@@ -21,8 +21,16 @@
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'ko',
+        themeSystem: 'bootstrap5',
+        headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'today'
+        },
       });
+      
       calendar.render();
+
     });
 </script>
 </head>
@@ -147,14 +155,30 @@
                         </svg>
                     </div>
                     <div>
-                        <a>오영택 대리</a>
+                        <a>오영택 대리 |&nbsp</a>
+                        <a>오영택 대리 |&nbsp</a>
                     </div>
                     <div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div id="result"></div>
+                    <div id="toMsg">
+                        <div class="profile-area">
+                            <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
+                        </div>
+                        <div class="name-area">
+                            <a></a>
+                        </div>
+                        <div id="toMsgText">
+                            
+                        </div>
+                    </div>
+                    <div id="fromMsg">
+                        <div id="fromMsgText">
+                            
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                   <div>
@@ -225,17 +249,36 @@
         console.log("소켓에러남");
     }
 
-    const fromMsg = document.querySelector("#result");
-    function funcMessage(msg){
-    console.log(msg.data);
-    const obj = JSON.parse(event.data);
-    fromMsg.innerHTML += "<div>" + "<strong>[" + obj.nick + "]</strong> : " + "<span>" + obj.msg + "</span>" + "<sub>" + obj.time + "</sub>" + "</div>";
+    function funcMessage(event){
+        console.log(event);
+        const obj = JSON.parse(event.data);
+
+        if(obj.nick == '${loginMember.name}'){
+
+        }
+
+        //상대쪽
+        const nick = document.querySelector("#toMsg .name-area>a");
+        const msg = document.querySelector("#toMsg #toMsgText");
+        nick.innerHTML = obj.nick;
+        msg.innerHTML = obj.msg;
+
+        //내쪽
+        const msg2 = document.querySelector("#fromMsgText");
+        msg2.innerHTML = obj.msg;
     }
 
     function sendMsg(){
-        const userMsg = document.querySelector("#contentArea").value;
-        ws.send(userMsg);
+        data = {};
+        data.msg = document.querySelector("#contentArea").value;
+        data.nick = '${loginMember.name}';
+        data.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 
+        ws.send(JSON.stringify(data));
+
+        console.log(data);
+
+        //채팅보냈으면 입력창 초기화
         document.querySelector("#contentArea").value = "";
     }
 
@@ -297,21 +340,20 @@
 
 <!-- 임시저장
 
-    <div id="toMsg">
-        <div>
-            <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
-        </div>
-        <div>
-            <a>오영택 대리</a>
-        </div>
-        <div id="toMsgText">
-            
-        </div>
+<div id="toMsg">
+    <div>
+        <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
     </div>
-    <div id="fromMsg">
-        <div id="fromMsgText">
-            
-        </div>
+    <div>
+        <a>오영택 대리</a>
     </div>
+    <div id="toMsgText">
+        
+    </div>
+</div>
+<div id="fromMsg">
+    <div id="fromMsgText">
+        
+    </div>
+</div> -->
 
- -->

@@ -107,7 +107,9 @@
                             </div>
                             <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>
-                            <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
+                            <c:if test="${loginMember.no eq voList.userNo}">
+                                <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.noticeNo}');">삭제</button></div>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </c:if>

@@ -398,8 +398,6 @@ input::placeholder{
 }
 
 #toMsg>div:nth-child(3){
-    width: 380px;
-    height: 60px;
     background-color: #4876EF;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -414,8 +412,6 @@ input::placeholder{
 }
 
 #fromMsg>div{
-    width: 380px;
-    height: 60px;
     background-color: #00CBA4;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;

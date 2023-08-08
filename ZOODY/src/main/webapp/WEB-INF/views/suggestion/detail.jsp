@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <%@ include file="/WEB-INF/views/header.jsp" %>
@@ -62,14 +63,17 @@
                 <img src="${root}/resources/img/icon/png/copy.png" alt="복사아이콘">
                 <button onclick="suggestionCopy('${map.vo.no}');">복사</button>
             </div>
-            <div>
-                <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
-                <button onclick="suggestionDelete('${map.vo.no}');">삭제</button>
-            </div>
-            <div>
-                <img src="${root}/resources/img/icon/png/edit.png" alt="수정아이콘">
-                <button onclick="suggestionEdit('${map.vo.no}');">수정</button>
-            </div>
+
+            <c:if test="${loginMember.no eq map.vo.userNo}">
+                <div>
+                    <img src="${root}/resources/img/icon/png/delete.png" alt="삭제아이콘">
+                    <button onclick="suggestionDelete('${map.vo.no}');">삭제</button>
+                </div>
+                <div>
+                    <img src="${root}/resources/img/icon/png/edit.png" alt="수정아이콘">
+                    <button onclick="suggestionEdit('${map.vo.no}');">수정</button>
+                </div>
+            </c:if>
         </div>
 
         <div id="contentArea">
@@ -130,7 +134,9 @@
                             </div>
                             <div id="reply"><a id="replyContent" class="new-reply">${voList.content}</a></div>
                             <div id="date"><a>${voList.enrollDate}</a></div>
-                            <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.suggestionNo}');">삭제</button></div>
+                            <c:if test="${loginMember.no eq voList.userNo}">
+                                <div id="deleteArea"><button onclick="deleteReply('${voList.no}', '${voList.suggestionNo}');">삭제</button></div>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </c:if>
@@ -233,10 +239,10 @@
                 no: no
             },
             success : function(){
-                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+                swal("게시글이 복사되었습니다.", "목록에서 확인하세요!", "success");
             },
             error : function(err){
-                alert("게시글이 복사되었습니다. 목록에서 확인하세요.");
+                swal("게시글이 복사되었습니다.", "목록에서 확인하세요!", "success");
             }
         })
     };
@@ -257,11 +263,11 @@
               no : no  
             },
             success : function(){
-                alert("게시글이 삭제되었습니다.");
+                swal("게시글이 삭제되었습니다.");
                 location.href = '${root}/suggestion/list'
             },
             error : function(err){
-                alert("게시글이 삭제되었습니다.");
+                swal("게시글이 삭제되었습니다.");
                 location.href = '${root}/suggestion/list'
             }
         })
