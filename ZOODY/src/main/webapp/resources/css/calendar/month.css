@@ -8,7 +8,7 @@
 #cal_main{
     /* background-color: red; */
     width: 90%;
-    height: 90%;
+    /* height: 100vh; */
     margin: 0 auto;
     margin-top: 20px;
 
@@ -33,6 +33,14 @@
 
 
 /* --------------------------------- */
+
+.wrapper{
+  background-color: #fff;
+    border: 1px solid #f1f1f1;
+    display: grid;
+    align-items: center;
+    margin-top: 30px;
+}
 
 .row{
   margin-bottom: 10px;
@@ -440,7 +448,26 @@ body{
   .hidden-print   { display: none !important; }
   }
 
+.filter{
+  display: flex;
+  gap: 15px;
+  padding-left: 30px;
+}
 
+.event_filter_wrapper{
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.panel-body {
+  align-items: center;
+}
+
+a.fc-event.hidden {
+  display: none;
+}
 
 
 

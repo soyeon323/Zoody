@@ -113,7 +113,7 @@ public class CalendarController {
 		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
         model.addAttribute("loginMember", loginMember);
         
-        String no = loginMember.getNo();
+        String userNo = loginMember.getNo();
 
 		CalendarVo vo = new CalendarVo();
 		vo.setAllDay(allDay);
@@ -123,7 +123,7 @@ public class CalendarController {
 		vo.setEndTime(endTime);
 		vo.setTypeNo(typeNo);
 		vo.setContent(content);
-		vo.setUserNo(no);
+		vo.setUserNo(userNo);
 		
 		int result = cs.addMonth(vo);
 
