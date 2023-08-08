@@ -11,4 +11,9 @@ public class ApprovalVo {
 	private String requestDate;
 	private String title;
 	
+	
+	private String drafterName;
+	private String categoryName;
+	private String form;
+	
 }

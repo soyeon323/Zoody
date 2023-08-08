@@ -3,7 +3,7 @@ package com.kh.zoody.approval.vo;
 import lombok.Data;
 
 @Data
-public class ApplicationForLeave {
+public class ApplicationForLeaveVo {
 
 	private String no;
 	private String approvalNo;

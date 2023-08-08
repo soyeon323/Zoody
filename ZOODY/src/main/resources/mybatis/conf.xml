@@ -27,7 +27,10 @@
 		<typeAlias type="com.kh.zoody.project.vo.ProjectVo" alias="ProjectVo"/>
 		<typeAlias type="com.kh.zoody.document.vo.DocumentVo" alias="DocumentVo"/>
 		<typeAlias type="com.kh.zoody.approval.vo.LeaveTypeVo" alias="LeaveTypeVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.ExtraWorkCategoryVo" alias="ExtraWorkCategoryVo"/>
 		<typeAlias type="com.kh.zoody.project.vo.ProjectTodoVo" alias="ProjectTodoVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.ApprovalVo" alias="ApprovalVo" />
+		<typeAlias type="com.kh.zoody.approval.vo.DrafterVo" alias="DrafterVo" />
 	</typeAliases>
 
 </configuration>

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/setup.jsp" %>
+
+<c:set var="url" value="${pageContex.request.requestURL}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +11,13 @@
 <title>Zoody</title>
 <link rel="stylesheet" href="${root}/resources/css/approval/write.css">
 <script defer src="${root}/resources/js/approval/write/common.js"></script>
+
+
+<script defer src="${root}/resources/js/approval/write/applicationForLeave.js"></script>
+
+<script defer src="${root}/resources/js/approval/write/applicationForExtraWork.js"></script>
+
+
 </head>
 <body>
 
@@ -26,10 +36,10 @@
 				<div class="wrap-left-header">
 					<div class="category-title">결재문서 양식</div>
 					<div class="category-list">
-						<button type="button" id="1" class="change-category-btn">품의서</button>
-						<button type="button" id="2" class="change-category-btn">휴가 신청서</button>
-						<button type="button" id="3" class="change-category-btn">지출 결의서</button>
-						<button type="button" id="4" class="change-category-btn">휴일 / 연장 근무 신청서</button>
+						<a href="${root}/approval/write/1" id="1" class="change-category-btn">품의서</a>
+						<a href="${root}/approval/write/2" id="2" class="change-category-btn">휴가 신청서</a>
+						<a href="${root}/approval/write/3" id="3" class="change-category-btn">휴일 / 연장 <br> 근무 신청서</a>
+						<a href="${root}/approval/write/4" id="4" class="change-category-btn">지출 결의서</a>
 					</div>
 					<input type="submit" value="상신하기" class="upvote-btn" />
 				</div>

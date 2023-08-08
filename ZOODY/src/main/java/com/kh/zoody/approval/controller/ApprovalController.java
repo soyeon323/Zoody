@@ -25,8 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 import com.google.gson.Gson;
 import com.kh.zoody.addressbook.service.AddressBookSerivce;
 import com.kh.zoody.approval.service.ApprovalService;
-import com.kh.zoody.approval.vo.ApplicationForLeave;
+import com.kh.zoody.approval.vo.ApplicationForExtraWorkVo;
+import com.kh.zoody.approval.vo.ApplicationForLeaveVo;
 import com.kh.zoody.approval.vo.ApprovalVo;
+import com.kh.zoody.approval.vo.DrafterVo;
+import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
 
 @Controller
@@ -39,21 +42,19 @@ public class ApprovalController {
 	private final AddressBookSerivce addressbookService;
 	private final Gson gson = new Gson();
 
-	@GetMapping("main-page")
-	public String mainPage() {
-		return "approval/main-page";
+	@GetMapping("list")
+	public String mainPage(HttpSession session, Model model) {
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		
+		String userNo = loginMember.getNo();
+		
+		List<ApprovalVo> approvalVoList = approvalService.getApprovalList(userNo);
+		
+		model.addAttribute("approvalVoList", approvalVoList);
+		
+		return "approval/list";
 	}
-	
-//	@GetMapping("write/letter-of-approval")
-//	public String writeLetterOfApproval(Model model) {
-//		List<DepartmentVo> departmentList = addressbookService.getDepartmentList();
-//		List<UserVo> userList = addressbookService.getUserList();
-//		
-//		model.addAttribute("departmentList", departmentList);
-//		model.addAttribute("userList", userList);
-//		
-//		return "approval/write/letter-of-approval";
-//	}
 	
 	@GetMapping("write/{category}")
 	public String writeApproval(@PathVariable String category, Model model) {
@@ -82,8 +83,13 @@ public class ApprovalController {
 			@RequestParam(required=false) String startDate,
 			@RequestParam(required=false) String endDate,
 			@RequestParam(required=false) String leaveTypeNo,
-			@RequestParam(required=false) String reason
+			@RequestParam(required=false) String reason,
 			// 지출결의서
+			@RequestParam(required=false) String extraWorkCategoryNo,
+			@RequestParam(required=false) String date,
+			@RequestParam(required=false) String startTime,
+			@RequestParam(required=false) String endTime,
+			@RequestParam(required=false) String extraWorkReason
 			// 휴일,연장 근무 신청서
 			) {
 		
@@ -94,18 +100,33 @@ public class ApprovalController {
 		
 		int result = 0 ;
 		if("1".equals(categoryNo)) {
+			
 			result = approvalService.writeLOA(approvalVo, approver, cc, content);
+			
 		} else if ("2".equals(categoryNo)) {
-			ApplicationForLeave afl = new ApplicationForLeave();
+			
+			ApplicationForLeaveVo afl = new ApplicationForLeaveVo();
 			afl.setTypeNo(leaveTypeNo);
 			afl.setFrom(startDate.replaceAll("[-]", ""));
 			afl.setTo(endDate.replaceAll("[-]", ""));
 			afl.setReason(reason);
+			
 			result = approvalService.writeAFL(approvalVo, approver, cc, afl);
+			
+		} else if ("3".equals(categoryNo)) {
+			
+			ApplicationForExtraWorkVo afe = new ApplicationForExtraWorkVo();
+			afe.setCategoryNo(extraWorkCategoryNo);
+			afe.setDate(date.replaceAll("[-]", ""));
+			afe.setStartTime(startTime.replaceAll("[:]", ""));
+			afe.setEndTime(endTime.replaceAll("[:]", ""));
+			afe.setReason(extraWorkReason);
+			
+			result = approvalService.writeAFE(approvalVo, approver, cc, afe);
 		}
 		
 		
-		return "";
+		return "approval/list";
 	}
 	
 	
@@ -131,6 +152,36 @@ public class ApprovalController {
 		return leaveTypeListJson;
 	}
 	
+	@GetMapping(value="wtype", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getWorkType() {
+		List<ExtraWorkCategoryVo> workTypeList = approvalService.getWorkType();
+		
+		String workTypeListJson = gson.toJson(workTypeList);
+		
+		return workTypeListJson;
+	}
+	
+	@GetMapping("detail")
+	public String approvalDetail(String no, Model model) {
+		
+		ApprovalVo approvalVo = approvalService.getApprovalDetail(no);
+		
+		model.addAttribute("approvalVo", approvalVo);
+		
+		return "approval/detail";
+	}
+	
+	@GetMapping(value="detail/drafter", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getDrafterInfo(String no) {
+		
+		DrafterVo drafterVo = approvalService.getDrafterInfo(no);
+		
+		String drafter = gson.toJson(drafterVo);
+		
+		return drafter;
+	}
 	
 	
 	@GetMapping("temp")
