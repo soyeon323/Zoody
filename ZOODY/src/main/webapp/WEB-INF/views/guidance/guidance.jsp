@@ -14,7 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bea9cf67b29bdd2dc51f99aec137adc"></script>
+
 <style>
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -70,7 +70,7 @@
             <div class="option">
                 <div>
                     <form onsubmit="searchPlaces(); return false;">
-                        <span>키워드 :</span> <input type="text" value="서울 어린이 대공원" id="keyword" size="15"> 
+                        <span>키워드 :</span> <input type="text" value="어린이 대공원" id="keyword" size="15"> 
                         <button type="submit" class="btn btn-primary">검색하기</button> 
                     </form>
                 </div>
@@ -82,8 +82,7 @@
       </div>
 
     </div>
-    
-
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bea9cf67b29bdd2dc51f99aec137adc&libraries=services"></script>
   <script>
     // 마커를 담을 배열입니다
 var markers = [];
