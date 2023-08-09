@@ -45,8 +45,6 @@
                 <input type="date" name="date" id="date" required>
             </div>
 
-            
-             
             <div class="mt_box">
             	<c:forEach items="${list}" var="vo">
 	                <div class="card">
@@ -106,15 +104,15 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                                <button type="button" class="timeBtn" value="9">오전 <span>09:00</span></button>
-                                                <button type="button" class="timeBtn" value="10">오전 <span>10:00</span></button>
-                                                <button type="button" class="timeBtn" value="11">오전 <span>11:00</span></button>
-                                                <button type="button" class="timeBtn" value="12">오후 <span>12:00</span></button>
-                                                <button type="button" class="timeBtn" value="1">오후 <span>01:00</span></button>
-                                                <button type="button" class="timeBtn" value="2">오후 <span>02:00</span></button>
-                                                <button type="button" class="timeBtn" value="3">오후 <span>03:00</span></button>
-                                                <button type="button" class="timeBtn" value="4">오후 <span>04:00</span></button>
-                                                <button type="button" class="timeBtn" value="5">오후 <span>05:00</span></button>
+                                                <button type="button" class="timeBtn" value="9">오전 09:00</button>
+                                                <button type="button" class="timeBtn" value="10">오전 10:00</button>
+                                                <button type="button" class="timeBtn" value="11">오전 11:00</button>
+                                                <button type="button" class="timeBtn" value="12">오후 12:00</button>
+                                                <button type="button" class="timeBtn" value="1">오후 01:00</button>
+                                                <button type="button" class="timeBtn" value="2">오후 02:00</button>
+                                                <button type="button" class="timeBtn" value="3">오후 03:00</button>
+                                                <button type="button" class="timeBtn" value="4">오후 04:00</button>
+                                                <button type="button" class="timeBtn" value="5">오후 05:00</button>
                                                 <span id="result_checkId" style="grid-column: 1/4;display: flex;align-items: center;font-size: 14px;"></span>
                                     </div>
                                     <div class="modal-footer">
@@ -242,6 +240,17 @@
             //     }
             // });
         }
+
+    </script>
+
+    <script>
+        const date = document.querySelector('#date');
+
+        const today = new Date();
+        today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+        const nowISOString = today.toISOString().split('T')[0];
+
+        date.min = nowISOString;
 
     </script>
 

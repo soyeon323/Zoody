@@ -152,8 +152,8 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	}
 
 	@Override
-	public int addReserveInfoToCalendar() {
-		return dao.addReserveInfoToCalendar(sst);
+	public int addReserveInfoToCalendar(MeetingroomReservationVo mrv) {
+		return dao.addReserveInfoToCalendar(sst, mrv);
 	}
 
 }

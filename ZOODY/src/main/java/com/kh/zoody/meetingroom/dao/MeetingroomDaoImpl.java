@@ -82,8 +82,8 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 	}
 
 	@Override
-	public int addReserveInfoToCalendar(SqlSessionTemplate sst) {
-		return sst.insert("meetingroom.addReserveInfoToCalendar");
+	public int addReserveInfoToCalendar(SqlSessionTemplate sst, MeetingroomReservationVo mrv) {
+		return sst.insert("meetingroom.addReserveInfoToCalendar", mrv);
 	}
 
 

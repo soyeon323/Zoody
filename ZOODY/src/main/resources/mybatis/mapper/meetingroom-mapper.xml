@@ -119,6 +119,41 @@
 		AND START_TIME = #{startTime}
 		AND STATUS = 0
 	</select>
+	
+	<insert id="addReserveInfoToCalendar">
+		INSERT INTO CALENDAR (
+		        "NO",
+		        "USER_NO",
+		        "TYPE_NO",
+		        "REV_NO",
+		        "TITLE",
+		        "CONTENT",
+		        "START_TIME",
+		        "END_TIME",
+		        "PLACE",
+		        "STATUS",
+		        "ALL_DAY"
+		    )
+		    VALUES (
+		        SEQ_CALENDAR_NO.NEXTVAL,
+		        #{userNo},
+		        3,
+		        NULL,
+		        '회의 일정',
+		        NULL,
+		        CASE 
+		            WHEN #{startTime} BETWEEN 9 AND 12 THEN TO_TIMESTAMP(#{date} || ' ' || LPAD(#{startTime}, 2, '0') || ':00', 'YYYY-MM-DD HH24:MI')
+		            WHEN #{startTime} BETWEEN 1 AND 5 THEN TO_TIMESTAMP(#{date} || ' ' || LPAD(#{startTime} + 12, 2, '0') || ':00', 'YYYY-MM-DD HH24:MI')
+		        END,
+		        CASE 
+		            WHEN #{startTime} BETWEEN 9 AND 12 THEN TO_TIMESTAMP(#{date} || ' ' || LPAD(#{startTime}, 2, '0') || ':00', 'YYYY-MM-DD HH24:MI') + INTERVAL '1' HOUR
+		            WHEN #{startTime} BETWEEN 1 AND 5 THEN TO_TIMESTAMP(#{date} || ' ' || LPAD(#{startTime} + 12, 2, '0') || ':00', 'YYYY-MM-DD HH24:MI') + INTERVAL '1' HOUR
+		        END,
+		        (SELECT "NAME" FROM "MEETINGROOM" WHERE "NO" = #{meetingroomNo}),
+		        0,
+		        0
+		    )
+	</insert>
 
   
 </mapper>

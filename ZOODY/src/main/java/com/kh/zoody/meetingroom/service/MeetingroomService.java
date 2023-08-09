@@ -32,7 +32,7 @@ public interface MeetingroomService {
 
 	int checkTime(String meetingroomNo, String date, String startTime);
 
-	int addReserveInfoToCalendar();
+	int addReserveInfoToCalendar(MeetingroomReservationVo mrv);
 
 
 }
