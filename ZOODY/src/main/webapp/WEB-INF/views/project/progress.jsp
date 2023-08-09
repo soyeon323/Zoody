@@ -11,162 +11,174 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body style="overflow-x: hidden">
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/side.jsp" %>
     
-    <div id="wrap">
+    <c:if test="${empty loginMember}">
+        <script>
+            alert("로그인 후 이용할 수 있습니다.");
+            location.href = '${root}/member/login';
+        </script>
+    </c:if>
 
-        <div id="progress">
-            <a>진행중인 프로젝트</a>
-        </div>
+    <c:if test="${!empty loginMember}">
+            <div id="wrap">
 
-        <div id="contentArea">
-            <c:forEach items="${map.no1List}" var="no1List">
-                <c:if test="${loginMember.no eq no1List.userNo}">
-                    <div id="content-1">
-                        <div>
-                            <a>${map.no1List[0].title}</a>
-                        </div>
-                        <div>
-                            <c:forEach items="${map.no1List}" var="no1List">
-                                <a>${no1List.userName}</a>
-                            </c:forEach>        
-                        </div>
-                        <div>
-                            <a>${map.no1List[0].startDate} ~ ${map.no1List[0].endDate}</a>
-                        </div>
-                        <div>
-                            <button onclick="delPrj('${map.no1List[0].no}');">삭제</button>
-                            <a href="${root}/project/detail?title=${map.no1List[0].title}">더보기 ></a>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
-            <c:forEach items="${map.no2List}" var="no2List">
-                <c:if test="${loginMember.no eq no2List.userNo}">
-                    <div id="content-2">
-                        <div>
-                            <a>${map.no2List[0].title}</a>
-                        </div>
-                        <div>
-                            <c:forEach items="${map.no2List}" var="no2List">
-                                <a>${no2List.userName}</a>
-                            </c:forEach>        
-                        </div>
-                        <div>
-                            <a>${map.no2List[0].startDate} ~ ${map.no2List[0].endDate}</a>
-                        </div>
-                        <div>
-                            <button onclick="delPrj('${map.no2List[0].no}');">삭제</button>
-                            <a href="${root}/project/detail?title=${map.no2List[0].title}">더보기 ></a>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
-            <c:forEach items="${map.no3List}" var="no3List">
-                <c:if test="${loginMember.no eq no3List.userNo}">
-                    <div id="content-3">
-                        <div>
-                            <a>${map.no3List[0].title}</a>
-                        </div>
-                        <div>
-                            <c:forEach items="${map.no3List}" var="no3List">
-                                <a>${no3List.userName}</a>
-                            </c:forEach>        
-                        </div>
-                        <div>
-                            <a>${map.no3List[0].startDate} ~ ${map.no3List[0].endDate}</a>
-                        </div>
-                        <div>
-                            <button onclick="delPrj('${map.no3List[0].no}');">삭제</button>
-                            <a href="${root}/project/detail?title=${map.no3List[0].title}">더보기 ></a>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
-            <div id="content-4">
-                <div>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                            <g clip-path="url(#clip0_424_8416)">
-                                <path d="M50 22.9167H27.0833V0H22.9167V22.9167H0V27.0833H22.9167V50H27.0833V27.0833H50V22.9167Z" fill="#4876EF" fill-opacity="0.67"/>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_424_8416">
-                                    <rect width="50" height="50" rx="20" fill="white"/>
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </button>
+                <div id="progress">
+                    <a>진행중인 프로젝트</a>
                 </div>
-                <div>
-                    <a href="">새로운 프로젝트 생성하기</a>
-                </div>
-            </div>
-        </div>
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">프로젝트 생성</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                <a>프로젝트명 : </a>
-                                <input type="text" name="title" placeholder="프로젝트 명을 입력하세요.">
-                            </div>
-                            <div> 
+        
+                <div id="contentArea">
+                    <c:forEach items="${map.no1List}" var="no1List">
+                        <c:if test="${loginMember.no eq no1List.userNo}">
+                            <div id="content-1">
                                 <div>
-                                <a>참가자 : </a>
-                                <input type="text" name="user" placeholder="참가자를 입력하세요." list="user-options">
-                                <datalist id="user-options">
-                                    <c:forEach items="${voList}" var="voList">
-                                        <option value="${voList.name}_${voList.rankName}" data-userNo="${voList.no}">
-                                    </c:forEach>
-                                </datalist>
-                                  
-                                <button onclick="addUser();" type="button">추가</button>
-                            </div> 
-                            <div id="userNameArea">
-                                <input type="hidden" value="${loginMember.no}" name="no">
-                                <div width="80" class="xNo"><a>${loginMember.name}</a></div>
-                                <button>
-                                    
-                                </button>
+                                    <a>${map.no1List[0].title}</a>
+                                </div>
+                                <div>
+                                    <c:forEach items="${map.no1List}" var="no1List">
+                                        <a>${no1List.userName}</a>
+                                    </c:forEach>        
+                                </div>
+                                <div>
+                                    <a>${map.no1List[0].startDate} ~ ${map.no1List[0].endDate}</a>
+                                </div>
+                                <div>
+                                    <button onclick="delPrj('${map.no1List[0].no}');">삭제</button>
+                                    <a href="${root}/project/detail?title=${map.no1List[0].title}">더보기 ></a>
+                                </div>
                             </div>
-                        </div>
-                        <div id="dateArea">
-                            <a>프로젝트 기간 : </a>
-                            <div>
-                                <input type="date" name="startDate">
+                        </c:if>
+                    </c:forEach>
+                    <c:forEach items="${map.no2List}" var="no2List">
+                        <c:if test="${loginMember.no eq no2List.userNo}">
+                            <div id="content-2">
+                                <div>
+                                    <a>${map.no2List[0].title}</a>
+                                </div>
+                                <div>
+                                    <c:forEach items="${map.no2List}" var="no2List">
+                                        <a>${no2List.userName}</a>
+                                    </c:forEach>        
+                                </div>
+                                <div>
+                                    <a>${map.no2List[0].startDate} ~ ${map.no2List[0].endDate}</a>
+                                </div>
+                                <div>
+                                    <button onclick="delPrj('${map.no2List[0].no}');">삭제</button>
+                                    <a href="${root}/project/detail?title=${map.no2List[0].title}">더보기 ></a>
+                                </div>
                             </div>
-                            <a class="wave"> ~ </a>
-                            <div>
-                                <input type="date" name="endDate">
+                        </c:if>
+                    </c:forEach>
+                    <c:forEach items="${map.no3List}" var="no3List">
+                        <c:if test="${loginMember.no eq no3List.userNo}">
+                            <div id="content-3">
+                                <div>
+                                    <a>${map.no3List[0].title}</a>
+                                </div>
+                                <div>
+                                    <c:forEach items="${map.no3List}" var="no3List">
+                                        <a>${no3List.userName}</a>
+                                    </c:forEach>        
+                                </div>
+                                <div>
+                                    <a>${map.no3List[0].startDate} ~ ${map.no3List[0].endDate}</a>
+                                </div>
+                                <div>
+                                    <button onclick="delPrj('${map.no3List[0].no}');">삭제</button>
+                                    <a href="${root}/project/detail?title=${map.no3List[0].title}">더보기 ></a>
+                                </div>
                             </div>
+                        </c:if>
+                    </c:forEach>
+                    <div id="content-4">
+                        <div>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                                    <g clip-path="url(#clip0_424_8416)">
+                                        <path d="M50 22.9167H27.0833V0H22.9167V22.9167H0V27.0833H22.9167V50H27.0833V27.0833H50V22.9167Z" fill="#4876EF" fill-opacity="0.67"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_424_8416">
+                                            <rect width="50" height="50" rx="20" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </button>
                         </div>
-                        <div id="pjContent">
-                            <input type="text" name="content" placeholder="내용을 입력하세요.">
+                        <div>
+                            <a href="">새로운 프로젝트 생성하기</a>
                         </div>
-                        <div id="pjTeamName">
-                            <a>팀명 : </a>
-                            <input type="text" name="teamName" placeholder="팀명을 입력하세요.">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="createPrj();">프로젝트생성</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
-            </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">프로젝트 생성</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <a>프로젝트명 : </a>
+                                        <input type="text" name="title" placeholder="프로젝트 명을 입력하세요.">
+                                    </div>
+                                    <div> 
+                                        <div>
+                                        <a>참가자 : </a>
+                                        <input type="text" name="user" placeholder="참가자를 입력하세요." list="user-options">
+                                        <datalist id="user-options">
+                                            <c:forEach items="${voList}" var="voList">
+                                                <option value="${voList.name}_${voList.rankName}" data-userNo="${voList.no}">
+                                            </c:forEach>
+                                        </datalist>
+                                        
+                                        <button onclick="addUser();" type="button">추가</button>
+                                    </div> 
+                                    <div id="userNameArea">
+                                        <input type="hidden" value="${loginMember.no}" name="no">
+                                        <div width="80" class="xNo"><a>${loginMember.name}</a></div>
+                                        <button>
+                                            
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="dateArea">
+                                    <a>프로젝트 기간 : </a>
+                                    <div>
+                                        <input type="date" name="startDate">
+                                    </div>
+                                    <a class="wave"> ~ </a>
+                                    <div>
+                                        <input type="date" name="endDate">
+                                    </div>
+                                </div>
+                                <div id="pjContent">
+                                    <input type="text" name="content" placeholder="내용을 입력하세요.">
+                                </div>
+                                <div id="pjTeamName">
+                                    <a>팀명 : </a>
+                                    <input type="text" name="teamName" placeholder="팀명을 입력하세요.">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" onclick="createPrj();">프로젝트생성</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
-</div>
+        
+        </body>
+    </c:if>
 
-</body>
+   
 <script>
     function addUser() {
         var datalist = document.getElementById("user-options");
