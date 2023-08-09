@@ -211,4 +211,10 @@
 		DELETE FROM PROJECT_TODO
 		WHERE NO = #{no}
 	</delete>
+	
+	<select id="selectUserNo" resultType="String">
+		SELECT USER_NO
+		FROM PROJECT_TEAM_MEMBER
+		WHERE PROJECT_NO = #{no}
+	</select>
 </mapper>
