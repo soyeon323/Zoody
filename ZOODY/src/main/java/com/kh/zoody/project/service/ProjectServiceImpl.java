@@ -124,4 +124,10 @@ public class ProjectServiceImpl implements ProjectService{
 		return dao.todoDelete(sst, no);
 	}
 
+	//프로젝트 참여한 멤버no 가져오기
+	@Override
+	public List<String> selectUserNo(String no) {
+		return dao.selectUserNo(sst, no);
+	}
+
 }

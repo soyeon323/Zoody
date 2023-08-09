@@ -115,4 +115,10 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sst.delete("project.todoDelete", no);
 	}
 
+	//프로젝트 참여한 멤버no 가져오기
+	@Override
+	public List<String> selectUserNo(SqlSessionTemplate sst, String no) {
+		return sst.selectList("project.selectUserNo", no);
+	}
+
 }

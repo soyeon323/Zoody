@@ -147,7 +147,7 @@
         <!-- 채팅창 모달 -->
         <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <div class="modal-content" style="height: 600px; width: 550px;">
+            <div class="modal-content" style="height: 600px; width: 550px;">
                 <div class="modal-header">
                     <div>
                         <a>현재접속자</a>
@@ -163,38 +163,39 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                   
+                
                 </div>
                 <div class="modal-footer">
-                  <div>
+                <div>
                     <button onclick="contentReset();">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                             <path d="M12 0.707L11.293 0L6 5.293L0.707 0L0 0.707L5.293 6L0 11.293L0.707 12L6 6.707L11.293 12L12 11.293L6.707 6L12 0.707Z" fill="#848484"/>
                         </svg>
                     </button>
-                  </div>
-                  <div>
+                </div>
+                <div>
                     <input id="contentArea" name="content" placeholder="메세지를 입력하세요." onkeydown="handleKeyPress(event)"></input>
-                  </div>
-                  <div>
+                </div>
+                <div>
                     <button onclick="sendMsg();">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <g clip-path="url(#clip0_468_9102)">
-                              <path d="M5.26543 13.0251L7.90237 15.3989L8.07816 18.71C8.08705 18.8886 8.13115 19.0637 8.20792 19.2252C8.2847 19.3866 8.39263 19.5313 8.52552 19.651C8.61308 19.7295 8.71018 19.7967 8.81454 19.851C9.02447 19.9618 9.25989 20.0154 9.49709 20.0062C9.73429 19.9971 9.96489 19.9256 10.1657 19.799L22.6564 12.1084L5.26543 13.0251Z" fill="#7D7D7D"/>
-                              <path d="M5.18013 11.6928L22.5853 10.7773L9.35889 4.45106C9.14515 4.34626 8.90772 4.29917 8.67015 4.31446C8.43259 4.32974 8.20315 4.40688 8.0046 4.53821C7.80605 4.66954 7.64528 4.8505 7.53826 5.06314C7.43123 5.27578 7.38166 5.51271 7.39447 5.75042L7.56863 9.03952L5.18013 11.6928Z" fill="#7D7D7D"/>
+                            <path d="M5.26543 13.0251L7.90237 15.3989L8.07816 18.71C8.08705 18.8886 8.13115 19.0637 8.20792 19.2252C8.2847 19.3866 8.39263 19.5313 8.52552 19.651C8.61308 19.7295 8.71018 19.7967 8.81454 19.851C9.02447 19.9618 9.25989 20.0154 9.49709 20.0062C9.73429 19.9971 9.96489 19.9256 10.1657 19.799L22.6564 12.1084L5.26543 13.0251Z" fill="#7D7D7D"/>
+                            <path d="M5.18013 11.6928L22.5853 10.7773L9.35889 4.45106C9.14515 4.34626 8.90772 4.29917 8.67015 4.31446C8.43259 4.32974 8.20315 4.40688 8.0046 4.53821C7.80605 4.66954 7.64528 4.8505 7.53826 5.06314C7.43123 5.27578 7.38166 5.51271 7.39447 5.75042L7.56863 9.03952L5.18013 11.6928Z" fill="#7D7D7D"/>
                             </g>
                             <defs>
-                              <clipPath id="clip0_468_9102">
+                            <clipPath id="clip0_468_9102">
                                 <rect width="16" height="16" fill="white" transform="translate(11.4062 0.703125) rotate(41.9936)"/>
-                              </clipPath>
+                            </clipPath>
                             </defs>
                         </svg>
                     </button>
-                  </div>
                 </div>
-              </div>
+                </div>
+            </div>
             </div>
         </div>
+        
     </div>
 
 </body>
@@ -271,6 +272,11 @@
         connectUser.innerHTML += userHtml;
     }
 
+    function scrollToBottom() {
+        var modalScroll = document.querySelector(".modal .modal-content .modal-body");
+        modalScroll.scrollTop = modalScroll.scrollHeight;
+    }
+
     function sendMsg(){
         data = {};
         data.msg = document.querySelector("#contentArea").value;
@@ -284,6 +290,8 @@
 
         //채팅보냈으면 입력창 초기화
         document.querySelector("#contentArea").value = "";
+
+        scrollToBottom(); // 메시지를 보내고 나서 스크롤을 맨 아래로 이동
     }
 
     //채팅 글작성 초기화
@@ -339,9 +347,6 @@
         }
     }
 
-    //채팅창 스크롤 자동
-    var modalScroll = document.querySelector(".modal .modal-body");
-    modalScroll.scrollTop = modalScroll.scrollHeight;
 </script>
 
 <!-- 임시저장

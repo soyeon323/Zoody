@@ -120,17 +120,21 @@ public class ProjectController {
 		if(noticeList == null) {
 			throw new RuntimeException();
 		}
-			
+		
+		//프로젝트 참여한 멤버no 가져오기
+		List<String> noList = ps.selectUserNo(prjVoList.get(0).getNo());
+		
+		log.info("noList : {}", noList);
+		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("suggestionList", suggestionList);
 		model.addAttribute("prjVoList", prjVoList);
 		model.addAttribute("todoList", todoList);
+		model.addAttribute("noList", noList);
 	}
 	
 	@PostMapping("detail")
-	public String detail(@RequestParam Map<String, String> todoMap){
-		log.info("todoMap : {}", todoMap);
-		
+	public String detail(@RequestParam Map<String, String> todoMap, Model model){
 		String title = ps.getTitle(todoMap.get("projectNo"));
 		
 		try {

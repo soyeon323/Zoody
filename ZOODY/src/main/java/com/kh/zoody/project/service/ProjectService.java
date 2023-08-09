@@ -57,4 +57,7 @@ public interface ProjectService {
 	//할일 삭제
 	int todoDelete(String no);
 
+	//프로젝트 참여한 멤버no 가져오기
+	List<String> selectUserNo(String no);
+
 }
