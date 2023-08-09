@@ -174,49 +174,48 @@ form#uploadForm {
     </style>
 
 <script>
-    $(document).ready(function() {
-        $("#uploadForm").submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData($(this)[0]);
-            const selectCat =  $("#upload-cat option:selected").val();
+    // $(document).ready(function() {
+    //     $("#uploadForm").submit(function(e) {
+    //         e.preventDefault();
+    //         var formData = new FormData($(this)[0]);
+    //         const selectCat =  $("#upload-cat option:selected").val();
 
-            console.log(selectCat);
+    //         console.log(selectCat);
 
-            console.log(root+"/document/upload");
-            let loginUserId = $("#hidden-id").val();
+    //         console.log(root+"/document/upload");
+    //         let loginUserId = $("#hidden-id").val();
             
-            // formData.append("loginUserId", loginUserId); // 추가
-            $.ajax({
-                url: root+"/document/upload",
-                type: "POST",
-                data: formData,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                console.log(response); // 성공 시 서버 응답을 출력
-                    $("#result").text(response); // 업로드 성공 시 결과를 화면에 출력
-                    console.log(response);
-                    $(".list-table > tbody").prepend(`<tr><td>${ response[0].catNo }</td><td>${ response[0].no }</td><td>${ response[0].name }</td> <td>${ response[0].enollDate }</td></tr>`);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText); // 실패 시 서버 응답을 출력
-                    $("#result").text("파일 업로드 실패: " + error); // 업로드 실패 시 에러 메시지를 화면에 출력
-                }
-            });
-        });
+    //         // formData.append("loginUserId", loginUserId); // 추가
+    //         $.ajax({
+    //             url: root+"/document/upload",
+    //             type: "POST",
+    //             data: formData,
+    //             processData: false,
+    //             contentType: false,
+    //             success: function(response) {
+    //             console.log(response); // 성공 시 서버 응답을 출력
+    //                 $("#result").text(response); // 업로드 성공 시 결과를 화면에 출력
+    //                 console.log(response);
+    //                 $(".list-table > tbody").prepend(`<tr><td>${ response[0].catNo }</td><td>${ response[0].no }</td><td>${ response[0].name }</td> <td>${ response[0].enollDate }</td></tr>`);
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.log(xhr.responseText); // 실패 시 서버 응답을 출력
+    //                 $("#result").text("파일 업로드 실패: " + error); // 업로드 실패 시 에러 메시지를 화면에 출력
+    //             }
+    //         });
+    //     });
 
-        $("#select-scope").on("change", function() {
-                $("#select-scope option:first-child").hide();
+    //     $("#select-scope").on("change", function() {
+    //             $("#select-scope option:first-child").hide();
            
-        });
+    //     });
 
-        $("#select-directory").on("change", function() {
-                $("#select-directory option:first-child").hide();
+    //     $("#select-directory").on("change", function() {
+    //             $("#select-directory option:first-child").hide();
            
-        });
+    //     });
 
-    });
+    // });
 
     
 
@@ -237,15 +236,15 @@ form#uploadForm {
             
             <div class="upload-meddle">
                 <form id="uploadForm" enctype="multipart/form-data">
-                    <div class="upload-title">
+                    <div  class="upload-title">
                         <span>제목 |</span>
-                        <input type="text">
+                        <input name="title" type="text">
                     </div>
 
                 
                     <div class="upload-option-area">
                         <select name="scope" id="select-scope">
-                            <option checked>공개 범위</option>
+                            <option value="0">공개 범위</option>
                             <option value="1">전사</option>
                             <option value="2">부서</option>
                             <option value="3">개인</option>
@@ -304,3 +303,4 @@ form#uploadForm {
     }
 
 </script>
+<script src="${root}/resources/js/document/upload.js"></script>

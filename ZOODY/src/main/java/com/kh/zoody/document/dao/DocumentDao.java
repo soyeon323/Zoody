@@ -16,7 +16,7 @@ public interface DocumentDao {
 
 	int getDocumentListCnt(SqlSessionTemplate sst, Map<String, String> searchMap);
 
-	List<DocumentVo> getNewDocument(SqlSessionTemplate sst);
+	DocumentVo getNewDocument(SqlSessionTemplate sst, DocumentVo vo);
 
 	List<DocumentVo> getLoginMemberDirectory(SqlSessionTemplate sst, int loginMemberNo);
 

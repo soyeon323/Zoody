@@ -89,26 +89,29 @@ public class DocumentController {
 	
 
 
-	@PostMapping("upload")
+	@PostMapping(value = "upload",
+			produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String uploadDocument(
 					@RequestParam("file") MultipartFile file,
 					DocumentVo vo,
-					Model model, 
 					HttpServletRequest request
 			) {
 		if (file.isEmpty()) {
             // 업로드된 파일이 없을 경우 처리
             return "redirect:/document/upload"; // 업로드 폼 페이지로 리다이렉트
         }
-
+		
+		log.info("VO: "+vo);
+		
+		
 		String root = request.getSession().getServletContext().getRealPath("resources"); 
 		
 	
         try {
         	
             // 업로드된 파일을 저장할 디렉토리 설정
-            String saveFile = root+"\\document\\"+ vo.getLoginMemberId(); // 원하는 디렉토리 경로로 변경 가능
+            String saveFile = root+"\\document\\"+ vo.getUserNo(); // 원하는 디렉토리 경로로 변경 가능
             // root(resources) +  document + loginMemberId + 디렉토리 번호(no)
         	
             
@@ -140,15 +143,18 @@ public class DocumentController {
             
             
             int result =  service.uploadFile(vo);
+            log.info(result+"");
             if (result < 1) {
             	return "uploadFailure";
 			}
             
-             List<DocumentVo> documentList = service.getNewDocument();
+             DocumentVo documentList = service.getNewDocument(vo);
             
-             model.addAttribute("list" , documentList);
+             Gson gson = new Gson();
              
-            return "success"; 
+             String documentListJson = gson.toJson(documentList);
+             
+            return documentListJson; 
         } catch (IOException e) {
             return "uploadFailure";
         }

@@ -18,6 +18,7 @@ public class DocumentDaoImpl implements DocumentDao{
 
 	@Override
 	public int uploadFile(SqlSessionTemplate sst, DocumentVo vo) {
+		log.info(vo.getScope()+"");
 		return sst.insert("document.upload", vo);
 	}
 	
@@ -33,8 +34,8 @@ public class DocumentDaoImpl implements DocumentDao{
 	}
 
 	@Override
-	public List<DocumentVo> getNewDocument(SqlSessionTemplate sst) {
-		return sst.selectOne("document.getNewDocument");
+	public DocumentVo getNewDocument(SqlSessionTemplate sst, DocumentVo vo) {
+		return sst.selectOne("document.getNewDocument", vo);
 	}
 	
 	@Override
