@@ -102,9 +102,9 @@
              <a class="modal_close_btn">닫기</a>
                  <input type="text" name="workName" id="workName"  value="${workName}"> 
                  
-                 <fieldset>
+                 <fieldset id="checkboxFieldset">
                   <legend>업무 내용 &nbsp;&nbsp; <meter value="0" min="0" max="100" low="20" high="65" optimum="15" id="meter"></meter></legend>
-                    <input type="text" name="checkListName" id="checkListName"> <input type="checkbox">
+                    
                  </fieldset>
               </div>
               <br>
@@ -160,31 +160,6 @@ document.querySelector('#completeBtn').addEventListener('click' , function () {
    column3.appendChild(selectedTag);
 
 });
-
-
-// 모달 내 체크박스들
-const inputCheckboxes = document.querySelectorAll('#my_modal2 input[type="checkbox"]');
-// 완료 버튼
-const completeBtn = document.querySelector('#completeBtn');
-
-// 체크박스 상태 변경 이벤트 리스너
-inputCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const checkedCount = document.querySelectorAll('#my_modal2 input[type="checkbox"]:checked').length;
-        const totalCount = inputCheckboxes.length;
-        const progressPercentage = (checkedCount / totalCount) * 100;
-        const meter = document.getElementById('meter');
-        meter.value = progressPercentage;
-
-        // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
-        if (checkedCount === totalCount) {
-            completeBtn.style.display = 'block';
-        } else {
-            completeBtn.style.display = 'none';
-        }
-    });
-});
-
 
 
 //  input 
@@ -346,6 +321,8 @@ function loadComment(userNo) {
                 newDivTag.setAttribute('class', 'list-group-item');
                 newDivTag.innerHTML += x[i].workName + "/" + x[i].endDate +"/"+x[i].workNo;
                 column.appendChild(newDivTag);
+
+                //클릭시 해당업무 상세조회
                 newDivTag.addEventListener('click' ,function () {
                     myF(x[i].workNo);
                 });
@@ -365,60 +342,123 @@ $(document).ready(function () {
 
 // 해당업무번호로 조회
 function myF(workNo) {
-    //업무 이름
+    // 업무 이름
     const workName = document.querySelector('#my_modal2 #workName');
-    workName.style.backgroundColor = 'red';
 
-    //체크리스트들
-    const checkListName = document.querySelector('#my_modal2 #checkListName');
-    checkListName.style.backgroundColor = 'red';
-
-    //마감날짜
+    // 마감날짜
     const endDate = document.querySelector('#my_modal2 input[type="text"][name="endDate"]');
-    endDate.style.backgroundColor = 'red';
 
-    //유저 번호
+    // 유저 번호
     const userNo = document.querySelector('#userNo').value;
 
-
     $.ajax({
-        url  :'${root}/work/detail',
-        data : {
+        url: '${root}/work/detail',
+        data: {
             'workNo': workNo,
-            'userNo' : userNo
+            'userNo': userNo
         },
-        method : 'POST',
-        success : (data)=>{
-        const x = JSON.parse(data);
+        method: 'POST',
+        success: (data) => {
+            const x = JSON.parse(data);
 
-        workName.innerHTML = x.workName; ///여기안댐
-        endDate.innerHTML = x.endDate;  ////여기안댐
-        
-        const checkListNames = x.checkListName.split(','); // 여러 개의 값이 쉼표로 구분되어 있는 경우
-        
-        // 모달2 창 가져오기
-        let modal2 = document.querySelector('#my_modal2');
+            workName.value = x.workName;
+            endDate.value = x.endDate;
 
-        //각 checkListName을 인풋 테그와 체크박스로 추가
-        checkListNames.forEach(checkListName => {
-            
-            let inputTag = document.createElement('input');
-            inputTag.setAttribute('type' , 'text');
-            inputTag.setAttribute('id' , 'checkListName');
-            inputTag.value = checkListName; // 인풋 테그 값 설정
+            const checkListNames = x.checkListName.split(',');
 
-            let checkbox = document.createElement('input');
-            checkbox.setAttribute('type' , 'checkbox');
+            // 모달2 창 가져오기
+            let modal2 = document.querySelector('#my_modal2');
 
-            // 인풋 테그와 체크박스를 모달2 창에 추가
-            modal2.appendChild(inputTag);
-            modal2.appendChild(checkbox);
-        });
+            // 필드셋 가져오기
+            let fieldset = modal2.querySelector('fieldset');
+
+            // 기존에 있는 인풋 테그와 체크박스 요소 제거
+            fieldset.querySelectorAll('input[type="text"][name="checkListName"]').forEach(element => element.remove());
+            fieldset.querySelectorAll('input[type="checkbox"]').forEach(element => element.remove());
+
+            // 각 checkListName을 인풋 테그와 체크박스로 추가
+            checkListNames.forEach(checkListName => {
+                let inputTag = document.createElement('input');
+                inputTag.setAttribute('type', 'text');
+                inputTag.setAttribute('name', 'checkListName');
+                inputTag.setAttribute('value', checkListName);
+
+                let checkbox = document.createElement('input');
+                checkbox.setAttribute('type', 'checkbox');
+                checkbox.setAttribute('id', 'checkbox');
+
+                fieldset.appendChild(inputTag);
+                fieldset.appendChild(checkbox);
+
+                // 체크박스 상태 변경 이벤트 리스너
+                checkbox.addEventListener('change', function() {
+                    const checkedCount = fieldset.querySelectorAll('input[type="checkbox"]:checked').length;
+                    const totalCount = checkListNames.length;
+                    const progressPercentage = (checkedCount / totalCount) * 100;
+                    const meter = document.getElementById('meter');
+                    meter.value = progressPercentage;
+
+                    if (checkedCount === totalCount) {
+                        completeBtn.style.display = 'block';
+                    } else {
+                        completeBtn.style.display = 'none';
+                    }
+                });
+
+
+
+            });
 
         },
-        error : (e)=>{ console.log('myFErroㅋㅋ');}
+        error: (e) => { console.log('에러: ' + e); }
+    });
+}
 
+
+
+ / // 체크박스들
+    const inputCheckboxes = document.querySelectorAll('#my_modal2 input[type="checkbox"]');
+    const fieldset = document.getElementById('checkboxFieldset');
+
+    // 로컬 스토리지에서 저장된 체크박스 상태 불러오기
+    const savedCheckboxes = JSON.parse(localStorage.getItem('checkboxStates')) || {};
+
+    // 체크박스 상태 초기화
+    inputCheckboxes.forEach(checkbox => {
+        const checkboxId = checkbox.getAttribute('id');
+        checkbox.checked = savedCheckboxes[checkboxId] || false;
+        checkbox.addEventListener('change', handleCheckboxChange);
     });
 
-}
+    // 체크박스 상태 변경 이벤트 핸들러
+    function handleCheckboxChange() {
+        const checkboxId = this.getAttribute('id');
+        savedCheckboxes[checkboxId] = this.checked;
+        localStorage.setItem('checkboxStates', JSON.stringify(savedCheckboxes));
+        updateProgress();
+    }
+
+    // 프로그레스 바 업데이트
+    function updateProgress() {
+        const checkedCount = Object.values(savedCheckboxes).filter(state => state).length;
+        const totalCount = inputCheckboxes.length;
+        const progressPercentage = (checkedCount / totalCount) * 100;
+        const meter = document.getElementById('meter');
+        meter.value = progressPercentage;
+
+        // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
+        const completeBtn = document.getElementById('completeBtn');
+        completeBtn.style.display = (checkedCount === totalCount) ? 'block' : 'none';
+    }
+
+    // 초기 로딩 시 프로그레스 바 업데이트
+    updateProgress();
+
+    // 모달 닫기 버튼 클릭 이벤트
+    const modalCloseBtn = document.querySelector('.modal_close_btn');
+    modalCloseBtn.addEventListener('click', () => {
+        localStorage.setItem('checkboxStates', JSON.stringify(savedCheckboxes));
+    });
+
+
 </script>
