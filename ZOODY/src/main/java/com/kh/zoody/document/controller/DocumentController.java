@@ -91,7 +91,6 @@ public class DocumentController {
 
 	@PostMapping(value = "upload",
 			produces="application/json;charset=UTF-8")
-	@ResponseBody
 	public String uploadDocument(
 					@RequestParam("file") MultipartFile file,
 					DocumentVo vo,
@@ -164,7 +163,7 @@ public class DocumentController {
 	
 	@PostMapping(value="directory", produces="application/json;charset=UTF-8")
 	@ResponseBody
-    public String newDirctory(DocumentVo vo, HttpServletRequest req , Model model) {
+    public String newDirctory(DocumentVo vo, HttpServletRequest req , Model model, HttpServletRequest request) {
 		
 		HttpSession session = req.getSession();
 		
@@ -179,10 +178,37 @@ public class DocumentController {
 		if (result < 1) {
 			return "error";
 		}
+		
+		log.info(vo+"");
+		
+		
 		DocumentVo newDirctoryInfo = service.getNewDirctoryInfo(vo);
+		
+		log.info(newDirctoryInfo+"");
+		
 		if (newDirctoryInfo == null) {
 			return "error";
 		}
+		
+		// root(resources) +  document + vo.getUserNo() + "\\" +  vo.getDirectoryNo()
+		String root = request.getSession().getServletContext().getRealPath("resources"); 
+		String newDirectoryPath = root+"\\document\\"+ vo.getUserNo();  // 원하는 디렉토리 경로로 변경 가능
+		String plusPath = "\\"  + newDirctoryInfo.getNo();		
+		String path =  newDirectoryPath + plusPath;
+		
+		log.info(newDirectoryPath);
+		
+		File buildNewDirectory = new File(path);
+		if (!buildNewDirectory.exists()) {
+		    if (buildNewDirectory.mkdirs()) {
+		        // 디렉토리 생성 성공
+		        log.info("디렉토리 생성 성공");
+		    } else {
+		        // 디렉토리 생성 실패
+		        log.info("디렉토리 생성 실패");
+		    }
+		}
+		
 		
 		Gson gson = new Gson();
 		String info = gson.toJson(newDirctoryInfo);

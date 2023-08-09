@@ -85,7 +85,7 @@
 		VALUES (
 		    SEQ_DOCUMENT_NO.NEXTVAL ,
 		    #{scope} ,
-		    #{DIRECTORY_NO} ,
+		    #{directoryNo} ,
 		    #{fileName},
 		    #{extension}
 		)
