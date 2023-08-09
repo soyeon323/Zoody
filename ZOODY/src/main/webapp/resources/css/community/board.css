@@ -18,7 +18,7 @@
     display: grid;
     grid-template-rows: 1fr 8.5fr 0.5fr;
     position: absolute;
-    left: 267px;
+    left: 550px;
 }
 
 .boder-grid-header {
