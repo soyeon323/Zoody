@@ -168,6 +168,9 @@ public class AttendanceController {
 	public ResponseEntity<String> workStatus(@RequestParam String action, HttpSession session, Model model) {
 	    try {
 	    	
+	    	log.info("@@@@@@@@@@ : " + action);
+	    	
+	    	
 	    	UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 	        model.addAttribute("loginMember", loginMember);
 	        
@@ -194,6 +197,7 @@ public class AttendanceController {
 	            return ResponseEntity.badRequest().body("올바르지 않은 요청");
 	        }
 	    } catch (Exception e) {
+	    	log.error("eeeee : {}" , e);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
 	    }
 	}
@@ -253,54 +257,54 @@ public class AttendanceController {
 	    return "attendance/list";
 	}
 	
-	@GetMapping("day")
-	@ResponseBody
-	public List<Map<String, Object>> chart(Model model, HttpSession session){
-		
-		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-        model.addAttribute("loginMember", loginMember);
-        
-        String no = loginMember.getNo();
-        
-////		차트 생성
-//		Calendar cal = Calendar.getInstance();
-//        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-//        Date startDate = cal.getTime();
-//        cal.add(Calendar.DATE, 4);
-//        Date endDate = cal.getTime();
+//	@GetMapping("day")
+//	@ResponseBody
+//	public List<Map<String, Object>> chart(Model model, HttpSession session){
+//		
+//		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+//        model.addAttribute("loginMember", loginMember);
 //        
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String formattedStartDate = sdf.format(startDate);
-//        String formattedEndDate = sdf.format(endDate);
+//        String no = loginMember.getNo();
+//        
+//////		차트 생성
+////		Calendar cal = Calendar.getInstance();
+////        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+////        Date startDate = cal.getTime();
+////        cal.add(Calendar.DATE, 4);
+////        Date endDate = cal.getTime();
 ////        
-//        log.info("시작 : {} / 종료 : {}", formattedStartDate, formattedEndDate);
-//
-//        
-//        List<AttendanceVo> chartList = attService.chartList(no, formattedStartDate, formattedEndDate);
-//        model.addAttribute("chartList", chartList);
-//        
-//        log.info("chartList : {}",chartList);
-		
-		List<Map<String, Object>> dataChart = attService.dataChart(no);
-		
-		JSONObject jsonObj = new JSONObject();
-		JSONArray jsonArr = new JSONArray();
-		
-		HashMap<String, Object> hash = new HashMap<>();
-		
-		for (int i = 0; i < dataChart.size(); i++) {
-			
-			hash.put("labels", dataChart.get(i).get("ENROLLDATE"));
-			
-			jsonObj = new JSONObject(hash);
-			jsonArr.add(jsonObj);
-			
-		}
-		
-		log.info("jsonArrCheck: {}", jsonArr);
-		
-		return jsonArr;
-	}
+////        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+////        String formattedStartDate = sdf.format(startDate);
+////        String formattedEndDate = sdf.format(endDate);
+//////        
+////        log.info("시작 : {} / 종료 : {}", formattedStartDate, formattedEndDate);
+////
+////        
+////        List<AttendanceVo> chartList = attService.chartList(no, formattedStartDate, formattedEndDate);
+////        model.addAttribute("chartList", chartList);
+////        
+////        log.info("chartList : {}",chartList);
+//		
+//		List<Map<String, Object>> dataChart = attService.dataChart(no);
+//		
+//		JSONObject jsonObj = new JSONObject();
+//		JSONArray jsonArr = new JSONArray();
+//		
+//		HashMap<String, Object> hash = new HashMap<>();
+//		
+//		for (int i = 0; i < dataChart.size(); i++) {
+//			
+//			hash.put("labels", dataChart.get(i).get("ENROLLDATE"));
+//			
+//			jsonObj = new JSONObject(hash);
+//			jsonArr.add(jsonObj);
+//			
+//		}
+//		
+//		log.info("jsonArrCheck: {}", jsonArr);
+//		
+//		return jsonArr;
+//	}
 	
 	@PostMapping("list")
 	public String list(@RequestParam Map<String, String> params) {

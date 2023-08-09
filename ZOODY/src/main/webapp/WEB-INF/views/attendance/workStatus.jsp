@@ -444,6 +444,12 @@ element.style {
               locale: 'ko',
               events: data,
               eventClick : function(info){
+
+                console.log(info);
+                console.log(info.event);
+                console.log(info.event.start);
+                console.log(info.event.end);
+
                 var start = info.event.start;
                 var end = info.event.end;
                 var title = info.event.title;

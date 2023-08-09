@@ -32,7 +32,8 @@
 	      AND (
 	          (C.TYPE_NO = 0 AND C.USER_NO = #{userNo})
 	          OR (C.TYPE_NO = 1 AND U.DEPARTMENT_NO = #{departmentNo})
-	          OR C.TYPE_NO IN (2, 3, 4)
+	          OR (C.TYPE_NO = 3 AND U.DEPARTMENT_NO = #{departmentNo})
+	          OR C.TYPE_NO IN (2, 4)
 	      )
 	</select>
 	

@@ -133,7 +133,7 @@ public class MeetingroomController {
         int result = ms.addReserve(mrv);
         
         if (result == 1) {
-			int add = ms.addReserveInfoToCalendar();
+			int add = ms.addReserveInfoToCalendar(mrv);
 		}
 		
 		return "meetingroom/reserve";

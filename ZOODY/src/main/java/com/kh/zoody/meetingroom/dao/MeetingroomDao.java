@@ -30,7 +30,7 @@ public interface MeetingroomDao {
 
 	int checkTime(SqlSessionTemplate sst, String meetingroomNo, String date, String startTime);
 
-	int addReserveInfoToCalendar(SqlSessionTemplate sst);
+	int addReserveInfoToCalendar(SqlSessionTemplate sst, MeetingroomReservationVo mrv);
 
 
 }

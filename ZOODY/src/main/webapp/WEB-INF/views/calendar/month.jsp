@@ -653,7 +653,7 @@
     <!-- 일정 추가 -->
     <script>
       function saveEventToServer() {
-      // 모달의 입력 값을 가져옵니다.
+      // 모달의 입력 값을 가져옴
       var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
       var title = $('#edit-title').val();
       var place = $('#edit-place').val();
