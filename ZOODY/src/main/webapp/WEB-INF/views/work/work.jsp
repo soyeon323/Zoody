@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 
 <!-- CSS only -->
@@ -319,12 +317,16 @@ function loadComment(userNo) {
             for (let i = 0; i < x.length; i++) {
                 let newDivTag = document.createElement('div');
                 newDivTag.setAttribute('class', 'list-group-item');
-                newDivTag.innerHTML += x[i].workNo+ "업무 명 : "+x[i].workName + " 마감일시 : " + x[i].endDate +"|";
+
+                newDivTag.innerHTML += 
+                '<div  style="display:none;">'+ x[i].workNo +'</div>' 
+                + "업무 명 : "+x[i].workName +'<br>' +"마감 일시"+ x[i].endDate ;
                 column.appendChild(newDivTag);
 
                 //클릭시 해당업무 상세조회
-                newDivTag.addEventListener('click' ,function () {
-                    myF(x[i].workNo);
+                newDivTag.addEventListener('click', function () {
+                    const workNo = this.querySelector('div[style="display:none;"]').textContent;
+                    myF(workNo);
                 });
             }
         },
@@ -339,6 +341,18 @@ $(document).ready(function () {
     // 여기에 유저 번호를 전달해서 호출하도록 설정
         loadComment('${loginMember.no}');
 });
+
+
+// 로컬 스토리지에 체크박스 상태 저장
+function saveCheckboxState(checkboxId, isChecked) {
+    localStorage.setItem(checkboxId, isChecked);
+}
+
+// 로컬 스토리지에서 체크박스 상태 불러오기
+function loadCheckboxState(checkboxId) {
+    return localStorage.getItem(checkboxId) === 'true';
+}
+    
 
 // 해당업무번호로 조회
 function myF(workNo) {
@@ -377,7 +391,7 @@ function myF(workNo) {
             fieldset.querySelectorAll('input[type="checkbox"]').forEach(element => element.remove());
 
             // 각 checkListName을 인풋 테그와 체크박스로 추가
-            checkListNames.forEach(checkListName => {
+            checkListNames.forEach((checkListName, index) => {
                 let inputTag = document.createElement('input');
                 inputTag.setAttribute('type', 'text');
                 inputTag.setAttribute('name', 'checkListName');
@@ -385,7 +399,15 @@ function myF(workNo) {
 
                 let checkbox = document.createElement('input');
                 checkbox.setAttribute('type', 'checkbox');
-                checkbox.setAttribute('id', 'checkbox');
+                checkbox.setAttribute('id', 'checkbox_' + index);
+
+                // 로컬 스토리지에서 체크박스 상태 불러와 설정
+                checkbox.checked = loadCheckboxState(checkbox.id);
+
+                // 체크박스 상태가 변경될 때 로컬 스토리지에 저장
+                checkbox.addEventListener('change', function () {
+                    saveCheckboxState(checkbox.id, checkbox.checked);
+                });
 
                 fieldset.appendChild(inputTag);
                 fieldset.appendChild(checkbox);
@@ -405,8 +427,6 @@ function myF(workNo) {
                     }
                 });
 
-
-
             });
 
         },
@@ -414,51 +434,6 @@ function myF(workNo) {
     });
 }
 
-
-
- / // 체크박스들
-    const inputCheckboxes = document.querySelectorAll('#my_modal2 input[type="checkbox"]');
-    const fieldset = document.getElementById('checkboxFieldset');
-
-    // 로컬 스토리지에서 저장된 체크박스 상태 불러오기
-    const savedCheckboxes = JSON.parse(localStorage.getItem('checkboxStates')) || {};
-
-    // 체크박스 상태 초기화
-    inputCheckboxes.forEach(checkbox => {
-        const checkboxId = checkbox.getAttribute('id');
-        checkbox.checked = savedCheckboxes[checkboxId] || false;
-        checkbox.addEventListener('change', handleCheckboxChange);
-    });
-
-    // 체크박스 상태 변경 이벤트 핸들러
-    function handleCheckboxChange() {
-        const checkboxId = this.getAttribute('id');
-        savedCheckboxes[checkboxId] = this.checked;
-        localStorage.setItem('checkboxStates', JSON.stringify(savedCheckboxes));
-        updateProgress();
-    }
-
-    // 프로그레스 바 업데이트
-    function updateProgress() {
-        const checkedCount = Object.values(savedCheckboxes).filter(state => state).length;
-        const totalCount = inputCheckboxes.length;
-        const progressPercentage = (checkedCount / totalCount) * 100;
-        const meter = document.getElementById('meter');
-        meter.value = progressPercentage;
-
-        // 모든 체크박스가 선택되었을 때 '완료' 버튼 표시
-        const completeBtn = document.getElementById('completeBtn');
-        completeBtn.style.display = (checkedCount === totalCount) ? 'block' : 'none';
-    }
-
-    // 초기 로딩 시 프로그레스 바 업데이트
-    updateProgress();
-
-    // 모달 닫기 버튼 클릭 이벤트
-    const modalCloseBtn = document.querySelector('.modal_close_btn');
-    modalCloseBtn.addEventListener('click', () => {
-        localStorage.setItem('checkboxStates', JSON.stringify(savedCheckboxes));
-    });
 
 
 </script>
