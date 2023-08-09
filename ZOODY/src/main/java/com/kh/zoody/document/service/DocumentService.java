@@ -17,7 +17,7 @@ public interface DocumentService {
 	//파일 업로드
 	int uploadFile(DocumentVo vo);
 
-	List<DocumentVo> getNewDocument();
+	DocumentVo getNewDocument(DocumentVo vo);
 
 	List<DocumentVo> getLoginMemberDirectory(int loginMemberNo);
 

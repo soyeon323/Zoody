@@ -42,7 +42,7 @@
                             <c:forEach items="${ directoryList }" var="list">
         
                                 <li id="${ list.no }">
-                                    <form action="">
+                                    <form action="" onsubmit="return false">
                                         <div onclick="goToUserDirectory('enterprise')">
                                             <input class="private-document-item" type="text" value="${list.directoryName}" readonly>
                                             <span>

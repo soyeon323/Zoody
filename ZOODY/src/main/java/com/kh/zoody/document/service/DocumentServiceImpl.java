@@ -42,8 +42,8 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	@Override
-	public List<DocumentVo> getNewDocument() {
-		return dao.getNewDocument(sst);
+	public DocumentVo getNewDocument(DocumentVo vo) {
+		return dao.getNewDocument(sst, vo);
 	}
 	
 	@Override
