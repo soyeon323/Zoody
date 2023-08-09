@@ -74,7 +74,7 @@
                                 <th></th>
                                 <td>
                                     <div class="mb-3">
-                                        <input class="form-control form-control-sm" type="file" id="formFileSm" name="file">
+                                        <input class="form-control form-control-sm" type="file" id="formFileSm" name="file" value="${root}/resources/img/meetingroom/${datail.changeName}">
                                     </div>
                                 </td>
                             </tr>

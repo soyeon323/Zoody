@@ -19,6 +19,7 @@ import org.json.simple.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,11 +55,37 @@ public class MeetingroomController {
 		
 //		List<MeetingroomVo> timeList = ms.reserveTime();
 //		model.addAttribute("timeList", timeList);
-		
+//		
 //		log.info(timeList.toString());
+//		
+//		List<MeetingroomReservationVo> reList = ms.reserveTimeList(meetingroomNo, date);
+//		model.addAttribute("reList", reList);
+////		model.addAttribute("reList", ms.reserveTimeList(meetingroomNo, date));
+//		
+//		log.info("예약 시간들 정보 : {}", reList);
 		
 		return "meetingroom/reserve";
 	}
+	
+	@PostMapping("check")
+	@ResponseBody
+	public String checkTime(@RequestParam(value = "meetingroomNo", required=false) String meetingroomNo, @RequestParam(value = "date", required=false) String date
+			,@RequestParam(value = "startTime", required=false) String startTime) {
+		String result = null;
+		
+		int flag = ms.checkTime(meetingroomNo, date, startTime);
+		
+		if (flag == 1) {
+			result = "Y";
+		}else if (flag != 1) {
+			result = "N";
+		}
+		
+		return result;
+	}
+	
+	
+	
 	
 //	@GetMapping("reserve/time")
 //	public String timeList(Model model, @RequestParam String voNo) {
@@ -68,15 +95,21 @@ public class MeetingroomController {
 //		return "meetingroom/reserve";
 //	}
 	
-	@GetMapping("/time")
-	@ResponseBody
-    public ResponseEntity<List<String>> getReservedTimes(@RequestParam String meetingroomNo, @RequestParam String date) {
-        List<String> reservedTimes = ms.getReservedTimes(meetingroomNo, date);
-        
-        log.info("회의실 예약 배열 : {}", reservedTimes);
-        
-        return ResponseEntity.ok(reservedTimes);
-    }
+//	@GetMapping("/time")
+//	@ResponseBody
+//    public List<Map<String, Object>> getReservedTimes(Model model , @RequestParam(value = "meetingroomNo", required=false) String meetingroomNo, @RequestParam(value = "date", required=false) String date) {
+//		List<Map<String, Object>> reservedTimes = ms.getReservedTimes(meetingroomNo, date);
+////        model.addAttribute("reservedTimes", reservedTimes);
+////        
+//        log.info("회의실 예약 배열 : {}", reservedTimes);
+////        
+////        HashMap<String, String> saveResult = new HashMap<>();
+////        for (int i = 0; i < reservedTimes.size(); i++) {
+////        	saveResult.put("startTime", reservedTimes.get(i).);
+////		}
+//        
+//        return new ResponseEntity<>(reservedTimes, HttpStatus.OK);
+//    }
 
 	@PostMapping("reserve")
 	public String reserve(Model model, 
@@ -98,16 +131,20 @@ public class MeetingroomController {
         mrv.setUserNo(userNo);
         
         int result = ms.addReserve(mrv);
+        
+        if (result == 1) {
+			int add = ms.addReserveInfoToCalendar();
+		}
 		
 		return "meetingroom/reserve";
 	}
 	
 //	@GetMapping("time")
 //	@ResponseBody
-//	public List<Map<String, Object>> time(@RequestParam String meetingroomNo){
+//	public List<Map<String, Object>> time(@RequestParam(value = "meetingroomNo", required=false) String meetingroomNo, @RequestParam(value = "date", required=false) String date){
 //
 //		
-//		List<Map<String, Object>> timeList = ms.reserveTime(meetingroomNo);
+//		List<Map<String, Object>> timeList = ms.reserveTime(meetingroomNo, date);
 //		
 //		JSONObject jsonObj = new JSONObject();
 //		JSONArray jsonArr = new JSONArray();
@@ -115,9 +152,7 @@ public class MeetingroomController {
 //		HashMap<String, Object> hash = new HashMap<>();
 //		
 //		for (int i = 0; i < timeList.size(); i++) {
-//			hash.put("meetingroomNo", timeList.get(i).get("MEETINGROOM_NO"));
 //			hash.put("start", timeList.get(i).get("START_TIME"));
-//			hash.put("end", timeList.get(i).get("END_TIME"));
 //			
 //			jsonObj = new JSONObject(hash);
 //			jsonArr.add(jsonObj);
@@ -140,6 +175,10 @@ public class MeetingroomController {
 	public String add(MeetingroomVo mvo, MultipartFile file) {
 		
 		int result = ms.addMeetingroom(mvo, file);
+		
+		if (result == 1) {
+			return "redirect:/meetingroom/reserve";
+		}
 		
 		return "meetingroom/add";
 	}

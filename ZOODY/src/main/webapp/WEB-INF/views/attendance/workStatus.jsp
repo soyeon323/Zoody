@@ -511,7 +511,7 @@ element.style {
               data : {
                 labels : ["4주 전", "3주 전", "2주 전", "1주 전"],
                 datasets : [{
-                  label : "주간 근무 시간",
+                  label : "주간 근무 시간(시간 단위)",
                   backgroundColor : [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',

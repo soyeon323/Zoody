@@ -127,8 +127,8 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	}
 
 	@Override
-	public List<Map<String, Object>> reserveTime(String meetingroomNo) {
-		return dao.reserveTime(sst, meetingroomNo);
+	public List<Map<String, Object>> reserveTime(String meetingroomNo, String date) {
+		return dao.reserveTime(sst, meetingroomNo, date);
 	}
 
 	@Override
@@ -139,6 +139,21 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 	@Override
 	public List<String> getReservedTimes(String meetingroomNo, String date) {
 		return dao.getReservedTimes(sst, meetingroomNo, date);
+	}
+
+	@Override
+	public List<MeetingroomReservationVo> reserveTimeList(String meetingroomNo, String date) {
+		return dao.reserveTimeList(sst, meetingroomNo, date);
+	}
+
+	@Override
+	public int checkTime(String meetingroomNo, String date, String startTime) {
+		return dao.checkTime(sst, meetingroomNo, date, startTime);
+	}
+
+	@Override
+	public int addReserveInfoToCalendar() {
+		return dao.addReserveInfoToCalendar(sst);
 	}
 
 }

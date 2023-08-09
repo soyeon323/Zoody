@@ -22,11 +22,17 @@ public interface MeetingroomService {
 
 	int updateMeetingroom(MeetingroomVo mvo, MultipartFile file);
 
-	List<Map<String, Object>> reserveTime(String meetingroomNo);
+	List<Map<String, Object>> reserveTime(String meetingroomNo, String date);
 
 	int addReserve(MeetingroomReservationVo mrv);
 
 	List<String> getReservedTimes(String meetingroomNo, String date);
+
+	List<MeetingroomReservationVo> reserveTimeList(String meetingroomNo, String date);
+
+	int checkTime(String meetingroomNo, String date, String startTime);
+
+	int addReserveInfoToCalendar();
 
 
 }
