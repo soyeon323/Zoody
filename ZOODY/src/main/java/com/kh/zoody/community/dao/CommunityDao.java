@@ -17,10 +17,8 @@ public interface CommunityDao {
 	// 게시판 글쓰기
 	int write(SqlSessionTemplate sst , BoardVo vo);
 
-	BoardVo getBoardDetail(SqlSessionTemplate sst, int no);
-
-	
 	// 게시글 상세
+	BoardVo getBoardDetail(SqlSessionTemplate sst, int no);
 	
 	// 게시글 수정
 
@@ -28,5 +26,16 @@ public interface CommunityDao {
 	
 	// 게시글 검색
 		
+	
+	
+	// 투표 목록
+	
+	// 투표 작성
+	
+	// 투표 상세
+	
+	// 투표 수정
+	
+	// 투표 검색
 	
 }

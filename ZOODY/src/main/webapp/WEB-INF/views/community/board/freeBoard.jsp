@@ -12,8 +12,8 @@
 
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <div id="wrap">
-        <%@ include file="/WEB-INF/views/side.jsp" %>
         
+        <%@ include file="/WEB-INF/views/side.jsp" %>
         <%@ include file="/WEB-INF/views/community/communitySide.jsp" %>
         <div id="grid-wrap">
 
