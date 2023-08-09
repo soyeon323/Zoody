@@ -39,8 +39,12 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> reserveTime(SqlSessionTemplate sst, String meetingroomNo) {
-		return sst.selectList("meetingroom.reserveTime", meetingroomNo);
+	public List<Map<String, Object>> reserveTime(SqlSessionTemplate sst, String meetingroomNo, String date) {
+		Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("meetingroomNo", meetingroomNo);
+	    parameters.put("date", date);
+	    
+		return sst.selectList("meetingroom.reserveTimeList", parameters);
 	}
 
 	@Override
@@ -54,6 +58,32 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 	    parameters.put("meetingroomNo", meetingroomNo);
 	    parameters.put("date", date);
 	    return sst.selectList("meetingroom.getReservedTimes", parameters);
+	}
+
+	@Override
+	public List<MeetingroomReservationVo> reserveTimeList(SqlSessionTemplate sst, String meetingroomNo, String date) {
+		
+		Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("meetingroomNo", meetingroomNo);
+	    parameters.put("date", date);
+	    
+		return sst.selectList("meetingroom.reserveTimeList", parameters);
+	}
+
+	@Override
+	public int checkTime(SqlSessionTemplate sst, String meetingroomNo, String date, String startTime) {
+		
+		Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("meetingroomNo", meetingroomNo);
+	    parameters.put("date", date);
+	    parameters.put("startTime", startTime);
+		
+		return sst.selectOne("meetingroom.checkTime", parameters);
+	}
+
+	@Override
+	public int addReserveInfoToCalendar(SqlSessionTemplate sst) {
+		return sst.insert("meetingroom.addReserveInfoToCalendar");
 	}
 
 

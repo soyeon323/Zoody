@@ -209,7 +209,7 @@
               <div class="col-lg-4">
                 <div class="filter">
                   <div class="event_filter_wrapper">
-                    <input id="개인" class="event_filter" name="event_filter_sel" type="checkbox" value="개인" data-type="state"  checked="true" />
+                    <input id="개인" class="event_filter" name="event_filter_sel" type="checkbox" value="개인" data-type="state"/>
                     <label for="개인">
                       개인
                       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
@@ -225,7 +225,7 @@
                     </label>
                   </div>
                   <div class="event_filter_wrapper">
-                    <input id="부서" class="event_filter" name="event_filter_sel" type="checkbox" value="부서" data-type="state"  checked="true" />
+                    <input id="부서" class="event_filter" name="event_filter_sel" type="checkbox" value="부서" data-type="state"/>
                     <label for="부서">
                       부서
                       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
@@ -241,7 +241,7 @@
                     </label>
                   </div>
                   <div class="event_filter_wrapper">
-                    <input id="회사" class="event_filter" name="event_filter_sel"  type="checkbox" value="회사" data-type="kind" checked="true" />
+                    <input id="회사" class="event_filter" name="event_filter_sel"  type="checkbox" value="회사" data-type="kind"/>
                     <label for="회사">
                       회사
                       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
@@ -257,7 +257,7 @@
                     </label>
                   </div>
                   <div class="event_filter_wrapper">
-                    <input id="회의" class="event_filter" name="event_filter_sel" type="checkbox" value="회의" data-type="kind" checked="true" />
+                    <input id="회의" class="event_filter" name="event_filter_sel" type="checkbox" value="회의" data-type="kind"/>
                     <label for="회의">
                       회의
                       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
@@ -285,6 +285,7 @@
           padding-bottom: 30px;
           margin-bottom: 23px;
           margin-top: 10px;
+          padding-left: 81px;
       ">
             <div id="loading"></div>
             <div class="print-visible" id="calendar"></div>
@@ -467,6 +468,7 @@
                     if (currentPopover.length) {
                       currentPopover.popover('hide');
                     }
+
 
                   $(info.el).popover({
                     title: '<div class="popoverTitleCalendar" >' + title + '</div>',

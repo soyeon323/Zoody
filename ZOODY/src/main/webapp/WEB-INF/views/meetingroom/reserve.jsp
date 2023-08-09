@@ -17,6 +17,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/meetingroom/reserve.css">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>Document</title>
 </head>
 <body>
@@ -34,15 +35,18 @@
             <div class="mt_link">
                 <div style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">일정등록</a></li>
+                      <li class="breadcrumb-item"><a href="${root}/calendar/main">일정등록</a></li>
                       <li class="breadcrumb-item active" aria-current="page">회의실 상세 예약</li>
                     </ol>
                 </div>
             </div>
             <div class="mt_search">
                 <span>날짜</span>
-                <input type="date" name="date" id="date">
+                <input type="date" name="date" id="date" required>
             </div>
+
+            
+             
             <div class="mt_box">
             	<c:forEach items="${list}" var="vo">
 	                <div class="card">
@@ -82,8 +86,23 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">예약 가능 시간</h1>
-                                    <input type="hidden" id="meetingroomNo" name="meetingroomNo" value="">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel" style="margin-right: 10px;">예약 가능 시간</h1>
+                                    <div class="resInfo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+                                            <g clip-path="url(#clip0_1585_8779)">
+                                              <path d="M5.5 0C4.41221 0 3.34884 0.322569 2.44437 0.926917C1.5399 1.53127 0.834947 2.39025 0.418665 3.39524C0.00238307 4.40024 -0.106535 5.5061 0.105683 6.573C0.317902 7.63989 0.841726 8.6199 1.61092 9.38909C2.3801 10.1583 3.36011 10.6821 4.42701 10.8943C5.4939 11.1065 6.59977 10.9976 7.60476 10.5813C8.60976 10.1651 9.46874 9.46011 10.0731 8.55564C10.6774 7.65117 11 6.5878 11 5.5C10.9984 4.04179 10.4185 2.64376 9.38735 1.61265C8.35624 0.581546 6.95821 0.00157716 5.5 0V0ZM5.5 10.0833C4.59351 10.0833 3.70736 9.81453 2.95364 9.3109C2.19991 8.80728 1.61246 8.09146 1.26555 7.25397C0.918653 6.41647 0.827888 5.49492 1.00474 4.60584C1.18159 3.71676 1.61811 2.90008 2.2591 2.25909C2.90009 1.6181 3.71676 1.18158 4.60584 1.00473C5.49492 0.827885 6.41647 0.918651 7.25397 1.26555C8.09146 1.61245 8.80728 2.19991 9.3109 2.95364C9.81453 3.70736 10.0833 4.5935 10.0833 5.5C10.082 6.71517 9.59869 7.88018 8.73943 8.73943C7.88018 9.59869 6.71517 10.082 5.5 10.0833V10.0833Z" fill="#C5C5C5"/>
+                                              <path d="M5.49935 2.2915C5.37779 2.2915 5.26121 2.33979 5.17526 2.42575C5.0893 2.5117 5.04102 2.62828 5.04102 2.74984V6.4165C5.04102 6.53806 5.0893 6.65464 5.17526 6.74059C5.26121 6.82655 5.37779 6.87484 5.49935 6.87484C5.62091 6.87484 5.73749 6.82655 5.82344 6.74059C5.9094 6.65464 5.95769 6.53806 5.95769 6.4165V2.74984C5.95769 2.62828 5.9094 2.5117 5.82344 2.42575C5.73749 2.33979 5.62091 2.2915 5.49935 2.2915Z" fill="#C5C5C5"/>
+                                              <path d="M5.95769 8.24984C5.95769 7.99671 5.75248 7.7915 5.49935 7.7915C5.24622 7.7915 5.04102 7.99671 5.04102 8.24984C5.04102 8.50297 5.24622 8.70818 5.49935 8.70818C5.75248 8.70818 5.95769 8.50297 5.95769 8.24984Z" fill="#C5C5C5"/>
+                                            </g>
+                                            <defs>
+                                              <clipPath id="clip0_1585_8779">
+                                                <rect width="11" height="11" fill="white"/>
+                                              </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <span>최대 1시간 예약 가능합니다.</span>
+                                        </div>
+                                    <input type="hidden" id="mNo" name="meetingroomNo" value="">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -96,21 +115,7 @@
                                                 <button type="button" class="timeBtn" value="3">오후 <span>03:00</span></button>
                                                 <button type="button" class="timeBtn" value="4">오후 <span>04:00</span></button>
                                                 <button type="button" class="timeBtn" value="5">오후 <span>05:00</span></button>
-                                                <div class="resInfo">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
-                                                    <g clip-path="url(#clip0_1585_8779)">
-                                                      <path d="M5.5 0C4.41221 0 3.34884 0.322569 2.44437 0.926917C1.5399 1.53127 0.834947 2.39025 0.418665 3.39524C0.00238307 4.40024 -0.106535 5.5061 0.105683 6.573C0.317902 7.63989 0.841726 8.6199 1.61092 9.38909C2.3801 10.1583 3.36011 10.6821 4.42701 10.8943C5.4939 11.1065 6.59977 10.9976 7.60476 10.5813C8.60976 10.1651 9.46874 9.46011 10.0731 8.55564C10.6774 7.65117 11 6.5878 11 5.5C10.9984 4.04179 10.4185 2.64376 9.38735 1.61265C8.35624 0.581546 6.95821 0.00157716 5.5 0V0ZM5.5 10.0833C4.59351 10.0833 3.70736 9.81453 2.95364 9.3109C2.19991 8.80728 1.61246 8.09146 1.26555 7.25397C0.918653 6.41647 0.827888 5.49492 1.00474 4.60584C1.18159 3.71676 1.61811 2.90008 2.2591 2.25909C2.90009 1.6181 3.71676 1.18158 4.60584 1.00473C5.49492 0.827885 6.41647 0.918651 7.25397 1.26555C8.09146 1.61245 8.80728 2.19991 9.3109 2.95364C9.81453 3.70736 10.0833 4.5935 10.0833 5.5C10.082 6.71517 9.59869 7.88018 8.73943 8.73943C7.88018 9.59869 6.71517 10.082 5.5 10.0833V10.0833Z" fill="#C5C5C5"/>
-                                                      <path d="M5.49935 2.2915C5.37779 2.2915 5.26121 2.33979 5.17526 2.42575C5.0893 2.5117 5.04102 2.62828 5.04102 2.74984V6.4165C5.04102 6.53806 5.0893 6.65464 5.17526 6.74059C5.26121 6.82655 5.37779 6.87484 5.49935 6.87484C5.62091 6.87484 5.73749 6.82655 5.82344 6.74059C5.9094 6.65464 5.95769 6.53806 5.95769 6.4165V2.74984C5.95769 2.62828 5.9094 2.5117 5.82344 2.42575C5.73749 2.33979 5.62091 2.2915 5.49935 2.2915Z" fill="#C5C5C5"/>
-                                                      <path d="M5.95769 8.24984C5.95769 7.99671 5.75248 7.7915 5.49935 7.7915C5.24622 7.7915 5.04102 7.99671 5.04102 8.24984C5.04102 8.50297 5.24622 8.70818 5.49935 8.70818C5.75248 8.70818 5.95769 8.50297 5.95769 8.24984Z" fill="#C5C5C5"/>
-                                                    </g>
-                                                    <defs>
-                                                      <clipPath id="clip0_1585_8779">
-                                                        <rect width="11" height="11" fill="white"/>
-                                                      </clipPath>
-                                                    </defs>
-                                                </svg>
-                                                <span>최대 2시간 예약 가능합니다.</span>
-                                            </div>
+                                                <span id="result_checkId" style="grid-column: 1/4;display: flex;align-items: center;font-size: 14px;"></span>
                                     </div>
                                     <div class="modal-footer">
                                     <input type="hidden" name="timeValue" id="timeValue" value="">
@@ -131,7 +136,7 @@
 	                        <p>${vo.capacity} people</p>
 	                        <c:choose> 
 	                           <c:when test="${vo.status eq 'O'}">
-	                             <p style="color: #00CBA4;">Available</p>
+	                             <p style="color: #00CBA4";>Available</p>
 	                           </c:when>
 	                           <c:otherwise>
 	                             <p>Available</p>
@@ -215,7 +220,27 @@
 
         function reserve(button) {
             const meetingroomNo = button.getAttribute('data-vo-no');
-            document.getElementById('meetingroomNo').value = meetingroomNo;
+            document.getElementById('mNo').value = meetingroomNo;
+
+            console.log(meetingroomNo);
+
+            var date = $('#date').val();
+
+            // $.ajax({
+            //     url: '${root}/meetingroom/time',
+            //     data: {
+            //         meetingroomNo: meetingroomNo,
+            //         date : date
+            //     },
+            //     dataType : "json",
+            //     method: 'GET',
+            //     success: function(result) {
+            //         console.log(result);
+            //     },
+            //     error: function(xhr, status, error) {
+            //         console.error(error);
+            //     }
+            // });
         }
 
     </script>
@@ -224,12 +249,47 @@
     <script>
 
         $('.timeBtn').on('click', (e) => {
-            document.getElementById('timeValue').value = e.target.value;
+            var btnValue = e.target.value;
+            document.getElementById('timeValue').value = btnValue;
+
+            var meetingroomNo = $('#mNo').val();
+            var date = $('#date').val();
+
+            console.log("Meeting Room No:", meetingroomNo);
+            console.log("startTime:", btnValue);
+            console.log("date:", date);
+
+            $.ajax({
+                url : "${root}/meetingroom/check",
+                data : {
+                    meetingroomNo : meetingroomNo,
+                    startTime : btnValue,
+                    date : date
+                },
+                type : "POST",
+                success : function(data){
+                    
+                    var resultText = '';
+
+                    if(data == "Y"){
+                        resultText = "예약 불가능한 시간입니다.";
+                        $('#result_checkId').html(resultText).css("color","red");
+                    } else {
+                        resultText = "예약 가능한 시간입니다.";
+                        $('#result_checkId').html(resultText).css("color","green");
+                    }
+
+                    console.log(data);
+                },
+                error : function(error){
+                    console.error(error);
+                }
+            })
             
             })
 
         function reserveMt(event) {
-            var meetingroomNo = $('#meetingroomNo').val();
+            var meetingroomNo = $('#mNo').val();
             var startTime = $('#timeValue').val(); // 포커스된 버튼의 값 가져오기
             var date = $('#date').val();
 
@@ -317,7 +377,7 @@
     </script>
 
     <!-- 예약된 시간 확인하기 -->
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             $('.reserveBtn').on('click', function() {
                 var meetingroomNo = $(this).data('vo-no');
@@ -332,17 +392,17 @@
                         // reservedTimes에는 예약된 시간 정보가 배열로 담겨 있습니다.
                         // 예약 가능한 시간과 예약 불가능한 시간을 표시하는 로직을 구현합니다.
                         console.log(reservedTimes);
-                        $('.timeBtn').each(function() {
-                            var value = $(this).val();
-                            if (reservedTimes.includes(value)) {
+                        // $('.timeBtn').each(function() {
+                        //     var value = $(this).val();
+                        //     if (reservedTimes.includes(value)) {
 
-                                $(this).prop('disabled', true);
-                                $(this).css('backgroundColor', 'gray');
-                            } else {
-                                $(this).prop('disabled', false);
-                                $(this).css('background-color', '');
-                            }
-                        });
+                        //         $(this).prop('disabled', true);
+                        //         $(this).css('backgroundColor', 'gray');
+                        //     } else {
+                        //         $(this).prop('disabled', false);
+                        //         $(this).css('background-color', '');
+                        //     }
+                        // });
                     },
                     error: function(error) {
                         console.error(error);
@@ -350,7 +410,7 @@
                 });
             });
         });
-    </script>
+    </script> -->
 
     
 

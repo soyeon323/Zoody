@@ -20,11 +20,17 @@ public interface MeetingroomDao {
 
 	int updateMeetingroom(SqlSessionTemplate sst, MeetingroomVo mvo);
 
-	List<Map<String, Object>> reserveTime(SqlSessionTemplate sst, String meetingroomNo);
+	List<Map<String, Object>> reserveTime(SqlSessionTemplate sst, String meetingroomNo, String date);
 
 	int addReserve(SqlSessionTemplate sst, MeetingroomReservationVo mrv);
 
 	List<String> getReservedTimes(SqlSessionTemplate sst, String meetingroomNo, String date);
+
+	List<MeetingroomReservationVo> reserveTimeList(SqlSessionTemplate sst, String meetingroomNo, String date);
+
+	int checkTime(SqlSessionTemplate sst, String meetingroomNo, String date, String startTime);
+
+	int addReserveInfoToCalendar(SqlSessionTemplate sst);
 
 
 }

@@ -95,6 +95,30 @@
 	    		#{startTime}
     		)
 	</insert>
+	
+	<select id="reserveTimeList" resultType="com.kh.zoody.meetingroom.vo.MeetingroomReservationVo">
+		SELECT 
+		    NO
+		    ,MEETINGROOM_NO
+		    ,USER_NO
+		    ,"DATE"
+		    ,START_TIME
+		    ,END_TIME
+		    ,STATUS
+		FROM MEETINGROOM_RESERVATION
+		WHERE MEETINGROOM_NO = #{meetingroomNo}
+		AND "DATE" = #{date}
+		AND STATUS = 0
+	</select>
+	
+	<select id="checkTime" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETINGROOM_RESERVATION
+		WHERE MEETINGROOM_NO = #{meetingroomNo}
+		AND "DATE" = #{date}
+		AND START_TIME = #{startTime}
+		AND STATUS = 0
+	</select>
 
   
 </mapper>
