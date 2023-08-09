@@ -252,8 +252,8 @@ form#uploadForm {
                         
                         <select name="directoryNo" id="select-directory">
                             <option checked>폴더 선택</option>
-                            <c:forEach items="${ directoryList }" var="list" varStatus="status">
-                                <option value="<c:out value="${status.index}" />">${list.directoryName}</option>
+                            <c:forEach items="${ directoryList }" var="list">
+                                <option value="${list.no}">${list.directoryName}</option>
                             </c:forEach>
                                 
 
@@ -264,11 +264,11 @@ form#uploadForm {
                         
                             <input type="file" name="file">
 
-                            <c:if test="${empty loginMember.name}">
-                                <input id="hidden-id" type="text" name="loginMemberId" value="test">
+                            <c:if test="${empty loginMember.no}">
+                                <input id="hidden-id" type="text" name="userNo" value="test">
                             </c:if>
-                            <c:if test="${not empty loginMember.name}">
-                                <input id="hidden-id" type="text" name="loginMemberId"  value="${loginMember.id}">
+                            <c:if test="${not empty loginMember.no}">
+                                <input id="hidden-id" type="text" name="userNo"  value="${loginMember.no}">
                             </c:if>
 
                             

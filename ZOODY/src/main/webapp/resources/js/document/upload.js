@@ -13,13 +13,11 @@ $(document).ready(function() {
 
         console.log(root+"/document/upload");
         
-        // formData.append("scope", selectScope); // 추가
+        // formData.append("memberNo", headerGetLoginMemberNo); // 추가
         $.ajax({
             url: root+"/document/upload",
             type: "POST",
             data: formData,
-            processData: false,
-            contentType: false,
             success: function(response) {
             console.log(response); // 성공 시 서버 응답을 출력
                 $("#result").text("성공"); // 업로드 성공 시 결과를 화면에 출력

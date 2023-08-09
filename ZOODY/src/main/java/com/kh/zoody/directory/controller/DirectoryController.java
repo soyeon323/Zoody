@@ -10,25 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.kh.zoody.directory.service.DirectoryService;
 import com.kh.zoody.document.vo.DocumentVo;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.proxy.annotation.Post;
 
 
 @RestController
 @RequestMapping("directory")
+@RequiredArgsConstructor
 @Slf4j
 public class DirectoryController{
-
 	
-		@PostMapping("rename")
+		private final DirectoryService service;
+		
+	
+		@PostMapping(value = "rename" ,
+				produces="application/json;charset=UTF-8")
 		public String renameDirectory(
 				DocumentVo vo,
 				HttpServletRequest request
 				) {
-			
-			
+						
 			if (vo.getDirectoryName() == "" || vo.getDirectoryName() == null) {
 				return "error";
 			}
@@ -36,43 +42,40 @@ public class DirectoryController{
 			log.info("새로운 디렉토리 이름 : " + vo);
 			log.info("새로운 디렉토리 이름 : " + vo.getDirectoryName());
 			
-			
-			
-			String newName = vo.getDirectoryName();
+//			String newName = vo.getDirectoryName();
 			
 			// root(resources) +  document + vo.getUserNo() + "\\" +  vo.getDirectoryNo()
 			String root = request.getSession().getServletContext().getRealPath("resources"); 
 			String path = root+"\\document\\"+ vo.getUserNo() + "\\" + vo.getDirectoryNo(); 
 			
 			log.info(path);
-			
+						
 			try {
 	            File folder = new File(path);
 	            
-	            // 디렉토리가 없다면 생성
+	            // 디렉토리가 없다면 리턴
 	            if (!folder.exists()) {
-	            	folder.mkdir();
+	            	log.info("문제잇음");
+	            	return "error";
 	            }
 	            
-	            if (folder.exists() && folder.isDirectory()) {
-	                String parentPath = folder.getParent(); // 폴더의 상위 경로
-	                File newFolder = new File(parentPath, newName); // 새로운 폴더 객체 생성
-	                
-	                if (folder.renameTo(newFolder)) {
-	                    // 이름 변경 성공
-	                    return "redirect:/success-page"; // 성공 페이지로 리다이렉트
-	                } else {
-	                    // 이름 변경 실패
-	                    return "redirect:/error-page"; // 에러 페이지로 리다이렉트
-	                }
-	            } else {
-	                // 폴더가 존재하지 않거나 폴더가 아닌 경우
-	                return "redirect:/error-page"; // 에러 페이지로 리다이렉트
-	            }
+	            int result =  service.renameDirectory(vo);
+	            log.info(result+"");
+            	if (result < 1) {
+					return "redirect:/error-page";
+				}
+            	
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            return "redirect:/error-page"; // 에러 페이지로 리다이렉트
 	        }
+			
+			Gson gson = new Gson();
+			String result =  gson.toJson(vo);
+			
+			log.info(result);
+			
+			return result;
 					
 			
 		}
