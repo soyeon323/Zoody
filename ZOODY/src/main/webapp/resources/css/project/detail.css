@@ -371,44 +371,65 @@ input::placeholder{
 }
 
 .modal .modal-content .modal-body{
+    height: 100%;
     overflow-y: auto;
 }
 
 /* 채팅 */
+#profile-area{
+    display: flex;
+    height: 40px;
+    margin-top: 10px;
+}
+
+#profile-area a{
+    margin-top: 14px;
+    margin-left: 10px;
+}
+
 #toMsg{
-    display: grid;
-    grid-template-columns: 50px 400px;
-    grid-template-rows: 37px 80px;
-    margin-left: 20px;
-    margin-top: 15px;
+    display: flex;
+    justify-content: start;
+    margin-left: 60px;
+    height: 40px;
 }
 
-#toMsg>div:first-child{
-    grid-row: span 2;
-}
-
-#toMsg>div:first-child>img{
-    width: 35px;
-    height: 35px;
-    border-radius: 70%;
-}
-
-#toMsg>div:nth-child(2){
-    margin-top: 5px;
-}
-
-#toMsg>div:nth-child(3){
+#toMsg>div{
+    color: white;
     background-color: #4876EF;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
+#toMsg a{
+    margin-left: 10px;
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+#fromMsg a{
+    margin-right: 10px;
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+#toMsgText, #fromMsgText{
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
 #fromMsg{
     display: flex;
     justify-content: end;
-    margin-right: 10px;
-    margin-top: 7px;
+    margin-right: 18px;
+    height: 40px;
+    margin-top: 10px;
 }
 
 #fromMsg>div{
@@ -416,6 +437,14 @@ input::placeholder{
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+.chatProfile{
+    border-radius: 70%;
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+    margin-bottom: 50px;
 }
 
 .addTodo{

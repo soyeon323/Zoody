@@ -40,6 +40,7 @@ public class WebsocketServer extends TextWebSocketHandler{
 		String nick = msgVo.get("nick");
 		String msg = msgVo.get("msg");
 		String time = msgVo.get("time");
+		String profile = msgVo.get("profile");
 		
 		String jsonMsg = gson.toJson(msgVo);
 		

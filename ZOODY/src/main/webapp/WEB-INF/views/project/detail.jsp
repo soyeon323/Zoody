@@ -156,29 +156,14 @@
                         </svg>
                     </div>
                     <div class="connectUser">
-                        <a>|&nbsp</a>
+
                     </div>
                     <div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div id="toMsg">
-                        <div class="profile-area">
-                            <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
-                        </div>
-                        <div class="name-area">
-                            <a></a>
-                        </div>
-                        <div id="toMsgText">
-                            
-                        </div>
-                    </div>
-                    <div id="fromMsg">
-                        <div id="fromMsgText">
-                            
-                        </div>
-                    </div>
+                   
                 </div>
                 <div class="modal-footer">
                   <div>
@@ -249,24 +234,41 @@
         console.log("소켓에러남");
     }
 
-    function funcMessage(event){
+    let addedUsers = [];
+    function funcMessage(event) {
         console.log(event);
         const obj = JSON.parse(event.data);
 
-        if(obj.nick == '${loginMember.name}'){
+        const modalBody = document.querySelector(".modal-body");
+        const connectUser = document.querySelector(".connectUser");
 
+        if (!addedUsers.includes(obj.nick)) { 
+            connectUser.innerHTML += '<a style="color:#656565;">' + obj.nick + '&nbsp&nbsp</a>';
+            addedUsers.push(obj.nick); 
         }
 
-        //상대쪽
-        const nick = document.querySelector("#toMsg .name-area>a");
-        const msg = document.querySelector("#toMsg #toMsgText");
-
-        nick.innerHTML = obj.nick;
-        msg.innerHTML = obj.msg;
-
-        //내쪽
-        const msg2 = document.querySelector("#fromMsgText");
-        msg2.innerHTML = obj.msg;
+        if (obj.nick === '${loginMember.name}') {
+            // 내 쪽
+            modalBody.innerHTML += '<div id="fromMsg">'
+                                    + '<a id="time02">' + obj.time +'</a>'
+                                    + '<div id="fromMsgText">'
+                                        + obj.msg +
+                                    '</div>'
+                                +'</div>';
+        } else if(obj.nick != '${loginMember.name}') {
+            // 상대 쪽
+            modalBody.innerHTML += '<div id="profile-area">'
+                                    + '<img src="${root}/resources/img/employee/' + obj.profile + '" alt="프로필사진" class="chatProfile">'
+                                     + '<a class="name-area">' + obj.nick + '</a>'
+                                + '</div>'
+                                + '<div id="toMsg">'
+                                    + '<div id="toMsgText">'
+                                        + obj.msg +
+                                    '</div>'
+                                    + '<a id="time01">' + obj.time + '</a>'
+                                + '</div>';
+        }
+        connectUser.innerHTML += userHtml;
     }
 
     function sendMsg(){
@@ -274,6 +276,7 @@
         data.msg = document.querySelector("#contentArea").value;
         data.nick = '${loginMember.name}';
         data.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        data.profile = '${loginMember.profile}';
 
         ws.send(JSON.stringify(data));
 
@@ -335,6 +338,10 @@
             return;
         }
     }
+
+    //채팅창 스크롤 자동
+    var modalScroll = document.querySelector(".modal .modal-body");
+    modalScroll.scrollTop = modalScroll.scrollHeight;
 </script>
 
 <!-- 임시저장
