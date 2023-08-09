@@ -1,8 +1,8 @@
 package com.kh.zoody.approval.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -28,9 +28,11 @@ import com.kh.zoody.approval.service.ApprovalService;
 import com.kh.zoody.approval.vo.ApplicationForExtraWorkVo;
 import com.kh.zoody.approval.vo.ApplicationForLeaveVo;
 import com.kh.zoody.approval.vo.ApprovalVo;
+import com.kh.zoody.approval.vo.ApproverVo;
 import com.kh.zoody.approval.vo.DrafterVo;
 import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
+import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 
 @Controller
 @RequestMapping("approval")
@@ -181,6 +183,59 @@ public class ApprovalController {
 		String drafter = gson.toJson(drafterVo);
 		
 		return drafter;
+	}
+	
+	@GetMapping(value="detail/category", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getCateogoryNo(String no) {
+		
+		String categoryNo = approvalService.getCategory(no);
+		
+		return categoryNo;
+	}
+	
+	@GetMapping(value="detail/loa", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getLoaDetail(String no) {
+		
+		LetterOfApprovalVo loaVo = approvalService.getLoaInfo(no);
+		
+		String loaInfo = gson.toJson(loaVo);
+		
+		return loaInfo;
+	}
+	
+	
+	@GetMapping(value="detail/approvers", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getApprovers(String no) {
+		
+		List<ApproverVo> approverVoList = approvalService.getApprovers(no);
+		
+		String approves = gson.toJson(approverVoList);
+		
+		return approves;
+	}
+	
+	@GetMapping(value="detail/cc", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getCC(String no) {
+		
+		List<ApproverVo> ccList = approvalService.getCc(no);
+		
+		String cc = gson.toJson(ccList);
+		
+		return cc;
+	}
+	
+	@PostMapping("detail/approve")
+	public String diciseApproval(@RequestBody String data) {
+		
+		Map<String, String> dataMap = gson.fromJson(data, Map.class);
+		
+		int result = approvalService.diciseApproval(dataMap);
+		
+		return "";
 	}
 	
 	

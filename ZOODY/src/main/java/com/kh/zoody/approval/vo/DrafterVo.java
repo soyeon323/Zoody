@@ -12,5 +12,6 @@ public class DrafterVo {
 	private String dName4; 
 	private String drafterDate; 
 	private String eaNo;
+	private String rankName;
 	
 }

@@ -1,6 +1,7 @@
 package com.kh.zoody.approval.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import com.kh.zoody.approval.dao.ApprovalDao;
 import com.kh.zoody.approval.vo.ApplicationForExtraWorkVo;
 import com.kh.zoody.approval.vo.ApplicationForLeaveVo;
 import com.kh.zoody.approval.vo.ApprovalVo;
+import com.kh.zoody.approval.vo.ApproverVo;
 import com.kh.zoody.approval.vo.DrafterVo;
 import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
+import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
@@ -80,10 +83,59 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 
-	// 상세보기 상신이 정보 가져오기
+	// 상세보기 상신인 정보 가져오기
 	@Override
 	public DrafterVo getDrafterInfo(String no) {
 		return approvalDao.getDrafterInfo(no, sqlSessionTemplate);
 	}
 
+	// 문서번호로 카테고리 번호 얻기
+	@Override
+	public String getCategory(String no) {
+		return approvalDao.getCategory(no, sqlSessionTemplate);
+	}
+
+	// 품의서 내용 가져오기
+	@Override
+	public LetterOfApprovalVo getLoaInfo(String no) {
+		return approvalDao.getLoaInfo(no, sqlSessionTemplate);
+	}
+
+	// 결재자들 불러오기
+	@Override
+	public List<ApproverVo> getApprovers(String no) {
+		return approvalDao.getApprovers(no, sqlSessionTemplate);
+	}
+
+	// 참조인들 불러오기
+	@Override
+	public List<ApproverVo> getCc(String no) {
+		return approvalDao.getCc(no, sqlSessionTemplate);
+	}
+
+	// 결재
+	@Override
+	public int diciseApproval(Map<String, String> dataMap) {
+		
+		int result = 0;
+
+		String dicision = dataMap.get("dicision");
+		
+		String dicisionNo = "";
+		if("approve".equals(dicision)) {
+			dicisionNo = "1";
+		} else if("disapprove".equals(dicision)) {
+			dicisionNo = "2";
+		}
+		dataMap.put("dicisionNo", dicisionNo);
+		
+		if(!dataMap.containsKey("instruction")) {
+			result = approvalDao.diciseApproval(dataMap, sqlSessionTemplate);
+		} else if(dataMap.containsKey("instruction")) {
+			result = approvalDao.addInstruction(dataMap, sqlSessionTemplate);
+		}
+		
+		return result;
+	}
+	
 }

@@ -222,6 +222,8 @@
     height: 40px;
     padding-left: 10px;
 
+    font-size: 14px;
+
     vertical-align: middle;
 
     border : 1px solid rgb(130, 130, 130);
@@ -303,6 +305,9 @@
 
     border: 0px;
 }
+.title-input:focus {
+    outline: none;
+}
 
 .table-main-area {
     width: 940px;
@@ -340,6 +345,9 @@
     margin-bottom: 20px;
 
     border: 0px;
+}
+#approval-main-text:focus {
+    outline: none;
 }
 
 .wrap-right { 
@@ -476,8 +484,13 @@
 }
 
 .approver-name {
+    width: 100px;
+    height: 25px;
+
+    line-height: 25px;
+
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 700;
     color: rgb(53, 54, 54);
 }
 
@@ -489,7 +502,7 @@
     flex-direction: column;
     justify-content: space-evenly;
 
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 400;
     color: rgb(53, 54, 54);
 }
@@ -726,15 +739,6 @@
 .name-mail {
     display: flex;
 }
-.approver-name {
-    width: 85px;
-
-    text-align: center;
-
-    font-size: 14px;
-    font-weight: 400;
-    color: #353636;
-}
 .approver-mail {
     width: 200px;
 
@@ -914,11 +918,68 @@
     outline: none;
 }
 
+.approver-rank {
+    width: 100px;
+    height: 25px;
+
+    line-height: 25px;
+
+    font-size: 14px;
+    font-weight: 400;
+}
 
 
+.approve-select-list {
+    width: 150px;
+    height: 60px;
 
+    background-color: rgb(255, 255, 255);
+}
+.select-list-btn {
+    width: 150px;
+    height: 30px;
 
+    line-height: 30px;
 
+    font-size: 17px;
+
+    border: 1px solid rgb(53, 54, 54);
+    box-sizing: border-box;
+}
+.select-list-btn:hover {
+    background-color: #4876EF;
+
+    color: rgb(255, 255, 255);
+}
+
+.approve-btn-area {
+    width: 1000px;
+    height: 50px;
+
+    margin-left: 150px;
+
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.approve-send-btn {
+    width: 115px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 17px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+
+    background-color: rgb(81, 137, 250);
+    border-radius: 5px;
+    border: 0px;
+
+    cursor: pointer;
+}
 
 
 

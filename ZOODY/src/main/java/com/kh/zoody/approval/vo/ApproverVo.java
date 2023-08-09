@@ -12,4 +12,13 @@ public class ApproverVo {
 	private String nextApprovaerNo;
 	private String approvalDate;
 
+	
+	private String name;
+	private String profile;
+	private String dName1;
+	private String dName2;
+	private String dName3;
+	private String dName4;
+	private String rankName;
+	
 }

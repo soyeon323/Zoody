@@ -1,7 +1,9 @@
 package com.kh.zoody.approval.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,7 @@ import com.kh.zoody.approval.vo.ApproverVo;
 import com.kh.zoody.approval.vo.DrafterVo;
 import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
-import com.kh.zoody.approval.vo.LetterOfApprovalFormVo;
+import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 import com.kh.zoody.user.vo.UserVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +65,7 @@ public class ApprovalDaoImpl implements ApprovalDao {
 			result *= sqlSessionTemplate.insert("approval.insertCC", CcList);
 		}
 		
-		LetterOfApprovalFormVo loa = new LetterOfApprovalFormVo();
+		LetterOfApprovalVo loa = new LetterOfApprovalVo();
 		loa.setApprovalNo(approvalVo.getNo());
 		loa.setContent(content);
 		result *= sqlSessionTemplate.insert("approval.insertLOA", loa);
@@ -180,10 +182,45 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSessionTemplate.selectOne("approval.getApprovalDetail", no);
 	}
 
-	// 상세보기 상신이 정보 가져오기
+	// 상세보기 상신인 정보 가져오기
 	@Override
 	public DrafterVo getDrafterInfo(String no, SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectOne("approval.getDrafterInfo", no);
 	}
 
+	// 문서번호로 카테고리 번호 얻기
+	@Override
+	public String getCategory(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getCategory", no);
+	}
+
+	// 품의서 내용 가져오기
+	@Override
+	public LetterOfApprovalVo getLoaInfo(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getDetailLOA", no);
+	}
+
+	// 결재자들 불러오기
+	@Override
+	public List<ApproverVo> getApprovers(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("approval.getApprovers", no);
+	}
+
+	// 참조인들 불러오기
+	@Override
+	public List<ApproverVo> getCc(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("approval.getCc", no);
+	}
+
+	// 결재
+	@Override
+	public int diciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.update("approval.dicisionUpdate", dataMap);
+	}
+
+	// 결재 + 품의서 지시사항 추가
+	@Override
+	public int addInstruction(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.update("approval.instructionUpdate", dataMap);
+	}
 }

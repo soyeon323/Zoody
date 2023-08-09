@@ -184,6 +184,8 @@
 	
 	</select>
 	
+	
+	
 	<select id="getApprovalDetail" resultType="ApprovalVo">
 	
 		SELECT EA.NO, DRAFTER, CATEGORY_NO, REQUEST_DATE, TITLE, CATEGORY AS CATEGORY_NAME, FORM
@@ -193,11 +195,13 @@
 	
 	</select>
 	
+	
 	<select id="getDrafterInfo" resultType="DrafterVo">
 	
-		SELECT NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4, TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD (DAY)') AS DRAFTER_DATE, EA.NO AS EA_NO
+		SELECT U.NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4, TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD (DAY)') AS DRAFTER_DATE, EA.NO AS EA_NO, R.NAME AS RANK_NAME
 		FROM "USER" U
 		    JOIN ELECTRONIC_APPROVAL EA ON U.NO = EA.DRAFTER
+		    JOIN "RANK" R ON U.RANK_NO = R.NO
 		    JOIN (
 		            SELECT D.NO AS TOP_MOST_NO, A.NAME AS D_NAME1, B.NAME AS D_NAME2, C.NAME AS D_NAME3, D.NAME AS D_NAME4
 		            FROM DEPARTMENT A
@@ -208,5 +212,97 @@
 		WHERE EA.NO = #{no}
 	
 	</select>
+	
+	
+	<select id="getCategory" resultType="String">
+	
+		SELECT CATEGORY_NO
+		FROM ELECTRONIC_APPROVAL
+		WHERE NO = #{no}
+	
+	</select>	
+	
+	
+	<select id="getDetailLOA" resultType="LetterOfApprovalVo">
+	
+		SELECT TITLE, CONTENT, INSTRUCTION
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN LETTER_OF_APPROVAL LOA ON EA.NO = LOA.APPROVAL_NO
+		WHERE EA.NO = #{no}
+	
+	</select>
+	
+	<select id="getDetailAFL" resultType="ApprovalVo">
+	
+	
+	
+	</select>
+	
+	<select id="getDetailAFE" resultType="ApprovalVo">
+	
+	
+	
+	</select>
+	
+	<select id="getDetailAFS" resultType="ApprovalVo">
+	
+	
+	
+	</select>
+	
+	
+	<select id="getApprovers" resultType="ApproverVo">
+	
+		SELECT U.NO AS APPROVER_NO, APPROVAL_STATE, U.NAME, PROFILE, R.NAME AS RANK_NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4
+		FROM APPROVER A
+		    JOIN "USER" U ON A.APPROVER_NO = U.NO 
+		    JOIN "RANK" R ON U.RANK_NO = R.NO
+		    JOIN (
+		            SELECT D.NO AS TOP_MOST_NO, A.NAME AS D_NAME1, B.NAME AS D_NAME2, C.NAME AS D_NAME3, D.NAME AS D_NAME4
+		            FROM DEPARTMENT A
+		                RIGHT JOIN DEPARTMENT B ON A.NO = B.UPPER_DEPARTMENT_NO
+		                RIGHT JOIN DEPARTMENT C ON B.NO = C.UPPER_DEPARTMENT_NO
+		                RIGHT JOIN DEPARTMENT D ON C.NO = D.UPPER_DEPARTMENT_NO
+		        ) B ON U.DEPARTMENT_NO = B.TOP_MOST_NO
+		WHERE APPROVAL_NO = #{no}
+	
+	</select>
+	
+	
+	<select id="getCc" resultType="ApproverVo">
+	
+		SELECT U.NAME, PROFILE, R.NAME AS RANK_NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4
+		FROM APPROVAL_CC A
+		    JOIN "USER" U ON A.CC_NO = U.NO 
+		    JOIN "RANK" R ON U.RANK_NO = R.NO
+		    JOIN (
+		            SELECT D.NO AS TOP_MOST_NO, A.NAME AS D_NAME1, B.NAME AS D_NAME2, C.NAME AS D_NAME3, D.NAME AS D_NAME4
+		            FROM DEPARTMENT A
+		                RIGHT JOIN DEPARTMENT B ON A.NO = B.UPPER_DEPARTMENT_NO
+		                RIGHT JOIN DEPARTMENT C ON B.NO = C.UPPER_DEPARTMENT_NO
+		                RIGHT JOIN DEPARTMENT D ON C.NO = D.UPPER_DEPARTMENT_NO
+		        ) B ON U.DEPARTMENT_NO = B.TOP_MOST_NO
+		WHERE A.NO = #{no}	
+		
+	</select>
+	
+	
+	<update id="dicisionUpdate">
+	
+		UPDATE APPROVER
+		SET APPROVAL_STATE = #{dicisionNo},
+		    APPROVAL_DATE = SYSDATE
+		WHERE APPROVER_NO = #{no}
+	
+	</update>
+	
+	
+	<update id="instructionUpdate">
+	
+		UPDATE LETTER_OF_APPROVAL
+		SET INSTRUCTION = #{instruction}
+		WHERE APPROVAL_NO = #{no}
+	
+	</update>
 
 </mapper>
