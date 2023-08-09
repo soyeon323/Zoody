@@ -1,15 +1,18 @@
 package com.kh.zoody.approval.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.zoody.approval.vo.ApplicationForExtraWorkVo;
 import com.kh.zoody.approval.vo.ApplicationForLeaveVo;
 import com.kh.zoody.approval.vo.ApprovalVo;
+import com.kh.zoody.approval.vo.ApproverVo;
 import com.kh.zoody.approval.vo.DrafterVo;
 import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
+import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 import com.kh.zoody.user.vo.UserVo;
 
 public interface ApprovalDao {
@@ -46,7 +49,24 @@ public interface ApprovalDao {
 	// 전자결재 상세 보기
 	ApprovalVo getApprovalDetail(String no, SqlSessionTemplate sqlSessionTemplate);
 
-	// 상세보기 상신이 정보 가져오기
+	// 상세보기 상신인 정보 가져오기
 	DrafterVo getDrafterInfo(String no, SqlSessionTemplate sqlSessionTemplate);
 
+	// 문서번호로 카테고리 번호 얻기
+	String getCategory(String no, SqlSessionTemplate sqlSessionTemplate);
+	
+	// 품의서 내용 가져오기
+	LetterOfApprovalVo getLoaInfo(String no, SqlSessionTemplate sqlSessionTemplate);
+	
+	// 결재자들 불러오기
+	List<ApproverVo> getApprovers(String no, SqlSessionTemplate sqlSessionTemplate);
+
+	// 참조인들 불러오기
+	List<ApproverVo> getCc(String no, SqlSessionTemplate sqlSessionTemplate);
+
+	// 결재
+	int diciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+	// 결재 + 품의서 지시사항 추가
+	int addInstruction(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
 }

@@ -31,6 +31,8 @@
 		<typeAlias type="com.kh.zoody.project.vo.ProjectTodoVo" alias="ProjectTodoVo"/>
 		<typeAlias type="com.kh.zoody.approval.vo.ApprovalVo" alias="ApprovalVo" />
 		<typeAlias type="com.kh.zoody.approval.vo.DrafterVo" alias="DrafterVo" />
+		<typeAlias type="com.kh.zoody.approval.vo.LetterOfApprovalVo" alias="LetterOfApprovalVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.ApproverVo" alias="ApproverVo"/>
 	</typeAliases>
 
 </configuration>
