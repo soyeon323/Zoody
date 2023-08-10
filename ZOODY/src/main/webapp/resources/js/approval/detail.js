@@ -84,7 +84,6 @@ function getLOA() {
 
         if(data.instruction != null) {
             const instruction = document.querySelector('.instruction');
-            instruction.readOnly = true;
             instruction.value = data.instruction;
         }
     })
@@ -213,6 +212,16 @@ fetch(contextPath + '/approval/detail/approvers?no=' + URLSearch.get('no'))
         const newTableBody = document.createElement('td');
         newTableBody.classList.add('table-approval');
         newTableBody.id = element.approverNo;
+
+        if(element.stateName == '승인') {
+            const signImg = document.createElement('img');
+            signImg.src = contextPath + '/resources/img/icon/svg/approve.svg';
+            newTableBody.append(signImg);
+        } else if(element.stateName == '반려') {
+            const signImg = document.createElement('img');
+            signImg.src = contextPath + '/resources/img/icon/svg/disapprove.svg';
+            newTableBody.append(signImg);
+        }
 
         approvalResult.append(newTableBody);
 
@@ -429,8 +438,8 @@ appBtn.addEventListener('click', ()=>{
             "Content-Type" : "application/json",
         },
         body : JSON.stringify({
-            "dicision" : decision,
-            "instruction" : instruction,
+            "decision" : decision,
+            "instruction" : instruction.value,
             "no" : URLSearch.get('no'),
         })
     })

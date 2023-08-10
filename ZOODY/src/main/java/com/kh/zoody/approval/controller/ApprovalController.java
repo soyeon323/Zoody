@@ -229,13 +229,16 @@ public class ApprovalController {
 	}
 	
 	@PostMapping("detail/approve")
-	public String diciseApproval(@RequestBody String data) {
+	public String diciseApproval(@RequestBody String data, HttpSession session) {
 		
 		Map<String, String> dataMap = gson.fromJson(data, Map.class);
 		
-		int result = approvalService.diciseApproval(dataMap);
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		dataMap.put("userNo", loginMember.getNo());
 		
-		return "";
+		int result = approvalService.deciseApproval(dataMap);
+		
+		return "rediect:/approval/detail?no=" + dataMap.get("no");
 	}
 	
 	

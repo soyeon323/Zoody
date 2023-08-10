@@ -12,6 +12,7 @@ public class ApproverVo {
 	private String nextApprovaerNo;
 	private String approvalDate;
 
+	private String stateName;
 	
 	private String name;
 	private String profile;
