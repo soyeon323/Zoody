@@ -65,8 +65,5 @@ public interface ApprovalDao {
 	List<ApproverVo> getCc(String no, SqlSessionTemplate sqlSessionTemplate);
 
 	// 결재
-	int diciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
-
-	// 결재 + 품의서 지시사항 추가
-	int addInstruction(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+	int deciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
 }

@@ -19,10 +19,12 @@ import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ApprovalServiceImpl implements ApprovalService {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
@@ -115,25 +117,21 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 	// 결재
 	@Override
-	public int diciseApproval(Map<String, String> dataMap) {
-		
-		int result = 0;
+	public int deciseApproval(Map<String, String> dataMap) {
 
-		String dicision = dataMap.get("dicision");
+		String decision = dataMap.get("decision");
 		
-		String dicisionNo = "";
-		if("approve".equals(dicision)) {
-			dicisionNo = "1";
-		} else if("disapprove".equals(dicision)) {
-			dicisionNo = "2";
+		String decisionNo = "";
+		if("approve".equals(decision)) {
+			decisionNo = "1";
+		} else if("disapprove".equals(decision)) {
+			decisionNo = "2";
 		}
-		dataMap.put("dicisionNo", dicisionNo);
 		
-		if(!dataMap.containsKey("instruction")) {
-			result = approvalDao.diciseApproval(dataMap, sqlSessionTemplate);
-		} else if(dataMap.containsKey("instruction")) {
-			result = approvalDao.addInstruction(dataMap, sqlSessionTemplate);
-		}
+		log.info("decisionNo : {}",decisionNo);
+		dataMap.put("decisionNo", decisionNo);
+		
+		int result = approvalDao.deciseApproval(dataMap, sqlSessionTemplate);
 		
 		return result;
 	}

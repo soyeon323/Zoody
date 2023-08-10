@@ -214,13 +214,17 @@ public class ApprovalDaoImpl implements ApprovalDao {
 
 	// 결재
 	@Override
-	public int diciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.update("approval.dicisionUpdate", dataMap);
+	public int deciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		
+		int result = sqlSessionTemplate.update("approval.decisionUpdate", dataMap);
+		
+		log.info("결정 업데이트 결과 : {}", result);
+		
+		if(dataMap.containsValue("instruction")) {
+			result *= sqlSessionTemplate.update("approval.instructionUpdate", dataMap);
+		}
+		
+		return result;
 	}
-
-	// 결재 + 품의서 지시사항 추가
-	@Override
-	public int addInstruction(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.update("approval.instructionUpdate", dataMap);
-	}
+	
 }

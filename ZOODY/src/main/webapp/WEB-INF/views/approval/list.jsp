@@ -85,9 +85,9 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="detail-btn">
+                        <a href="${root}/approval/detail?no=${approvalVo.no}" class="detail-btn">
                             상세 조회
-                        </button>
+                        </a>
                     </div>
 
                 </c:forEach>

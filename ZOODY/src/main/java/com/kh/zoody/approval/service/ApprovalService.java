@@ -58,6 +58,6 @@ public interface ApprovalService {
 	List<ApproverVo> getCc(String no);
 
 	// 결재
-	int diciseApproval(Map<String, String> dataMap);
+	int deciseApproval(Map<String, String> dataMap);
 
 }
