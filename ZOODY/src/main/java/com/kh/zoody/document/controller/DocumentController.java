@@ -81,7 +81,7 @@ public class DocumentController {
 		
 		
 		model.addAttribute("map", map);
-		model.addAttribute("documentType", "전사 문서");
+		model.addAttribute("scope", scope);
 		model.addAttribute("directoryList", directoryList);
 		
 		return "document/list";
@@ -91,6 +91,7 @@ public class DocumentController {
 
 	@PostMapping(value = "upload",
 			produces="application/json;charset=UTF-8")
+	@ResponseBody
 	public String uploadDocument(
 					@RequestParam("file") MultipartFile file,
 					DocumentVo vo,
@@ -110,7 +111,7 @@ public class DocumentController {
         try {
         	
             // 업로드된 파일을 저장할 디렉토리 설정
-            String saveFile = root+"\\document\\"+ vo.getUserNo(); // 원하는 디렉토리 경로로 변경 가능
+            String saveFile = root+"\\document\\"+ vo.getUserNo() + "\\" + vo.getDirectoryNo(); // 원하는 디렉토리 경로로 변경 가능
             // root(resources) +  document + loginMemberId + 디렉토리 번호(no)
         	
             
@@ -138,8 +139,9 @@ public class DocumentController {
          
             
             vo.setFileName(fileNameWithoutExtension);
-            vo.setExtension(fileNameWithoutExtension);
+            vo.setExtension(fileExtension);
             
+            log.info(vo+"");
             
             int result =  service.uploadFile(vo);
             log.info(result+"");
@@ -147,11 +149,14 @@ public class DocumentController {
             	return "uploadFailure";
 			}
             
-             DocumentVo documentList = service.getNewDocument(vo);
+            DocumentVo documentList = service.getNewDocument(vo);
             
-             Gson gson = new Gson();
              
-             String documentListJson = gson.toJson(documentList);
+            Gson gson = new Gson();
+             
+            String documentListJson = gson.toJson(documentList);
+             
+            log.info(documentListJson);
              
             return documentListJson; 
         } catch (IOException e) {

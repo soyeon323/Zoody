@@ -269,6 +269,7 @@ form#uploadForm {
                             </c:if>
                             <c:if test="${not empty loginMember.no}">
                                 <input id="hidden-id" type="text" name="userNo"  value="${loginMember.no}">
+                                <input id="hidden-id" type="text" name="name"  value="${loginMember.name}">
                             </c:if>
 
                             
