@@ -22,7 +22,7 @@ public class LoginService {
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	//로그인 
-	public UserVo login(UserVo vo) {
+	public UserVo login(UserVo vo ) {
 		
 		UserVo loginMember = dao.login(sst, vo);
 		
@@ -31,6 +31,7 @@ public class LoginService {
 		
 		log.info("dbPwd : {}",dbPwd);
 		log.info("userPWd : {}",userPwd);
+
 		
 		boolean isMatch = encoder.matches(userPwd, dbPwd);
 		if(!isMatch) {
@@ -38,4 +39,6 @@ public class LoginService {
 		}
 		return loginMember;
 	}
+	
+	
 }
