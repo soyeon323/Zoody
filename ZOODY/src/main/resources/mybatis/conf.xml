@@ -33,6 +33,8 @@
 		<typeAlias type="com.kh.zoody.approval.vo.DrafterVo" alias="DrafterVo" />
 		<typeAlias type="com.kh.zoody.approval.vo.LetterOfApprovalVo" alias="LetterOfApprovalVo"/>
 		<typeAlias type="com.kh.zoody.approval.vo.ApproverVo" alias="ApproverVo"/>
+		<typeAlias type="com.kh.zoody.mail.vo.MailAttachmentVo" alias="MailAttachmentVo"/>
+		<typeAlias type="com.kh.zoody.mail.vo.MailBoxVo" alias="MailBoxVo" />
 	</typeAliases>
 
 </configuration>

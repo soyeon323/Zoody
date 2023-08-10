@@ -95,3 +95,131 @@ function selectedMailDump() {
     })
     .catch( err => {})
 }
+
+
+const addBookmarkBtnArr = document.querySelectorAll('.add-bookmark-btn');
+
+addBookmarkBtnArr.forEach(element => {
+
+    const target = element;
+    
+    element.addEventListener('click', (event)=>{
+
+        if(target.value == 'X') {
+            fetch(contextPath + '/mail/bookmark/add?no=' + target.id)
+            .then((response)=>response.text())
+            .then((data)=>{
+
+                location.reload();
+
+            })
+            .catch( err => {})
+        } 
+        else if(target.value == 'O') {
+            fetch(contextPath + '/mail/bookmark/remove?no=' + target.id)
+            .then((response)=>response.text())
+            .then((data)=>{
+
+                location.reload();
+
+            })
+            .catch( err => {})
+        }
+    })
+});
+
+
+
+const allSelectBtn = document.querySelector('#select-all');
+
+allSelectBtn.addEventListener('click', ()=>{
+
+    const checkBoxArr = document.querySelectorAll('.small-check-btn');
+
+    if(allSelectBtn.checked == true) {
+        checkBoxArr.forEach(element=>{
+            element.checked = true;
+        }); 
+    } else if(allSelectBtn.checked == false) {
+        checkBoxArr.forEach(element=>{
+            element.checked = false;
+        });    
+    }
+    
+});
+
+
+
+
+
+const folderAddbtn = document.querySelector('.folder-add-btn');
+
+folderAddbtn.addEventListener('click', ()=>{
+
+    const folderListArea = document.querySelector('.custom-folder-list');
+
+    const customFolder = document.createElement('div');
+    customFolder.classList.add('custom-folder');
+
+    const folderImg = document.createElement('img');
+    folderImg.src = contextPath + '/resources/img/icon/svg/folder.svg';
+
+
+    const folderNameInput = document.createElement('input');
+
+
+    const deleteFolderBtn = document.createElement('img');
+    deleteFolderBtn.src = contextPath + '/resources/img/icon/svg/small-cross.svg';
+    deleteFolderBtn.classList.add('folder-delete-btn');
+
+    customFolder.append(folderImg);
+    customFolder.append(folderNameInput);
+    customFolder.append(deleteFolderBtn);
+
+    folderListArea.append(customFolder);
+
+
+    folderNameInput.addEventListener('focusout', (event)=>{
+
+        const nameInput = event.currentTarget;
+
+        fetch(contextPath + '/mail/folder/create?name=' + nameInput.value)
+        .then(response=>response.text())
+        .then((data)=>{
+
+            if(data == 1) {
+                location.reload();
+            }
+
+        })
+        .catch(err=>{})
+
+    })
+
+});
+
+
+
+
+const folderDeleteBtnArr = document.querySelectorAll('.folder-delete-btn');
+
+folderDeleteBtnArr.forEach(element=>{
+
+    element.addEventListener('click', ()=>{
+
+        console.log(element.parentNode.id);
+
+        fetch(contextPath + 'mail/foler/delete?no=' + element.parentNode.id)
+        .then(response=>response.text())
+        .then((data)=>{
+
+            if(data == 1) {
+                location.reload();
+            }
+
+        })
+        .catch(err=>{})
+
+    })
+
+});

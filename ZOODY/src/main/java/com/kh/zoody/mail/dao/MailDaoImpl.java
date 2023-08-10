@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.mail.vo.MailAttachmentVo;
+import com.kh.zoody.mail.vo.MailBoxVo;
 import com.kh.zoody.mail.vo.MailCcVo;
 import com.kh.zoody.mail.vo.MailRecipientVo;
 import com.kh.zoody.mail.vo.MailVo;
@@ -26,7 +28,7 @@ public class MailDaoImpl implements MailDao {
 			List<String> receiverEmailAddress, 
 			List<String> ccEmailAddress, 
 			List<String> bccEmailAddress,
-			List<MultipartFile> attachmentFileList, 
+			List<MailAttachmentVo> mailAttachmentVoList, 
 			MailVo mailVo, 
 			SqlSessionTemplate sqlSessionTemplate) {
 		
@@ -36,8 +38,11 @@ public class MailDaoImpl implements MailDao {
 		
 		
 		// 첨부파일 저장.
-		if(attachmentFileList.size() > 1) {
-			insertMailResult *= sqlSessionTemplate.insert("mail.insertAttachment", attachmentFileList);			
+		if(mailAttachmentVoList.size() > 1) {
+			for(int i = 0; i < mailAttachmentVoList.size(); i++) {
+				mailAttachmentVoList.get(i).setMailNo(mailVo.getNo());
+			}
+			insertMailResult *= sqlSessionTemplate.insert("mail.insertAttachment", mailAttachmentVoList);			
 		}
 		
 		
@@ -132,9 +137,6 @@ public class MailDaoImpl implements MailDao {
 	}
 	// 상세보기한 메일 읽음 체크
 	public int readCheck(Map<String, String> readMail, SqlSessionTemplate sqlSessionTemplate) {
-		
-		log.info("메일 정보 : {}", readMail);
-		
 		return sqlSessionTemplate.update("mail.readCheck", readMail);
 	}
 
@@ -163,6 +165,60 @@ public class MailDaoImpl implements MailDao {
 	// 메일 리스트 삭제
 	public int mailListDump(List<Map<String, String>> selectedToDumpMailNoList, SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.update("mail.mailListDump", selectedToDumpMailNoList);
+	}
+
+
+	// 첨부파일 가져오기
+	@Override
+	public List<MailAttachmentVo> getMailAttachmentListByNo(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("mail.getMailAttachmentListByMailNo", no);
+	}
+
+
+	// 휴지통 메일 리스트 가져오기
+	@Override
+	public List<MailVo> getDumpMail(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("mail.getDumpMailList", mail);
+	}
+
+
+	// 중요 메일 리스트 가져오기
+	@Override
+	public List<MailVo> getBookmarkMail(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("mail.getBookmarkMailList", mail);
+	}
+
+
+	// 중요 체크하기
+	@Override
+	public int addBookmark(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.update("mail.addBookmark", dataMap);
+	}
+
+
+	// 받은 메일 총 갯수
+	@Override
+	public String getAllReceiveMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getReceiveMailCnt", mail);
+	}
+
+	// 중요 체크해제
+	@Override
+	public int removeBookmark(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.update("mail.removeBookmark", dataMap);
+	}
+
+
+	// 메일함 생성
+	@Override
+	public int createFolder(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.insert("mail.createFolder", dataMap);
+	}
+
+	// 메일함 가져오기
+	@Override
+	public List<MailBoxVo> getMailBoxList(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("mail.getFolderList", no);
 	}
 	
 }

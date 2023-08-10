@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.mail.vo.MailAttachmentVo;
+import com.kh.zoody.mail.vo.MailBoxVo;
 import com.kh.zoody.mail.vo.MailVo;
 import com.kh.zoody.user.vo.UserVo;
 
@@ -15,7 +17,7 @@ public interface MailService {
 			List<String> receiverEmailAddress, 
 			List<String> ccEmailAddress, 
 			List<String> bccEmailAddress,
-			List<MultipartFile> attachmentFileList, 
+			List<MailAttachmentVo> mailAttachmentVoList, 
 			MailVo mailVo);
 
 	
@@ -64,6 +66,30 @@ public interface MailService {
 	// 모든 메일 갯수
 	String getAllMailCount(String mail);
 
+	// 첨부파일 가져오기
+	List<MailAttachmentVo> getMailAttachmentListByMailNo(String no);
 
+
+	// 삭제한 메일 리스트 가져오기
+	List<MailVo> getDumpMail(String mail);
+
+	// 중요 메일 리스트 가져오기
+	List<MailVo> getBookmarkMail(String mail);
+
+	// 중요 체크하기
+	int addBookmark(Map<String, String> dataMap);
+
+	// 받은 메일 총 갯수
+	String getAllReceiveMailCnt(String mail);
+
+	// 중요 체크해제
+	int removeBookmark(Map<String, String> dataMap);
+
+
+	// 메일함 생성
+	int createFolder(Map<String, String> dataMap);
+
+	// 메일함 목록 가져오기
+	List<MailBoxVo> getMailBoxList(String no);
 	
 }

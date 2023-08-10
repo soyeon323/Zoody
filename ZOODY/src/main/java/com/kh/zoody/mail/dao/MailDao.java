@@ -6,6 +6,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zoody.mail.vo.MailAttachmentVo;
+import com.kh.zoody.mail.vo.MailBoxVo;
 import com.kh.zoody.mail.vo.MailRecipientVo;
 import com.kh.zoody.mail.vo.MailVo;
 import com.kh.zoody.user.vo.UserVo;
@@ -17,7 +19,7 @@ public interface MailDao {
 			List<String> receiverEmailAddress, 
 			List<String> ccEmailAddress, 
 			List<String> bccEmailAddress,
-			List<MultipartFile> attachmentFileList, 
+			List<MailAttachmentVo> mailAttachmentVoList, 
 			MailVo mailVo, 
 			SqlSessionTemplate sqlSessionTemplate);
 	
@@ -66,6 +68,34 @@ public interface MailDao {
 
 	// 모든 메일 갯수
 	String getAllMailCount(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+
+	// 첨부파일 가져오기
+	List<MailAttachmentVo> getMailAttachmentListByNo(String no, SqlSessionTemplate sqlSessionTemplate);
+
+
+	// 휴지통 메일 리스트 가져오기
+	List<MailVo> getDumpMail(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 중요 메일 리스트 가져오기
+	List<MailVo> getBookmarkMail(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 중요 체크하기
+	int addBookmark(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+
+	// 받은 메일 총 갯수
+	String getAllReceiveMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 중요 체크해제
+	int removeBookmark(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+
+	// 메일함 생성
+	int createFolder(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+	// 메일함 가져오기
+	List<MailBoxVo> getMailBoxList(String no, SqlSessionTemplate sqlSessionTemplate);
 
 	
 

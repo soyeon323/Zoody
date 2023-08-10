@@ -33,8 +33,10 @@
 							안읽음 ${unread}
 						</div>
 						<button class="my-important-btn">
-							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
-							중요
+							<a href="${root}/mail/list?folder=bookmark" class="my-important-btn">
+								<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
+								중요
+							</a>
 						</button>
 					</div>
 
@@ -63,17 +65,18 @@
 
 					<div class="custom-list-header">
 						내 메일함
-						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가">
+						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가" class="folder-add-btn">
 					</div>
 					<div class="custom-folder-list">
-						<div class="custom-folder">
-							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
-							{폴더명}
-						</div>
-						<div class="custom-folder">
-							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
-							{새폴더2}
-						</div>
+						<c:forEach items="${mailBoxList}" var="mailBox" >
+
+							<div class="custom-folder" id="${mailBox.no}">
+								<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
+								<div class="folder-name">${mailBox.name}</div>
+								<img src="${root}/resources/img/icon/svg/small-cross.svg" alt="삭제" class="folder-delete-btn">
+							</div>
+
+						</c:forEach>
 					</div>
 
 				</div>
@@ -82,12 +85,12 @@
 					<div class="mail-list-header">
 						<div class="list-header-left">
 							<div class="list-header-title">
-								받은 메일함
+								메일
 							</div>
 							<div class="unread-receive">
 								<div class="unread-count">${unread}</div>
 								/
-								<div class="receive-count">${allMailCount}</div>
+								<div class="receive-count">${mailCount}</div>
 							</div>
 						</div>
 						
@@ -123,8 +126,13 @@
 									<label for="mailcheck" id="${mailVo.no}"></label>
 								</div>
 								<div class="add-bookmark-area">
-									<button class="add-bookmark-btn">
-										<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
+									<button class="add-bookmark-btn" id="${mailVo.no}" value="${mailVo.bookmarkCheck}">
+										<c:if test="${mailVo.bookmarkCheck eq 'X' }">
+											<img src="${root}/resources/img/icon/svg/small-star.svg" alt="즐겨찾기">
+										</c:if>
+										<c:if test="${mailVo.bookmarkCheck eq 'O' }">
+											<img src="${root}/resources/img/icon/svg/active-small-star.svg" alt="즐겨찾기">
+										</c:if>
 									</button>
 								</div>
 								<div class="read-check-icon">
@@ -136,7 +144,9 @@
 									</c:if>
 								</div>
 								<div class="attachment-check-icon">
-									<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
+									<c:if test="${mailVo.mailAttachmentCnt ne null}">
+										<img src="${root}/resources/img/icon/svg/attachment.svg" alt="첨부파일">
+									</c:if>
 								</div>
 								<div class="mail-sender">
 									${mailVo.senderName} &lt ${mailVo.senderMail } &gt

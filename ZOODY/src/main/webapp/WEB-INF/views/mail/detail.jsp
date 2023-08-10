@@ -28,7 +28,7 @@
 				<div class="mail-sidebar">
 					<div class="mail-sidebar-header">
 						<div class="unread-count">
-							안읽음 {7}
+							안읽음 ${unread}
 						</div>
 						<button class="my-important-btn">
 							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
@@ -83,12 +83,12 @@
 								<button class="back-btn">
 									<img src="${root}/resources/img/icon/svg/right-direction.svg" alt="뒤로">
 								</button>
-								받은 메일함
+								메일
 							</div>
 							<div class="unread-receive">
-								<div class="unread-count">{14}</div>
+								<div class="unread-count">${unread}</div>
 								/
-								<div class="receive-count">{999}</div>
+								<div class="receive-count">${mailCount}</div>
 							</div>
 						</div>
 					</div>
@@ -150,22 +150,20 @@
 
 						<div class="attachment-area">
 							<div class="attachment-text">첨부 파일</div>
-							<div class="attachment-elem">
-								<button class="download-attachment-btn">
-									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
-								</button>
-								<div class="attachment-name">
-									{ 2023년 하반기 퇴직희망자 명단.xlsx }
-								</div>
-							</div>
-							<div class="attachment-elem">
-								<button class="download-attachment-btn">
-									<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
-								</button>
-								<div class="attachment-name">
-									{ 2023년 하반기 퇴직희망자 명단.hwp }
-								</div>
-							</div>
+							
+							<c:forEach items="${mailAttachmentVoList}" var="attachmentVo" >
+							
+								<a class="attachment-elem" href="${root}/mail/download/attachment?name=${attachmentVo.changeName}">
+									<button class="download-attachment-btn">
+										<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="다운로드">
+									</button>
+									<div class="attachment-name">
+										${ attachmentVo.originName }
+									</div>
+								</a>
+							
+							</c:forEach>
+							
 						</div>
 						
 						

@@ -9,3 +9,11 @@ window.onload = () => {
     .then( (data) => {})
     .catch( err => {})
 }
+
+
+const attachmentDownload = document.querySelector('.attachment-elem');
+attachmentDownload.addEventListener('click', ()=>{
+
+    
+
+});
