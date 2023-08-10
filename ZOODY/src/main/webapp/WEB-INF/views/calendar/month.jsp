@@ -330,7 +330,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">장소</label>
-                                <input class="inputModal" type="text" name="edit-place" id="edit-place"
+                                <input class="inputModal" type="text" name="edit-location" id="edit-location"
                                     />
                             </div>
                         </div>
@@ -353,7 +353,7 @@
                                     <option value="0">개인</option>
                                     <option value="1">부서</option>
                                     <option value="2">회사</option>
-                                    <option value="3">회의</option>
+                                    <!-- <option value="3">회의</option> -->
                                 </select>
                             </div>
                         </div>
@@ -460,9 +460,12 @@
                   var username = event.extendedProps.username;
                   var description = event.extendedProps.description;
                   var type = event.extendedProps.type;
+                  var location = event.extendedProps.location;
 
                   var formatStart = moment(start).format("YYYY-MM-DD HH시 mm분");
                   var formatEnd = end ? moment(end).format("YYYY-MM-DD HH시 mm분") : "-"; // null인 경우 '-' 표시
+                  var formatDescription = description ? description : "-";
+                  var formatPlace = location ? location : "-";
 
                   var currentPopover = $('.popover');
                     if (currentPopover.length) {
@@ -474,10 +477,10 @@
                     title: '<div class="popoverTitleCalendar" >' + title + '</div>',
                     content: '<div class="popoverInfoCalendar">' +
                               '<p><strong>작성자 : </strong> ' + username + '</p>' +
-                              '<p><strong>카테고리 : </strong> ' + type + '</p>' +
+                              '<p><strong>장소 : </strong> ' + formatPlace + '</p>' +
                               '<p><strong>시작시간 : </strong> ' + formatStart + '</p>' +
                               '<p><strong>종료시간 : </strong> ' + formatEnd + '</p>' +
-                              '<div class="popoverDescCalendar">' + description + '</div>' +
+                              '<div class="popoverDescCalendar">' + formatDescription + '</div>' +
                               '</div>',
                     trigger: 'manual',
                     placement: 'top',
@@ -540,7 +543,7 @@
                   var event = info.event;
                   var allDay = event.allDay;
                   var _id = event.id;
-                  var place = event.place;
+                  var location = event.extendedProps.location;
                   var start = event.start;
                   var end = event.end;
                   var title = event.title;
@@ -548,9 +551,11 @@
                   var description = event.extendedProps.description;
                   var type = event.extendedProps.type;
 
+                  
+
                   var formatStart = moment(start).format("YYYY/MM/DD HH:mm");
                   var formatEnd = end ? moment(end).format("YYYY/MM/DD HH:mm") : "-";
-                  var formatPlace = place ? place : "-";
+                  var formatPlace = location ? location : "-";
 
                   addBtnContainer.hide();
                   modifyBtnContainer.show();
@@ -564,7 +569,7 @@
                   // $('#edit-allDay').val(allDay)
                   $('#edit-id').val(_id);
                   $('#edit-title').val(title);
-                  $('#edit-place').val(place);
+                  $('#edit-location').val(formatPlace);
                   $('#edit-start').val(formatStart);
                   $('#edit-end').val(formatEnd);
                   $('#edit-desc').val(description);
@@ -656,7 +661,7 @@
       // 모달의 입력 값을 가져옴
       var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
       var title = $('#edit-title').val();
-      var place = $('#edit-place').val();
+      var location = $('#edit-location').val();
       var startTime = $('#edit-start').val();
       var endTime = $('#edit-end').val();
       var typeNo = $('#edit-type').val();
@@ -665,7 +670,7 @@
       var eventData = {
         allDay: allDay,
         title: title,
-        place: place,
+        location: location,
         startTime: startTime,
         endTime: endTime,
         typeNo: typeNo,
@@ -693,7 +698,7 @@
       var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
       var id = $('#edit-id').val();
       var title = $('#edit-title').val();
-      var place = $('#edit-place').val();
+      var location = $('#edit-location').val();
       var startTime = $('#edit-start').val();
       var endTime = $('#edit-end').val();
       var typeNo = $('#edit-type').val();
@@ -706,7 +711,7 @@
         no : id,
         allDay: allDay,
         title: title,
-        place: place,
+        location: location,
         startTime: startTime,
         endTime: endTime,
         typeNo: typeNo,

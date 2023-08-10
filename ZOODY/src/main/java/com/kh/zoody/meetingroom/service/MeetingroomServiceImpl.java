@@ -156,4 +156,24 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 		return dao.addReserveInfoToCalendar(sst, mrv);
 	}
 
+	@Override
+	public int checkReserve(MeetingroomReservationVo mrv) {
+		return dao.checkReserve(sst, mrv);
+	}
+
+	@Override
+	public int mtStop(String no) {
+		return dao.mtStop(sst, no);
+	}
+
+	@Override
+	public int mtNormal(String no) {
+		return dao.mtNormal(sst, no);
+	}
+
+	@Override
+	public List<MeetingroomReservationVo> selectReserveList(String userNo) {
+		return dao.selectReserveList(sst, userNo);
+	}
+
 }

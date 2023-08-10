@@ -168,7 +168,7 @@ public class AttendanceController {
 	public ResponseEntity<String> workStatus(@RequestParam String action, HttpSession session, Model model) {
 	    try {
 	    	
-	    	log.info("@@@@@@@@@@ : " + action);
+//	    	log.info("@@@@@@@@@@ : " + action);
 	    	
 	    	
 	    	UserVo loginMember = (UserVo) session.getAttribute("loginMember");

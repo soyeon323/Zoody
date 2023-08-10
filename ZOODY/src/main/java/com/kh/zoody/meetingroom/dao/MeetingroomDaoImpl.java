@@ -86,5 +86,25 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 		return sst.insert("meetingroom.addReserveInfoToCalendar", mrv);
 	}
 
+	@Override
+	public int checkReserve(SqlSessionTemplate sst, MeetingroomReservationVo mrv) {
+		return sst.selectOne("meetingroom.checkReserve", mrv);
+	}
+
+	@Override
+	public int mtStop(SqlSessionTemplate sst, String no) {
+		return sst.update("meetingroom.mtStop", no);
+	}
+
+	@Override
+	public int mtNormal(SqlSessionTemplate sst, String no) {
+		return sst.update("meetingroom.mtNormal", no);
+	}
+
+	@Override
+	public List<MeetingroomReservationVo> selectReserveList(SqlSessionTemplate sst, String userNo) {
+		return sst.selectList("meetingroom.selectReserveList", userNo);
+	}
+
 
 }

@@ -19,7 +19,7 @@
 		    ,CHANGE_NAME
 		    ,CAPACITY
 		FROM MEETINGROOM
-		WHERE STATUS = 'O'
+		WHERE STATUS IN ('O', 'S')
 	</select>
 	
 	<!-- 회의실 추가 -->
@@ -31,6 +31,18 @@
 	<update id="mtDelete">
 		UPDATE MEETINGROOM
 		SET STATUS = 'X'
+		WHERE NO = #{no}
+	</update>
+	
+	<update id="mtStop">
+		UPDATE MEETINGROOM
+		SET STATUS = 'S'
+		WHERE NO = #{no}
+	</update>
+	
+	<update id="mtNormal">
+		UPDATE MEETINGROOM
+		SET STATUS = 'O'
 		WHERE NO = #{no}
 	</update>
 	
@@ -46,7 +58,7 @@
 		    ,CHANGE_NAME
 		    ,CAPACITY
 		FROM MEETINGROOM
-		WHERE STATUS = 'O'
+		WHERE STATUS IN ('O', 'S')
 		AND NO = #{no}
 	</select>
 	
@@ -120,6 +132,15 @@
 		AND STATUS = 0
 	</select>
 	
+	<select id="checkReserve" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETINGROOM_RESERVATION
+		WHERE MEETINGROOM_NO = #{meetingroomNo}
+		AND "DATE" = #{date}
+		AND START_TIME = #{startTime}
+		AND STATUS = 0
+	</select>
+	
 	<insert id="addReserveInfoToCalendar">
 		INSERT INTO CALENDAR (
 		        "NO",
@@ -139,7 +160,7 @@
 		        #{userNo},
 		        3,
 		        NULL,
-		        '회의 일정',
+		        '회의',
 		        NULL,
 		        CASE 
 		            WHEN #{startTime} BETWEEN 9 AND 12 THEN TO_TIMESTAMP(#{date} || ' ' || LPAD(#{startTime}, 2, '0') || ':00', 'YYYY-MM-DD HH24:MI')
@@ -154,6 +175,33 @@
 		        0
 		    )
 	</insert>
+	
+	<select id="selectReserveList" resultType="com.kh.zoody.meetingroom.vo.MeetingroomReservationVo">
+		SELECT
+		    MR.NO
+		    ,MR.MEETINGROOM_NO
+		    ,MR.USER_NO
+		    ,TO_CHAR(MR."DATE", 'YYYY-MM-DD') AS "DATE"
+		    ,
+		    CASE
+		    	WHEN MR.START_TIME BETWEEN 9 AND 12 THEN (LPAD(MR.START_TIME, 2, '0') || ':00')
+		    	WHEN MR.START_TIME BETWEEN 1 AND 5 THEN (LPAD(MR.START_TIME + 12, 2, '0') || ':00')
+		    END AS START_TIME
+		    ,
+		    CASE
+		        WHEN MR.START_TIME BETWEEN 9 AND 12 THEN (LPAD(MR.START_TIME + 1, 2, '0') || ':00')
+		        WHEN MR.START_TIME BETWEEN 1 AND 5 THEN (LPAD(MR.START_TIME + 13, 2, '0') || ':00')
+		    END AS END_TIME
+		    ,MR.STATUS
+		    ,M.NAME
+		FROM MEETINGROOM_RESERVATION MR
+		JOIN "USER" U
+		ON MR.USER_NO = U.NO
+		JOIN MEETINGROOM M
+		ON M.NO = MR.MEETINGROOM_NO
+		WHERE MR.USER_NO = #{userNo}
+		AND MR.STATUS = 0 
+	</select>
 
   
 </mapper>

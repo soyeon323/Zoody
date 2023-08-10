@@ -34,5 +34,13 @@ public interface MeetingroomService {
 
 	int addReserveInfoToCalendar(MeetingroomReservationVo mrv);
 
+	int checkReserve(MeetingroomReservationVo mrv);
+
+	int mtStop(String no);
+
+	int mtNormal(String no);
+
+	List<MeetingroomReservationVo> selectReserveList(String userNo);
+
 
 }

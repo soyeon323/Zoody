@@ -87,6 +87,7 @@ public class CalendarController {
 			hash.put("id", listAll.get(i).get("NO"));
 			hash.put("allDay", listAll.get(i).get("ALL_DAY"));
 			hash.put("color", listAll.get(i).get("COLOR"));
+			hash.put("location", listAll.get(i).get("PLACE"));
 //			hash.put("typeNo", listAll.get(i).get("CURRENT_NO"));
 			
 			jsonObj = new JSONObject(hash);
