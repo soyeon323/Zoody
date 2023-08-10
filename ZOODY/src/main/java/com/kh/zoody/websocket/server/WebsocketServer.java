@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -42,7 +44,7 @@ public class WebsocketServer extends TextWebSocketHandler{
 	
 	//메세지 받았을 때 동작
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {		
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {	
 		Gson gson = new Gson();
 		HashMap<String, String> msgVo = gson.fromJson(message.getPayload(), HashMap.class);
 		String nick = msgVo.get("nick");
@@ -60,7 +62,7 @@ public class WebsocketServer extends TextWebSocketHandler{
 		map.put(projectNo, noList);
 		
 		log.info("map : {}", map);
-
+		
         for (WebSocketSession s : sessionSet) {
             s.sendMessage(new TextMessage(jsonMsg));
         }
