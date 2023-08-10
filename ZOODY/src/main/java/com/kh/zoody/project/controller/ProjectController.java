@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,8 +66,6 @@ public class ProjectController {
 	    map.put("no2List", no2List);
 	    map.put("no3List", no3List);
 	    
-	    log.info("map : {}", map);
-	    
 	    model.addAttribute("voList", voList);
 	    model.addAttribute("prjList", prjList);
 	    model.addAttribute("map", map);
@@ -107,7 +107,7 @@ public class ProjectController {
 	
 	//프로젝트 상세화면
 	@GetMapping("detail")
-	public void detail(String title, Model model) {
+	public void detail(String title, Model model, HttpSession session) {
 		List<NoticeVo> noticeList = ps.getNoticeList(new PageVo(4, 1, 1, 4));
 		List<SuggestionVo> suggestionList = ps.getSuggestionList(new PageVo(4, 1, 1, 4));
 		
@@ -124,13 +124,10 @@ public class ProjectController {
 		//프로젝트 참여한 멤버no 가져오기
 		List<String> noList = ps.selectUserNo(prjVoList.get(0).getNo());
 		
-		log.info("noList : {}", noList);
-		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("suggestionList", suggestionList);
 		model.addAttribute("prjVoList", prjVoList);
 		model.addAttribute("todoList", todoList);
-		model.addAttribute("noList", noList);
 	}
 	
 	@PostMapping("detail")
@@ -168,9 +165,7 @@ public class ProjectController {
 	
 	//프로젝트 할일 삭제
 	@PostMapping("todo/delete")
-	public void todoDelete(String no) {
-		log.info("no : {}", no);
-		
+	public void todoDelete(String no) {		
 		int result = ps.todoDelete(no);
 		
 		if(result != 1) {
