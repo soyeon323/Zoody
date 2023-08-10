@@ -40,5 +40,7 @@ public interface MeetingroomDao {
 
 	List<MeetingroomReservationVo> selectReserveList(SqlSessionTemplate sst, String userNo);
 
+	int unReserve(SqlSessionTemplate sst, String resNo);
+
 
 }

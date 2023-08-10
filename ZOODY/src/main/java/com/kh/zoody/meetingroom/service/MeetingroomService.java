@@ -42,5 +42,7 @@ public interface MeetingroomService {
 
 	List<MeetingroomReservationVo> selectReserveList(String userNo);
 
+	int unReserve(String resNo);
+
 
 }

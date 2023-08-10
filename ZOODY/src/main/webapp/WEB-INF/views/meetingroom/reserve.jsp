@@ -54,28 +54,31 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body small">
-                    <table class="table table-striped myReserveList">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">예약일</th>
-                            <th scope="col">회의실</th>
-                            <th scope="col">예약시간</th>
-                            <th scope="col">상태</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<c:forEach items="${reserveList}" var="res">
-	                          <tr>
-	                            <th scope="row">${res.no}</th>
-	                            <td>${res.date}</td>
-	                            <td>${res.name}</td>
-	                            <td>${res.startTime} ~ ${res.endTime}</td>
-	                            <td><button type="button" class="btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">예약 취소</button></td>
-	                          </tr>
-                        	</c:forEach>
-                        </tbody>
-                      </table>
+                    <div class="overflow-auto">
+
+                        <table class="table table-striped myReserveList">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">예약일</th>
+                                    <th scope="col">회의실</th>
+                                    <th scope="col">예약시간</th>
+                                    <th scope="col">상태</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${reserveList}" var="res">
+                                    <tr>
+                                        <th scope="row">${res.no}</th>
+                                        <td>${res.date}</td>
+                                        <td>${res.name}</td>
+                                        <td>${res.startTime} ~ ${res.endTime}</td>
+                                        <td><button data-res-no="${res.no}" type="button" class="btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="unReserve()">예약 취소</button></td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -213,32 +216,36 @@
         </div>
     </div>
 
-    <!-- <script>
-        $('.offcanvas').offcanvas('show');
-        $('.offcanvas').offcanvas('hide');
-
-        $('.offcanvas').on('show.bs.offcanvas', function() {
-            console.log(1)
-        });
-
-        // 닫았을 때 이벤트
-        $('.offcanvas').on('hide.bs.offcanvas', function() {
-            console.log(1)
-        })
-
-        // 자바스크립트는 이런식으로 써야함
-        var allOffcanvas = document.querySelectorAll('.offcanvas');
-        for (var i = 0; i < allOffcanvas.length; i++) {
-            allOffcanvas[i].addEventListener('hide.bs.offcanvas', function () {
-                console.log(1);
-            });
-        };
-    </script> -->
-
     <script>
+        $(document).ready(function() {
+            $(".btn-outline-success").click(function() {
+                var resNo = $(this).data("res-no");
 
+                console.log(resNo);
+                
+                $.ajax({
+                    type: "POST",
+                    url: "${root}/meetingroom/unReserve",
+                    data: { resNo: resNo },
+                    success: function(data) {
 
+                        if(data == "Y"){
+                            alert("예약 취소 완료")
+                        } else {
+                            alert("예약 취소 실패")
+                        }
+                        console.log(data);
+                        location.reload();
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
     </script>
+
 
     <script>
         // 모든 .card 요소 선택

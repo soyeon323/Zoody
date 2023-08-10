@@ -176,4 +176,9 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 		return dao.selectReserveList(sst, userNo);
 	}
 
+	@Override
+	public int unReserve(String resNo) {
+		return dao.unReserve(sst, resNo);
+	}
+
 }
