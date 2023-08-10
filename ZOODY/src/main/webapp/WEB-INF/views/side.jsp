@@ -80,8 +80,8 @@
         <li>
             <a href="#">전자 결재</a>
             <ul>
-            <li><a href="${root}/approval/main-page">전자메일 목록 </a></li>
-            <li><a href="${root}/approval/write/letter-of-approval">전자결재 작성 </a></li>
+            <li><a href="${root}/approval/list">전자메일 목록 </a></li>
+            <li><a href="${root}/approval/write/1">전자결재 작성 </a></li>
             </ul>
         </li>
         <li>
