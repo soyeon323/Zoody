@@ -202,6 +202,24 @@
 		WHERE MR.USER_NO = #{userNo}
 		AND MR.STATUS = 0 
 	</select>
+	
+	<update id="unReserve">
+		UPDATE MEETINGROOM_RESERVATION
+		SET STATUS = 1
+		WHERE NO = #{resNo}
+	</update>
 
+	<!-- 예약 취소되면 캘린더에 반영하기 -->
+<!-- 	<update id="">
+		UPDATE "CALENDAR" C
+		SET C."STATUS" = 1
+		WHERE EXISTS (
+		    SELECT 1
+		    FROM "MEETINGROOM_RESERVATION" M
+		    WHERE TO_CHAR(C."START_TIME", 'YYYY-MM-DD HH24:MI') = '2023-08-23 15:00'
+		    AND C."TYPE_NO" = 3
+		    AND M."STATUS" = 1
+		);
+	</update> -->
   
 </mapper>

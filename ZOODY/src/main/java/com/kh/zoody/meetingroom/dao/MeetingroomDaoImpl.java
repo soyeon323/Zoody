@@ -106,5 +106,10 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 		return sst.selectList("meetingroom.selectReserveList", userNo);
 	}
 
+	@Override
+	public int unReserve(SqlSessionTemplate sst, String resNo) {
+		return sst.update("meetingroom.unReserve", resNo);
+	}
+
 
 }

@@ -75,6 +75,23 @@ public class MeetingroomController {
 		return "meetingroom/reserve";
 	}
 	
+	@PostMapping("unReserve")
+	@ResponseBody
+	public String unReserve(@RequestParam String resNo) {
+		
+		String result = null;
+		
+		int flag = ms.unReserve(resNo);
+		
+		if (flag == 1) {
+			result = "Y";
+		}else {
+			result = "N";
+		}
+		
+		return result;
+	}
+	
 	@PostMapping("check")
 	@ResponseBody
 	public String checkTime(@RequestParam(value = "meetingroomNo", required=false) String meetingroomNo, @RequestParam(value = "date", required=false) String date
