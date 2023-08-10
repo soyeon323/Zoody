@@ -18,5 +18,7 @@ public class MailVo {
 	
 	private String readCheck;
 	private String deleteCheck;
+	private String bookmarkCheck;
 	private String receiverNo;
+	private String mailAttachmentCnt;
 }

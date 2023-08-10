@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.zoody.mail.dao.MailDao;
+import com.kh.zoody.mail.vo.MailAttachmentVo;
+import com.kh.zoody.mail.vo.MailBoxVo;
 import com.kh.zoody.mail.vo.MailRecipientVo;
 import com.kh.zoody.mail.vo.MailVo;
 import com.kh.zoody.user.vo.UserVo;
@@ -32,14 +34,14 @@ public class MailServiceImpl implements MailService{
 			List<String> receiverEmailAddress, 
 			List<String> ccEmailAddress, 
 			List<String> bccEmailAddress,
-			List<MultipartFile> attachmentFileList, 
+			List<MailAttachmentVo> mailAttachmentVoList, 
 			MailVo mailVo) {
 		
 		return mailDao.sendMail(
 				receiverEmailAddress,
 				ccEmailAddress, 
 				bccEmailAddress,
-				attachmentFileList, 
+				mailAttachmentVoList, 
 				mailVo,
 				sqlSessionTemplate
 				);
@@ -123,6 +125,62 @@ public class MailServiceImpl implements MailService{
 	@Override
 	public int mailListDump(List<Map<String, String>> selectedToDumpMailNoList) {
 		return mailDao.mailListDump(selectedToDumpMailNoList, sqlSessionTemplate);
+	}
+
+
+	// 첨부파일 가져오기
+	@Override
+	public List<MailAttachmentVo> getMailAttachmentListByMailNo(String no) {
+		return mailDao.getMailAttachmentListByNo(no, sqlSessionTemplate);
+	}
+
+
+	// 휴지통 메일 리스트 가져오기
+	@Override
+	public List<MailVo> getDumpMail(String mail) {
+		return mailDao.getDumpMail(mail, sqlSessionTemplate);
+	}
+
+
+	// 중요 메일 리스트 가져오기
+	@Override
+	public List<MailVo> getBookmarkMail(String mail) {
+		return mailDao.getBookmarkMail(mail, sqlSessionTemplate);
+	}
+
+
+	// 중요 체크하기
+	@Override
+	public int addBookmark(Map<String, String> dataMap) {
+		return mailDao.addBookmark(dataMap, sqlSessionTemplate);
+	}
+
+
+	// 받은 메일 총 갯수
+	@Override
+	public String getAllReceiveMailCnt(String mail) {
+		return mailDao.getAllReceiveMailCnt(mail, sqlSessionTemplate);
+	}
+
+
+	// 중요 체크해제
+	@Override
+	public int removeBookmark(Map<String, String> dataMap) {
+		return mailDao.removeBookmark(dataMap, sqlSessionTemplate);
+	}
+
+
+	// 메일함 생성
+	@Override
+	public int createFolder(Map<String, String> dataMap) {
+		return mailDao.createFolder(dataMap, sqlSessionTemplate);
+	}
+
+
+	// 메일함 가져오기
+	@Override
+	public List<MailBoxVo> getMailBoxList(String no) {
+		return mailDao.getMailBoxList(no, sqlSessionTemplate);
 	}
 
 }

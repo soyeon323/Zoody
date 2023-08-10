@@ -29,7 +29,7 @@
 				<div class="mail-sidebar">
 					<div class="mail-sidebar-header">
 						<div class="unread-count">
-							안읽음 {7}
+							안읽음 ${unread}
 						</div>
 						<button class="my-important-btn">
 							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
