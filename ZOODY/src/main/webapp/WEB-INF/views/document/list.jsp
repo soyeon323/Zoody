@@ -10,15 +10,48 @@
 </head>
 <title>Insert title here</title>
 </head>
+<style>
+    .modal {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #ccccccab;
+        z-index: 99999999;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal > div {
+        .modal > div {
+        background-color: #fff;
+        max-height: 800;
+        max-width: 800;
+    }
+    }
+
+</style>
+
 <body>
 	<%@ include file="/WEB-INF/views/document/upload.jsp" %>
     <%@ include file="/WEB-INF/views/header.jsp" %>
+
+    <div class="modal">
+
+        <div>aa</div>
+
+    </div>
 
     <div id="wrap">
         <%@ include file="/WEB-INF/views/side.jsp" %>
         <div id="document-wrap">
 
-            <div class="document-header">${documentType}</div>
+            <div class="document-header">
+                <c:if test="${scope eq 1}">전사 문서</c:if>
+                <c:if test="${scope eq 2}">부서 문서</c:if>
+                <c:if test="${scope eq 3}">개인 문서 ></c:if>
+            </div>
     
             <div class="document-side">
 
@@ -74,12 +107,14 @@
                         <div>전체 게시글 ${ map.documentListCnt } 개</div>
                     </c:if>
 
-                <form action="${root}/document/list" method="get"></form>
+                <form action="${root}/document/list" method="get">
                         <!-- 검색 영역 -->
+                        <input style="display: none;" name="scope" value="${scope}">
                         <div class="search-area">
                             <select name="searchType">
-                                <option value="title" ${(map.searchMap.searchType == 'title') ? 'selected' : ''}>제목</option>
-                                <option value="writer" ${(map.searchMap.searchType == 'writer') ? 'selected' : ''}>작성자</option>
+                                <option value="fileName" ${(map.searchMap.searchType == 'fileName') ? 'selected' : ''}>파일이름</option>
+                                <option value="name" ${(map.searchMap.searchType == 'name') ? 'selected' : ''}>작성자</option>
+                                <option value="extension" ${(map.searchMap.searchType == 'extension') ? 'selected' : ''}>파일 유형</option>
                                 <!-- 다른 검색 기준이 필요한 경우에도 option을 추가하고, 해당 검색 기준에 따라 selected를 설정합니다. -->
                             </select>
                             <div class="search-area-search">
