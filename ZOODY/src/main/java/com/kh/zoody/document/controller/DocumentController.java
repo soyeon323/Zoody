@@ -1,12 +1,15 @@
 package com.kh.zoody.document.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -224,8 +227,55 @@ public class DocumentController {
 		
 	}
 	
+	@PostMapping(value="detail", produces="application/json;charset=UTF-8")
+	@ResponseBody
+    public String getDetail(DocumentVo vo) {
+		
+		DocumentVo getDetail = service.getDetail(vo);
+		
+		Gson gson = new Gson();
+		
+		return gson.toJson(getDetail);
+		
+	}
 	
-	
+	@GetMapping("download")
+	public void download(HttpServletResponse response, DocumentVo vo , HttpServletRequest request) throws Exception {
+        
+		log.info(vo+"");
+		
+		DocumentVo rowCheck = service.getDetail(vo);
+		if(rowCheck == null) {
+			return;
+		}
+		
+		log.info("rowCheck : " + rowCheck);
+		String fileName = rowCheck.getFileName() + rowCheck.getExtension();
+		
+		String root = request.getSession().getServletContext().getRealPath("resources"); 
+		String path = root+"\\document\\"+ rowCheck.getUserNo() +  "\\"  + rowCheck.getDirectoryNo() +  "\\"  + fileName;  // 원하는 디렉토리 경로로 변경 가능
+
+		log.info(path);
+		
+		try {
+        	
+        	File file = new File(path);
+        	response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
+        	
+        	FileInputStream fileInputStream = new FileInputStream(path); // 파일 읽어오기 
+        	OutputStream out = response.getOutputStream();
+        	
+        	int read = 0;
+                byte[] buffer = new byte[1024];
+                while ((read = fileInputStream.read(buffer)) != -1) { // 1024바이트씩 계속 읽으면서 outputStream에 저장, -1이 나오면 더이상 읽을 파일이 없음
+                    out.write(buffer, 0, read);
+                }
+                
+        } catch (Exception e) {
+            throw new Exception("download error");
+        }
+		
+	}
 }
 
 

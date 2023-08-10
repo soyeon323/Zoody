@@ -27,7 +27,7 @@ $("ul").on("click", ".add-new-directory" , function () {
             let newListItem = `
                 <li id='${ getNo }'>
                     <form action="">
-                        <div onclick="goToUserDirectory('enterprise')">
+                        <div onclick="goToUserDirectory(${ getNo })">
                             <input class="private-document-item" type="text" value='${ getDirectoryName }' readonly>
                             <span>
                                 <img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt="">
@@ -166,7 +166,7 @@ function renameUpload(newName) {
 
                 $("li#"+liId).html(`
                         <form action="" onsubmit="return false">
-                            <div onclick="goToUserDirectory('${ directoryNo }')">
+                            <div onclick="goToUserDirectory(${ directoryNo })">
                                 <input class="private-document-item" type="text" value="${ directoryName }" readonly>
                                 <span>
                                     <img class="home-icon" src="${ root }/resources/img/icon/svg/folder-2.svg" alt="">
@@ -208,3 +208,82 @@ function goToDirectory(path) {
     location.href = root+'/document/list?scope='+path;
 };
 
+
+
+
+// detail
+$(".modal").on("click" , (e)=>{
+    console.log(123);
+    if ($(e.target).hasClass("modal-close")) {
+        $(".modal").css("display" , "none");
+    }
+})
+
+
+$(".list-table").on("click",function (e) {
+
+                    
+    let boardNo = null;
+    let listTarget = e.target.tagName;
+
+    if (listTarget === "TD") {
+        boardNo = $(e.target.parentNode).children(":last").text();
+    }
+    else if (listTarget === "TR"){
+        boardNo = $(e.target).children(':last').text();
+    }
+
+    console.log(boardNo);
+    
+    $.ajax({
+        url: root+"/document/detail",
+        method: "POST", 
+        data: { 
+            no : boardNo,
+        }, // 필요한 경우 추가 데이터를 전송할 수 있음
+        success: function (response) {
+            console.log(response);
+
+            const fileName =  response.fileName;
+            const extension =  response.extension;
+            const no =  response.no;
+
+            console.log(fileName);
+            console.log(extension);
+            
+            const fullName = fileName + extension;
+
+            console.log(fullName);
+
+            $(".modal").html(`
+                <div class="modal-header">
+                    <div class="modal-header-file-name-area">
+                        <img class="modal-close" src="" alt=""> ${ fullName }
+                        </div>
+                    <div class="modal-header-active-area">
+                    <input type="button" class="flie-down-load" value="다운로드">
+                    <input type="button" value="삭제">
+                    </div>
+                    <input type="text" class="file-no" value="${ no }" style="display: none;">
+                </div>
+
+                <div class="modal-content">
+                    <img src="${root}/resources/img/icon/svg/file.svg" alt="">
+                    <span class="modal-extension">${ extension }</span>
+                </div>
+
+            `);
+
+            $(".modal").css("display" , "flex");
+        },
+        error: function (xhr, status, error) {
+            // AJAX 요청 실패 시 처리
+            console.log("AJAX 요청 실패:", error);
+            
+        },
+        complete: function () {
+            // AJAX 요청이 완료되면 "비활성화" 클래스를 제거하여 요소를 다시 활성화
+        }
+    });
+    
+})

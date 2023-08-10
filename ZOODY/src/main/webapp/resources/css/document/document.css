@@ -131,6 +131,7 @@ input {
 
 .private-document-item > input {
     font-family: Spoqa Han Sans Neo Medium;
+    background-color: #fff;
 }
 
 .private-document-item {

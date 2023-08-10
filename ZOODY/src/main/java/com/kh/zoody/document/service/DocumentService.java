@@ -24,6 +24,8 @@ public interface DocumentService {
 	int newDirctory(DocumentVo vo);
 	
 	DocumentVo getNewDirctoryInfo(DocumentVo vo);
+
+	DocumentVo getDetail(DocumentVo vo);
 	
 	
 	

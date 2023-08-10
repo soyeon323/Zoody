@@ -32,8 +32,18 @@ $(document).ready(function() {
                 const getFileName = response.fileName;
                 const getName = response.name;
                 const getEnrollDate = response.enrollDate;
+                const getNo = response.no;
 
-                $(".list-table > tbody").prepend(`<tr><td>${ getScope }</td><td>${ getExtension }</td><td>${ getFileName }</td><td>${ getName }</td> <td>${ getEnrollDate }</td></tr>`);
+                $(".list-table > tbody").prepend(`
+                <tr>
+                    <td>${ getScope }</td>
+                    <td>${ getExtension }</td>
+                    <td>${ getFileName }</td>
+                    <td>${ getName }</td> 
+                    <td>${ getEnrollDate }</td>
+                    <td style="display: none;">${ getNo }</td>
+                </tr>
+                `);
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText); // 실패 시 서버 응답을 출력

@@ -23,5 +23,7 @@ public interface DocumentDao {
 	int newDirctory(SqlSessionTemplate sst, DocumentVo vo);
 	
 	DocumentVo getNewDirctoryInfo(SqlSessionTemplate sst, DocumentVo vo);
+
+	DocumentVo getDetail(SqlSessionTemplate sst, DocumentVo vo);
 	
 }
