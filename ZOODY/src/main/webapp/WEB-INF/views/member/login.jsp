@@ -11,6 +11,14 @@
     <meta charset="UTF-8">
     <title>로그인</title>
 </head>
+        <!-- 실패시 알람 메시지 -->
+        <c:if test="${not empty errorMessage}">
+            <div class="alert alert-danger" role="alert">
+                아이디 혹은 비밀번호를 다시 확인해 주세요.    비밀번호가 기억이 나지 않는다면 <a href="${root}/pwd/find" class="alert-link">비밀번호 설정</a>
+              </div>
+        </c:if>
+
+
 <body>
     <div id="wrap">
         <form id="login-form" action="${root}/member/login" method="POST" >
@@ -34,12 +42,11 @@
         location.href = "${root}/pwd/setting";
     }
 
-    function check() {
-    const pwdVal = document.querySelector('input[name="pwd"]').value;
-    
-    const regex = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
-    if (!regex.test(pwdVal)) {
-        location.href = "/zoody/pwd/setting";
+    //로그인 실패시 메시지  
+    const urlParams = new URLSearchParams(window.location.search);
+    const alertMessage = urlParams.get('alert');
+
+    if (alertMessage) {
+    alert(alertMessage);
     }
-}
 </script>

@@ -16,6 +16,7 @@
 <body>
 
 		<div id="wrap">
+		<h1>비밀번호 찾기 (전화번호로... 아직 구현중.. 새로운 비밀번호 발급 할 예정)</h1>
             <form action="${root}/pwd/pwdSetting" method="POST">   
                 <span>아이디</span> 
                 <input type="text" name="id" id="id" placeholder="사번">

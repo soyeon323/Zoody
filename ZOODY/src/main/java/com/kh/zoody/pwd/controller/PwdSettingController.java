@@ -54,4 +54,11 @@ public class PwdSettingController {
 		m.addAttribute("result",result);
 		return "member/login";
 	}
+	
+	
+	//비밀번호 찾기 뷰 페이지로 이동
+	@GetMapping("find")
+	public String pwdFind() {
+		return "pwd/find";
+	}
 }

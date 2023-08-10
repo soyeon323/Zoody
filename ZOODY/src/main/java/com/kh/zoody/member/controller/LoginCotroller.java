@@ -27,17 +27,30 @@ public class LoginCotroller {
 	@GetMapping("login")
 	public void login() {}
 	
+//	@PostMapping("login")
+//	public String login(UserVo vo , HttpSession session , Model model) {
+//		
+//		UserVo loginMember = ls.login(vo);
+//		if(loginMember == null) {
+//			throw new RuntimeException();
+//		}
+//
+//		session.setAttribute("loginMember", loginMember);
+//		
+//		return "redirect:/home";
+//	}
+	
 	@PostMapping("login")
 	public String login(UserVo vo , HttpSession session , Model model) {
-		
-		UserVo loginMember = ls.login(vo);
-		if(loginMember == null) {
-			throw new RuntimeException();
-		}
-
-		session.setAttribute("loginMember", loginMember);
-		
-		return "redirect:/home";
+	    try {
+	        UserVo loginMember = ls.login(vo);
+	        session.setAttribute("loginMember", loginMember);
+	        return "redirect:/home";
+	    } catch (RuntimeException e) {
+	        model.addAttribute("errorMessage", "비밀번호나 아이디를 다시 확인해주세요");
+	     // 실패 시 다시 로그인 페이지로 이동
+	        return "member/login"; 
+	    }
 	}
 	
 	//로그아웃
