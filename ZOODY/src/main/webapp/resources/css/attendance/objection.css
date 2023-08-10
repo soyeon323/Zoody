@@ -32,10 +32,12 @@
 .obj_search{
     display: grid;
     grid-template-columns: 0.7fr 4fr 1.8fr;
+    gap: 10px;
+    align-items: center;
 }
 
 .search-area{
-    width: 353px;
+    width: 454px;
     height: 46px;
     flex-shrink: 0;
 
@@ -44,7 +46,7 @@
     background: #FFF;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     row-gap: 50px;
 
     padding-bottom: 10px;
@@ -53,6 +55,7 @@
     padding-right: 15px;
 
     align-items: center;
+    gap: 9px;
     
 }
 
@@ -67,7 +70,7 @@
     /* padding-left: 14px; */
 }
 
-.search-area > input{
+.search-area > input[type="date"]{
     width: 114px;
     height: 28px;
     flex-shrink: 0;
@@ -277,3 +280,4 @@ button[class='active']{
     color: #494949;
     font-weight: 400;
 }
+

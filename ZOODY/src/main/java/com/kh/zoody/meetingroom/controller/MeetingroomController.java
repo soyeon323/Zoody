@@ -48,10 +48,18 @@ public class MeetingroomController {
 	
 	//회의실 예약 (회의실 목록보기)
 	@GetMapping("reserve")
-	public String reserve(Model model) throws Exception {
+	public String reserve(Model model, HttpSession session) throws Exception {
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String userNo = loginMember.getNo();
 		
 		List<MeetingroomVo> list = ms.selectList();
 		model.addAttribute("list", list);
+		
+		List<MeetingroomReservationVo> reserveList = ms.selectReserveList(userNo);
+		model.addAttribute("reserveList", reserveList);
 		
 //		List<MeetingroomVo> timeList = ms.reserveTime();
 //		model.addAttribute("timeList", timeList);
@@ -84,6 +92,50 @@ public class MeetingroomController {
 		return result;
 	}
 	
+	@PostMapping("reserve")
+	@ResponseBody
+	public String reserve(Model model, 
+			HttpSession session,
+			@RequestParam String meetingroomNo,
+			@RequestParam String startTime,
+			@RequestParam String date
+			) {
+		
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        
+        String userNo = loginMember.getNo();
+        
+        MeetingroomReservationVo mrv = new MeetingroomReservationVo();
+        mrv.setMeetingroomNo(meetingroomNo);
+        mrv.setStartTime(startTime);
+        mrv.setDate(date);
+        mrv.setUserNo(userNo);
+        
+        String status = null;
+        
+        int checkReserve = ms.checkReserve(mrv);
+
+//        int result;
+        
+        if (checkReserve != 1) {
+        	int result = ms.addReserve(mrv);
+        	
+        	if (result == 1) {
+        		int add = ms.addReserveInfoToCalendar(mrv);
+        	}
+        	
+        	status = "Y";
+        	
+		}else {
+			status = "N";
+		}
+        
+        
+		
+		return status;
+	}
+	
 	
 	
 	
@@ -111,33 +163,7 @@ public class MeetingroomController {
 //        return new ResponseEntity<>(reservedTimes, HttpStatus.OK);
 //    }
 
-	@PostMapping("reserve")
-	public String reserve(Model model, 
-			HttpSession session,
-			@RequestParam String meetingroomNo,
-			@RequestParam String startTime,
-			@RequestParam String date
-			) {
-		
-		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-        model.addAttribute("loginMember", loginMember);
-        
-        String userNo = loginMember.getNo();
-        
-        MeetingroomReservationVo mrv = new MeetingroomReservationVo();
-        mrv.setMeetingroomNo(meetingroomNo);
-        mrv.setStartTime(startTime);
-        mrv.setDate(date);
-        mrv.setUserNo(userNo);
-        
-        int result = ms.addReserve(mrv);
-        
-        if (result == 1) {
-			int add = ms.addReserveInfoToCalendar(mrv);
-		}
-		
-		return "meetingroom/reserve";
-	}
+
 	
 //	@GetMapping("time")
 //	@ResponseBody
@@ -212,6 +238,20 @@ public class MeetingroomController {
 		return "meetingroom/reserve";
 	}
 	
+	//정지하기 (화면)
+	@GetMapping("reserve/stop")
+	public String mtStop() {
+		return "meetingroom/reserve";
+	}
+	
+	//정지하기 (화면)
+	@GetMapping("reserve/normal")
+	public String mtNormal() {
+		return "meetingroom/reserve";
+	}
+	
+	
+	
 	//삭제하기
 	@PostMapping("reserve/delete")
 	public String mtDelete(@RequestParam String no) {
@@ -221,6 +261,27 @@ public class MeetingroomController {
 		return "meetingroom/reserve";
 	}
 	
+	//정지하기
+	@PostMapping("reserve/stop")
+	public String mtStop(@RequestParam String no) {
+		
+		int result = ms.mtStop(no);
+		
+		return "meetingroom/reserve";
+	}
+	
+	//정지 취소하기
+	@PostMapping("reserve/normal")
+	public String mtNormal(@RequestParam String no) {
+		
+		int result = ms.mtNormal(no);
+		
+		return "meetingroom/reserve";
+	}
+	
+	//회의실 예약 조회 (화면)
+		
+		
 	//회의실 예약 조회
 
 }

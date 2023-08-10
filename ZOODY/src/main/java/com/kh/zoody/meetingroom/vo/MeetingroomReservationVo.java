@@ -14,5 +14,6 @@ public class MeetingroomReservationVo {
 	private String status;
 	
 	private String voNo;
+	private String name;
 
 }

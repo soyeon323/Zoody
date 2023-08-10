@@ -62,6 +62,16 @@
                     <input type="date" name="enrolldateOne" id="">
                     <p>~</p>
                     <input type="date" name="enrolldateTwo" id="">
+                    <input class="btn btn-primary" type="submit" value="검색" style="
+                  font-size: 13px;
+                  background-color: #cdcdcd;
+                  border: none;
+              ">
+                  <input class="btn btn-primary" type="reset" value="취소" style="
+                  font-size: 13px;
+                  background-color: #cdcdcd;
+                  border: none;
+              ">
                 </div>
                 <div></div>
                   <div class="search-flex">

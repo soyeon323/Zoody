@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/resources/css/meetingroom/reserve.css">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -22,7 +22,7 @@
 </head>
 <body>
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
     <%@ include file="/WEB-INF/views/header.jsp" %>
     
@@ -40,14 +40,50 @@
                     </ol>
                 </div>
             </div>
-            <div class="mt_search">
-                <span>날짜</span>
-                <input type="date" name="date" id="date" required>
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div class="mt_search">
+                    <span>날짜</span>
+                    <input type="date" name="date" id="date" required>
+                </div>
+                <!-- <a class="btn btn-primary" href="${root}/meetingroom/my-reserve" role="button" style="font-size: 13px; background-color: #00BEEA; border: none;">내 예약 현황 확인 >></a> -->
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" style="font-size: 13px; background-color: #00BEEA; border: none;">내 예약 현황 확인 >></button>
+
+                <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">회의실 예약 목록</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body small">
+                    <table class="table table-striped myReserveList">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">예약일</th>
+                            <th scope="col">회의실</th>
+                            <th scope="col">예약시간</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        	<c:forEach items="${reserveList}" var="res">
+	                          <tr>
+	                            <th scope="row">${res.no}</th>
+	                            <td>${res.date}</td>
+	                            <td>${res.name}</td>
+	                            <td>${res.startTime} ~ ${res.endTime}</td>
+	                            <td><button type="button" class="btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">예약 취소</button></td>
+	                          </tr>
+                        	</c:forEach>
+                        </tbody>
+                      </table>
+                </div>
+                </div>
             </div>
+        
 
             <div class="mt_box">
             	<c:forEach items="${list}" var="vo">
-	                <div class="card">
+	                <div class="card" style="box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.10);">
                         <img src="${root}/resources/img/meetingroom/${vo.changeName}" class="card-img-top" alt="회의실사진"> <!-- 여기에 썸네일 이미지 보이기 -->
 	                    <!-- <img src="${vo.changeName}" class="card-img-top" alt="111"> -->
                         <button style="border: none; background-color: transparent;">
@@ -69,15 +105,32 @@
                               수정하기
                             </a>
                             <a href="${root}/meetingroom/reserve/delete?no=${vo.no}" class="list-group-item list-group-item-action mtDelete" data-vo-no="${vo.no}" onclick="mtDelete(event);">삭제하기</a>
+                            <c:choose> 
+	                           <c:when test="${vo.status eq 'O'}">
+                                    <a href="${root}/meetingroom/reserve/stop?no=${vo.no}" class="list-group-item list-group-item-action mtStop" data-vo-no="${vo.no}" onclick="mtStop(event);">정지하기</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${root}/meetingroom/reserve/normal?no=${vo.no}" class="list-group-item list-group-item-action mtNormal" data-vo-no="${vo.no}" onclick="mtNormal(event);">정지취소</a>
+	                           </c:otherwise> 
+                         	</c:choose> 
                         </div>
 	                    <div class="card-body">
 	                      <h5 class="card-title">${vo.name} 회의실</h5>
 	                      <!-- <a href="#" class="btn btn-primary">예약하기</a> -->
 
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary reserveBtn" data-bs-toggle="modal" data-vo-no="${vo.no}" data-bs-target="#staticBackdrop" onclick="reserve(this);">
-                                예약하기
-                            </button>
+
+                          <c:choose> 
+                            <c:when test="${vo.status eq 'O'}">
+                              <button type="button" class="btn btn-primary reserveBtn" data-bs-toggle="modal" data-vo-no="${vo.no}" data-bs-target="#staticBackdrop" onclick="reserve(this);">
+                                  예약하기
+                              </button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" class="btn btn-primary reserveBtn" style="background-color: gray; border: none;">
+                                    예약 정지
+                                </button>
+                            </c:otherwise> 
+                          </c:choose> 
                             
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -98,7 +151,7 @@
                                               </clipPath>
                                             </defs>
                                         </svg>
-                                        <span>최대 1시간 예약 가능합니다.</span>
+                                        <span>1회 예약 시 최대 1시간 예약 가능합니다.</span>
                                         </div>
                                     <input type="hidden" id="mNo" name="meetingroomNo" value="">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -137,7 +190,7 @@
 	                             <p style="color: #00CBA4";>Available</p>
 	                           </c:when>
 	                           <c:otherwise>
-	                             <p>Available</p>
+	                             <p style="color: gray;">Available</p>
 	                           </c:otherwise> 
                          	</c:choose> 
                           	<p>${vo.enrolldate}</p>
@@ -160,6 +213,32 @@
         </div>
     </div>
 
+    <!-- <script>
+        $('.offcanvas').offcanvas('show');
+        $('.offcanvas').offcanvas('hide');
+
+        $('.offcanvas').on('show.bs.offcanvas', function() {
+            console.log(1)
+        });
+
+        // 닫았을 때 이벤트
+        $('.offcanvas').on('hide.bs.offcanvas', function() {
+            console.log(1)
+        })
+
+        // 자바스크립트는 이런식으로 써야함
+        var allOffcanvas = document.querySelectorAll('.offcanvas');
+        for (var i = 0; i < allOffcanvas.length; i++) {
+            allOffcanvas[i].addEventListener('hide.bs.offcanvas', function () {
+                console.log(1);
+            });
+        };
+    </script> -->
+
+    <script>
+
+
+    </script>
 
     <script>
         // 모든 .card 요소 선택
@@ -207,6 +286,54 @@
                 },
                 error: function(error) {
                     alert("삭제 오류");
+                }
+            });
+        }
+
+        function mtStop(event) {
+            event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지
+            const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
+            sendAjaxForStop(voNo); // Ajax 요청 함수 호출
+        }
+
+        function sendAjaxForStop(voNo) {
+            $.ajax({
+                url: '${root}/meetingroom/reserve/stop',
+                method: 'POST',
+                data: { 
+                    no: voNo,
+
+                },
+                success: function(response) {
+                    alert("성공적으로 정지 처리 되었습니다.");
+                    window.location.href = '${root}/meetingroom/reserve';
+                },
+                error: function(error) {
+                    alert("정지 오류");
+                }
+            });
+        }
+
+        function mtNormal(event) {
+            event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지
+            const voNo = event.target.dataset.voNo; // 클릭한 링크의 data-vo-no 값 가져오기
+            sendAjaxForNormal(voNo); // Ajax 요청 함수 호출
+        }
+
+        function sendAjaxForNormal(voNo) {
+            $.ajax({
+                url: '${root}/meetingroom/reserve/normal',
+                method: 'POST',
+                data: { 
+                    no: voNo,
+
+                },
+                success: function(response) {
+                    alert("성공적으로 정지취소 처리 되었습니다.");
+                    window.location.href = '${root}/meetingroom/reserve';
+                },
+                error: function(error) {
+                    alert("정지취소 오류");
                 }
             });
         }
@@ -300,10 +427,12 @@
         function reserveMt(event) {
             var meetingroomNo = $('#mNo').val();
             var startTime = $('#timeValue').val(); // 포커스된 버튼의 값 가져오기
+            var endTime = startTime + 1;
             var date = $('#date').val();
 
             console.log("Meeting Room No:", meetingroomNo);
             console.log("startTime:", startTime);
+            console.log("endTime:", endTime);
             console.log("date:", date);
 
             $.ajax({
@@ -314,19 +443,24 @@
                     date : date
                 },
                 method : "POST",
-                success : function(result){
-                    alert("예약이 성공적으로 처리되었습니다.")
-                    location.reload();
+                success : function(data){
+
+                    if(data == "Y"){
+                        alert("예약이 성공적으로 처리되었습니다.")
+                        location.reload();
+                    }else{
+                        swal("예약 실패!", "이미 예약되어있는 시간입니다. 날짜 선택을 다시 해주세요.", "error");
+                    }
+
                 },
                 error: function(xhr, status, error){
-                    swal("예약 실패!", "예약에 실패하셨습니다. 날짜 선택을 확인해주세요.", "error");
+                    swal("예약 실패!", "예약에 실패하셨습니다. 날짜 선택 후 다시 시도해 주세요.", "error");
                     console.error(error);
                 }
             })
         
         }
     </script>
-
 
     <!-- 예약 이미 된 시간 가져오기 -->
     <!-- <script>

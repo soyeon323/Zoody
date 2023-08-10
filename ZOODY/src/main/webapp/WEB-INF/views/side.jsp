@@ -26,7 +26,7 @@
         <li>
             <a href="#">일정 관리</a>
             <ul>
-            <li><a href="${root}/calendar/month">일정관리</a></li>
+            <li><a href="${root}/calendar/main">일정관리</a></li>
             <li><a href="#">text2</a></li>
             <li><a href="#">text3</a></li>
             <li><a href="#">text4</a></li>

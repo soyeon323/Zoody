@@ -263,3 +263,25 @@
 .timeBtn:focus{
     background-color: #007089;
 }
+
+
+/* 내 예약 현황 */
+.re_box {
+    width: 1300px;
+    height: 700px;
+    background-color: white;
+    border: 1px solid #F1F1F1;
+    border-radius: 5px;
+    /* margin-top: 82px; */
+    margin: 0 auto;
+    margin-top: 94px;
+}
+
+.myReserveList{
+    text-align: center;
+}
+
+.myReserveList > button{
+    background-color: #00CBA4;
+    border-radius: 5px;
+}

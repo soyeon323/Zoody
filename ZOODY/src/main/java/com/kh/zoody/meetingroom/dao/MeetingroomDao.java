@@ -32,5 +32,13 @@ public interface MeetingroomDao {
 
 	int addReserveInfoToCalendar(SqlSessionTemplate sst, MeetingroomReservationVo mrv);
 
+	int checkReserve(SqlSessionTemplate sst, MeetingroomReservationVo mrv);
+
+	int mtStop(SqlSessionTemplate sst, String no);
+
+	int mtNormal(SqlSessionTemplate sst, String no);
+
+	List<MeetingroomReservationVo> selectReserveList(SqlSessionTemplate sst, String userNo);
+
 
 }
