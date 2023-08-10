@@ -235,6 +235,7 @@
         console.log("소켓에러남");
     }
 
+    //서버에서 받아온 채팅내용 화면에 보여주기
     let addedUsers = [];
     function funcMessage(event) {
         console.log(event);
@@ -277,12 +278,15 @@
         modalScroll.scrollTop = modalScroll.scrollHeight;
     }
 
+    //메세지 서버측으로 전송
     function sendMsg(){
         data = {};
         data.msg = document.querySelector("#contentArea").value;
         data.nick = '${loginMember.name}';
         data.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
         data.profile = '${loginMember.profile}';
+        data.userNo = '${loginMember.no}';
+        data.projectNo = '${prjVoList[0].no}';
 
         ws.send(JSON.stringify(data));
 
@@ -348,23 +352,3 @@
     }
 
 </script>
-
-<!-- 임시저장
-
-<div id="toMsg">
-    <div>
-        <img src="${root}/resources/img/employee/${loginMember.profile}" alt="프로필사진">
-    </div>
-    <div>
-        <a>오영택 대리</a>
-    </div>
-    <div id="toMsgText">
-        
-    </div>
-</div>
-<div id="fromMsg">
-    <div id="fromMsgText">
-        
-    </div>
-</div> -->
-
