@@ -15,20 +15,101 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: #ccccccab;
+        background-color: rgba(38, 38, 38, 0.47);
         z-index: 99999999;
         top: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        display: none;
     }
 
-    .modal > div {
-        .modal > div {
-        background-color: #fff;
+    .modal > div:nth-child(n+2) {
+        background-color: #ffffffc7;
         max-height: 800;
         max-width: 800;
+  
     }
+
+    .modal-header {
+        width: 100%;
+        background-color: #385091f5;
+        position: absolute;
+        top: 0;
+        height: 48;
+        box-shadow: 0px 1px 3px rgba(100, 100, 100, 0.15);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+    }
+
+    .modal-header > div {
+        padding: 10;
+    }
+    
+    .modal-header-file-name-area > img {
+        width: 15;
+        height: 15;
+        background-color: #fff;
+        padding: 10;
+        border-radius: 5px;
+    }
+
+    .modal-content {
+        border-radius: 5px;
+        position: relative;
+        box-shadow: 0px 1px 3px rgba(100, 100, 100, 0.15);
+    }
+    .modal-content > img {
+        padding: 20;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-extension {
+        position: absolute;
+        width: 100%;
+        height: 100;
+        z-index: 999999;
+        display: flex;
+        top: 74%;
+        justify-content: center;
+        font-size: 90px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .upload-modal-open-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 63.5;
+        justify-self: center;
+        /* margin: auto; */
+        margin-bottom: 20;
+        margin-top: 20;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 7px -2px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 18;
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .upload-modal-open-btn:hover {
+
+        background-color: #c2d2f3;
+        cursor: pointer;
+
+    }
+
+    .upload-modal-open-btn > img {
+        margin-left: 10;
+        max-width: 15;
+        max-height: 15;
     }
 
 </style>
@@ -39,9 +120,62 @@
 
     <div class="modal">
 
-        <div>aa</div>
+        <div class="modal-header">
+            <div class="modal-header-file-name-area"><img class="modal-close" src="" alt=""> 파일이름</div>
+            <div class="modal-header-active-area">
+                <input type="button" class="flie-down-load" value="다운로드">
+                <input type="button" value="삭제">
+            </div>
+            <input type="text" class="file-no" value="" style="display: none;">
+        </div>
+
+        <div class="modal-content">
+            <img src="${root}/resources/img/icon/svg/file.svg" alt="">
+            <span class="modal-extension">dd</span>
+        </div>
 
     </div>
+
+   <script>
+        $(".modal").on("click" , (e)=>{
+            console.log(123);
+            if ($(e.target).hasClass("flie-down-load")) {
+                
+                const fileNo =  $(".modal").find(".file-no").val();
+
+                console.log("fileNo : "+fileNo);
+
+                location.href = root+'/document/download?no='+fileNo;
+
+                // $.ajax({
+                //     url: root+"/document/download",
+                //     method: "POST", 
+                //     data: { 
+                //         no : fileNo,
+                //     }, // 필요한 경우 추가 데이터를 전송할 수 있음
+                //     success: function (response) {
+                //         console.log(response);
+                        
+                //     },
+                //     error: function (xhr, status, error) {
+                //         // AJAX 요청 실패 시 처리
+                        
+                //     },
+                //     complete: function () {
+                //         // AJAX 요청이 완료되면 "비활성화" 클래스를 제거하여 요소를 다시 활성화
+                //         checkAndToggleAddButton();
+                //     }
+                // })
+
+            }
+        })
+
+
+            
+        
+
+
+   </script>
 
     <div id="wrap">
         <%@ include file="/WEB-INF/views/side.jsp" %>
@@ -55,7 +189,7 @@
     
             <div class="document-side">
 
-                <div class="upload-modal-open-btn" onclick="documentUpload()">업로드</div>
+                <div class="upload-modal-open-btn" onclick="documentUpload()">업로드 <img src="${root}/resources/img/icon/svg/up-load.svg" alt=""></div>
 
                 <ul>문서
                     <li onclick="goToDirectory(1)"><div>전사 <span><img class="home-icon" src="${root}/resources/img/icon/svg/folder-2.svg" alt=""></span></div></li>
@@ -153,6 +287,7 @@
                                     <td>${ list.fileName }</td>
 	                                <td>${ list.name }</td>
 	                                <td>${ list.enrollDate }</td>
+                                    <td style="display: none;">${ list.no }</td>
 	                            </tr>
                             </c:forEach>
                             

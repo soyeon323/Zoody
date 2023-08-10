@@ -120,6 +120,37 @@
 	    ORDER BY ROWNUM 
 	</select>
 
+	
+	<select id="getDetail" resultType="DocumentVo">
+		SELECT ROWNUM, result."NO", result."SCOPE", result.USER_NO, result."NAME",
+	           result.DIRECTORY_NO, result.DIRECTORY_NAME, result.FILE_NAME,
+	           result.EXTENSION, result.ENROLL_DATE, result.MODIFY_DATE
+	    FROM (
+	        SELECT d."NO",
+	               d."SCOPE",
+	               dt.USER_NO,
+	               u."NAME",
+	               d.DIRECTORY_NO,
+	               dt.DIRECTORY_NAME,
+	               d.FILE_NAME,
+	               d.EXTENSION,
+	               d.ENROLL_DATE,
+	               d.MODIFY_DATE
+	        FROM DOCUMENT d
+	        LEFT JOIN "DIRECTORY" dt ON d.DIRECTORY_NO = dt."NO"
+	        LEFT JOIN "USER" u ON dt.USER_NO = u."NO"
+	       
+	        WHERE d.STATUS = 'O'
+            AND d."NO"   = #{no}
+            
+	        ORDER BY d."NO" 
+	    ) result
+        WHERE ROWNUM = 1
+	    ORDER BY ROWNUM  
+	</select>
+
+
+
   	<select id="getLoginMemberDirectory" resultType="DocumentVo">
   		
   		SELECT 
@@ -179,6 +210,8 @@
         AND ROWNUM = 1
         
   	</select>
+  	
+  	
   	
   	
 </mapper>
