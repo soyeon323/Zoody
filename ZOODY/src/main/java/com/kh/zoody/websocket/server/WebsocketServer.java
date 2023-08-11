@@ -3,9 +3,8 @@ package com.kh.zoody.websocket.server;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
@@ -14,15 +13,14 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
-import com.kh.zoody.project.controller.ProjectController;
 import com.kh.zoody.project.service.ProjectService;
+import com.kh.zoody.user.vo.UserVo;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class WebsocketServer extends TextWebSocketHandler{
-	private Set<WebSocketSession> sessionSet = new HashSet<WebSocketSession>();
+	private Map<String, WebSocketSession> sessionMap = new HashMap<String ,WebSocketSession>();
 	private final ProjectService ps;
 	
 	@Autowired
@@ -33,13 +31,16 @@ public class WebsocketServer extends TextWebSocketHandler{
 	//연결 되고 난 이후에 동작
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        sessionSet.add(session);
+		UserVo loginMember = (UserVo) session.getAttributes().get("loginMember");
+        sessionMap.put(loginMember.getNo(), session);
+        
+        log.info("loginMember의 no : {}", loginMember.getNo());
 	}
 
 	//연결이 끊기고 등작
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		sessionSet.remove(session);
+		sessionMap.remove(session);
 	}
 	
 	//메세지 받았을 때 동작
@@ -56,6 +57,7 @@ public class WebsocketServer extends TextWebSocketHandler{
 		
 		List<String> noList = ps.selectUserNo(projectNo);
 		
+
 		String jsonMsg = gson.toJson(msgVo);
 		
 		HashMap<String, List<String>> map = new HashMap<>();
@@ -63,10 +65,21 @@ public class WebsocketServer extends TextWebSocketHandler{
 		
 		log.info("map : {}", map);
 		
-        for (WebSocketSession s : sessionSet) {
-            s.sendMessage(new TextMessage(jsonMsg));
-        }
+		//채팅내용 DB에 저장하기 
+		// if(ps.insertChat(msgVo) != 1) {throw new RuntimeException();}
 		
+		for (String uno : sessionMap.keySet()) {
+			if(noList.contains(uno)) {
+				WebSocketSession socket = sessionMap.get(uno);
+        		socket.sendMessage(new TextMessage(jsonMsg));        		
+			}
+		}
+		
+        /* for (WebSocketSession s : sessionMap.values()) {
+        	if(sessionMap.keySet().contains(map.get(projectNo))) {
+        		s.sendMessage(new TextMessage(jsonMsg));        		
+        	}
+        } */
 	}
 
 }
