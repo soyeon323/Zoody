@@ -202,6 +202,12 @@
 </body>
 </html>
 <script>
+
+    //현재 플젝 번호
+    const currentChatRoomNo = '${prjVoList[0].no}';
+    alert(currentChatRoomNo);
+
+
     //엔터로 메세지 전송하기
     function handleKeyPress(event) {
         if (event.keyCode === 13 || event.which === 13) {
@@ -241,6 +247,10 @@
     function funcMessage(event) {
         console.log(event);
         const obj = JSON.parse(event.data);
+
+        if( currentChatRoomNo != obj.projectNo ){
+            return;
+        }
 
         const modalBody = document.querySelector(".modal-body");
         const connectUser = document.querySelector(".connectUser");
