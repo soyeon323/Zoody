@@ -498,7 +498,7 @@
 	<select id="getUserAttendanceCnt" resultType="int">
 		SELECT COUNT(NO)
 		FROM ATTENDANCE
-		WHERE USER_NO = 1
+		WHERE USER_NO = #{no}
 	</select>
 	
 	<select id="getWorkCnt" resultType="int">

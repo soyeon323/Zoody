@@ -42,5 +42,7 @@ public interface MeetingroomDao {
 
 	int unReserve(SqlSessionTemplate sst, String resNo);
 
+	int unCalendar(SqlSessionTemplate sst, String resNo, String resDateTime);
+
 
 }

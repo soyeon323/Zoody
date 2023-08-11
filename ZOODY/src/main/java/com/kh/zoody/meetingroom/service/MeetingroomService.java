@@ -44,5 +44,7 @@ public interface MeetingroomService {
 
 	int unReserve(String resNo);
 
+	int unCalendar(String resNo, String resDateTime);
+
 
 }

@@ -181,4 +181,9 @@ public class MeetingroomServiceImpl implements MeetingroomService{
 		return dao.unReserve(sst, resNo);
 	}
 
+	@Override
+	public int unCalendar(String resNo, String resDateTime) {
+		return dao.unCalendar(sst, resNo, resDateTime);
+	}
+
 }

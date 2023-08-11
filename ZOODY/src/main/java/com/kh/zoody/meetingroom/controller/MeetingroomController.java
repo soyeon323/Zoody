@@ -77,14 +77,19 @@ public class MeetingroomController {
 	
 	@PostMapping("unReserve")
 	@ResponseBody
-	public String unReserve(@RequestParam String resNo) {
+	public String unReserve(@RequestParam String resNo, @RequestParam String resDateTime) {
 		
 		String result = null;
 		
 		int flag = ms.unReserve(resNo);
 		
 		if (flag == 1) {
-			result = "Y";
+			
+			int un = ms.unCalendar(resNo, resDateTime);
+			
+			if (un == 1) {
+				result = "Y";
+			}
 		}else {
 			result = "N";
 		}
