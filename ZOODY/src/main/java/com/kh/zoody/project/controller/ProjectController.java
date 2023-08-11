@@ -128,6 +128,8 @@ public class ProjectController {
 		model.addAttribute("suggestionList", suggestionList);
 		model.addAttribute("prjVoList", prjVoList);
 		model.addAttribute("todoList", todoList);
+		
+		session.setAttribute("noList", noList);
 	}
 	
 	@PostMapping("detail")
