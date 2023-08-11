@@ -1,5 +1,6 @@
 package com.kh.zoody.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,6 +120,12 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public List<String> selectUserNo(SqlSessionTemplate sst, String no) {
 		return sst.selectList("project.selectUserNo", no);
+	}
+
+	//채팅내용 저장
+	@Override
+	public int insertChat(SqlSessionTemplate sst, HashMap<String, String> msgVo) {
+		return sst.insert("project.insertChat", msgVo);
 	}
 
 }

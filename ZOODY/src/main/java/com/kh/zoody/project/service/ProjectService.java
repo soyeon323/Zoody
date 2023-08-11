@@ -1,5 +1,6 @@
 package com.kh.zoody.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,5 +60,8 @@ public interface ProjectService {
 
 	//프로젝트 참여한 멤버no 가져오기
 	List<String> selectUserNo(String no);
+
+	//채팅내용 저장
+	int insertChat(HashMap<String, String> msgVo);
 
 }

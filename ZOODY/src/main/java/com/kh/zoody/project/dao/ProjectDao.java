@@ -1,5 +1,6 @@
 package com.kh.zoody.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,5 +65,8 @@ public interface ProjectDao {
 
 	//프로젝트 참여한 멤버no 가져오기
 	List<String> selectUserNo(SqlSessionTemplate sst, String no);
+
+	//채팅내용 저장
+	int insertChat(SqlSessionTemplate sst, HashMap<String, String> msgVo);
 
 }

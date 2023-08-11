@@ -1,5 +1,6 @@
 package com.kh.zoody.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -128,6 +129,12 @@ public class ProjectServiceImpl implements ProjectService{
 	@Override
 	public List<String> selectUserNo(String no) {
 		return dao.selectUserNo(sst, no);
+	}
+
+	//채팅내용 저장
+	@Override
+	public int insertChat(HashMap<String, String> msgVo) {
+		return dao.insertChat(sst, msgVo);
 	}
 
 }

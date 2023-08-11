@@ -217,4 +217,21 @@
 		FROM PROJECT_TEAM_MEMBER
 		WHERE PROJECT_NO = #{no}
 	</select>
+	
+	<insert id="insertChat">
+		INSERT INTO CHATTING_ROOM
+		(
+			NO
+			PROJECT_NO
+			ENROLL_DATE
+			STATUS
+		)
+		VALUES
+		(
+			SEQ_CHATTING_ROOM_NO.NEXTVAL
+			, #{projectNo}
+			, SYSDATE
+			, 'O'
+		)
+	</insert>
 </mapper>
