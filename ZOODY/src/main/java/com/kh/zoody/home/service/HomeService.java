@@ -2,8 +2,10 @@ package com.kh.zoody.home.service;
 
 import java.util.List;
 
+
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.community.vo.BoardVo;
+import com.kh.zoody.home.vo.HomeCalendarVo;
 import com.kh.zoody.notice.vo.NoticeVo;
 
 public interface HomeService {
@@ -13,5 +15,7 @@ public interface HomeService {
 	AttendanceVo getHomeAttendanceList(int loginMemberNo);
 
 	List<BoardVo> newBoardList();
+
+	List<HomeCalendarVo> getCalendar(int loginMemberNo);
 
 }

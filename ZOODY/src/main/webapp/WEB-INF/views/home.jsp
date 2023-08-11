@@ -102,14 +102,31 @@
 
                 </div>
             </div>
-    
+            
             <div class="grid area-gird-2">
                 <div class="area schedule">
                     <div class="div-header">
                         <span>일정</span>
                         <img onclick="goToCalender()" class="home-icon" src="${root}/resources/img/icon/svg/link-Arrow.svg" alt="">
                     </div>
+
+                    <div class="schedule-area">
+                        <c:forEach items="${ getCalendar }" var="list">
+                        
+                            <div class="schedule-body">
+                                <input class="schedule-no" type="text" value="${ list.no }">
+                                <input type="checkbox">
+                                <input class="schedule-days-left" type="text" value="${ list.daysLeft }">
+                                <div class="schedule-title">${ list.title }</div>
+                                <input class="schedule-days-left" type="text" value="${ list.typeNo }">
+                            </div>
+
+                        </c:forEach>
+                    </div>
+                    
+
                 </div>
+
                 <div class="area chart">
                     <div class="div-header">
                         <span>진행도</span>
@@ -134,8 +151,9 @@
                             <div class="officehours">근무한 시간</div>
                             <div>[${ getAttendance.type }]</div>
                             <div class="checkInTime">${ getAttendance.checkInTime }</div>
-                            <div class="checkOutTime">${ getAttendance.checkOutTime }</div>
-                           
+                            <div class="checkOutTime not-null">${ getAttendance.checkOutTime }</div>
+                            
+
                         </div>
 
 
@@ -155,12 +173,14 @@
 
 
                     <script>
-                        const checkOutTime = $(".checkOutTime").text();
-                        if (checkOutTime === null || checkOutTime === '') {
+                        const checkOutTime = $(".checkOutTime.not-null").text();
+                        if (checkOutTime === null || checkOutTime === '00:00:00') {
                                 
                             setInterval(()=> { officehoursCheck()},1000)
                         }
                         else {
+                            console.log(checkOutTime);
+
                             const checkInTime = $(".checkInTime").text().trim();
 
                             const enrolldate = $(".attendance-enrolldate").text()+"T";
