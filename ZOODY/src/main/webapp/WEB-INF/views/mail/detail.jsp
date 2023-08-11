@@ -31,8 +31,10 @@
 							안읽음 ${unread}
 						</div>
 						<button class="my-important-btn">
-							<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
-							중요
+							<a href="${root}/mail/list?folder=bookmark" class="my-important-btn">
+								<img src="${root}/resources/img/icon/svg/star.svg" alt="즐겨찾기">
+								중요
+							</a>
 						</button>
 					</div>
 
@@ -61,17 +63,18 @@
 
 					<div class="custom-list-header">
 						내 메일함
-						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가">
+						<img src="${root}/resources/img/icon/svg/small-plus.svg" alt="추가" class="folder-add-btn">
 					</div>
 					<div class="custom-folder-list">
-						<div class="custom-folder">
-							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
-							{폴더명}
-						</div>
-						<div class="custom-folder">
-							<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
-							{새폴더2}
-						</div>
+						<c:forEach items="${mailBoxList}" var="mailBox" >
+
+							<div class="custom-folder" id="${mailBox.no}">
+								<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
+								<div class="folder-name">${mailBox.name}</div>
+								<img src="${root}/resources/img/icon/svg/small-cross.svg" alt="삭제" class="folder-delete-btn">
+							</div>
+
+						</c:forEach>
 					</div>
 
 				</div>
@@ -86,9 +89,6 @@
 								메일
 							</div>
 							<div class="unread-receive">
-								<div class="unread-count">${unread}</div>
-								/
-								<div class="receive-count">${mailCount}</div>
 							</div>
 						</div>
 					</div>
@@ -147,7 +147,7 @@
 							<div class="mail-header-text">보낸 날짜</div>
 							<div class="mail-send-date">${detailMailVo.sendDate }</div>
 						</div>
-
+						
 						<div class="attachment-area">
 							<div class="attachment-text">첨부 파일</div>
 							

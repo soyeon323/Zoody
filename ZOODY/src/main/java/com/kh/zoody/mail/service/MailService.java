@@ -91,5 +91,36 @@ public interface MailService {
 
 	// 메일함 목록 가져오기
 	List<MailBoxVo> getMailBoxList(String no);
+
+
+	// 메일함 삭제
+	int deleteFolder(String no);
+
+	// 받은 메일 중 안읽은 메일
+	String getUnreadReceiveMailCnt(String mail);
+
+	// 보낸 메일 갯수
+	String getAllSendMailCnt(String mail);
+
+	// 내게 보낸 메일 갯수
+	String getAllToMeMailCnt(String mail);
+
+	// 안 읽은 내게 보낸 메일 갯수
+	String getUnreadToMeMailCnt(String mail);
+
+	// 삭제한 메일 갯수
+	String getDumpMailCnt(String mail);
+
+	// 삭제한 메일 중 안읽은 메일 갯수
+	String getUnreadDumpMailCnt(String mail);
+
+	// 중요 메일 갯수
+	String getUnreadBookMarkMailCnt(String mail);
+
+	// 안읽은 중요 메일 갯수
+	String getBookMarkMailCnt(String mail);
+
+	// 메일들 안읽음 처리
+	int mailListUnread(List<Map<String, String>> selectedToUnreadMailList);
 	
 }

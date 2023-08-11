@@ -97,6 +97,36 @@ public interface MailDao {
 	// 메일함 가져오기
 	List<MailBoxVo> getMailBoxList(String no, SqlSessionTemplate sqlSessionTemplate);
 
+	// 메일함 삭제
+	int deleteFolder(String no, SqlSessionTemplate sqlSessionTemplate);
+
+	
+	// 받은 메일 중 안읽은 메일
+	String getUnreadReceiveMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 보낸 메일 갯수
+	String getAllSendMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 내게 보낸 메일 갯수
+	String getAllToMeMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 안 읽은 내게 보낸 메일 갯수
+	String getUnreadToMeMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 삭제한 메일 갯수
+	String getDumpMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 삭제한 메일 중 안읽은 메일 갯수
+	String getUnreadDumpMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 중요 메일 갯수
+	String getUnreadBookMarkMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+	// 안읽은 중요 메일 갯수
+	String getBookMarkMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate);
+
+
+	int mailListUnread(List<Map<String, String>> selectedToUnreadMailList, SqlSessionTemplate sqlSessionTemplate);
 	
 
 }

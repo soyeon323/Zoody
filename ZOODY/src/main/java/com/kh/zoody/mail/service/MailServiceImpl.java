@@ -183,4 +183,68 @@ public class MailServiceImpl implements MailService{
 		return mailDao.getMailBoxList(no, sqlSessionTemplate);
 	}
 
+
+	// 메일함 삭제
+	@Override
+	public int deleteFolder(String no) {
+		return mailDao.deleteFolder(no, sqlSessionTemplate);
+	}
+
+
+	// 받은 메일 중 안읽은 메일
+	@Override
+	public String getUnreadReceiveMailCnt(String mail) {
+		return mailDao.getUnreadReceiveMailCnt(mail, sqlSessionTemplate);
+	}
+
+
+	// 보낸 메일 갯수
+	@Override
+	public String getAllSendMailCnt(String mail) {
+		return mailDao.getAllSendMailCnt(mail, sqlSessionTemplate);
+	}
+
+
+	// 내게 보낸 메일 갯수
+	@Override
+	public String getAllToMeMailCnt(String mail) {
+		return mailDao.getAllToMeMailCnt(mail, sqlSessionTemplate);
+	}
+
+	// 안 읽은 내게 보낸 메일 갯수
+	@Override
+	public String getUnreadToMeMailCnt(String mail) {
+		return mailDao.getUnreadToMeMailCnt(mail, sqlSessionTemplate);
+	}
+
+	// 삭제한 메일 갯수
+	@Override
+	public String getDumpMailCnt(String mail) {
+		return mailDao.getDumpMailCnt(mail, sqlSessionTemplate);
+	}
+
+	// 삭제한 메일 중 안읽은 메일 갯수
+	@Override
+	public String getUnreadDumpMailCnt(String mail) {
+		return mailDao.getUnreadDumpMailCnt(mail, sqlSessionTemplate);
+	}
+
+	// 중요 메일 갯수
+	@Override
+	public String getUnreadBookMarkMailCnt(String mail) {
+		return mailDao.getUnreadBookMarkMailCnt(mail, sqlSessionTemplate);
+	}
+
+	// 안읽은 중요 메일 갯수
+	@Override
+	public String getBookMarkMailCnt(String mail) {
+		return mailDao.getBookMarkMailCnt(mail, sqlSessionTemplate);
+	}
+
+	// 메일들 안읽음 처리
+	@Override
+	public int mailListUnread(List<Map<String, String>> selectedToUnreadMailList) {
+		return mailDao.mailListUnread(selectedToUnreadMailList, sqlSessionTemplate);
+	}
+
 }

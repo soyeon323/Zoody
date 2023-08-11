@@ -96,14 +96,27 @@ public class MailDaoImpl implements MailDao {
 	// 안읽은 메일 갯수
 	@Override
 	public String getUnreadMailCount(String mail, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectOne("getUnreadMailCount", mail);
+		
+		String resultStr1 = sqlSessionTemplate.selectOne("getUnreadMailCount", mail);
+		String reusltStr2 = sqlSessionTemplate.selectOne("getUnreadMailCount2", mail);
+		
+		int result1 = Integer.parseInt(resultStr1);
+		int result2 = Integer.parseInt(reusltStr2);
+		
+		return Integer.toString(result1 + result2);
 	}
 
 
 	// 모든 메일 갯수
 	@Override
 	public String getAllMailCount(String mail, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectOne("getAllMailCount", mail);
+		
+		String resultStr = sqlSessionTemplate.selectOne("getAllMailCount", mail);
+		
+		int result = Integer.parseInt(resultStr);
+		
+		
+		return Integer.toString(result);
 	}
 		
 	
@@ -137,7 +150,9 @@ public class MailDaoImpl implements MailDao {
 	}
 	// 상세보기한 메일 읽음 체크
 	public int readCheck(Map<String, String> readMail, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.update("mail.readCheck", readMail);
+		int result = sqlSessionTemplate.update("mail.readCheckRecipient", readMail);
+		result += sqlSessionTemplate.update("mail.readCheckCC", readMail);
+		return result;
 	}
 
 	
@@ -158,13 +173,18 @@ public class MailDaoImpl implements MailDao {
 	// 메일 리스트 읽음 처리
 	@Override
 	public int mailListReadCheck(List<Map<String, String>> selectedToReadMailNoList, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.update("mail.mailListReadCheck", selectedToReadMailNoList);
+		return sqlSessionTemplate.update("mail.mailListReadCheck1", selectedToReadMailNoList) + sqlSessionTemplate.update("mail.mailListReadCheck2", selectedToReadMailNoList);
 	}
 
 
 	// 메일 리스트 삭제
 	public int mailListDump(List<Map<String, String>> selectedToDumpMailNoList, SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.update("mail.mailListDump", selectedToDumpMailNoList);
+		
+		int result = sqlSessionTemplate.update("mail.mailListDump", selectedToDumpMailNoList);
+		
+		result += sqlSessionTemplate.update("mail.mailListDump2", selectedToDumpMailNoList);
+		
+		return result;
 	}
 
 
@@ -220,5 +240,79 @@ public class MailDaoImpl implements MailDao {
 	public List<MailBoxVo> getMailBoxList(String no, SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("mail.getFolderList", no);
 	}
+
+	// 메일함 삭제
+	@Override
+	public int deleteFolder(String no, SqlSessionTemplate sqlSessionTemplate) {
+		
+		sqlSessionTemplate.update("mail.deleteMailBoxNoInMail", no);
+		
+		return sqlSessionTemplate.update("mail.deleteMailBoxByNo", no);
+	}
+
+
+	// 받은 메일 중 안읽은 메일
+	@Override
+	public String getUnreadReceiveMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getUnreadReceiveMailCnt", mail);
+	}
+
+
+	// 보낸 메일 갯수
+	@Override
+	public String getAllSendMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getSendMailCnt", mail);
+	}
+
+	// 내게 보낸 메일 갯수
+	@Override
+	public String getAllToMeMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getToMeMailCnt", mail);
+	}
+
+	// 안 읽은 내게 보낸 메일 갯수
+	@Override
+	public String getUnreadToMeMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getUnreadToMeCnt", mail);
+	}
+
+	// 삭제한 메일 갯수
+	@Override
+	public String getDumpMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getDumpMailCnt", mail);
+	}
+
+	// 삭제한 메일 중 안읽은 메일 갯수
+	@Override
+	public String getUnreadDumpMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		
+		String resultStr1 = sqlSessionTemplate.selectOne("getUnreadDumpMailCnt1", mail);
+		String reusltStr2 = sqlSessionTemplate.selectOne("getUnreadDumpMailCnt2", mail);
+		
+		int result1 = Integer.parseInt(resultStr1);
+		int result2 = Integer.parseInt(reusltStr2);
+		
+		return Integer.toString(result1 + result2);
+	}
+
+	// 중요 메일 갯수
+	@Override
+	public String getBookMarkMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getBookMarkMailCnt",mail);
+	}
+
+	// 안읽은 중요 메일 갯수
+	@Override
+	public String getUnreadBookMarkMailCnt(String mail, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getUnreadBookMarkCnt",mail);
+	}
+
+	// 메일들 안읽음 처리
+	@Override
+	public int mailListUnread(List<Map<String, String>> selectedToUnreadMailList,
+			SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.update("mail.mailListUnreadCheck1", selectedToUnreadMailList) + sqlSessionTemplate.update("mail.mailListUnreadCheck2", selectedToUnreadMailList);
+	}
+	
 	
 }

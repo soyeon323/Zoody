@@ -18,7 +18,6 @@
 			NO,
 			SENDER,
 			PREV_NO,
-			MAILBOX_NO,
 			TITLE,
 			CONTENT,
 			SEND_DATE
@@ -28,7 +27,6 @@
 			#{no},
 			#{sender},
 			#{prevNo},
-			#{mailboxNo},
 			#{title},
 			#{content},
 			DEFAULT
@@ -117,11 +115,11 @@
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
-		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE,
 		    MAIL_RECIPIENT.READ_CHECK AS READ_CHECK,
+		    MAIL_CC.READ_CHECK AS READ_CHECK2,
 		    MAIL_RECIPIENT.DELETE_CHECK AS DELETE_CHECK,
 		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO,
 		    MAIL_ATTACHMENT_CNT,
@@ -133,7 +131,8 @@
 		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
 				FROM MAIL_ATTACHMENT
 				GROUP BY MAIL_NO) TEMP ON M.NO = TEMP.MAIL_NO
-		WHERE DELETE_CHECK = 'X'
+		WHERE DUMP_CHECK = 'X'
+			OR DELETE_CHECK = 'X'
 			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
 		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
 	    ORDER BY SEND_DATE DESC
@@ -161,12 +160,22 @@
 		SELECT COUNT(M.NO)
 		FROM MAIL M
 		    JOIN "USER" ON M.SENDER = "USER".NO
-		    left OUTER JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
-		    FULL OUTER JOIN MAIL_CC ON M. NO = MAIL_CC.MAIL_NO
-		WHERE READ_CHECK = 'X'
+		    LEFT OUTER JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		WHERE MAIL_RECIPIENT.READ_CHECK = 'X'
 			AND DELETE_CHECK = 'X'
 			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
-		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    
+	</select>
+	
+	<select id="getUnreadMailCount2" resultType="String">
+	
+		SELECT COUNT(M.NO)
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    LEFT OUTER JOIN MAIL_CC ON M. NO = MAIL_CC.MAIL_NO
+		WHERE MAIL_CC.READ_CHECK = 'X'
+			AND DUMP_CHECK = 'X'
+		    AND CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
 		    
 	</select>
 	
@@ -177,7 +186,6 @@
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
-		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE,
@@ -212,6 +220,22 @@
 	
 	</select>
 	
+	<select id="getUnreadReceiveMailCnt" resultType="String">
+	
+		SELECT COUNT(MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+				FROM MAIL_ATTACHMENT
+				GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+			AND READ_CHECK = 'X'
+			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{receiverMail})
+        ORDER BY SEND_DATE DESC
+	
+	</select>
+	
 	
 	<select id="getSendMailList" resultType="MailVo">
 	
@@ -220,7 +244,6 @@
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
-		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE,
@@ -240,6 +263,23 @@
 	</select>
 	
 	
+	<select id="getSendMailCnt" resultType="String">
+	
+		SELECT COUNT(DISTINCT M.NO)
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+	    	LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+				FROM MAIL_ATTACHMENT
+				GROUP BY MAIL_NO) TEMP ON M.NO = TEMP.MAIL_NO
+		WHERE M.SENDER = ( 
+							SELECT NO 
+							FROM "USER" 
+							WHERE MAIL = #{mail} 
+						)
+	
+	</select>
+	
+	
 	<select id="getToMeMailList" resultType="MailVo">
 	
 		SELECT 
@@ -247,7 +287,6 @@
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
-		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE,
@@ -269,6 +308,40 @@
 	
 	</select>
 	
+	
+	<select id="getToMeMailCnt" resultType="String">
+	
+		SELECT COUNT(DISTINCT M.NO)
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+				FROM MAIL_ATTACHMENT
+				GROUP BY MAIL_NO) TEMP ON M.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+			AND M.SENDER = ( SELECT NO FROM "USER" WHERE MAIL = #{mail}  )
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail} )
+	    ORDER BY SEND_DATE DESC
+	
+	</select>
+	
+	<select id="getUnreadToMeCnt" resultType="String">
+	
+		SELECT COUNT(DISTINCT M.NO)
+		FROM MAIL M
+		    JOIN "USER" ON M.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON M.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON M.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+		    AND M.SENDER = ( SELECT NO FROM "USER" WHERE MAIL = #{mail}  )
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail} )
+		    AND READ_CHECK = 'X'
+	
+	</select>
+	
+	
 	<select id="getDumpMailList" resultType="MailVo">
 	
 		SELECT
@@ -276,27 +349,77 @@
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
-		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE,
 		    MAIL_RECIPIENT.READ_CHECK AS READ_CHECK,
+		    MAIL_CC.READ_CHECK AS READ_CHECK2,
 		    MAIL_RECIPIENT.DELETE_CHECK AS DELETE_CHECK,
 		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO,
 		    MAIL_ATTACHMENT_CNT
 		FROM MAIL
 		    JOIN "USER" ON MAIL.SENDER = "USER".NO
-		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN MAIL_CC ON MAIL.NO = MAIL_CC.MAIL_NO
 		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
-				FROM MAIL_ATTACHMENT
-				GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
-		WHERE DELETE_CHECK = 'O'
-			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
-        ORDER BY SEND_DATE DESC
-		
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DUMP_CHECK = 'O'
+		    OR DELETE_CHECK = 'O'
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		ORDER BY SEND_DATE DESC
 	
 	</select>
 	
+	
+	<select id="getDumpMailCnt" resultType="String">
+	
+		SELECT COUNT(DISTINCT MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    LEFT OUTER JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN MAIL_CC ON MAIL.NO = MAIL_CC.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DUMP_CHECK = 'O'
+		    OR DELETE_CHECK = 'O'
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		    OR CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+	
+	</select>
+	
+	<select id="getUnreadDumpMailCnt1" resultType="String">
+	
+		SELECT COUNT(DISTINCT MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    LEFT OUTER JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'O'
+		    AND READ_CHECK = 'X'
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+	
+	</select>
+	
+	
+	<select id="getUnreadDumpMailCnt2" resultType="String">
+	
+		SELECT COUNT(DISTINCT MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    LEFT OUTER JOIN MAIL_CC ON MAIL.NO = MAIL_CC.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DUMP_CHECK = 'O'
+		    AND READ_CHECK = 'X'
+		    AND CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+	
+	</select>
 	
 	<select id="getBookmarkMailList" resultType="MailVo">
 	
@@ -305,7 +428,6 @@
 		    "USER".NAME AS SENDER_NAME,
 		    "USER".MAIL AS SENDER_MAIL,
 		    PREV_NO,
-		    MAILBOX_NO,
 		    TITLE,
 		    CONTENT,
 		    SEND_DATE,
@@ -329,13 +451,44 @@
 	</select>
 	
 	
+	<select id="getBookMarkMailCnt" resultType="String">
+	
+		SELECT COUNT(DISTINCT MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+				FROM MAIL_ATTACHMENT
+				GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+			AND BOOKMARK_CHECK = 'O'
+			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+	
+	</select>
+	
+	<select id="getUnreadBookMarkCnt" resultType="String">
+	
+		SELECT COUNT(DISTINCT MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+				FROM MAIL_ATTACHMENT
+				GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+			AND READ_CHECK = 'X'
+			AND BOOKMARK_CHECK = 'O'
+			AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+	
+	</select>
+	
+	
 	<select id="getMailDetailByNo" resultType="MailVo">
 	
 		SELECT 
 			M.NO,
 			U.NAME AS "SENDER",
 			PREV_NO,
-			MAILBOX_NO,
 			TITLE,
 			CONTENT,
 			SEND_DATE
@@ -354,13 +507,22 @@
 	
 	</select>
 	
-	<update id="readCheck">
+	<update id="readCheckRecipient">
 		
 		UPDATE MAIL_RECIPIENT
 		SET READ_CHECK = 'O'
 		WHERE MAIL_NO = #{mailNo}
 		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{userMail})
 		
+	</update>
+	
+	<update id="readCheckCC">
+	
+		UPDATE MAIL_CC
+		SET READ_CHECK = 'O'
+		WHERE MAIL_NO =	#{mailNo}
+		    AND CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{userMail})
+	
 	</update>
 	
 	
@@ -391,7 +553,7 @@
 	</select>
   
   
-  	<update id="mailListReadCheck">
+  	<update id="mailListReadCheck1">
 		
 		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
 			UPDATE MAIL_RECIPIENT
@@ -404,6 +566,44 @@
   	
   	</update>
   	
+  	<update id="mailListReadCheck2">
+		
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_CC
+			SET READ_CHECK = 'O'
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+  	
+  	</update>
+  	
+  	<update id="mailListUnreadCheck1">
+  	
+  		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_RECIPIENT
+			SET READ_CHECK = 'X'
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+  	
+  	</update>
+  	
+  	<update id="mailListUnreadCheck2">
+  	
+  		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_CC
+			SET READ_CHECK = 'X'
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+  	
+  	</update>
   	
   	<update id="mailListDump">
 		
@@ -413,6 +613,19 @@
 			<where>
 				MAIL_NO = #{item.mailNo}
 			    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+  	
+  	</update>
+  	
+  	<update id="mailListDump2">
+		
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_CC
+			SET DUMP_CHECK = 'O'
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND CC_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
 			</where>
 		</foreach>
   	
@@ -464,9 +677,11 @@
   	
   	</insert>
   	
-  	<!-- Mail_Recipient (현재 MailBox 번호가 Mail에 있음... 수정해야함..) 에서 메일함 번호 가진애들 초기화 -> 메일함 삭제 -->
-  	
   	<update id="deleteMailBoxNoInMail">
+  	
+  		UPDATE MAIL_RECIPIENT
+  		SET MAILBOX_NO = NULL
+  		WHERE MAILBOX_NO = #{no}
   	
   	</update>
 
