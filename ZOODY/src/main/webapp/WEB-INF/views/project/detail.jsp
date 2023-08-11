@@ -36,6 +36,7 @@
 </script>
 </head>
 <body style="overflow-x: hidden">
+<h1>${noList}</h1>
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/project/side.jsp" %>
 
@@ -261,7 +262,7 @@
             // 상대 쪽
             modalBody.innerHTML += '<div id="profile-area">'
                                     + '<img src="${root}/resources/img/employee/' + obj.profile + '" alt="프로필사진" class="chatProfile">'
-                                     + '<a class="name-area">' + obj.nick + '</a>'
+                                        + '<a class="name-area">' + obj.nick + '</a>'
                                 + '</div>'
                                 + '<div id="toMsg">'
                                     + '<div id="toMsgText">'
@@ -269,6 +270,7 @@
                                     '</div>'
                                     + '<a id="time01">' + obj.time + '</a>'
                                 + '</div>';
+
         }
         connectUser.innerHTML += userHtml;
     }

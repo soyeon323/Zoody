@@ -75,11 +75,6 @@ public class WebsocketServer extends TextWebSocketHandler{
 			}
 		}
 		
-        /* for (WebSocketSession s : sessionMap.values()) {
-        	if(sessionMap.keySet().contains(map.get(projectNo))) {
-        		s.sendMessage(new TextMessage(jsonMsg));        		
-        	}
-        } */
 	}
 
 }
