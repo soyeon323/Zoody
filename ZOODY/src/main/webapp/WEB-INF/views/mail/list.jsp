@@ -116,8 +116,7 @@
 						<c:forEach items="${mailVoList }" var="mailVo">
 
 							<c:choose>
-								<c:when test="${mailVo.readCheck eq 'X'}"><div class="table-data"></c:when>
-								<c:when test="${mailVo.readCheck eq 'O'}"><div class="table-data readed-data"></c:when>
+								<c:when test="${mailVo.readCheck eq 'O' || mailVo.readCheck2 eq 'O'}"><div class="table-data readed-data"></c:when>
 								<c:otherwise><div class="table-data"></c:otherwise>
 							</c:choose>
 							
@@ -136,12 +135,12 @@
 									</button>
 								</div>
 								<div class="read-check-icon">
-									<c:if test="${mailVo.readCheck eq 'X'}">
-										<img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음">
-									</c:if>
-									<c:if test="${mailVo.readCheck eq 'O'}">
-										<img src="${root}/resources/img/icon/svg/read-mail.svg" alt="읽음">
-									</c:if>
+
+									<c:choose>
+										<c:when test="${mailVo.readCheck eq 'O' || mailVo.readCheck2 eq 'O'}"><img src="${root}/resources/img/icon/svg/read-mail.svg" alt="읽음"></c:when>
+										<c:otherwise><img src="${root}/resources/img/icon/svg/unread-mail.svg" alt="안읽음"></c:otherwise>
+									</c:choose>
+
 								</div>
 								<div class="attachment-check-icon">
 									<c:if test="${mailVo.mailAttachmentCnt ne null}">

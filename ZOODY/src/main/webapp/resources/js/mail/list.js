@@ -207,11 +207,11 @@ folderDeleteBtnArr.forEach(element=>{
 
     element.addEventListener('click', ()=>{
 
-        console.log(element.parentNode.id);
-
-        fetch(contextPath + 'mail/foler/delete?no=' + element.parentNode.id)
+        fetch(contextPath + '/mail/folder/delete?no=' + element.parentNode.id)
         .then(response=>response.text())
         .then((data)=>{
+
+            console.log(data);
 
             if(data == 1) {
                 location.reload();

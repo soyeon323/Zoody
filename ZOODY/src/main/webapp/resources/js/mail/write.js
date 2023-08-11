@@ -259,3 +259,79 @@ function sendFile(file, el) {
         }
     });
 }
+
+
+
+/* ---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------- */
+
+const folderAddbtn = document.querySelector('.folder-add-btn');
+
+folderAddbtn.addEventListener('click', ()=>{
+
+    const folderListArea = document.querySelector('.custom-folder-list');
+
+    const customFolder = document.createElement('div');
+    customFolder.classList.add('custom-folder');
+
+    const folderImg = document.createElement('img');
+    folderImg.src = contextPath + '/resources/img/icon/svg/folder.svg';
+
+
+    const folderNameInput = document.createElement('input');
+
+
+    const deleteFolderBtn = document.createElement('img');
+    deleteFolderBtn.src = contextPath + '/resources/img/icon/svg/small-cross.svg';
+    deleteFolderBtn.classList.add('folder-delete-btn');
+
+    customFolder.append(folderImg);
+    customFolder.append(folderNameInput);
+    customFolder.append(deleteFolderBtn);
+
+    folderListArea.append(customFolder);
+
+
+    folderNameInput.addEventListener('focusout', (event)=>{
+
+        const nameInput = event.currentTarget;
+
+        fetch(contextPath + '/mail/folder/create?name=' + nameInput.value)
+        .then(response=>response.text())
+        .then((data)=>{
+
+            if(data == 1) {
+                location.reload();
+            }
+
+        })
+        .catch(err=>{})
+
+    })
+
+});
+
+const folderDeleteBtnArr = document.querySelectorAll('.folder-delete-btn');
+
+folderDeleteBtnArr.forEach(element=>{
+
+    element.addEventListener('click', ()=>{
+
+        fetch(contextPath + '/mail/folder/delete?no=' + element.parentNode.id)
+        .then(response=>response.text())
+        .then((data)=>{
+
+            console.log(data);
+
+            if(data == 1) {
+                location.reload();
+            }
+
+        })
+        .catch(err=>{})
+
+    })
+
+});

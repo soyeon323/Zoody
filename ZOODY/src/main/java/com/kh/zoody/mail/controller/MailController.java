@@ -56,26 +56,29 @@ public class MailController {
 		String unread = "";
 		String mailCount = "";
 		
-		unread = mailService.getUnreadMailCount(loginUser.getMail());
-		
 		List<MailVo> mailVoList = new ArrayList<>();
 		if("all".equals(folder)) {
+			unread = mailService.getUnreadMailCount(loginUser.getMail());
 			mailCount = mailService.getAllMailCount(loginUser.getMail());
 			mailVoList = mailService.getAllMail(loginUser.getMail());
 		} else if("receive".equals(folder)) {
+			unread = mailService.getUnreadReceiveMailCnt(loginUser.getMail());
 			mailCount = mailService.getAllReceiveMailCnt(loginUser.getMail());
 			mailVoList = mailService.getReceiveMail(loginUser.getMail());
 		} else if("send".equals(folder)) {
-			mailCount = mailService.getAllReceiveMailCnt(loginUser.getMail());
+			mailCount = mailService.getAllSendMailCnt(loginUser.getMail());
 			mailVoList = mailService.getSendMail(loginUser.getMail());
 		} else if("to-me".equals(folder)) {
-			mailCount = mailService.getAllReceiveMailCnt(loginUser.getMail());
+			unread = mailService.getUnreadToMeMailCnt(loginUser.getMail());
+			mailCount = mailService.getAllToMeMailCnt(loginUser.getMail());
 			mailVoList = mailService.getToMeMail(loginUser.getMail());
 		} else if("dump".equals(folder)) {
-			mailCount = mailService.getAllReceiveMailCnt(loginUser.getMail());
+			unread = mailService.getUnreadDumpMailCnt(loginUser.getMail());
+			mailCount = mailService.getDumpMailCnt(loginUser.getMail());
 			mailVoList = mailService.getDumpMail(loginUser.getMail());
 		} else if("bookmark".equals(folder)) {
-			mailCount = mailService.getAllReceiveMailCnt(loginUser.getMail());
+			unread = mailService.getUnreadBookMarkMailCnt(loginUser.getMail());
+			mailCount = mailService.getBookMarkMailCnt(loginUser.getMail());
 			mailVoList = mailService.getBookmarkMail(loginUser.getMail());
 		}
 		
@@ -83,7 +86,7 @@ public class MailController {
 		
 		model.addAttribute("unread", unread);
 		model.addAttribute("mailCount", mailCount);
-		model.addAttribute("mailVoList", mailVoList);
+		model.addAttribute("mailVoList", mailVoList);		
 		model.addAttribute("mailBoxList", mailBoxList);
 		
 		return "mail/list";
@@ -95,7 +98,10 @@ public class MailController {
 		
 		String unread = mailService.getUnreadMailCount(loginUser.getMail());
 		
+		List<MailBoxVo> mailBoxList = mailService.getMailBoxList(loginUser.getNo());
+		
 		model.addAttribute("unread", unread);
+		model.addAttribute("mailBoxList", mailBoxList);
 		
 		return "mail/write";
 	}
@@ -105,7 +111,7 @@ public class MailController {
 		UserVo loginUser = (UserVo) session.getAttribute("loginMember");
 		
 		String unread = mailService.getUnreadMailCount(loginUser.getMail());
-		String allMailCount = mailService.getAllMailCount(loginUser.getMail());
+		String mailCount = mailService.getAllMailCount(loginUser.getMail());
 		
 		MailVo detailMailVo = mailService.getMailDetailByNo(no);
 		
@@ -115,8 +121,11 @@ public class MailController {
 		
 		List<UserVo> ccUserVoList = mailService.getMailCcByMailNo(no);
 		
+		List<MailBoxVo> mailBoxList = mailService.getMailBoxList(loginUser.getNo());
+		
 		model.addAttribute("unread", unread);
-		model.addAttribute("allMailCount", allMailCount);
+		model.addAttribute("mailCount", mailCount);
+		model.addAttribute("mailBoxList", mailBoxList);
 		
 		model.addAttribute("detailMailVo", detailMailVo);
 		model.addAttribute("mailAttachmentVoList", mailAttachmentVoList);
@@ -125,7 +134,8 @@ public class MailController {
 		return "mail/detail";
 	}
 	@GetMapping("detail/read")
-	public void readCheck(String no, HttpSession session, HttpServletResponse resp) {
+	@ResponseBody
+	public String readCheck(String no, HttpSession session, HttpServletResponse resp) {
 		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 		String userMail = loginMember.getMail();
 		
@@ -135,18 +145,7 @@ public class MailController {
 		
 		int result = mailService.readCheck(readMail);
 		
-		String resultJson = gson.toJson(result);
-		
-		resp.setCharacterEncoding("UTF-8");
-		
-		PrintWriter out;
-		try {
-			out = resp.getWriter();
-			out.write(result);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		return Integer.toString(result);
 	}
 	
 	@GetMapping("download/attachment")
@@ -284,8 +283,33 @@ public class MailController {
 	}
 	
 	
+	@PostMapping("selected/unread")
+	@ResponseBody
+	public String selectedMailUnread(@RequestBody String data, HttpSession session) {
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		String userMail = loginMember.getMail();
+		
+		Map<String, Object> dataMap = gson.fromJson(data, Map.class);
+		
+		List<String> selectedMailNoList = (List<String>) dataMap.get("selectedMailNoArr");
+		
+		List<Map<String, String>> selectedToUnreadMailList = new ArrayList<>();
+		for(int i = 0; i < selectedMailNoList.size(); i++) {
+			Map<String, String> tempMap = new HashMap<>();
+			tempMap.put("mailNo", selectedMailNoList.get(i));
+			tempMap.put("userMail", userMail);
+			selectedToUnreadMailList.add(tempMap);
+		}
+		
+		int result = mailService.mailListUnread(selectedToUnreadMailList);
+		
+		return Integer.toString(result);
+	}
+	
+	
 	@PostMapping("selected/dump")
-	public void selectedMailDump(@RequestBody String ajaxData, HttpSession session, HttpServletResponse resp) {
+	@ResponseBody
+	public String selectedMailDump(@RequestBody String ajaxData, HttpSession session, HttpServletResponse resp) {
 		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 		String userMail = loginMember.getMail();
 		
@@ -306,12 +330,10 @@ public class MailController {
 		
 		int result = mailService.mailListDump(selectedToDumpMailNoList);
 		
-		try {
-			resp.getWriter().write(Integer.toString(result));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		return Integer.toString(result);
 	}
+	
+	
 	
 	@GetMapping(value="bookmark/add")
 	@ResponseBody
@@ -362,9 +384,9 @@ public class MailController {
 	@ResponseBody
 	public String deleteFolder(String no) {
 		
-//		int result = mailService.deleteFolder(no);
+		int result = mailService.deleteFolder(no);
 		
-		return "";
+		return Integer.toString(result);
 	}
 	
 }
