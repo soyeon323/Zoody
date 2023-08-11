@@ -32,9 +32,10 @@ public class PwdSettingService {
 	public int pwdSetting(UserVo vo) {
 		
 		String pwd = vo.getPwd();
-		
+		log.info(pwd);
 		//암호화
 		String newPwd = encoder.encode(pwd);
+		log.info(newPwd);
 		vo.setPwd(newPwd);
 		
 		return psd.pwdSetting(sst,vo);

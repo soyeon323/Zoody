@@ -20,61 +20,81 @@
 		<div id="wrap">
             
             <div id="email-area">
-
                 <div>
-                    <label for="email">이메일</label>
+                    <label id="label" for="email">이메일</label>
                     <div class="input-group">
-                   <input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
-                   <select class="form-control" name="userEmail2" id="userEmail2" >
-                   <option>@naver.com</option>
-                   <option>@daum.net</option>
-                   <option>@gmail.com</option>
-                   <option>@hanmail.com</option>
-                    <option>@yahoo.co.kr</option>
-                   </select>
-                </div> 
-    
-               <div class="input-group-addon">
-                   <button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
-               </div>
-                   <div class="mail-check-box">
-               <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-               </div>
-                   <span id="mail-check-warn"></span>
-               </div>
-
+                        <input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
+                        <select class="form-control" name="userEmail2" id="userEmail2" >
+                            <option>@yahoo.co.kr</option>
+                            <option>@daum.net</option>
+                            <option>@naver.com</option>
+                            <option>@gmail.com</option>
+                            <option>@hanmail.com</option>
+                        </select>
+                    </div> 
+                    
+                    <div class="input-group-addon">
+                        <button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+                    </div>
+                    <div class="mail-check-box">
+                        
+                        <input class="form-control mail-check-input"  placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+                    </div>
+                    <span id="mail-check-warn"></span>
+                </div>
+                
             </div>
-
-            
-
-
-
-
-
-            <form action="${root}/pwd/pwdSetting" method="POST">   
-                    <span>비밀번호 설정</span><span id="lengthMsg" style="color: red; font-size: 0.8em;">(5글자 이상)</span><span id="specialCharMsg" style="color: red;  font-size: 0.8em;"> (특수문자가 하나 이상)</span>
-                <input type="password" class="form-control" disabled placeholder="비밀번호" id="pwdSet1">
+                <div id="pwd-area">
+                    <span>비밀번호 설정</span>
+                <div id="mother">
+                    <span id="lengthMsg" style="color: red; font-size: 0.8em;">(5글자 이상)</span><span id="specialCharMsg" style="color: red;  font-size: 0.8em;">(특수문자 하나 포함)</span>
+                </div>
+                <input type="password" class="form-control"  disabled placeholder="비밀번호" id="pwdSet1">
                 
                 <br>
                 <span>비밀번호 재확인</span>
-                <input type="password" name="pwd" class="form-control" placeholder="비밀번호" disabled id="pwdSet2">
+                <input type="password" name="pwd" class="form-control" name="pwd" placeholder="비밀번호" disabled id="pwdSet2">
                 
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em;" type="button"  id="pwdCheck" value="비밀번호 일치 확인"> 
                 <br><br>
-                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="submit" value="비밀번호 설정 하기"> 
-            </form>
-
-
-
-
-
-
-
+                <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="button" onclick="pwdSettiongEamil()" value="비밀번호 설정 하기"> 
+                </div>
+                    
 		</div>
 </body>
 </html>
 
 <script>
+
+    //이메일을 사용한 비밀번호 번경
+    function pwdSettiongEamil() {
+        const pwd = document.querySelector('#pwdSet2').value;
+        console.log(pwd);
+        
+        //email
+        const email = $('#userEmail1').val() + $('#userEmail2').val();
+        console.log('이 이메일로 비밀번호 설정할거임 :' +email);
+        $.ajax({
+        url : '${root}/pwd/pwdSettingEmail',
+        type : 'POST',
+        data : {
+             'mail':email ,
+             'pwd' : pwd ,
+             'num' : 1 ,
+        },
+        success  : ()=>{
+            alert('성공이요');
+            location.href = "${root}/member/login";
+        },
+        error :  ()=>{
+            alert('성공이요');
+            location.href = "${root}/member/login";
+           
+        }
+    });
+    }
+   
+
 
 $('#mail-Check-Btn').click(function() {
 		const email = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기
@@ -104,24 +124,23 @@ $('#mail-Check-Btn').click(function() {
 	$('.mail-check-input').blur(function () {
 		const inputCode = $(this).val();
 		const $resultMsg = $('#mail-check-warn');
-		
+		const pwdSet1 = document.querySelector('#pwdSet1');
+		const pwdSet2 = document.querySelector('#pwdSet2');
 		if(inputCode === code){
 			$resultMsg.html('인증번호가 일치합니다.');
 			$resultMsg.css('color','green');
 			$('#mail-Check-Btn').attr('disabled',true);
 			$('#userEamil1').attr('readonly',true);
 			$('#userEamil2').attr('readonly',true);
+            pwdSet1.removeAttribute('disabled');
+            pwdSet2.removeAttribute('disabled');
 			$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-	         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
 		}else{
 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
 			$resultMsg.css('color','red');
 		}
 	});
-
-
-
-
 
       // 비밀번호 keyup
     const pwdSet1Input = document.getElementById('pwdSet1');
@@ -152,9 +171,6 @@ $('#mail-Check-Btn').click(function() {
     }
 }
 
-
-
-
 // 비밀번호 일치 확인 버튼 클릭 이벤트
 const pwdCheck = document.querySelector('#pwdCheck');
 pwdCheck.addEventListener('click', () => {
@@ -171,11 +187,9 @@ pwdCheck.addEventListener('click', () => {
         alert('비밀번호 설정 완료')
     }   
     else {
-        alert('비밀번호 조건을 다시 확인해주세요.');
+        alert('비밀번호 불일치.');
     }
 });
-
-
 
 // 비밀번호 설정하기 버튼 클릭 이벤트
 const submitBtn = document.querySelector('input[type="submit"]');
@@ -193,24 +207,27 @@ submitBtn.addEventListener('click', (event) => {
     }
 });
 
+    // 유효성 검사 
+function validatePassword() {
+    const pwdSet1 = pwdSet1Input.value;
+    
+    const lengthMsg = document.getElementById('lengthMsg');
+    const specialCharMsg = document.getElementById('specialCharMsg');
 
+    const lengthValid = pwdSet1.length >= 5;
+    const specialCharValid = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pwdSet1);
 
+    lengthMsg.style.display = lengthValid ? 'block' : 'block';
+    lengthMsg.style.color = lengthValid ? 'green' : 'red';
+    lengthMsg.textContent = lengthValid ? '(5글자 이상) ✔️' : '(5글자 이상)';
 
-    //유효성 검사 
-    function validatePassword() {
-        const pwdSet1 = pwdSet1Input.value;
-        
-        const lengthMsg = document.getElementById('lengthMsg');
-        const specialCharMsg = document.getElementById('specialCharMsg');
+    specialCharMsg.style.display = specialCharValid ? 'block' : 'block';
+    specialCharMsg.style.color = specialCharValid ? 'green' : 'red';
+    specialCharMsg.textContent = specialCharValid ? '(특수문자 하나 포함)✔️' : '(특수문자 하나 포함)';
 
-        lengthMsg.style.display = pwdSet1.length < 5 ? 'block' : 'block';
-        lengthMsg.style.color = pwdSet1.length < 5 ? 'red' : 'blue';
-
-        const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        specialCharMsg.style.display = specialChars.test(pwdSet1) ? 'block' : 'block';
-        specialCharMsg.style.color = specialChars.test(pwdSet1) ? 'blue' : 'red';
-    }
-
-
+// 애니메이션 추가
+lengthMsg.style.transition = 'color 0.3s';
+specialCharMsg.style.transition = 'color 0.3s';
+}
 
 </script>

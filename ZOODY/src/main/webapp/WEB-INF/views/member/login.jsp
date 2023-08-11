@@ -21,6 +21,7 @@
 
 <body>
     <div id="wrap">
+        ${result}
         <form id="login-form" action="${root}/member/login" method="POST" >
             <img src="${root}/resources/img/logo/logo.svg" alt="로고 이미지">
             <input type="text" class="form-control" name="id" placeholder="ID">
@@ -28,8 +29,8 @@
             <c:if test="${result eq null }">
 	            <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
             </c:if>
-            <input id="loginBtn" class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
             <c:if test="${result eq 1}">
+            <input id="loginBtn" class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
             </c:if>
         </form>
 		</div>

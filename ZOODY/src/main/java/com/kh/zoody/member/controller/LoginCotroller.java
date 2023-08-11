@@ -43,6 +43,7 @@ public class LoginCotroller {
 	@PostMapping("login")
 	public String login(UserVo vo , HttpSession session , Model model) {
 	    try {
+    	
 	        UserVo loginMember = ls.login(vo);
 	        session.setAttribute("loginMember", loginMember);
 	        return "redirect:/home";

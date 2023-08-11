@@ -62,4 +62,18 @@ public class PwdSettingController {
 		return "pwd/find";
 	}
 	
+	
+	//이제 최종 비밀번호 설정 로직 (암호화)
+	@PostMapping("pwdSettingEmail")
+	public String PwdSettingEmail(UserVo vo , Model m) {
+		
+		int result = ps.pwdSetting(vo);
+		log.info("result :{}",result);
+		if(result != 1) {
+			throw new RuntimeException();
+		}
+		m.addAttribute("result",result);
+		return "member/login";
+	}
+	
 }
