@@ -79,31 +79,6 @@
 		FETCH FIRST 1 ROW ONLY
  	</select>
  	
- 	<select id="getHomeCalendar" resultType="HomeCalendarVo">
- 		SELECT 
-		    C.NO,
-		    C.USER_NO,
-		    C.TYPE_NO,
-		    C.REV_NO,
-		    C.TITLE,
-		    C.CONTENT,
-		    TO_CHAR(C.START_TIME, 'YYYY-MM-DD HH24:MI') AS START_TIME,
-		    TO_CHAR(C.END_TIME, 'YYYY-MM-DD HH24:MI') AS END_TIME,
-		    C.PLACE,
-		    C.STATUS,
-		    C.ALL_DAY,
-		    U.NAME,
-		    CT.TYPE,
-		    CT.COLOR,
-		    U.DEPARTMENT_NO,
-		    TRUNC(C.START_TIME + ((C.END_TIME - C.START_TIME) / 2)) AS MIDDLE_TIME,
-		    TRUNC(C.START_TIME + ((C.END_TIME - C.START_TIME) / 2)) - TRUNC(SYSDATE) AS DAYS_LEFT
-		FROM CALENDAR C
-		JOIN "USER" U ON C.USER_NO = U.NO
-		JOIN CALENDAR_TYPE CT ON C.TYPE_NO = CT.NO
-		WHERE C.STATUS = 0
-		    AND TRUNC(C.START_TIME + ((C.END_TIME - C.START_TIME) / 2)) >= TRUNC(SYSDATE)
-		ORDER BY C.END_TIME
- 	</select>
+ 	
  	
   </mapper>
