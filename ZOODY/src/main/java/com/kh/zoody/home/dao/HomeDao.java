@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.community.vo.BoardVo;
+import com.kh.zoody.home.vo.HomeCalendarVo;
 import com.kh.zoody.notice.vo.NoticeVo;
 
 public interface HomeDao {
@@ -15,5 +16,7 @@ public interface HomeDao {
 	AttendanceVo getHomeAttendanceList(SqlSessionTemplate sst, int loginMemberNo);
 
 	List<BoardVo> newBoardList(SqlSessionTemplate sst);
+
+	List<HomeCalendarVo> getCalendar(SqlSessionTemplate sst, int loginMemberNo);
 
 }

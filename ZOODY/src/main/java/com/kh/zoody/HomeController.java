@@ -5,21 +5,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.log.UserDataHelper.Mode;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.kh.zoody.attendance.service.AttendanceService;
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.community.service.CommuityService;
 import com.kh.zoody.community.vo.BoardVo;
 import com.kh.zoody.home.service.HomeService;
-import com.kh.zoody.notice.service.NoticeService;
+import com.kh.zoody.home.vo.HomeCalendarVo;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.user.vo.UserVo;
 
@@ -34,7 +28,6 @@ public class HomeController {
 	
 	private final CommuityService cs;
 	private final HomeService hs;
-	private final AttendanceService attService;
 
     @GetMapping
     public String home(Model model, 
@@ -58,7 +51,7 @@ public class HomeController {
         List<BoardVo> newBoardList = hs.newBoardList();
         List<NoticeVo> getNotice = hs.getNewNotice();
         AttendanceVo getAttendance =  hs.getHomeAttendanceList(loginMemberNo);
-        
+        List<HomeCalendarVo> getCalendar = hs.getCalendar(loginMemberNo);
         
         if (boardList != null) {
         	log.info("커뮤니티");
@@ -79,6 +72,11 @@ public class HomeController {
         	log.info("근태");
         	log.info(getAttendance+"");
         	model.addAttribute("getAttendance", getAttendance);
+        }
+        if(getCalendar != null) {
+        	log.info("일정");
+        	log.info(getCalendar+"");
+        	model.addAttribute("getCalendar", getCalendar);
         }
        
 

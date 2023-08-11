@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.community.vo.BoardVo;
+import com.kh.zoody.home.vo.HomeCalendarVo;
 import com.kh.zoody.notice.vo.NoticeVo;
 
 @Repository
@@ -25,6 +26,11 @@ public class HomeDaoImpl implements HomeDao{
 	@Override
 	public List<BoardVo> newBoardList(SqlSessionTemplate sst) {
 		return sst.selectList("home.newBoardList");
+	}
+
+	@Override
+	public List<HomeCalendarVo> getCalendar(SqlSessionTemplate sst, int loginMemberNo) {
+		return sst.selectList("home.getHomeCalendar", loginMemberNo);
 	}
 	
 	

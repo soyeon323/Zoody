@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.community.vo.BoardVo;
 import com.kh.zoody.home.dao.HomeDao;
+import com.kh.zoody.home.vo.HomeCalendarVo;
 import com.kh.zoody.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,11 @@ public class HomeServiceImpl implements HomeService{
 	@Override
 	public List<BoardVo> newBoardList() {
 		return dao.newBoardList(sst);
+	}
+
+	@Override
+	public List<HomeCalendarVo> getCalendar(int loginMemberNo) {
+		return dao.getCalendar(sst,loginMemberNo);
 	}
 
 }
