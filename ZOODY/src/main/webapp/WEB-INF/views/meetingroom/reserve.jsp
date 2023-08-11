@@ -62,7 +62,8 @@
                                     <th scope="col">#</th>
                                     <th scope="col">예약일</th>
                                     <th scope="col">회의실</th>
-                                    <th scope="col">예약시간</th>
+                                    <th scope="col">시작시간</th>
+                                    <th scope="col">종료시간</th>
                                     <th scope="col">상태</th>
                                 </tr>
                             </thead>
@@ -72,8 +73,9 @@
                                         <th scope="row">${res.no}</th>
                                         <td>${res.date}</td>
                                         <td>${res.name}</td>
-                                        <td>${res.startTime} ~ ${res.endTime}</td>
-                                        <td><button data-res-no="${res.no}" type="button" class="btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="unReserve()">예약 취소</button></td>
+                                        <td>${res.startTime}</td>
+                                        <td>${res.endTime}</td>
+                                        <td><button data-res-date="${res.date}" data-res-startTime="${res.startTime}" data-res-no="${res.no}" type="button" class="btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="unReserve()">예약 취소</button></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -220,13 +222,23 @@
         $(document).ready(function() {
             $(".btn-outline-success").click(function() {
                 var resNo = $(this).data("res-no");
+                var resDate = $(this).data("res-date");
+                var resTime = $(this).data("res-starttime");
 
-                console.log(resNo);
-                
+
+                console.log("예약 번호 : " + resNo);
+                console.log("예약 시간 : " + resDate + "/" + resTime);
+
+                var resDateTime = resDate + ' ' + resTime.replace(" ~ ", "");
+                console.log("결과 : " + resDateTime);
+
                 $.ajax({
                     type: "POST",
                     url: "${root}/meetingroom/unReserve",
-                    data: { resNo: resNo },
+                    data: { 
+                        resNo: resNo,
+                        resDateTime : resDateTime
+                    },
                     success: function(data) {
 
                         if(data == "Y"){
@@ -234,7 +246,6 @@
                         } else {
                             alert("예약 취소 실패")
                         }
-                        console.log(data);
                         location.reload();
 
                     },
@@ -377,6 +388,7 @@
 
     </script>
 
+    <!-- 오늘 이전 날짜 선택 불가능 -->
     <script>
         const date = document.querySelector('#date');
 

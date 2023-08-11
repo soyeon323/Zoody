@@ -111,5 +111,13 @@ public class MeetingroomDaoImpl implements MeetingroomDao {
 		return sst.update("meetingroom.unReserve", resNo);
 	}
 
+	@Override
+	public int unCalendar(SqlSessionTemplate sst, String resNo, String resDateTime) {
+		Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("resNo", resNo);
+	    parameters.put("resDateTime", resDateTime);
+		return sst.update("meetingroom.unCalendar", parameters);
+	}
+
 
 }
