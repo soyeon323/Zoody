@@ -1,14 +1,16 @@
 body{
     background-color: #f4f7fd;
+    /* background:url("/zoody/resources/img/logo/ice.PNG");
+    background-repeat: repeat; */
 }
 
 #wrap{
     margin: auto;
     margin-top: 130px;
     width: 400px;
-    height: 500px;
+    height: 540px;
     background-color: white;
-    border: 2px solid black;
+    border: 0.5px solid rgb(209, 209, 209);
     border-radius: 20px;
 }
 
@@ -21,7 +23,7 @@ img{
 #login-form{
     display: grid;
     grid-template-rows: 3fr 1fr 1fr 1fr 1fr;
-    grid-gap: 50px;
+    grid-gap: 30px;
     place-content: center center;
    
 }
@@ -38,7 +40,7 @@ img{
     margin-left: 280px;
 }
 
-/* #loginBtn{
-    display: none;
-} */
+#pwdpwd{
+    margin-left: 280px;
+}
 

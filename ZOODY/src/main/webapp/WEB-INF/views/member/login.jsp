@@ -21,17 +21,16 @@
 
 <body>
     <div id="wrap">
-        ${result}
+        <a href="${root}/pwd/find">
+            <div id="pwdpwd">비밀번호 찾기</div>
+        </a>
+
         <form id="login-form" action="${root}/member/login" method="POST" >
             <img src="${root}/resources/img/logo/logo.svg" alt="로고 이미지">
             <input type="text" class="form-control" name="id" placeholder="ID">
             <input type="text" class="form-control" name="pwd" placeholder="PWD">
-            <c:if test="${result eq null }">
-	            <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
-            </c:if>
-            <c:if test="${result eq 1}">
             <input id="loginBtn" class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
-            </c:if>
+	        <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
         </form>
 		</div>
 </body>
