@@ -122,5 +122,16 @@ public interface MailService {
 
 	// 메일들 안읽음 처리
 	int mailListUnread(List<Map<String, String>> selectedToUnreadMailList);
+
+	// 폴더함으로 이동
+	int mailListMove(List<Map<String, String>> dataList);
+
+	List<MailVo> getFolderMail(Map<String, String> dataMap);
+
+
+	String getUnreadFolderMailCnt(Map<String, String> dataMap);
+
+
+	String getFolderMailCnt(Map<String, String> dataMap);
 	
 }

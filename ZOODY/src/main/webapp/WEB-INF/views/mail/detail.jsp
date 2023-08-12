@@ -21,7 +21,9 @@
 		
 			<div class="wrap-header">
 				<div class="wrap-title">메일</div>
-				<button class="send-mail-btn">메일 쓰기</button>
+				<a href="${root}/mail/write">
+					<button class="send-mail-btn">메일 쓰기</button>
+				</a>
 			</div>
 
 			<div class="wrap-main">
@@ -70,7 +72,7 @@
 
 							<div class="custom-folder" id="${mailBox.no}">
 								<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
-								<div class="folder-name">${mailBox.name}</div>
+								<a href="${root}/mail/list?folder=${mailBox.no}" class="folder-name">${mailBox.name}</a>
 								<img src="${root}/resources/img/icon/svg/small-cross.svg" alt="삭제" class="folder-delete-btn">
 							</div>
 
@@ -99,9 +101,20 @@
 							<div class="reply-btn">답장</div>
 							<div class="delete-btn">삭제</div>
 							<div class="unread-btn">안읽음</div>
-							<div class="move-btn">
-								이동
-								<img src="${root}/resources/img/icon/svg/down-direction.svg" alt="확장">
+							<div class="move-area">
+								<div class="move-btn">
+									이동
+									<img src="${root}/resources/img/icon/svg/down-direction.svg" alt="확장">
+								</div>
+								
+								<div class="list-area">
+									<c:forEach items="${mailBoxList}" var="mailBox" >
+
+										<div class="folder-select" id="${mailBox.no}">${mailBox.name}</div>
+										
+									</c:forEach>
+								</div>
+
 							</div>
 						</div>
 

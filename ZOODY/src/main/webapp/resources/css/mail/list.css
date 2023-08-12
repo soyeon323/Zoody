@@ -381,6 +381,8 @@
 }
 .folder-name{
     width: 200px;
+
+    cursor: pointer;
 }
 .folder-delete-btn{
     justify-self: flex-end;

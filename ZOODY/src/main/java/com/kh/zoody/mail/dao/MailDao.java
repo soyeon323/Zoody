@@ -127,6 +127,17 @@ public interface MailDao {
 
 
 	int mailListUnread(List<Map<String, String>> selectedToUnreadMailList, SqlSessionTemplate sqlSessionTemplate);
+
+
+	int mailListMove(List<Map<String, String>> dataList, SqlSessionTemplate sqlSessionTemplate);
+
+	List<MailVo> getFolderMail(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+
+	String getUnreadFolderMailCnt(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+
+	String getFolderMailCnt(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
 	
 
 }

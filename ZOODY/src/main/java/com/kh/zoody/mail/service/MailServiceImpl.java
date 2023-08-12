@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class MailServiceImpl implements MailService{
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
@@ -245,6 +244,30 @@ public class MailServiceImpl implements MailService{
 	@Override
 	public int mailListUnread(List<Map<String, String>> selectedToUnreadMailList) {
 		return mailDao.mailListUnread(selectedToUnreadMailList, sqlSessionTemplate);
+	}
+
+
+	@Override
+	public int mailListMove(List<Map<String, String>> dataList) {
+		return mailDao.mailListMove(dataList, sqlSessionTemplate);
+	}
+
+
+	@Override
+	public List<MailVo> getFolderMail(Map<String, String> dataMap) {
+		return mailDao.getFolderMail(dataMap, sqlSessionTemplate);
+	}
+
+
+	@Override
+	public String getUnreadFolderMailCnt(Map<String, String> dataMap) {
+		return mailDao.getUnreadFolderMailCnt(dataMap, sqlSessionTemplate);
+	}
+
+
+	@Override
+	public String getFolderMailCnt(Map<String, String> dataMap) {
+		return mailDao.getFolderMailCnt(dataMap, sqlSessionTemplate);
 	}
 
 }

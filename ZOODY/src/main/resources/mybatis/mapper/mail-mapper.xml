@@ -690,5 +690,85 @@
 		DELETE FROM MAILBOX WHERE NO = #{no}
 	
 	</delete>
+	
+	
+	
+	<update id="moveMailToFolder">
+	
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE MAIL_RECIPIENT
+			SET MAILBOX_NO = #{item.folder}
+			<where>
+				MAIL_NO = #{item.mailNo}
+			    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{item.userMail})
+			</where>
+		</foreach>
+		
+	</update>
+	
+	
+	<select id="getFolderMailList" resultType="MailVo">
+	
+		SELECT
+		    DISTINCT MAIL.NO,
+		    "USER".NAME AS SENDER_NAME,
+		    "USER".MAIL AS SENDER_MAIL,
+		    PREV_NO,
+		    TITLE,
+		    CONTENT,
+		    SEND_DATE,
+		    MAIL_RECIPIENT.READ_CHECK AS READ_CHECK,
+		    MAIL_RECIPIENT.DELETE_CHECK AS DELETE_CHECK,
+		    MAIL_RECIPIENT.RECEIVER_NO AS RECEIVER_NO,
+		    MAIL_ATTACHMENT_CNT,
+		    BOOKMARK_CHECK
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+		    AND MAILBOX_NO = #{folder}
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		ORDER BY SEND_DATE DESC
+	
+	</select>
+	
+	<select id="getFolderUnreadMailListCnt" resultType="String">
+	
+		SELECT COUNT(MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+			AND READ_CHECK = 'X'
+		    AND MAILBOX_NO = #{folder}
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		ORDER BY SEND_DATE DESC
+	
+	</select>
+	
+	
+	<select id="getFolderMailListCnt" resultType="String">
+	
+		SELECT COUNT(MAIL.NO)
+		FROM MAIL
+		    JOIN "USER" ON MAIL.SENDER = "USER".NO
+		    JOIN MAIL_RECIPIENT ON MAIL.NO = MAIL_RECIPIENT.MAIL_NO
+		    LEFT OUTER JOIN (SELECT MAIL_NO, COUNT(MAIL_NO) AS MAIL_ATTACHMENT_CNT
+		        FROM MAIL_ATTACHMENT
+		        GROUP BY MAIL_NO) TEMP ON MAIL.NO = TEMP.MAIL_NO
+		WHERE DELETE_CHECK = 'X'
+		    AND MAILBOX_NO = #{folder}
+		    AND RECEIVER_NO = (SELECT NO FROM "USER" WHERE MAIL = #{mail})
+		ORDER BY SEND_DATE DESC
+	
+	</select>
+	
+	
   
 </mapper>
