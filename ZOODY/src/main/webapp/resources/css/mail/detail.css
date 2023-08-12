@@ -41,6 +41,8 @@
     background-color: rgb(72, 118, 239);
     border: 0px;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .wrap-main {
@@ -247,6 +249,7 @@
 
 .delete-btn , .unread-btn , .move-btn{ 
     width: 100px;
+    height: 40px;
 
     display: flex;
     justify-content: center;
@@ -257,6 +260,42 @@
     font-weight: 700;
 
     cursor: pointer;
+}
+
+.move-area {
+    width: 100px;
+    height: 100px;
+    
+    align-self: baseline;
+}
+.list-area {
+    width: 100px;
+
+    display: none;
+    top: 0px;
+
+    box-sizing: border-box;
+}
+.list-area-active {
+    display: block;
+    position: relative;
+}
+.folder-select {
+    width: 100px;
+    height: 25px;
+
+    text-align: center;
+    line-height: 25px;
+    color: rgb(53, 54, 54);
+
+    border: 1px solid #989898;
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+.folder-select:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(72, 118, 239);
 }
 
 .detail-title-area {
@@ -344,7 +383,6 @@
     border-top: 1px solid #989898;
 
     padding-bottom: 30px;
-    border-bottom: 1px solid #989898;
 }
 .attachment-text {
     width: 105px;
@@ -389,4 +427,18 @@
 }
 .mail-content::-webkit-scrollbar {
     display: none;
-  }
+}
+
+
+.folder-add-btn {
+    cursor: pointer;
+}
+.folder-name{
+    width: 200px;
+
+    cursor: pointer;
+}
+.folder-delete-btn{
+    justify-self: flex-end;
+    cursor: pointer;
+}

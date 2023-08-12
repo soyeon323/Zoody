@@ -143,3 +143,88 @@ deleteBtn.addEventListener('click', ()=>{
     .catch( err => {})
 
 })
+
+
+
+
+
+const folderListOpenBtn = document.querySelector('.move-btn');
+const listArea = document.querySelector('.list-area');
+folderListOpenBtn.addEventListener('click', ()=>{
+
+    listArea.classList.toggle('list-area-active');
+
+})
+
+const folerSelectBtnArr = document.querySelectorAll('.folder-select');
+
+folerSelectBtnArr.forEach(element => {
+
+    const selectedMailNoArr = [URLSearch.get('no')];
+    
+    element.addEventListener('click', ()=>{
+
+        fetch(contextPath + "/mail/selected/move", {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+            },
+            body : JSON.stringify({
+                'selectedMailNoArr' : selectedMailNoArr,
+                'folder' : element.id,
+            })
+    })
+        .then(response=>response.jsoin)
+        .then((data)=>{
+
+            window.location.href = contextPath + '/mail/list?folder=' + element.id;
+
+        })
+        .catch((err)=>{ })
+
+    });
+
+});
+
+
+
+
+
+const addBookmarkBtnArr = document.querySelectorAll('.bookmark-btn');
+
+addBookmarkBtnArr.forEach(element => {
+
+    const target = element;
+    
+    element.addEventListener('click', (event)=>{
+
+        if(target.value == 'X') {
+            fetch(contextPath + '/mail/bookmark/add?no=' + target.id)
+            .then((response)=>response.text())
+            .then((data)=>{
+
+                location.reload();
+
+            })
+            .catch( err => {})
+        } 
+        else if(target.value == 'O') {
+            fetch(contextPath + '/mail/bookmark/remove?no=' + target.id)
+            .then((response)=>response.text())
+            .then((data)=>{
+
+                location.reload();
+
+            })
+            .catch( err => {})
+        }
+    })
+});
+
+
+
+
+
+
+
+

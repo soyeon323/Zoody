@@ -72,7 +72,7 @@
 
 							<div class="custom-folder" id="${mailBox.no}">
 								<img src="${root}/resources/img/icon/svg/folder.svg" alt="내폴더">
-								<div class="folder-name">${mailBox.name}</div>
+								<a href="${root}/mail/list?folder=${mailBox.no}" class="folder-name">${mailBox.name}</a>
 								<img src="${root}/resources/img/icon/svg/small-cross.svg" alt="삭제" class="folder-delete-btn">
 							</div>
 

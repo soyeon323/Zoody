@@ -313,6 +313,33 @@ public class MailDaoImpl implements MailDao {
 			SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.update("mail.mailListUnreadCheck1", selectedToUnreadMailList) + sqlSessionTemplate.update("mail.mailListUnreadCheck2", selectedToUnreadMailList);
 	}
+
+
+	@Override
+	public int mailListMove(List<Map<String, String>> dataList, SqlSessionTemplate sqlSessionTemplate) {
+		
+		log.info("{}",dataList);
+		
+		return sqlSessionTemplate.update("mail.moveMailToFolder", dataList);
+	}
+
+
+	@Override
+	public List<MailVo> getFolderMail(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("mail.getFolderMailList", dataMap);
+	}
+
+
+	@Override
+	public String getUnreadFolderMailCnt(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getFolderUnreadMailListCnt", dataMap);
+	}
+
+
+	@Override
+	public String getFolderMailCnt(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("mail.getFolderMailListCnt", dataMap);
+	}
 	
 	
 }

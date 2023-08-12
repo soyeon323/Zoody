@@ -396,5 +396,18 @@
 	width: 1250px;
 	height: 285px;
 	
-	resizealbe: none;
+	resizeable: none;
+}
+
+.folder-add-btn {
+    cursor: pointer;
+}
+.folder-name{
+    width: 200px;
+
+    cursor: pointer;
+}
+.folder-delete-btn{
+    justify-self: flex-end;
+    cursor: pointer;
 }

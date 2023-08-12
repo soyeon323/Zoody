@@ -2,7 +2,6 @@ package com.kh.zoody.mail.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,17 +31,14 @@ import com.google.gson.Gson;
 import com.kh.zoody.mail.service.MailService;
 import com.kh.zoody.mail.vo.MailAttachmentVo;
 import com.kh.zoody.mail.vo.MailBoxVo;
-import com.kh.zoody.mail.vo.MailRecipientVo;
 import com.kh.zoody.mail.vo.MailVo;
 import com.kh.zoody.user.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("mail")
 @RequiredArgsConstructor
-@Slf4j
 public class MailController {
 	
 	private final MailService mailService;
@@ -50,8 +46,12 @@ public class MailController {
 	private final Gson gson = new Gson();
 
 	@GetMapping("list")
-	public String mailList(HttpSession session, Model model, String folder) {
+	public String mailList(HttpSession session, Model model, @RequestParam(defaultValue="receive") String folder) {
 		UserVo loginUser = (UserVo) session.getAttribute("loginMember");
+		
+		if(loginUser == null) {
+			return "redirect:/member/login";
+		}
 		
 		String unread = "";
 		String mailCount = "";
@@ -80,6 +80,14 @@ public class MailController {
 			unread = mailService.getUnreadBookMarkMailCnt(loginUser.getMail());
 			mailCount = mailService.getBookMarkMailCnt(loginUser.getMail());
 			mailVoList = mailService.getBookmarkMail(loginUser.getMail());
+		} else {
+			Map<String, String> dataMap = new HashMap<>();
+			dataMap.put("folder", folder);
+			dataMap.put("mail", loginUser.getMail());
+			
+			unread = mailService.getUnreadFolderMailCnt(dataMap);
+			mailCount = mailService.getFolderMailCnt(dataMap);
+			mailVoList = mailService.getFolderMail(dataMap);
 		}
 		
 		List<MailBoxVo> mailBoxList = mailService.getMailBoxList(loginUser.getNo());
@@ -96,6 +104,10 @@ public class MailController {
 	public String mailWrite(HttpSession session, Model model) {
 		UserVo loginUser = (UserVo) session.getAttribute("loginMember");
 		
+		if(loginUser == null) {
+			return "redirect:/member/login";
+		}
+		
 		String unread = mailService.getUnreadMailCount(loginUser.getMail());
 		
 		List<MailBoxVo> mailBoxList = mailService.getMailBoxList(loginUser.getNo());
@@ -109,6 +121,10 @@ public class MailController {
 	@GetMapping("detail")
 	public String mailDetail(String no, Model model, HttpSession session) {
 		UserVo loginUser = (UserVo) session.getAttribute("loginMember");
+		
+		if(loginUser == null) {
+			return "redirect:/member/login";
+		}
 		
 		String unread = mailService.getUnreadMailCount(loginUser.getMail());
 		String mailCount = mailService.getAllMailCount(loginUser.getMail());
@@ -329,6 +345,34 @@ public class MailController {
 		}
 		
 		int result = mailService.mailListDump(selectedToDumpMailNoList);
+		
+		return Integer.toString(result);
+	}
+	
+	
+	@PostMapping("selected/move")
+	@ResponseBody
+	public String selectedMailMove(@RequestBody String data, HttpSession session) {
+		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+		String userMail = loginMember.getMail();
+		
+		Map<String, Object> dataMap = gson.fromJson(data, Map.class);
+		
+		String folder = (String) dataMap.get("folder");
+		
+		List<String> selectedMailList = (List<String>) dataMap.get("selectedMailNoArr");
+		
+		List<Map<String, String>> dataList = new ArrayList<>();
+		for(int i = 0; i < selectedMailList.size(); i++) {
+			Map<String, String> tempMap = new HashMap<>();
+			tempMap.put("mailNo", selectedMailList.get(i));
+			tempMap.put("userMail", userMail);
+			tempMap.put("folder", folder);
+			dataList.add(tempMap);
+		}
+		
+		int result = mailService.mailListMove(dataList);
+		
 		
 		return Integer.toString(result);
 	}
