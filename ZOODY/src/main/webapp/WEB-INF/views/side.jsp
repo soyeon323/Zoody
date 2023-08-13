@@ -19,8 +19,11 @@
             <ul>
             <li><a href="${root}/attendance/main">근무현황</a></li>
             <li><a href="${root}/attendance/list">근무현황 목록 조회</a></li>
-            <li><a href="${root}/attendance/admin/allList">유저 전체 근무 조회</a></li>
-            <li><a href="${root}/attendance/admin/objection">objection</a></li>
+            <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
+            <c:if test="${fn:contains(loginMember.id, 'ADMIN')}">
+                <li><a href="${root}/attendance/admin/allList">유저 전체 근무 조회</a></li>
+                <li><a href="${root}/attendance/admin/objection">objection</a></li>
+            </c:if>
             </ul>
         </li>
         <li>

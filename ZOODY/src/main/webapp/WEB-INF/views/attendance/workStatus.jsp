@@ -443,6 +443,7 @@ element.style {
               },
               locale: 'ko',
               events: data,
+              businessHours: true,
               eventClick : function(info){
 
                 console.log(info);

@@ -31,7 +31,7 @@
 /* 검색바 영역 */
 .obj_search{
     display: grid;
-    grid-template-columns: 0.7fr 4fr 1.8fr;
+    grid-template-columns: 0.7fr 4fr 2.5fr;
     gap: 10px;
     align-items: center;
 }

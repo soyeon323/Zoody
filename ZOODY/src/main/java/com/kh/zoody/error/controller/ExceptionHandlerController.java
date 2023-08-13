@@ -3,6 +3,7 @@ package com.kh.zoody.error.controller;
 import java.lang.System.Logger;
 import java.util.NoSuchElementException;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,30 +12,40 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ServerErrorException;
 
 import com.kh.zoody.attendance.controller.AttendanceController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@RestControllerAdvice(basePackages = "com.zoody")
+@ControllerAdvice(annotations = Controller.class)
 @Slf4j
-@RequiredArgsConstructor
 public class ExceptionHandlerController {
 	
-//	private final Logger logger = LoggerFactory.getLogger();
-//	
-//	// 모든 Exception 핸들러 정의
-//	// 500 Error Code 반환 : 서버 에러
-//	@ExceptionHandler(value = AttendanceController.class)
-//	public ResponseEntity exception(Exception e) {
-//		
-//		System.out.println(e.getClass().getName());
-//        System.out.println(e.getLocalizedMessage());
-//        
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server Error!");
-//	}
 	
+	// 모든 Exception 핸들러 정의
+	
+	@ExceptionHandler(Exception.class)
+	public String exception() {
+		
+        return "error/errorPage";
+	}
+	
+	// 404 Error Code 반환
+	@ExceptionHandler(NotFoundException.class)
+	public String exceptionNotFount() {
+		
+		return "error/404page";
+	}
+	
+	
+	// 500 Error Code 반환 : 서버 에러
+	@ExceptionHandler(ServerErrorException.class)
+	public String exceptionServerError() {
+		
+		return "error/505page";
+	}
 	
 
 }
