@@ -44,60 +44,65 @@
     background-color: rgb(255, 255, 255);
 }
 
-.my-upvote {
-    border: 2px solid rgb(255, 164, 143);
-}
-.my-upvote-active, .my-upvote-active > div, .my-upvote-active > div > span {
-    background-color: rgb(255, 164, 143);
-    color: rgb(255, 255, 255);
-}
-.my-upvote-number {
-    color: rgb(255, 164, 143);
-    font-size: 16px;
-    height: 30;
-}
-
-.unread-approval {
-    border: 2px solid rgb(255, 210, 143);
-}
-.unread-approval-active, .unread-approval-active > div, .unread-approval-active > div > span {
-    background-color: rgb(255, 210, 143);
-    color: rgb(255, 255, 255);
-}
-.unread-approval-number {
-    color: rgb(255, 210, 143);
-    font-size: 16px;
-    height: 30;
-}
-
-.unread-cc {
+.my-approvl {
     border: 2px solid rgb(143, 181, 255);
 }
-.unread-cc-active, .unread-cc-active > div, .unread-cc-active > div > span {
+.my-approvl-active, .my-approvl-active > div, .my-approvl-active > div > span {
     background-color: rgb(143, 181, 255);
     color: rgb(255, 255, 255);
 }
-.unread-cc-number {
+.my-approvl-number {
     color: rgb(143, 181, 255);
     font-size: 16px;
-    height: 30;
+    height: 30px;
+    line-height: 30px;
 }
 
-.my-approval {
+.standby-approval {
+    border: 2px solid rgb(255, 210, 143);
+}
+.standby-approval-active, .standby-approval-active > div, .standby-approval-active > div > span {
+    background-color: rgb(255, 210, 143);
+    color: rgb(255, 255, 255);
+}
+.standby-approval-number {
+    color: rgb(255, 210, 143);
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.unread-cc {
+    border: 2px solid rgb(255, 164, 143);
+}
+.unread-cc-active, .unread-cc-active > div, .unread-cc-active > div > span {
+    background-color: rgb(255, 164, 143);
+    color: rgb(255, 255, 255);
+}
+.unread-cc-number {
+    color: rgb(255, 164, 143);
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.my-upvote {
     border: 2px solid rgb(143, 255, 208);
 }
-.my-approval-active, .my-approval-active > div, .my-approval-active > div > span {
+.my-upvote-active, .my-upvote-active > div, .my-upvote-active > div > span {
     background-color: rgb(143, 255, 208);
     color: rgb(255, 255, 255);
 }
-.my-approval-number {
+.my-upvote-number {
     color: rgb(143, 255, 208);
     font-size: 16px;
-    height: 30;
+    height: 30px;
+    line-height: 30px;
 }
 
 .category-title {
-    height: 30;
+    height: 30px;
+    line-height: 30px;
     font-size: 16px;
     font-weight: 700;
     color: rgb(53, 54, 54);
@@ -163,6 +168,12 @@
 
     margin-top: 15px;
     margin-bottom: 10px;
+
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+                0 2px 2px rgba(0,0,0,0.12), 
+                0 4px 4px rgba(0,0,0,0.12), 
+                0 8px 8px rgba(0,0,0,0.12),
+                0 16px 16px rgba(0,0,0,0.12);
 }
 
 .ongoing-approval {
@@ -170,11 +181,11 @@
 }
 
 .rejected-approval {
-    border-top: 5px solid rgb(150, 160, 181);
+    border-top: 5px solid rgb(255, 68, 68);
 }
 
-.delayed-approval {
-    border-top: 5px solid rgb(255, 68, 68);
+.completed-approval {
+    border-top: 5px solid rgb(143, 255, 208);
 }
 
 .approval-info {
@@ -223,8 +234,8 @@
     background-color: rgb(255, 68, 68);
 }
 
-.delayed {
-    background-color: rgb(255, 158, 68);
+.completed {
+    background-color: rgb(143, 255, 208);
 }
 
 .info-lower-line {

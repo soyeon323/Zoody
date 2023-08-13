@@ -8,6 +8,7 @@
 <title>Zoody</title>
 </head>
 <link rel="stylesheet" href="${root}/resources/css/approval/list.css">
+<script defer src="${root}/resources/js/approval/list.js"></script>
 <body>
 
 	<%@ include file="/WEB-INF/views/header.jsp" %>
@@ -20,37 +21,37 @@
 		
 			<div class="wrap-header">
 				<div class="category-list">
-					<button class="category-box my-upvote my-upvote-active">
+					<a href="${root}/approval/list?category=1" class="category-box my-approvl">
+						<div class="category-title">내가 받은 결재 문서</div>
+						<div class="number-of-case">
+							<span class="my-approvl-number">${receiveCnt}</span>
+							<span class="category-title">건</span>
+						</div>
+					</a>
+
+					<a href="${root}/approval/list?category=2" class="category-box standby-approval">
+						<div class="category-title">내 결재 대기 중인 문서</div>
+						<div class="number-of-case">
+							<span class="standby-approval-number">${standbyCtn}</span>
+							<span class="category-title">건</span>
+						</div>
+					</a>
+
+					<a href="${root}/approval/list?category=3" class="category-box unread-cc">
+						<div class="category-title">참조 결재 문서</div>
+						<div class="number-of-case">
+							<span class="unread-cc-number">${ccCtn}</span>
+							<span class="category-title">건</span>
+						</div>
+					</a>
+
+					<a href="${root}/approval/list?category=4" class="category-box my-upvote">
 						<div class="category-title">내 상신 문서</div>
 						<div class="number-of-case">
-							<span class="my-upvote-number">(값)12</span>
+							<span class="my-upvote-number">${upvoteCnt}</span>
 							<span class="category-title">건</span>
 						</div>
-					</button>
-
-					<button class="category-box unread-approval">
-						<div class="category-title">확인하지 않은 결재 요청</div>
-						<div class="number-of-case">
-							<span class="unread-approval-number">(값)8</span>
-							<span class="category-title">건</span>
-						</div>
-					</button>
-
-					<button class="category-box unread-cc">
-						<div class="category-title">확인하지 않은 수신 참조</div>
-						<div class="number-of-case">
-							<span class="unread-cc-number">(값)104</span>
-							<span class="category-title">건</span>
-						</div>
-					</button>
-
-					<button class="category-box my-approval">
-						<div class="category-title">결재 내역 보기</div>
-						<div class="number-of-case">
-							<span class="my-approval-number">(값)31</span>
-							<span class="category-title">건</span>
-						</div>
-					</button>
+					</a>
 
 				</div>
 
@@ -63,15 +64,41 @@
 
                 <c:forEach items="${approvalVoList}" var="approvalVo">
 
-                    <div class="approval-box ongoing-approval">
+					<c:choose>
+						<c:when test="${approvalVo.result eq '진행중'}">
+							<div class="approval-box ongoing-approval">
+						</c:when>
+						<c:when test="${approvalVo.result eq '반려'}">
+							<div class="approval-box rejected-approval">
+						</c:when>
+						<c:when test="${approvalVo.result eq '결재완료' || approvalVo.result eq '전결'}">
+							<div class="approval-box completed-approval">
+						</c:when>
+					</c:choose>
+                    
                         <div class="approval-info">
                             <div class="info-upper-line">
                                 <div class="approval-title">
                                     ${approvalVo.title}
                                 </div>
-                                <div class="approval-state ongoing">
-                                    진 행 중
-                                </div>
+								<c:choose>
+									<c:when test="${approvalVo.result eq '진행중'}">
+										<div class="approval-state ongoing">
+											진 행 중
+										</div>
+									</c:when>
+									<c:when test="${approvalVo.result eq '반려'}">
+										<div class="approval-state rejected">
+											반 려 됨
+										</div>
+									</c:when>
+									<c:when test="${approvalVo.result eq '결재완료' || approvalVo.result == '전결'}">
+										<div class="approval-state completed">
+											결 재 완 료
+										</div>
+									</c:when>
+								</c:choose>
+                                
                             </div>
                             <div class="info-lower-line">
                                 <div class="wirter">

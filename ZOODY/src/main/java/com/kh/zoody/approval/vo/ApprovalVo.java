@@ -16,4 +16,6 @@ public class ApprovalVo {
 	private String categoryName;
 	private String form;
 	
+	private String result;
+	
 }

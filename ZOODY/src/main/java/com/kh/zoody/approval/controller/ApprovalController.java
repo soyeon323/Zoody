@@ -1,5 +1,6 @@
 package com.kh.zoody.approval.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,15 +47,39 @@ public class ApprovalController {
 	private final Gson gson = new Gson();
 
 	@GetMapping("list")
-	public String mainPage(HttpSession session, Model model) {
+	public String mainPage(HttpSession session, Model model, @RequestParam(defaultValue="1") String category) {
 		
 		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 		
+		if(loginMember == null) {
+			return "redirect:/member/login";
+		}
+		
 		String userNo = loginMember.getNo();
 		
-		List<ApprovalVo> approvalVoList = approvalService.getApprovalList(userNo);
+		List<ApprovalVo> approvalVoList = new ArrayList<>();
+		
+		if("1".equals(category)) {
+			approvalVoList = approvalService.getApprovalList(userNo);
+		} else if("2".equals(category)) {
+			approvalVoList = approvalService.getStandbyList(userNo);
+		} else if("3".equals(category)) {
+			approvalVoList = approvalService.getCCList(userNo);
+		} else if("4".equals(category)) {
+			approvalVoList = approvalService.getUpvoteList(userNo);
+		}
+		
+		String Cnt1 = approvalService.getCat1Ctn(userNo);
+		String Cnt2 = approvalService.getCat2Ctn(userNo);
+		String Cnt3 = approvalService.getCat3Ctn(userNo);
+		String Cnt4 = approvalService.getCat4Ctn(userNo);
 		
 		model.addAttribute("approvalVoList", approvalVoList);
+		
+		model.addAttribute("receiveCnt", Cnt1);
+		model.addAttribute("standbyCtn", Cnt2);
+		model.addAttribute("ccCtn", Cnt3);
+		model.addAttribute("upvoteCnt", Cnt4);
 		
 		return "approval/list";
 	}
@@ -128,7 +154,7 @@ public class ApprovalController {
 		}
 		
 		
-		return "approval/list";
+		return "redirect:/approval/list?category=4";
 	}
 	
 	
@@ -205,6 +231,27 @@ public class ApprovalController {
 		return loaInfo;
 	}
 	
+	@GetMapping(value="detail/afl", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getAflDetail(String no) {
+		
+		ApplicationForLeaveVo aflVo = approvalService.getAflInfo(no);
+		
+		String aflInfo = gson.toJson(aflVo);
+		
+		return aflInfo;
+	}
+	
+	@GetMapping(value="detail/afe", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getAfEDetail(String no) {
+		
+		ApplicationForExtraWorkVo afeVo = approvalService.getAfEDetail(no);
+		
+		String afeInfo = gson.toJson(afeVo);
+		
+		return afeInfo;
+	}
 	
 	@GetMapping(value="detail/approvers", produces="application/json; charset=utf-8")
 	@ResponseBody
@@ -229,6 +276,7 @@ public class ApprovalController {
 	}
 	
 	@PostMapping("detail/approve")
+	@ResponseBody
 	public String diciseApproval(@RequestBody String data, HttpSession session) {
 		
 		Map<String, String> dataMap = gson.fromJson(data, Map.class);
@@ -236,9 +284,11 @@ public class ApprovalController {
 		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
 		dataMap.put("userNo", loginMember.getNo());
 		
-		int result = approvalService.deciseApproval(dataMap);
+		Map<String, String> resultMap = approvalService.deciseApproval(dataMap);
 		
-		return "rediect:/approval/detail?no=" + dataMap.get("no");
+		String resultMapJson = gson.toJson(resultMap);
+		
+		return resultMapJson;
 	}
 	
 	

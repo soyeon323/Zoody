@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.instrument.classloading.SimpleLoadTimeWeaver;
 import org.springframework.stereotype.Repository;
 
 import com.kh.zoody.approval.vo.ApplicationForExtraWorkVo;
@@ -15,7 +16,9 @@ import com.kh.zoody.approval.vo.ApprovalVo;
 import com.kh.zoody.approval.vo.ApproverVo;
 import com.kh.zoody.approval.vo.DrafterVo;
 import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
+import com.kh.zoody.approval.vo.ExtraWorkVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
+import com.kh.zoody.approval.vo.LeaveVo;
 import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 import com.kh.zoody.user.vo.UserVo;
 
@@ -218,13 +221,83 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		
 		int result = sqlSessionTemplate.update("approval.decisionUpdate", dataMap);
 		
-		log.info("결정 업데이트 결과 : {}", result);
-		
 		if(dataMap.containsValue("instruction")) {
 			result *= sqlSessionTemplate.update("approval.instructionUpdate", dataMap);
 		}
 		
 		return result;
 	}
+
+	@Override
+	public List<ApproverVo> getApproverState(String approvalNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("approval.getApproverState", approvalNo);
+	}
+
+	@Override
+	public String getAuthority(String approvalNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getAuthority", approvalNo);
+	}
+
+	@Override
+	public String getApproverCnt(String approvalNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getApproverCnt", approvalNo);
+	}
+
+	@Override
+	public String getCat1Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getCat1Ctn", userNo);
+	}
+	@Override
+	public String getCat2Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getCat2Ctn", userNo);
+	}
+	@Override
+	public String getCat3Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getCat3Ctn", userNo);
+	}
+	@Override
+	public String getCat4Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getCat4Ctn", userNo);
+	}
+
+	@Override
+	public List<ApprovalVo> getStandbyList(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("approval.getStandbyList", userNo);
+	}
+
+	@Override
+	public List<ApprovalVo> getCCList(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("approval.getCCList", userNo);
+	}
+
+	@Override
+	public List<ApprovalVo> getUpvoteList(String userNo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("approval.getUpvoteList", userNo);
+	}
+
+	@Override
+	public ApplicationForLeaveVo getAflInfo(String no, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getDetailAFL", no);
+	}
+
+	@Override
+	public ApplicationForExtraWorkVo getAfeInfo(String no,
+			SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectOne("approval.getDetailAFE", no);
+	}
+
+	@Override
+	public int insertLeave(LeaveVo leaveVo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.insert("approval.insertLeave", leaveVo);
+	}
+
+	@Override
+	public int inserExtraWork(ExtraWorkVo extraWorkVo, SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.insert("approval.inserExtraWork", extraWorkVo);
+	}
+	
+	
+	
+	
 	
 }

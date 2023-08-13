@@ -13,4 +13,7 @@ public class ApplicationForExtraWorkVo {
 	private String endTime;
 	private String reason;
 	
+	private String category;
+	private String typeNo;
+	
 }
