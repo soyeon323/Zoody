@@ -117,10 +117,11 @@
 										<div class="layer">
 											<div class="link-line">┠</div>
 											<div class="name-rank">
-												<div class="user-no">${userVo.no }</div>
+												<div class="user-no" id="${userVo.no }">${userVo.no }</div>
 												<div class="user-name">${userVo.name }</div>
 												<div class="user-rank"> ${userVo.rankName }</div>
 												<div class="user-grade">${userVo.grade}</div>
+												<div class="user-agent invisible-input" >${userVo.agent}</div>
 											</div>
 										</div>
 									</c:if>
@@ -147,10 +148,11 @@
 												<div class="layer">
 													<div class="link-line">┠</div>
 													<div class="name-rank">
-														<div class="user-no">${userVo.no }</div>
+														<div class="user-no" id="${userVo.no }">${userVo.no }</div>
 														<div class="user-name">${userVo.name }</div>
 														<div class="user-rank"> ${userVo.rankName }</div>
 														<div class="user-grade">${userVo.grade}</div>
+														<div class="user-agent invisible-input" >${userVo.agent}</div>
 													</div>
 												</div>
 											</c:if>
@@ -175,10 +177,11 @@
 														<div class="layer">
 															<div class="link-line">┠</div>
 															<div class="name-rank">
-																<div class="user-no">${userVo.no }</div>
+																<div class="user-no" id="${userVo.no }">${userVo.no }</div>
 																<div class="user-name">${userVo.name }</div>
 																<div class="user-rank"> ${userVo.rankName }</div>
 																<div class="user-grade">${userVo.grade}</div>
+																<div class="user-agent invisible-input" >${userVo.agent}</div>
 															</div>
 														</div>
 													</c:if>
@@ -203,10 +206,11 @@
 																<div class="layer">
 																	<div class="link-line">┠</div>
 																	<div class="name-rank">
-																		<div class="user-no">${userVo.no }</div>
+																		<div class="user-no" id="${userVo.no }">${userVo.no }</div>
 																		<div class="user-name">${userVo.name }</div>
 																		<div class="user-rank"> ${userVo.rankName }</div>
 																		<div class="user-grade">${userVo.grade}</div>
+																		<div class="user-agent invisible-input" >${userVo.agent}</div>
 																	</div>
 																</div>
 															</c:if>

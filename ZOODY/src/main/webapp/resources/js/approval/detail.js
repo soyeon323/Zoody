@@ -14,6 +14,16 @@ fetch(contextPath + '/approval/detail/drafter?no=' + URLSearch.get('no') )
     const senderName = document.querySelector('.sender-name');
     senderName.innerText = data.name;
 
+    const approvlaResult = document.querySelector('.approval-result');
+
+    const upvoteImg = document.createElement('img');
+    upvoteImg.src = contextPath + '/resources/img/icon/svg/upvote.svg';
+
+    approvlaResult.firstElementChild.append(upvoteImg);
+
+    const dataArea = document.querySelector('.table-date-area');
+    dataArea.firstElementChild.innerText = data.drafterDate.substring(2,10).replaceAll('-', '/');
+
     const drafterName = document.querySelector('.drafter-name');
     drafterName.innerText = data.name;
 
@@ -93,9 +103,18 @@ function getAFL() {
     fetch(contextPath + '/approval/detail/afl?no=' + URLSearch.get('no'))
     .then(response=>response.json())
     .then((data)=>{
+        const tableBodyArr = document.querySelectorAll('.leave-table-body');
 
-        console.log(data);
+        let from = data.from.substring(0, 4) + '/' + data.from.substring(4, 6) + '/' + data.from.substring(6, 8);
+        let to = data.to.substring(0, 4) + '/' + data.to.substring(4, 6) + '/' + data.to.substring(6, 8);
 
+        tableBodyArr[0].replaceChildren(from);
+        tableBodyArr[1].replaceChildren(to);
+        tableBodyArr[2].replaceChildren(data.to - data.from + 1);
+        tableBodyArr[3].replaceChildren(data.type);
+
+        const reason = document.querySelector('.leave-reason');
+        reason.value = data.reason;
     })
 }
 
@@ -103,9 +122,22 @@ function getAFE() {
     fetch(contextPath + '/approval/detail/afe?no=' + URLSearch.get('no'))
     .then(response=>response.json())
     .then((data)=>{
-
         console.log(data);
 
+        const tableBodyArr = document.querySelectorAll('.leave-table-body');
+        tableBodyArr[0].replaceChildren(data.category)
+
+        let date = data.date.substring(0,4) + '/' + data.date.substring(4,6) + '/' + data.date.substring(6,8)
+        tableBodyArr[1].replaceChildren(date)
+
+        let startTime = data.startTime.substring(0,2) + ':' + data.startTime.substring(2,4);
+        tableBodyArr[2].replaceChildren(startTime);
+
+        let endTime = data.endTime.substring(0,2) + ':' + data.endTime.substring(2,4);
+        tableBodyArr[3].replaceChildren(endTime);
+
+        const reason = document.querySelector('.leave-reason');
+        reason.value = data.reason;
     })
 }
 
@@ -229,6 +261,10 @@ fetch(contextPath + '/approval/detail/approvers?no=' + URLSearch.get('no'))
 
         const newDateTd = document.createElement('td');
         newDateTd.classList.add('table-date');
+        if(element.approvalDate != null) {
+            newDateTd.innerText = element.approvalDate;
+        }
+        
 
         tableDateArea.append(newDateTd);
 
@@ -432,6 +468,13 @@ appBtn.addEventListener('click', ()=>{
 
     const instruction = document.querySelector('.instruction');
 
+    let instructionValue = '';
+    if(instruction == null) {
+        instructionValue = '';
+    } else {
+        instructionValue = instruction.value;
+    }
+
     fetch(contextPath + '/approval/detail/approve', {
         method : 'post',
         headers : {
@@ -439,14 +482,14 @@ appBtn.addEventListener('click', ()=>{
         },
         body : JSON.stringify({
             "decision" : decision,
-            "instruction" : instruction.value,
+            "instruction" : instructionValue,
             "no" : URLSearch.get('no'),
         })
     })
     .then((response)=>response.json())
     .then((data)=>{
 
-        console.log(data);
+        location.reload();
 
     })
     .catch((data)=>{

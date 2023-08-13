@@ -58,6 +58,27 @@ public interface ApprovalService {
 	List<ApproverVo> getCc(String no);
 
 	// 결재
-	int deciseApproval(Map<String, String> dataMap);
+	Map<String, String> deciseApproval(Map<String, String> dataMap);
+
+
+	String getCat1Ctn(String userNo);
+
+	String getCat2Ctn(String userNo);
+
+	String getCat3Ctn(String userNo);
+
+	String getCat4Ctn(String userNo);
+
+
+	List<ApprovalVo> getStandbyList(String userNo);
+
+	List<ApprovalVo> getCCList(String userNo);
+
+	List<ApprovalVo> getUpvoteList(String userNo);
+
+
+	ApplicationForLeaveVo getAflInfo(String no);
+
+	ApplicationForExtraWorkVo getAfEDetail(String no);
 
 }

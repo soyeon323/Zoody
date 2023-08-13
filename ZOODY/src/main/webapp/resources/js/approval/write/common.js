@@ -149,11 +149,13 @@ userBriefInfoList.forEach(element => {
         const userNoValue = userNo.innerText;
         const userGrade = currentTarget.querySelector('.user-grade');
         const userGradeValue = userGrade.innerText;
+        const userAgent = currentTarget.querySelector('.user-agent');
+        const userAgentValue = userAgent.innerText;
 
         let ableCheck = 1;
         if(modalType === 'approver') {
 
-            if(userGradeValue < toppestGrade) {
+            if(userGradeValue <= toppestGrade) {
                 toppestGrade = userGradeValue;
             } else {
                 alert('이전 결재자보다 낮은 결재권한자를 추가 할 수 없습니다.');
@@ -166,8 +168,16 @@ userBriefInfoList.forEach(element => {
                     ableCheck = 0;
                 }
             });
-    
-            if(approverArrIdx < 4 && ableCheck == 1) {
+
+            if(userAgentValue != '') {
+
+                alert('해당 결재자가 출타중이라서 대결 권한자가 추가됩니다.')
+
+                const agent = document.querySelector('div[id="'+userAgentValue+'"]');
+
+                setPreview2(agent.parentNode);
+
+            } else if(approverArrIdx < 4 && ableCheck == 1) {
                 setPreview(event);
             } else if (approverArrIdx >= 4) {
                 alert('결재자는 최대 4명까지만 설정 가능합니다.');
@@ -293,6 +303,118 @@ function setPreview(event) {
 
 }
 
+function setPreview2(target) {
+    const currentTarget = target;
+    const userNo = currentTarget.querySelector('.user-no');
+    const userNoValue = userNo.innerText;
+
+    fetch(contextPath + "/addressbook/get/info/brief?no=" + userNoValue)
+    .then( (response) => response.json() )
+    .then( (data) => {
+
+        let departmentInfo = '';
+        if(data.dName1 != null) { departmentInfo += data.dName1 + ' > '; }
+        if(data.dName2 != null) { departmentInfo += data.dName2 + ' > '; }
+        if(data.dName3 != null) { departmentInfo += data.dName3 + ' > '; }
+        departmentInfo += data.dName4;
+
+        if(modalType === "approver") {
+            approverArray[approverArrIdx] = {
+                'no' : data.no,
+                'name' : data.name,
+                'grade' : data.grade,
+                'rank' : data.rankName,
+                'profile' : data.profile,
+                'department' : departmentInfo,
+            }
+            approverArrIdx++;
+        } else if (modalType === "CC") {
+            ccArray[ccArrIdx] = {
+                'no' : data.no,
+                'name' : data.name,
+                'grade' : data.grade,
+                'rank' : data.rankName,
+                'profile' : data.profile,
+                'department' : departmentInfo,
+            }
+            ccArrIdx++;
+        }
+        
+
+        const approverMember = document.createElement('div');
+        approverMember.classList.add('approver-memeber');
+
+        const briefInfo = document.createElement('div');
+        briefInfo.classList.add('name-mail');
+
+        const aName = document.createElement('div');
+        aName.classList.add('approver-name');
+        aName.innerText = data.name;
+
+        const aMail = document.createElement('div');
+        aMail.classList.add('approver-mail');
+        aMail.innerText = data.mail;
+
+        briefInfo.append(aName);
+        briefInfo.append(aMail);
+
+        const deleteIcon = document.createElement('img');
+        deleteIcon.src = contextPath + '/resources/img/icon/svg/small-cross.svg';
+        deleteIcon.classList.add('delete-btn');
+
+
+        const userRank = document.createElement('div');
+        userRank.innerText = data.grade;
+        userRank.classList.add('user-rank-grade');
+
+        const tempNo = document.createElement('div');
+        tempNo.innerText = data.no;
+        tempNo.classList.add('temp-no');
+
+        approverMember.append(briefInfo);
+        approverMember.append(deleteIcon);
+        approverMember.append(userRank);
+        approverMember.append(tempNo);
+
+
+        priviewList.append(approverMember);
+
+        deleteIcon.addEventListener('click', (event) => {
+
+
+            const approverInfo = event.target.parentNode;
+            const deleteApproverNo = approverInfo.querySelector('.temp-no').innerText;
+
+            for(let i = 0; i < approverArrIdx; i++) {
+                if(approverArray[i].no == deleteApproverNo) {
+                    approverArray.splice(i,1);
+                    
+                    for(let j = i; j < approverArrIdx - 1; j++) {
+                        approverArray[j] = approverArray[j + 1];
+                    }
+
+                    approverArray = approverArray.filter((item)=>{
+                        return item !== null;
+                    });
+
+                    approverArrIdx--;
+                }
+            }
+
+            toppestGrade = 10;
+
+            for(let i = 0; i< approverArray.length; i++) {
+                if(approverArray[i].grade < toppestGrade) {
+                    toppestGrade = approverArray[i].grade
+                }
+            }
+
+            deleteIcon.parentNode.remove();
+        });
+    })
+    .catch( err => {})
+
+}
 
 /* ========================================================================================================= */
 

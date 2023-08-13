@@ -11,7 +11,9 @@ import com.kh.zoody.approval.vo.ApprovalVo;
 import com.kh.zoody.approval.vo.ApproverVo;
 import com.kh.zoody.approval.vo.DrafterVo;
 import com.kh.zoody.approval.vo.ExtraWorkCategoryVo;
+import com.kh.zoody.approval.vo.ExtraWorkVo;
 import com.kh.zoody.approval.vo.LeaveTypeVo;
+import com.kh.zoody.approval.vo.LeaveVo;
 import com.kh.zoody.approval.vo.LetterOfApprovalVo;
 import com.kh.zoody.user.vo.UserVo;
 
@@ -66,4 +68,38 @@ public interface ApprovalDao {
 
 	// 결재
 	int deciseApproval(Map<String, String> dataMap, SqlSessionTemplate sqlSessionTemplate);
+
+
+	List<ApproverVo> getApproverState(String approvalNo, SqlSessionTemplate sqlSessionTemplate);
+
+
+	String getAuthority(String approvalNo, SqlSessionTemplate sqlSessionTemplate);
+
+
+	String getApproverCnt(String approvalNo, SqlSessionTemplate sqlSessionTemplate);
+
+
+	String getCat1Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate);
+	String getCat2Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate);
+	String getCat3Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate);
+	String getCat4Ctn(String userNo, SqlSessionTemplate sqlSessionTemplate);
+
+
+	List<ApprovalVo> getStandbyList(String userNo, SqlSessionTemplate sqlSessionTemplate);
+
+	List<ApprovalVo> getCCList(String userNo, SqlSessionTemplate sqlSessionTemplate);
+
+	List<ApprovalVo> getUpvoteList(String userNo, SqlSessionTemplate sqlSessionTemplate);
+
+
+	ApplicationForLeaveVo getAflInfo(String no, SqlSessionTemplate sqlSessionTemplate);
+
+	ApplicationForExtraWorkVo getAfeInfo(String no, SqlSessionTemplate sqlSessionTemplate);
+
+
+	int insertLeave(LeaveVo leaveVo, SqlSessionTemplate sqlSessionTemplate);
+
+
+	int inserExtraWork(ExtraWorkVo extraWorkVo, SqlSessionTemplate sqlSessionTemplate);
+	
 }

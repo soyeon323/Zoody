@@ -13,6 +13,7 @@ public class ApproverVo {
 	private String approvalDate;
 
 	private String stateName;
+	private String grade;
 	
 	private String name;
 	private String profile;

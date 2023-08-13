@@ -63,7 +63,7 @@
 					0,
 					#{item.approverNo} AS APPROVER_NO,
 					#{item.nextApprovaerNo} AS NEXT_APPROVAER_NO,
-					SYSDATE
+					NULL
 				FROM DUAL
 				</foreach>
 			) TEMP
@@ -173,14 +173,12 @@
 	
 	<select id="getApprovalList" resultType="ApprovalVo">
 	
-		SELECT EA.NO, DRAFTER, U.NAME AS DRAFTER_NAME, CATEGORY_NO, AC.CATEGORY AS CATEGORY_NAME, REQUEST_DATE, TITLE
+		SELECT EA.NO, DRAFTER, U.NAME AS DRAFTER_NAME, CATEGORY_NO, AC.CATEGORY AS CATEGORY_NAME, REQUEST_DATE, TITLE, APPROVER_NO, APPROVAL_STATE
 		FROM ELECTRONIC_APPROVAL EA
 		    JOIN "USER" U ON EA.DRAFTER = U.NO
 		    JOIN APPROVAL_CATEGORY AC ON EA.CATEGORY_NO = AC.NO
-		WHERE EA.NO IN ( SELECT APPROVAL_NO
-		                FROM APPROVER
-		                WHERE APPROVER_NO = #{userNo}
-		                )
+		    JOIN APPROVER A ON EA.NO = A.APPROVAL_NO
+		WHERE APPROVER_NO = #{userNo}
 	
 	</select>
 	
@@ -232,15 +230,23 @@
 	
 	</select>
 	
-	<select id="getDetailAFL" resultType="ApprovalVo">
+	<select id="getDetailAFL" resultType="ApplicationForLeaveVo">
 	
-	
+		SELECT TITLE, REASON, "FROM", "TO", TYPE_NO, TYPE
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN APPLICATION_FOR_LEAVE AFL ON EA.NO = AFL.APPROVAL_NO
+		    JOIN LEAVE_TYPE LT ON AFL.TYPE_NO = LT.NO
+		WHERE EA.NO =  #{no}
 	
 	</select>
 	
-	<select id="getDetailAFE" resultType="ApprovalVo">
+	<select id="getDetailAFE" resultType="ApplicationForExtraWorkVo">
 	
-	
+		SELECT TITLE, REASON, "DATE", "START_TIME", "END_TIME", CATEGORY, EWC.NO AS TYPE_NO
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN APPLICATION_FOR_EXTRA_WORK AFE ON EA.NO = AFE.APPROVAL_NO
+		    JOIN EXTRA_WORK_CATEGORY EWC ON AFE.CATEGORY_NO = EWC.NO
+		WHERE EA.NO = #{no}
 	
 	</select>
 	
@@ -253,7 +259,7 @@
 	
 	<select id="getApprovers" resultType="ApproverVo">
 	
-		SELECT U.NO AS APPROVER_NO, APPROVAL_STATE, APST.STATE_NAME, U.NAME, PROFILE, R.NAME AS RANK_NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4
+		SELECT U.NO AS APPROVER_NO, APPROVAL_STATE, APPROVAL_DATE, APST.STATE_NAME, U.NAME, PROFILE, R.NAME AS RANK_NAME, B.D_NAME1, B.D_NAME2, B.D_NAME3, B.D_NAME4
 		FROM APPROVER A
 		    JOIN "USER" U ON A.APPROVER_NO = U.NO 
 		    JOIN "RANK" R ON U.RANK_NO = R.NO
@@ -307,5 +313,118 @@
 		WHERE APPROVAL_NO = #{no}
 	
 	</update>
+	
+	
+	
+	
+	<select id="getApproverState" resultType="ApproverVo">
+	
+		SELECT APPROVAL_STATE, APPROVER_NO, NEXT_APPROVAER_NO, APPROVAL_DATE, GRADE
+		FROM APPROVER A
+		    JOIN (SELECT "USER".NO, RANK_NO, GRADE FROM "USER" JOIN "RANK" ON "USER".RANK_NO = "RANK".NO) B ON A.APPROVER_NO = B.NO
+		WHERE APPROVAL_NO = #{approvalNo}
+		ORDER BY GRADE DESC
+	
+	</select>
+	
+	
+	<select id="getAuthority" resultType="String">
+	
+		SELECT AUTHORITY
+		FROM APPROVAL_CATEGORY
+		WHERE NO = (SELECT CATEGORY_NO FROM ELECTRONIC_APPROVAL WHERE NO = #{approvalNo})
+	
+	</select>
+	
+	<select id="getApproverCnt" resultType="String">
+	
+		SELECT COUNT(NO)
+		FROM APPROVER
+		WHERE APPROVAL_NO = #{approvalNo}
+	
+	</select>
+	
+	
+	
+	<select id="getCat1Ctn" resultType="String">
+	
+		SELECT COUNT(NO)
+		FROM APPROVER
+		WHERE APPROVER_NO = #{userNo}
+	
+	</select>
+	<select id="getCat2Ctn" resultType="String">
+	
+		SELECT COUNT(NO)
+		FROM APPROVER
+		WHERE APPROVER_NO = #{userNo}
+		    AND APPROVAL_STATE = 0
+	
+	</select>
+	<select id="getCat3Ctn" resultType="String">
+	
+		SELECT COUNT(NO)
+		FROM APPROVAL_CC
+		WHERE CC_NO = #{userNo}
+	
+	</select>
+	<select id="getCat4Ctn" resultType="String">
+	
+		SELECT COUNT(NO)
+		FROM ELECTRONIC_APPROVAL
+		WHERE DRAFTER = #{userNo}
+	
+	</select>
+
+
+	<select id="getStandbyList" resultType="ApprovalVo">
+	
+		SELECT EA.NO, DRAFTER, U.NAME AS DRAFTER_NAME, CATEGORY_NO, AC.CATEGORY AS CATEGORY_NAME, REQUEST_DATE, TITLE, APPROVER_NO, APPROVAL_STATE
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN "USER" U ON EA.DRAFTER = U.NO
+		    JOIN APPROVAL_CATEGORY AC ON EA.CATEGORY_NO = AC.NO
+		    JOIN APPROVER A ON EA.NO = A.APPROVAL_NO
+		WHERE APPROVER_NO = #{userNo}
+		    AND APPROVAL_STATE = 0
+	
+	</select>
+	
+	
+	<select id="getCCList" resultType="ApprovalVo">
+	
+		SELECT EA.NO, DRAFTER, U.NAME AS DRAFTER_NAME, CATEGORY_NO, AC.CATEGORY AS CATEGORY_NAME, REQUEST_DATE, TITLE
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN "USER" U ON EA.DRAFTER = U.NO
+		    JOIN APPROVAL_CATEGORY AC ON EA.CATEGORY_NO = AC.NO
+		    JOIN APPROVAL_CC AC ON EA.NO = AC.NO
+		WHERE CC_NO = #{userNo}
+	
+	</select>
+
+
+	<select id="getUpvoteList" resultType="ApprovalVo">
+	
+		SELECT EA.NO, DRAFTER, U.NAME AS DRAFTER_NAME, CATEGORY_NO, AC.CATEGORY AS CATEGORY_NAME, REQUEST_DATE, TITLE
+		FROM ELECTRONIC_APPROVAL EA
+		    JOIN "USER" U ON EA.DRAFTER = U.NO
+		    JOIN APPROVAL_CATEGORY AC ON EA.CATEGORY_NO = AC.NO
+		WHERE DRAFTER = #{userNo}
+	
+	</select>
+	
+	
+	<insert id="insertLeave">
+	
+		INSERT INTO LEAVE (NO, USER_NO, LEAVE_NO, PROXY_NO, ENROLLDATE, REASON_CONTENT, START_TIME, END_TIME) 
+    	VALUES (SEQ_LEAVE_NO.NEXTVAL, #{userNo}, #{leaveNo}, #{proxyNo}, DEFAULT, #{reasonContent}, #{startTime}, #{startTime})
+	
+	</insert>
+	
+	<insert id="inserExtraWork">
+	
+		INSERT INTO "EXTRA_WORK" ("NO", "USER_NO", "TYPE_NO", "ENROLLDATE", "START_TIME", "END_TIME", "APPROVAL_STATUS", "REASON")
+    	VALUES (SEQ_EXTRA_WORK_NO.NEXTVAL, #{userNo}, #{typeNo}, SYSDATE, #{startTime}, #{endTime}, DEFAULT, #{reason})
+	
+	</insert>
 
 </mapper>
