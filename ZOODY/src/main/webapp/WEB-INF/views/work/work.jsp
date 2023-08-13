@@ -401,13 +401,13 @@ function myF(workNo) {
                 checkbox.setAttribute('type', 'checkbox');
                 checkbox.setAttribute('id', 'checkbox_' + index);
 
-                // 로컬 스토리지에서 체크박스 상태 불러와 설정
-                checkbox.checked = loadCheckboxState(checkbox.id);
+                // // 로컬 스토리지에서 체크박스 상태 불러와 설정
+                // checkbox.checked = loadCheckboxState(checkbox.id);
 
-                // 체크박스 상태가 변경될 때 로컬 스토리지에 저장
-                checkbox.addEventListener('change', function () {
-                    saveCheckboxState(checkbox.id, checkbox.checked);
-                });
+                // // 체크박스 상태가 변경될 때 로컬 스토리지에 저장
+                // checkbox.addEventListener('change', function () {
+                //     saveCheckboxState(checkbox.id, checkbox.checked);
+                // });
 
                 fieldset.appendChild(inputTag);
                 fieldset.appendChild(checkbox);

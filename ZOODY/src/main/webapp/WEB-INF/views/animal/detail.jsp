@@ -310,7 +310,6 @@
                     healthNo :healthNo,
                 },
                 success : ()=>{
-                    alert(123);
                         location.href = "${root}/animal/health/detail?no="+healthNo;
                 },
                 error : (e)=>{

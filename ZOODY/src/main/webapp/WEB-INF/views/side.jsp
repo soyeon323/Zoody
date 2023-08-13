@@ -8,6 +8,16 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/resources/css/common/side.css">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+<style>
+    .active {
+        background-color: #4876EF; /* 활성화된 메뉴 배경색 설정 */
+        color: white; /* 클릭된 메뉴 글씨 색 변경 */
+    }
+
+    .side-bar > ul > li.active ul li:hover > a {
+        border-left: 6px solid #4876EF; /* 호버 시 왼쪽 테두리 변경 */
+    }
+</style>
 </head>
 <body>
 
@@ -117,18 +127,42 @@
 </body>
 </html>
     <script>
-        // side-bar토글형식
+        // side-bar 토글 형식
         document.addEventListener('DOMContentLoaded', function() {
-        var menuItems = document.querySelectorAll('.side-bar > ul > li > a');
+            var menuItems = document.querySelectorAll('.side-bar > ul > li > a');
+            
+            menuItems.forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 현재 클릭된 메뉴의 부모 요소 (li)
+                    var listItem = this.parentNode;
+                    
+                    // 현재 클릭된 메뉴가 활성화되어 있는지 여부
+                    var isActive = listItem.classList.contains('active');
+                    
+                    // 모든 메뉴 비활성화
+                    menuItems.forEach(function(otherItem) {
+                        var otherListItem = otherItem.parentNode;
+                        if (otherListItem !== listItem) {
+                            otherListItem.classList.remove('active');
+                        }
+                    });
 
-        menuItems.forEach(function(item) {
-            item.addEventListener('click', function(e) {
-            e.preventDefault();
-            var listItem = this.parentNode;
-            listItem.classList.toggle('active');
+                    if (!isActive) {
+                    listItem.classList.add('active');
+                 }
+                    // 클릭된 요소의 글씨 색을 하얀색으로 변경
+                    menuItems.forEach(function(otherItem) {
+                    if (otherItem !== item) {
+                        otherItem.style.color = ''; // 기본 색상으로 되돌리기
+                    }
+                });
+                item.style.color = 'white'; // 클릭된 요소의 글씨 색 변경
+                });
             });
         });
-        });
+
 
         //건의사항 주소
         function goSuggestion(id){
@@ -147,4 +181,9 @@
                 location.href = '${root}/notice/list';
             }
         }
+
+        // 현재 클릭된 메뉴의 상태 변경
+        if (!isActive) {
+                    listItem.classList.add('active');
+                }
     </script>

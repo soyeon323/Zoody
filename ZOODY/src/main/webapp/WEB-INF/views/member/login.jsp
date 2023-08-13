@@ -28,7 +28,7 @@
         <form id="login-form" action="${root}/member/login" method="POST" >
             <img src="${root}/resources/img/logo/logo.svg" alt="로고 이미지">
             <input type="text" class="form-control" name="id" placeholder="ID">
-            <input type="text" class="form-control" name="pwd" placeholder="PWD">
+            <input type="password" class="form-control" name="pwd" placeholder="PWD">
             <input id="loginBtn" class="btn btn-primary" style="color: whitesmoke;" type="submit" value="로그인" onclick="check()"> 
 	        <input class="btn btn-primary" style="color: whitesmoke;" type="button" value="비밀번호 설정" onclick="pwdSet()"> 
         </form>
