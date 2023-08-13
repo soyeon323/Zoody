@@ -218,20 +218,36 @@
 		WHERE PROJECT_NO = #{no}
 	</select>
 	
-	<insert id="insertChat">
-		INSERT INTO CHATTING_ROOM
+	<insert id="insertMessage">
+		INSERT INTO CHATTING_MESSAGE
 		(
 			NO
-			PROJECT_NO
-			ENROLL_DATE
-			STATUS
+			, USER_NO
+			, PROJECT_NO
+			, CONTENT
+			, SEND_TIME
 		)
 		VALUES
 		(
-			SEQ_CHATTING_ROOM_NO.NEXTVAL
+			SEQ_CHATTING_MESSAGE_NO.NEXTVAL
+			, #{userNo}
 			, #{projectNo}
-			, SYSDATE
-			, 'O'
+			, #{msg}
+			, #{time}
 		)
 	</insert>
+	
+	<select id="selectMessage" resultType="ChattingVo">
+		SELECT
+		    C.NO
+		    , C.USER_NO
+		    , C.PROJECT_NO
+		    , C.CONTENT
+		    , C.SEND_TIME
+		    , U.NAME
+		    , U.PROFILE
+		FROM CHATTING_MESSAGE C
+		JOIN "USER" U ON U.NO = C.USER_NO
+		ORDER BY NO DESC
+	</select>
 </mapper>

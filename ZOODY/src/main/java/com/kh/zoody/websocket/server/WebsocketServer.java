@@ -57,16 +57,13 @@ public class WebsocketServer extends TextWebSocketHandler{
 		
 		List<String> noList = ps.selectUserNo(projectNo);
 		
-
 		String jsonMsg = gson.toJson(msgVo);
 		
 		HashMap<String, List<String>> map = new HashMap<>();
 		map.put(projectNo, noList);
-		
-		log.info("map : {}", map);
-		
+
 		//채팅내용 DB에 저장하기 
-		// if(ps.insertChat(msgVo) != 1) {throw new RuntimeException();}
+		if(ps.insertMessage(msgVo) != 1) {throw new RuntimeException();}
 		
 		for (String uno : sessionMap.keySet()) {
 			if(noList.contains(uno)) {

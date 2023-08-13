@@ -36,7 +36,6 @@
 </script>
 </head>
 <body style="overflow-x: hidden">
-<h1>${noList}</h1>
     <%@ include file="/WEB-INF/views/header.jsp" %>
     <%@ include file="/WEB-INF/views/project/side.jsp" %>
 
@@ -164,7 +163,30 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                
+                    <c:forEach items="${chatList}" var="chatList">
+                        <c:if test="${loginMember.no == chatList.userNo}">
+                            <div id="fromMsg">
+                                <a id="time02">${chatList.sendTime}</a>
+                                <div id="fromMsgText">
+                                    ${chatList.content}
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${loginMember.no != chatList.userNo}">
+                            <div id="profile-area">
+                                 <img src="${root}/resources/img/employee/${chatList.profile}" alt="프로필사진" class="chatProfile">
+                                 <a class="name-area">${chatList.name}</a>
+                             </div>
+                             <div id="toMsg">
+                                 <div id="toMsgText">
+                                    ${chatList.content}
+                                 </div>
+                                 <a id="time01">
+                                    ${chatList.sendTime}
+                                 </a>
+                             </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
                 <div class="modal-footer">
                 <div>
@@ -205,8 +227,6 @@
 
     //현재 플젝 번호
     const currentChatRoomNo = '${prjVoList[0].no}';
-    alert(currentChatRoomNo);
-
 
     //엔터로 메세지 전송하기
     function handleKeyPress(event) {

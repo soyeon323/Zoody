@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.project.vo.ChattingVo;
 import com.kh.zoody.project.vo.ProjectAllVo;
 import com.kh.zoody.project.vo.ProjectTodoVo;
 import com.kh.zoody.project.vo.ProjectVo;
@@ -61,7 +62,13 @@ public interface ProjectService {
 	//프로젝트 참여한 멤버no 가져오기
 	List<String> selectUserNo(String no);
 
-	//채팅내용 저장
+	//채팅내용 저장(채팅방)
 	int insertChat(HashMap<String, String> msgVo);
+
+	//채팅내용 저장
+	int insertMessage(HashMap<String, String> msgVo);
+
+	//채팅내용 불러오기
+	List<ChattingVo> selectMessage();
 
 }

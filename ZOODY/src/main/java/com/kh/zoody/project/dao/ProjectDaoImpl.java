@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
+import com.kh.zoody.project.vo.ChattingVo;
 import com.kh.zoody.project.vo.ProjectAllVo;
 import com.kh.zoody.project.vo.ProjectTodoVo;
 import com.kh.zoody.project.vo.ProjectVo;
@@ -122,10 +123,22 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sst.selectList("project.selectUserNo", no);
 	}
 
-	//채팅내용 저장
+	//채팅내용 저장(방)
 	@Override
 	public int insertChat(SqlSessionTemplate sst, HashMap<String, String> msgVo) {
 		return sst.insert("project.insertChat", msgVo);
+	}
+
+	//채팅내용 저장
+	@Override
+	public int insertMessage(SqlSessionTemplate sst, HashMap<String, String> msgVo) {
+		return sst.insert("project.insertMessage", msgVo);
+	}
+
+	//채팅내용 불러오기
+	@Override
+	public List<ChattingVo> selectMessage(SqlSessionTemplate sst) {
+		return sst.selectList("project.selectMessage");
 	}
 
 }
