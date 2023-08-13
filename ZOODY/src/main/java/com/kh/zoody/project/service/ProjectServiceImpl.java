@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.project.dao.ProjectDao;
+import com.kh.zoody.project.vo.ChattingVo;
 import com.kh.zoody.project.vo.ProjectAllVo;
 import com.kh.zoody.project.vo.ProjectTodoVo;
 import com.kh.zoody.project.vo.ProjectVo;
@@ -131,10 +132,22 @@ public class ProjectServiceImpl implements ProjectService{
 		return dao.selectUserNo(sst, no);
 	}
 
-	//채팅내용 저장
+	//채팅내용 저장(방)
 	@Override
 	public int insertChat(HashMap<String, String> msgVo) {
 		return dao.insertChat(sst, msgVo);
+	}
+
+	//채팅내용 저장
+	@Override
+	public int insertMessage(HashMap<String, String> msgVo) {
+		return dao.insertMessage(sst, msgVo);
+	}
+
+	//채팅내용 불러오기
+	@Override
+	public List<ChattingVo> selectMessage() {
+		return dao.selectMessage(sst);
 	}
 
 }

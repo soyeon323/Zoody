@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.kh.zoody.notice.vo.NoticeVo;
 import com.kh.zoody.page.vo.PageVo;
 import com.kh.zoody.project.service.ProjectService;
+import com.kh.zoody.project.vo.ChattingVo;
 import com.kh.zoody.project.vo.ProjectAllVo;
 import com.kh.zoody.project.vo.ProjectTodoVo;
 import com.kh.zoody.project.vo.ProjectVo;
@@ -124,10 +125,14 @@ public class ProjectController {
 		//프로젝트 참여한 멤버no 가져오기
 		List<String> noList = ps.selectUserNo(prjVoList.get(0).getNo());
 		
+		//채팅내용 불러오기
+		List<ChattingVo> chatList = ps.selectMessage();
+		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("suggestionList", suggestionList);
 		model.addAttribute("prjVoList", prjVoList);
 		model.addAttribute("todoList", todoList);
+		model.addAttribute("chatList", chatList);
 		
 		session.setAttribute("noList", noList);
 	}
