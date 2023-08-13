@@ -61,10 +61,10 @@ public class AttendanceController {
 	    
 	    int totalCount = currentTypeOne + currentTypeSix + currentTypeLeave + currentTypeFour;
 	    
-	    double currentTypeOnePercentage = ((double) currentTypeOne / totalCount) * 100;
-	    double currentTypeSixPercentage = ((double) currentTypeSix / totalCount) * 100;
-	    double currentTypeLeavePercentage = ((double) currentTypeLeave/ totalCount) * 100;
-	    double currentTypeFourPercentage = ((double) currentTypeFour/ totalCount) * 100;
+	    int currentTypeOnePercentage = (int) (((double) currentTypeOne / totalCount) * 100);
+	    int currentTypeSixPercentage = (int) (((double) currentTypeSix / totalCount) * 100);
+	    int currentTypeLeavePercentage = (int) (((double) currentTypeLeave / totalCount) * 100);
+	    int currentTypeFourPercentage = (int) (((double) currentTypeFour / totalCount) * 100);
 	    
 	    model.addAttribute("currentTypeOnePercentage", currentTypeOnePercentage);
 	    model.addAttribute("currentTypeSixPercentage", currentTypeSixPercentage);

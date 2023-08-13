@@ -352,7 +352,10 @@
                                 <select class="inputModal" type="text" name="edit-type" id="edit-type">
                                     <option value="0">개인</option>
                                     <option value="1">부서</option>
-                                    <option value="2">회사</option>
+                                    <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
+                                    <c:if test="${fn:contains(loginMember.id, 'ADMIN')}">
+                                      <option value="2">회사</option>
+                                    </c:if>
                                     <!-- <option value="3">회의</option> -->
                                 </select>
                             </div>
