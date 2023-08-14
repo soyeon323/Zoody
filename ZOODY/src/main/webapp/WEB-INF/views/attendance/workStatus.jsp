@@ -230,7 +230,7 @@ element.style {
                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
                     <circle cx="2.5" cy="2.5" r="2.5" fill="#00CBA4"/>
                   </svg>
-                  <p>출장</p>
+                  <p>외근</p>
                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
                     <circle cx="2.5" cy="2.5" r="2.5" fill="#A574EE"/>
                   </svg>
