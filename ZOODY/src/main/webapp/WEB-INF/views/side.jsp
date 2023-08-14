@@ -27,22 +27,25 @@
         <li>
             <a href="#"><i class="fa-solid fa-cat"></i> 근태 관리</a>
             <ul>
-            <li><a href="${root}/attendance/main">근무현황</a></li>
-            <li><a href="${root}/attendance/list">근무현황 목록 조회</a></li>
             <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
-            <c:if test="${fn:contains(loginMember.id, 'ADMIN')}">
-                <li><a href="${root}/attendance/admin/allList">유저 전체 근무 조회</a></li>
-                <li><a href="${root}/attendance/admin/objection">objection</a></li>
-            </c:if>
+            <c:choose>
+			    <c:when test="${fn:contains(loginMember.id, 'ADMIN')}">
+			        <li><a href="${root}/attendance/admin/allList">근무 조회</a></li>
+			        <li><a href="${root}/attendance/admin/objection">이의신청 조회</a></li>
+			    </c:when>
+			    <c:otherwise>
+		            <li><a href="${root}/attendance/main">근무현황</a></li>
+		            <li><a href="${root}/attendance/list">근무현황 목록 조회</a></li>
+			    </c:otherwise>
+			</c:choose>
+            
             </ul>
         </li>
         <li>
             <a href="#">일정 관리</a>
             <ul>
-            <li><a href="${root}/calendar/main">일정관리</a></li>
-            <li><a href="#">text2</a></li>
-            <li><a href="#">text3</a></li>
-            <li><a href="#">text4</a></li>
+            <li><a href="${root}/calendar/main">캘린더</a></li>
+            <li><a href="${root}/meetingroom/reserve">회의실관리</a></li>
             </ul>
         </li>
         <li>
