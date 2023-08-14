@@ -35,6 +35,7 @@
 		<typeAlias type="com.kh.zoody.approval.vo.ApproverVo" alias="ApproverVo"/>
 		<typeAlias type="com.kh.zoody.mail.vo.MailAttachmentVo" alias="MailAttachmentVo"/>
 		<typeAlias type="com.kh.zoody.mail.vo.MailBoxVo" alias="MailBoxVo" />
+		<typeAlias type="com.kh.zoody.home.vo.HomeCalendarVo" alias="HomeCalendarVo" />
 	</typeAliases>
 
 </configuration>

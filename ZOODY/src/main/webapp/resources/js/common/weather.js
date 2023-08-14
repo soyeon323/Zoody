@@ -81,18 +81,6 @@ function getPosition() {
             dayOrNight = 'night'; // 함수 A 실행
         }
   
-        // console.log("현재 위치는 : " + latitude + ", " + longitude);
-        // // 위도와 경도를 LCC DFS 좌표로 변환 (toXY)
-        // result = dfs_xy_conv("toXY", latitude, longitude);
-  
-        // console.log("위도:", latitude);
-        // console.log("경도:", longitude);
-  
-        // console.log("LCC DFS 좌표 X:", result.x);
-        // console.log("LCC DFS 좌표 Y:", result.y);
-  
-        // // 날씨 정보를 가져오는 함수 호출
-        // getWeatherData(result.x, result.y);
       },
       function (error) {
         $("div").text("조회 실패 ==> " + error.code);
@@ -112,22 +100,37 @@ function getWeatherData(nx, ny) {
         },
         success: function (data) {
         let pop = data["pop"]; // 강수확률
-        let PTY = data["TMP"]; // 강수형태
+        let TMP = data["TMP"]; // 강수형태
         let REH = data["REH"]; // 습도
         let SNO = data["SNO"]; // 1시간 신적설
         let SKY = data["SKY"]; // 하늘상태
-        let TMP = data["TMP"]; // 1시간 기온
+        let PTY = data["PTY"]; // 1시간 기온
         let TMN = data["TMN"]; // 일일 최고기온
         let TMX = data["TMX"]; // 강수확률
+        
+        console.log("SKY : "+SKY);
+        console.log("TMP : "+TMP);
 
-        SKY = skyCheck(SKY);
+        if (PTY === 0 || PTY === '0') {
+            SKY = skyCheck(SKY);
+        }
+        else {
+            SKY = skyCheckTMP(TMP);
+        }
+
+        
+        const isDaytime = currentHour >= 6 && currentHour < 18;
+
         // let skyIcon = skyIconSelect(SKY);
 
+        console.log("SKY : "+SKY);
+        console.log("TMP : "+TMP);
+
         let changeHtml = `
-            <div id="weather_info" class="weather-${dayOrNight}">
+            <div id="weather_info" class="">
                 <div class="temperatures">${TMP}<span>℃</span></div>
-                <div class="weather-icon">
-                    <img src="${root}/resources/img/icon/png/weather-${skyIcon}.png" alt="">
+                <div class="weather-icon weather-${dayOrNight}">
+                    <img src="${root}/resources/img/icon/svg/weather-${skyIcon}${isDaytime ? '' : '-night'}.svg" alt="">
                 </div>
                 <div class="weather-conditions">${SKY}</div>
             </div>
@@ -159,12 +162,43 @@ function skyCheck(SKY){
         return '구름많음';
     }  
     else if (SKY === '4') {
+        skyIcon = 'cloudy';
         return '흐림';
     }  
     return 'error';
 }
 
-
+function skyCheckTMP(SKY) {
+    if (SKY === '1') {
+        skyIcon = 'rain';
+        return '비';
+    }
+    else if (SKY === '2') {
+        skyIcon = 'rain';
+        return '비/눈';
+    }
+    else if (SKY === '3') {
+        skyIcon = 'snow';
+        return '눈';
+    }  
+    else if (SKY === '4') {
+        skyIcon = 'rain';
+        return '소나기';
+    }
+    else if (SKY === '5') {
+        skyIcon = 'rain';
+        return '빗방울';
+    }  
+    else if (SKY === '6') {
+        skyIcon = 'rain';
+        return '빗방울/눈날림';
+    }  
+    else if (SKY === '7') {
+        skyIcon = 'snow';
+        return '눈날림';
+    }  
+    return 'error';
+}
  
 
 

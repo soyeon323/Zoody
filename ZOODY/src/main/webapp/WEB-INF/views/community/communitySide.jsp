@@ -19,13 +19,13 @@
         <div class="community-side-body">
 
             <ul class="body-list company-baord"> 전사 게시판
-                <li>공지사항</li>
-                <li>익명 게시판</li>
+                <li onclick="goToNotice()">공지사항</li>
+                <li onclick="goToCatNoBoard(2)"">익명 게시판</li>
             </ul>
 
             <ul class="body-list department-baord">부서 게시판
-                <li>자유 게시판</li>
-                <li>익명 게시판</li>
+                <li onclick="goToCatNoBoard(3)">자유 게시판</li>
+                <li onclick="goToCatNoBoard(4)">익명 게시판</li>
             </ul>
         </div>
 
@@ -35,3 +35,13 @@
 </html>
 
 <script src="${root}/resources/js/community/communitySide.js"></script>
+<script>
+    function goToNotice() {
+        window.location.replace(root+"/notice/list");
+    }
+
+    function goToCatNoBoard(no) {
+        window.location.replace(root+"/community/board/list?catNo="+ no);
+    }
+
+</script>

@@ -1,6 +1,7 @@
 package com.kh.zoody;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,7 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 import com.kh.zoody.attendance.vo.AttendanceVo;
 import com.kh.zoody.community.service.CommuityService;
 import com.kh.zoody.community.vo.BoardVo;
@@ -31,7 +37,9 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model, 
-			HttpServletRequest req) {
+			HttpServletRequest req,
+			@RequestParam Map<String, String> searchMap, 
+			@RequestParam(defaultValue = "4") Integer catNo) {
     	
     	HttpSession session = req.getSession();
 		
@@ -46,10 +54,15 @@ public class HomeController {
         loginMemberNo = Integer.parseInt(loginMember.getNo());
     	
     	String call = "home";
+    	searchMap.put("loginMemberNo", String.valueOf(loginMemberNo));
+    	searchMap.put("catNo", String.valueOf(catNo));
     	
-        List<BoardVo> boardList = cs.getBoardListByCount(call);
-        List<BoardVo> newBoardList = hs.newBoardList();
+    	
+        List<BoardVo> boardList = hs.newBoardList(searchMap);
+        searchMap.put("all", String.valueOf("all"));
+        List<BoardVo> newBoardList = hs.newBoardList(searchMap);
         List<NoticeVo> getNotice = hs.getNewNotice();
+        List<NoticeVo> getEventNotice = hs.getNewEventNotice();
         AttendanceVo getAttendance =  hs.getHomeAttendanceList(loginMemberNo);
         List<HomeCalendarVo> getCalendar = hs.getCalendar(loginMemberNo);
         
@@ -66,8 +79,14 @@ public class HomeController {
         if (getNotice != null) {
         	log.info("공지");
         	
-        	 model.addAttribute("getNotice", getNotice);
+        	model.addAttribute("getNotice", getNotice);
 		}
+        if (getEventNotice !=null) {
+        	log.info("이벤트 공지");
+        	log.info(getEventNotice+"");
+        	
+        	model.addAttribute("getEventNotice", getEventNotice);
+        }
         if(getAttendance != null) {
         	log.info("근태");
         	log.info(getAttendance+"");
@@ -82,6 +101,34 @@ public class HomeController {
 
         
         return "home";
+    }
+    
+    @PostMapping(value = "/updateUserInfo",produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String updateUserInfo(UserVo vo,
+    		HttpServletRequest req) {
+        log.info(vo + "");
+
+        int result = hs.updateUserInfo(vo);
+        log.info(result + " result");
+        
+        if (result != 1) {
+            return "error";
+        }
+
+        UserVo getUpdateUserInfo = hs.getUpdateUserInfo(vo);
+        if (getUpdateUserInfo == null) {
+            return "error";
+		}
+
+        HttpSession session = req.getSession();
+
+        session.setAttribute("loginMember", getUpdateUserInfo);
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(getUpdateUserInfo); // 객체를 JSON 문자열로 변환
+
+        return json; // JSON 문자열 반환
     }
 
 }

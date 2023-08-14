@@ -25,14 +25,16 @@
                     <div>To.</div>
 
                     <select name="Big-Category" id="BC">
+                        <option value="x">공개 범위를 선택하세요</option>
                         <option value="1">전사</option>
                         <option value="2">부서</option>
                     </select>
 
                     <select name="Small-Category" id="SC">
-                        <option value="1">자유</option>
-                        <option value="2">익명</option>
+                        <option value="3">자유</option>
+                        <option value="4">익명</option>
                     </select>
+                    
                 </div>
 
                 <div class="write-body-meddle">
@@ -72,6 +74,52 @@
 </html>
 
 <script src="${root}/resources/js/community/write.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    // Big-Category 선택 값이 변경될 때의 이벤트 핸들러
+    var smallCategorySelect = $("#SC");
+    var initialBigCategoryValue = $("#BC").val();
+
+    if (initialBigCategoryValue !== "x") {
+        $("#BC option[value='x']").remove();
+    }
+
+    smallCategorySelect.prop("disabled", true);
+    $("#BC").change(function() {
+        var selectedBigCategory = $(this).val();
+        
+        // "공개 범위를 선택하세요" 옵션을 제거
+        $("#BC option[value='x']").remove();
+
+        var smallCategorySelect = $("#SC");
+        
+        // Small-Category의 옵션 설정을 변경
+        if (selectedBigCategory === "1") {
+            smallCategorySelect.html(
+                '<option value="2">익명</option>'
+            );
+        } else if (selectedBigCategory === "2") {
+            smallCategorySelect.html(
+                '<option value="3">자유</option>' +
+                '<option value="4">익명</option>'
+            );
+        }
+        
+        // Big-Category가 선택되었을 때만 Small-Category 활성화
+        if (selectedBigCategory !== "x" && selectedBigCategory !== null) {
+            smallCategorySelect.prop("disabled", false);
+        } else {
+            smallCategorySelect.prop("disabled", true);
+        }
+    });
+});
+
+
+    </script>
+    
+
 
 
 
