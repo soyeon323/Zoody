@@ -919,7 +919,7 @@ VALUES
     '유지민',
     'F',
     '20000411',
-    'profile-img',
+    'profile-img_0012',
     '광야',
     '서울',
     '010-0012-0012',
@@ -1245,7 +1245,7 @@ VALUES
     31,
     0,
     1,
-    NULL,
+    10,
     2,
     'user0122',
     '1234',
@@ -2372,6 +2372,116 @@ VALUES
     NULL,
     '07012231223',
     3,
+    500
+)
+;
+
+-- 맹수팀원1
+INSERT INTO "USER"
+(
+    NO,
+    DEPARTMENT_NO,
+    RANK_NO,
+    POSITION_NO,
+    STATE_NO,
+    AGENT,
+    DIVISION_NO,
+    ID,
+    PWD,
+    NAME,
+    GENDER,
+    BIRTH_DATE,
+    PROFILE,
+    LINE_INTRO,
+    ADDRESS,
+    PHONE,
+    MAIL,
+    REGISTRATION_DATE,
+    LEAVE_REASON,
+    LEAVE_DATE,
+    OFFICE_NUMBER,
+    LEAVE_COUNT,
+    CAPACITY
+)
+VALUES
+(
+    SEQ_USER_NO.NEXTVAL,
+    1223,
+    5,
+    0,
+    1,
+    NULL,
+    2,
+    'user12231',
+    '1234',
+    '차승원',
+    'M',
+    '19700607',
+    'profile-img_12231.png',
+    '요한',
+    '경기도 시흥군',
+    '010-1234-1234',
+    '70csw@zoody.co.kr',
+    '20150109',
+    NULL,
+    NULL,
+    '07012341234',
+    9,
+    500
+)
+;
+
+-- 맹수팀원2
+INSERT INTO "USER"
+(
+    NO,
+    DEPARTMENT_NO,
+    RANK_NO,
+    POSITION_NO,
+    STATE_NO,
+    AGENT,
+    DIVISION_NO,
+    ID,
+    PWD,
+    NAME,
+    GENDER,
+    BIRTH_DATE,
+    PROFILE,
+    LINE_INTRO,
+    ADDRESS,
+    PHONE,
+    MAIL,
+    REGISTRATION_DATE,
+    LEAVE_REASON,
+    LEAVE_DATE,
+    OFFICE_NUMBER,
+    LEAVE_COUNT,
+    CAPACITY
+)
+VALUES
+(
+    SEQ_USER_NO.NEXTVAL,
+    1223,
+    5,
+    0,
+    1,
+    NULL,
+    2,
+    'user12232',
+    '1234',
+    '유해진',
+    'M',
+    '19700104',
+    'profile-img_12232.png',
+    '요한',
+    '충청도 청주시',
+    '010-5678-5678',
+    'lucky@zoody.co.kr',
+    '20180109',
+    NULL,
+    NULL,
+    '07056785678',
+    1,
     500
 )
 ;
