@@ -92,7 +92,7 @@
                         <img src="${root}/resources/img/meetingroom/${vo.changeName}" class="card-img-top" alt="회의실사진"> <!-- 여기에 썸네일 이미지 보이기 -->
 	                    <!-- <img src="${vo.changeName}" class="card-img-top" alt="111"> -->
                         <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
-                        <c:if test="${fn:contains(loginMember.id, 'ADMIN')}">
+                        <c:if test="${fn:contains(loginMember.id, 'admin')}">
                             <button style="border: none; background-color: transparent;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <g clip-path="url(#clip0_473_8454)">
@@ -107,7 +107,6 @@
                                     </defs>
                                 </svg>
                             </button>
-                        </c:if>
                         <div class="list-group" style="display: none;">
                             <a href="${root}/meetingroom/reserve/update?no=${vo.no}" class="list-group-item list-group-item-action mtUpdate" aria-current="true" data-vo-no="${vo.no}" onclick="mtUpdate(event);">
                               수정하기
@@ -139,6 +138,7 @@
                                 </button>
                             </c:otherwise> 
                           </c:choose> 
+                        </c:if>
                             
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
