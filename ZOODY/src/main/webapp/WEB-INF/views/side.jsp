@@ -29,7 +29,7 @@
             <ul>
             <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
             <c:choose>
-			    <c:when test="${fn:contains(loginMember.id, 'ADMIN')}">
+			    <c:when test="${fn:contains(loginMember.id, 'admin')}">
 			        <li><a href="${root}/attendance/admin/allList">근무 조회</a></li>
 			        <li><a href="${root}/attendance/admin/objection">이의신청 조회</a></li>
 			    </c:when>

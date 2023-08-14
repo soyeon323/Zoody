@@ -330,7 +330,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">장소</label>
-                                <input class="inputModal" type="text" name="edit-location" id="edit-location"
+                                <input class="inputModal" type="text" name="edit-place" id="edit-place"
                                     />
                             </div>
                         </div>
@@ -353,7 +353,7 @@
                                     <option value="0">개인</option>
                                     <option value="1">부서</option>
                                     <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
-                                    <c:if test="${fn:contains(loginMember.id, 'ADMIN')}">
+                                    <c:if test="${fn:contains(loginMember.id, 'admin')}">
                                       <option value="2">회사</option>
                                     </c:if>
                                     <!-- <option value="3">회의</option> -->
@@ -463,12 +463,12 @@
                   var username = event.extendedProps.username;
                   var description = event.extendedProps.description;
                   var type = event.extendedProps.type;
-                  var location = event.extendedProps.location;
+                  var place = event.extendedProps.place;
 
                   var formatStart = moment(start).format("YYYY-MM-DD HH시 mm분");
                   var formatEnd = end ? moment(end).format("YYYY-MM-DD HH시 mm분") : "-"; // null인 경우 '-' 표시
                   var formatDescription = description ? description : "-";
-                  var formatPlace = location ? location : "-";
+                  var formatPlace = place ? place : "-";
 
                   var currentPopover = $('.popover');
                     if (currentPopover.length) {
@@ -546,7 +546,7 @@
                   var event = info.event;
                   var allDay = event.allDay;
                   var _id = event.id;
-                  var location = event.extendedProps.location;
+                  var place = event.extendedProps.place;
                   var start = event.start;
                   var end = event.end;
                   var title = event.title;
@@ -558,7 +558,7 @@
 
                   var formatStart = moment(start).format("YYYY/MM/DD HH:mm");
                   var formatEnd = end ? moment(end).format("YYYY/MM/DD HH:mm") : "-";
-                  var formatPlace = location ? location : "-";
+                  var formatPlace = place ? place : "-";
 
                   addBtnContainer.hide();
                   modifyBtnContainer.show();
@@ -572,7 +572,7 @@
                   // $('#edit-allDay').val(allDay)
                   $('#edit-id').val(_id);
                   $('#edit-title').val(title);
-                  $('#edit-location').val(formatPlace);
+                  $('#edit-place').val(formatPlace);
                   $('#edit-start').val(formatStart);
                   $('#edit-end').val(formatEnd);
                   $('#edit-desc').val(description);
@@ -664,7 +664,7 @@
       // 모달의 입력 값을 가져옴
       var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
       var title = $('#edit-title').val();
-      var location = $('#edit-location').val();
+      var place = $('#edit-place').val();
       var startTime = $('#edit-start').val();
       var endTime = $('#edit-end').val();
       var typeNo = $('#edit-type').val();
@@ -673,7 +673,7 @@
       var eventData = {
         allDay: allDay,
         title: title,
-        location: location,
+        place: place,
         startTime: startTime,
         endTime: endTime,
         typeNo: typeNo,
@@ -701,7 +701,7 @@
       var allDay = $('#edit-allDay').prop('checked') ? 1 : 0;
       var id = $('#edit-id').val();
       var title = $('#edit-title').val();
-      var location = $('#edit-location').val();
+      var place = $('#edit-place').val();
       var startTime = $('#edit-start').val();
       var endTime = $('#edit-end').val();
       var typeNo = $('#edit-type').val();
@@ -714,7 +714,7 @@
         no : id,
         allDay: allDay,
         title: title,
-        location: location,
+        place: place,
         startTime: startTime,
         endTime: endTime,
         typeNo: typeNo,
