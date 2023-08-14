@@ -20,7 +20,7 @@
 
         <div id="nav-info">
 
-            <div id="nav-alert">
+            <div id="nav-alert" style="visibility: hidden;">
 
                 <div class="mail-alert">
                     <img src="${root}/resources/img/icon/svg/mail-default.svg" alt="메일 아이콘">
