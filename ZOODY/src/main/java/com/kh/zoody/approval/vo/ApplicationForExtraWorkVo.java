@@ -15,5 +15,6 @@ public class ApplicationForExtraWorkVo {
 	
 	private String category;
 	private String typeNo;
+	private String drafter;
 	
 }

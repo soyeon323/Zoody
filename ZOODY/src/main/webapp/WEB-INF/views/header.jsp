@@ -22,13 +22,13 @@
 
             <div id="nav-alert" style="visibility: hidden;">
 
-                <div class="mail-alert">
+                <!-- <div class="mail-alert">
                     <img src="${root}/resources/img/icon/svg/mail-default.svg" alt="메일 아이콘">
                 </div>
 
                 <div class="alret-alert">
                     <img src="${root}/resources/img/icon/svg/alert_default.svg" alt="알람 아이콘">
-                </div>
+                </div> -->
             </div>
 
             <div id="nav-profile">

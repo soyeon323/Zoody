@@ -10,7 +10,7 @@
 	<!-- 로그인 -->
 	<select id="login" resultType="UserVo">
 	SELECT
-    u.NO,
+    DISTINCT u.NO,
     u.DEPARTMENT_NO,
     d.NAME AS DEPARTMENT_NAME,
     u.RANK_NO,
