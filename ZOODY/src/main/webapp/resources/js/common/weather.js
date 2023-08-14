@@ -109,13 +109,13 @@ function getWeatherData(nx, ny) {
         let TMX = data["TMX"]; // 강수확률
         
         console.log("SKY : "+SKY);
-        console.log("TMP : "+TMP);
+        console.log("PTY : "+PTY);
 
         if (PTY === 0 || PTY === '0') {
             SKY = skyCheck(SKY);
         }
         else {
-            SKY = skyCheckTMP(TMP);
+            SKY = skyCheckTMP(PTY);
         }
 
         
@@ -124,7 +124,7 @@ function getWeatherData(nx, ny) {
         // let skyIcon = skyIconSelect(SKY);
 
         console.log("SKY : "+SKY);
-        console.log("TMP : "+TMP);
+        console.log("PTY : "+PTY);
 
         let changeHtml = `
             <div id="weather_info" class="">

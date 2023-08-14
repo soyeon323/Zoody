@@ -106,7 +106,7 @@
         <li>
             <a href="#">커뮤니티</a>
             <ul>
-            <li><a href="${root}/community/board/freeBoard/">게시판</a></li>
+            <li><a href="${root}/community/board/list/">게시판</a></li>
             <li><a href="${root}/community/vote/">투표</a></li>
             <li><a href="${root}/community/survey/">설문 조사</a></li>
             <li><a onclick="goSuggestion('${loginMember.id}');">건의사항</a></li>
