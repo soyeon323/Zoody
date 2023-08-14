@@ -104,7 +104,8 @@ $(".registration-btn").on("click" , function () {
     const title = $(".title").val();
     const summernoteCode = $('#summernote').summernote('code');
     const selectCategory = $("select[name=Big-Category]").val();
-    const memberNo =  $("#header-get-loginMember-no").val();
+    const memberNo = $("#header-get-loginMember-no").val();
+    const smallCategoryValue = $("select[name=Small-Category]").val(); // Small-Category의 값을 가져옴
  
 
     console.log(memberNo);
@@ -130,6 +131,10 @@ $(".registration-btn").on("click" , function () {
         alert("내용을 입력하세요")
         return;
     }
+
+     // 파일 업로드를 위한 FormData 객체 생성
+     const formData = new FormData();
+     formData.append("file", uploadFile); // uploadFile은 파일 업로드 시 선택한 파일
     
     $.ajax({
         url : root + "/community/board/write",
@@ -138,14 +143,14 @@ $(".registration-btn").on("click" , function () {
             title : title ,
             file : "1.text" ,
             content : summernoteCode,
-            catNo : 4 ,//임시 수정 해야됨
+            catNo: smallCategoryValue, // Small-Category의 값을 사용
             userNo : memberNo ,
         },
         success : function(data) {
             
             alert("작성성공")
 
-            window.location.replace(root+"/community/board/freeBoard/");
+            window.location.replace(root+"/community/board/list");
 
         },
         error : function(data) {

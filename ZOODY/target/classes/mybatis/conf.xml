@@ -26,6 +26,16 @@
 		<typeAlias type="com.kh.zoody.animal.training.vo.TrainingVo" alias="TrainingVo"/>
 		<typeAlias type="com.kh.zoody.project.vo.ProjectVo" alias="ProjectVo"/>
 		<typeAlias type="com.kh.zoody.document.vo.DocumentVo" alias="DocumentVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.LeaveTypeVo" alias="LeaveTypeVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.ExtraWorkCategoryVo" alias="ExtraWorkCategoryVo"/>
+		<typeAlias type="com.kh.zoody.project.vo.ProjectTodoVo" alias="ProjectTodoVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.ApprovalVo" alias="ApprovalVo" />
+		<typeAlias type="com.kh.zoody.approval.vo.DrafterVo" alias="DrafterVo" />
+		<typeAlias type="com.kh.zoody.approval.vo.LetterOfApprovalVo" alias="LetterOfApprovalVo"/>
+		<typeAlias type="com.kh.zoody.approval.vo.ApproverVo" alias="ApproverVo"/>
+		<typeAlias type="com.kh.zoody.mail.vo.MailAttachmentVo" alias="MailAttachmentVo"/>
+		<typeAlias type="com.kh.zoody.mail.vo.MailBoxVo" alias="MailBoxVo" />
+		<typeAlias type="com.kh.zoody.home.vo.HomeCalendarVo" alias="HomeCalendarVo" />
 	</typeAliases>
 
 </configuration>

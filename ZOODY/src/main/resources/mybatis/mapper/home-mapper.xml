@@ -45,8 +45,15 @@
 	    HIT
 		FROM NOTICE
 		WHERE STATUS = 'O'
-		ORDER BY NO DESC
-		FETCH FIRST 2 ROWS ONLY
+		<if test="cat == null or cat == '' ">
+	        ORDER BY NO DESC
+			FETCH FIRST 2 ROWS ONLY
+	    </if>
+	    <if test="cat != null and cat != ''">
+	        AND CATEGORY_NO = #{cat}
+	        FETCH FIRST 8 ROWS ONLY
+	    </if>
+	   
  	</select>
  	
  	<select id="getHomeAttendanceList" resultType="AttendanceVo">
@@ -79,6 +86,114 @@
 		FETCH FIRST 1 ROW ONLY
  	</select>
  	
+ 	 <select id="getHomeCalendar" resultType="HomeCalendarVo">
+         SELECT 
+            C.NO,
+            C.USER_NO,
+            C.TYPE_NO,
+            C.REV_NO,
+            C.TITLE,
+            C.CONTENT,
+            TO_CHAR(C.START_TIME, 'YYYY-MM-DD HH24:MI') AS START_TIME,
+            TO_CHAR(C.END_TIME, 'YYYY-MM-DD HH24:MI') AS END_TIME,
+            C.PLACE,
+            C.STATUS,
+            C.ALL_DAY,
+            U.NAME,
+            CT.TYPE,
+            CT.COLOR,
+            U.DEPARTMENT_NO,
+            TRUNC(C.START_TIME + ((C.END_TIME - C.START_TIME) / 2)) AS MIDDLE_TIME,
+            TRUNC(C.START_TIME + ((C.END_TIME - C.START_TIME) / 2)) - TRUNC(SYSDATE) AS DAYS_LEFT
+        FROM CALENDAR C
+        JOIN "USER" U ON C.USER_NO = U.NO
+        JOIN CALENDAR_TYPE CT ON C.TYPE_NO = CT.NO
+        WHERE C.STATUS = 0
+            AND TRUNC(C.START_TIME + ((C.END_TIME - C.START_TIME) / 2)) >= TRUNC(SYSDATE)
+        ORDER BY C.END_TIME
+     </select>
  	
+	<update id="updateUserInfo">
+	    UPDATE "USER"
+	    SET
+	    	LINE_INTRO = #{lineIntro},
+	        MAIL = #{mail},
+	        PHONE = #{phone},
+	        BIRTH_DATE = #{birthDate}
+	    WHERE
+	        NO = #{no}
+	</update>
+	
+	<select id="getUpdateUserInfo" resultType="UserVo">
+		SELECT
+		    u.NO,
+		    u.DEPARTMENT_NO,
+		    d.NAME AS DEPARTMENT_NAME,
+		    u.RANK_NO,
+		    r.NAME AS RANK_NAME,
+		    r.GRADE AS GRADE,
+		    u.POSITION_NO,
+		    p.NAME AS POSITION_NAME,
+		    u.STATE_NO,
+		    us.NAME AS STATE_NAME,
+		    u.AGENT,
+		    u.DIVISION_NO,
+		    ed.EMPLOY_DIVISION AS EMPLOY_DIVISION_NAME,
+		    u.ID,
+		    u.PWD,
+		    u.NAME,
+		    u.GENDER,
+		    u.BIRTH_DATE,
+		    u.PROFILE,
+		    u.LINE_INTRO,
+		    u.ADDRESS,
+		    u.PHONE,
+		    u.MAIL,
+		    u.REGISTRATION_DATE,
+		    u.LEAVE_REASON,
+		    u.LEAVE_DATE,
+		    u.OFFICE_NUMBER,
+		    u.LEAVE_COUNT,
+		    u.CAPACITY
+			FROM "USER" u
+			LEFT JOIN "DEPARTMENT" d ON u.DEPARTMENT_NO = d.NO
+			LEFT JOIN "RANK" r ON u.RANK_NO = r.NO
+			LEFT JOIN "POSITION" p ON u.POSITION_NO = p.NO
+			LEFT JOIN "USER_STATE" us ON u.STATE_NO = us.NO
+			LEFT JOIN "EMPLOY_DIVISION" ed ON u.DIVISION_NO = ed.NO
+			WHERE u.NO = #{no}
+	</select>
+ 	
+ 	<select id="getBoardList" resultType="BoardVo" parameterType="java.util.Map">
+ 		 SELECT 
+		    ROWNUM,
+		    x.NO AS BOARD_NO,
+		    x.USER_NO,
+		    x."NAME",
+		    x.CAT_NO,
+		    x.CAT_NAME,
+		    x.TITLE,
+		    x.CONTENT,
+		    x.ENROLL_DATE,
+		    x.MODIFY_DATE,
+		    x.FILE_PATH,
+		    x.HIT
+		FROM (
+		    SELECT b.NO, b.USER_NO, u."NAME", b.CAT_NO, bc."NAME" AS "CAT_NAME", b.TITLE, b.CONTENT, b.ENROLL_DATE, b.MODIFY_DATE, b.FILE_PATH, b.HIT
+		    FROM BOARD b
+		    LEFT JOIN "USER" u ON b.USER_NO = u.NO
+		    LEFT JOIN BOARD_CATEGORY bc ON  b.CAT_NO = bc.NO
+		    WHERE
+		    STATUS = 'O' 
+		    <if test="all == null and all == '' ">
+		    	AND CAT_NO = 4
+		    </if>
+	        
+		    ORDER BY NO
+		) x
+		ORDER BY ROWNUM DESC
+		FETCH FIRST 5 ROW ONLY
+ 	</select>
+ 		
  	
   </mapper>

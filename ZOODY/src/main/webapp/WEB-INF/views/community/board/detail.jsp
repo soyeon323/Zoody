@@ -60,8 +60,17 @@
                 </div>
 
                 <div class="write-wrap-foot-btns">
-                    <div class="registration-btn">등록</div>
-                    <div class="cancel-btn" onclick="history.back()">취소</div>
+
+                    <c:if test="${ boardDetail.userNo eq loginMember.no }">
+                        <div class="registration-btn">수정</div>
+                        <div class="cancel-btn" onclick="history.back()">삭제</div>
+                    </c:if>
+
+                    <c:if test="${not boardDetail.userNo eq loginMember.no}">
+                        <div>${ boardDetail.userNo }</div>
+                        <div>${ loginMember.no }</div>
+                    </c:if>
+                    
                 </div>
 
             </div>

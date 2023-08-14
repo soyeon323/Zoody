@@ -13,6 +13,60 @@
 <body style="overflow-x: hidden">
 
     
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-top">
+                <div class="modal-close" onclick="modalClose()"></div>
+                <div class="modal-top-content">
+                    <div class="modal-top-info">
+                        <span>| ${loginMember.departmentName} ${loginMember.rankName}</span>
+                        <span>입사일 ${loginMember.registrationDate}</span>
+                    </div>
+                    <div class="modal-top-profile-area">
+                        <div class="modal-profile"><img src="${root}/resources/img/profile/${loginMember.id}.png" alt="이미지"></div>
+                        <span>${loginMember.name}</span>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="modal-body-intro">
+                        상태메세지
+                        <input class="modal-body-intro-input" type="text" name="lineIntro" id="" value="${loginMember.lineIntro}"  data-original-value="${loginMember.lineIntro}"  readonly>
+                        <img class="modal-edit-btn" src="${root}/resources/img/icon/svg/rename.svg" alt="">
+                    </div>
+                    <div class="modal-body-edit">
+                        <label for="">
+                            이메일
+                            <input type="text" name="email" value="${loginMember.mail}" data-original-value="${loginMember.mail}">
+                        </label>
+                        <label for="">
+                            전화번호
+                            <input type="text" name="phone" value="${loginMember.phone}" data-original-value="${loginMember.phone}">
+                            <img class="modal-edit-btn" src="${root}/resources/img/icon/svg/rename.svg" alt="">
+                        </label>
+                        <label for="">
+                            생년월일
+                            <input type="text" name="birthDate" value="${loginMember.birthDate}" data-original-value="${loginMember.birthDate}">
+                            <img class="modal-edit-btn" src="${root}/resources/img/icon/svg/rename.svg" alt="">
+                        </label>
+                    </div>
+
+                    <div class="modal-btn-area">
+                        <input type="submit" value="등록">
+                        <input type="button" onclick="modalClose()" value="취소">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    
+
     <%@ include file="/WEB-INF/views/header.jsp" %>
 
 
@@ -78,7 +132,28 @@
                 <div class="area news">
                     
                         <div class="news-header">뉴스 / 최신글</div>
-                        <div class="news-news"></div>
+                        <div class="news-news">
+                            <div class="news-newpost">
+                                <div class="community-list">
+                                    <div>제목</div>
+                                    <div>작성자</div>
+                                    <div>조회수</div>
+                                    <div></div>
+                                </div>
+                                <c:forEach items="${ getEventNotice }" var="list">
+                                    
+    
+                                    <div class="community-list" onclick="goToNoticeDetail('${ list.no }')">
+                                        <div>${ list.title }</div>
+                                        <div>운영자</div>
+                                        <div>${ list.hit }</div>
+                                        <div>${ list.no }</div>
+                                    </div>
+    
+    
+                                </c:forEach>
+                            </div>
+                        </div>
                         <div class="news-newpost">
                             <div class="community-list">
                                 <div>제목</div>
@@ -89,7 +164,7 @@
                             <c:forEach items="${ newBoardList }" var="list">
                                 
 
-                                <div class="community-list">
+                                <div class="community-list newpost">
                                     <div>${ list.title }</div>
                                     <div>${ list.name }</div>
                                     <div>${ list.hit }</div>
@@ -115,10 +190,11 @@
                         
                             <div class="schedule-body">
                                 <input class="schedule-no" type="text" value="${ list.no }">
-                                <input type="checkbox">
                                 <input class="schedule-days-left" type="text" value="${ list.daysLeft }">
+                                <div>D-${ list.daysLeft }</div>
                                 <div class="schedule-title">${ list.title }</div>
                                 <input class="schedule-days-left" type="text" value="${ list.typeNo }">
+                                
                             </div>
 
                         </c:forEach>
@@ -148,10 +224,25 @@
 
                         <div class="attendance-area">
                             <div class="attendance-enrolldate">${ getAttendance.enrolldate }</div>
-                            <div class="officehours">근무한 시간</div>
-                            <div>[${ getAttendance.type }]</div>
-                            <div class="checkInTime">${ getAttendance.checkInTime }</div>
-                            <div class="checkOutTime not-null">${ getAttendance.checkOutTime }</div>
+                            <div> 오늘 근무한 시간 </div>
+                            <div class="officehours">00:00:00</div>
+
+                            <div>
+                                <div class="checkInTime-area">
+                                    <div>출근</div>
+                                    <div class="checkInTime">${ getAttendance.checkInTime }</div>
+                                    <div>[${ getAttendance.type }]</div>
+                                </div>
+                                
+                                <div class="checkInTime-area check-out">
+                                    <div class="checkOutTime-icon">퇴근</div>
+                                    <div class="checkOutTime not-null">${ getAttendance.checkOutTime }</div>
+                                </div>
+                            </div>
+
+                            
+
+                            
                             
 
                         </div>
@@ -160,67 +251,74 @@
                     </c:if>
 
                     <style>
+                        
                         .attendance-area {
                             padding: 15;
+                            width: 90%;
+                            justify-self: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
                         }
 
                         .attendance-area > div:first-child {
-                            font-size: 19;
+                            font-size: 14;
+                            color: #77828a;
+                            margin-bottom: 5px;
+                            border-bottom: 1px solid #f1f1f1;
+                            font-weight: 600;
+                        }
+
+                        .attendance-area > div:nth-child(2) {
+                            font-size: 10;
+                            color: #6a767f;
+                            margin-bottom: 5;
+                        }
+
+                        .attendance-area > div.officehours {
+                            font-size: 23;
+                            margin-bottom: 10;
+                            color: #374957;
+                            letter-spacing: 2px;
                         }
                         
+                        .checkInTime-area {
+                            display: grid;
+                            font-size: 16px;
+                            align-items: center;
+                            padding: 2px;
+                            justify-content: flex-start;
+                            grid-template-columns: 1fr 1fr 1fr;
+                            justify-items: center;
+                        }
+
+                        .checkInTime-area > div {
+                            justify-self: center;
+                            text-align: center;
+                        }
+
+                        .checkInTime-area > div:first-child {
+                            background-color: #4876EF;
+                            padding: 7px;
+                            border-radius: 15px;
+                            color: #fff;
+                            font-size: 14px;
+                        }
+
+                        .checkInTime-area > div:nth-child(3){
+                            font-size: 14px;
+                            color: #77828a;;
+                        }
+
+                        .checkInTime-area > div:nth-child(2) {
+                            width: 80;
+                        }
+
+                        .checkInTime-area.check-out > div:first-child{
+                            background-color: #00cba4;
+                        }
+
                     </style>
-
-
-
-                    <script>
-                        const checkOutTime = $(".checkOutTime.not-null").text();
-                        if (checkOutTime === null || checkOutTime === '00:00:00') {
-                                
-                            setInterval(()=> { officehoursCheck()},1000)
-                        }
-                        else {
-                            console.log(checkOutTime);
-
-                            const checkInTime = $(".checkInTime").text().trim();
-
-                            const enrolldate = $(".attendance-enrolldate").text()+"T";
-                            const checkInDate = new Date(enrolldate + checkInTime);
-                            const checkOutDate = new Date(enrolldate + checkOutTime);
-
-                            const timeDifferenceMs = checkOutDate - checkInDate;
-
-                            const hours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
-                            const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
-                            const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
-
-                            // 결과 출력
-                            $(".officehours").text("근무한 시간: " + hours + "시간 " + minutes + "분 " + seconds + "초");
-                        }
-
-                        
-
-                        function officehoursCheck() {
-                            const checkInTime = $(".checkInTime").text().trim();
-
-                            const enrolldate = $(".attendance-enrolldate").text()+"T";
-                            const checkInDate = new Date(enrolldate + checkInTime);
-
-                            // 현재 시간 가져오기
-                            const currentDate = new Date();
-
-                            // 밀리초로 시간 차이 계산
-                            const timeDifferenceMs = currentDate - checkInDate;
-
-                            const hours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
-                            const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
-                            const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
-
-                            // 결과 출력
-                            return $(".officehours").text("근무한 시간: " + hours + "시간 " + minutes + "분 " + seconds + "초")
-                        }
-
-                    </script>
-
 
 
                     <c:if test="${empty getAttendance}">
@@ -259,7 +357,7 @@
                             <c:forEach items="${ boardList }" var="list">
 
 
-                                <div class="community-list">
+                                <div class="community-list  newpost">
                                     <div>${ list.rownum }</div>
                                     <div>${ list.title }</div>
                                     <div>${ list.name }</div>

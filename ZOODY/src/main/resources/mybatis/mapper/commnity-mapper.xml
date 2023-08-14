@@ -6,51 +6,42 @@
   
 <mapper namespace="community">
 
-	<select id="getBoardList" resultType="BoardVo">
-		
-		SELECT 
-			ROWNUM,
-		    u.NAME,
-		    b.NO AS BOARD_NO,
-		    b.USER_NO,
-		    b.CAT_NO,
-		    b.TITLE,
-		    b.CONTENT,
-		    b.ENROLL_DATE,
-		    b.MODIFY_DATE,
-		    b.FILE_PATH,
-		    b.HIT
+	<select id="getBoardList" resultType="BoardVo" parameterType="java.util.Map">
+	    SELECT 
+		    ROWNUM,
+		    x.NO AS BOARD_NO,
+		    x.USER_NO,
+		    x."NAME",
+		    x.CAT_NO,
+		    x.CAT_NAME,
+		    x.TITLE,
+		    x.CONTENT,
+		    x.ENROLL_DATE,
+		    x.MODIFY_DATE,
+		    x.FILE_PATH,
+		    x.HIT
 		FROM (
-		    SELECT NO, USER_NO, CAT_NO, TITLE, CONTENT, ENROLL_DATE, MODIFY_DATE, FILE_PATH, HIT
-		    FROM BOARD
-		    WHERE STATUS = 'O' 
-		
-		<choose>
-			
-			<when test="call != null and call.equals('home')">
-				AND CAT_NO = 4
-				ORDER BY NO
-				) b
-				LEFT JOIN "USER" u ON b.USER_NO = u.NO
-				ORDER BY ROWNUM DESC
-				FETCH FIRST 5 
-				ROWS ONLY 
-			</when>
-			
-			<otherwise>
-				AND CAT_NO = #{catNo}
-				ORDER BY NO
-				) b
-				LEFT JOIN "USER" u ON b.USER_NO = u.NO
-				ORDER BY b.NO DESC 
-			</otherwise>
-			
-			
-			
-		</choose>
-			
-		
+		    SELECT b.NO, b.USER_NO, u."NAME", b.CAT_NO, bc."NAME" AS "CAT_NAME", b.TITLE, b.CONTENT, b.ENROLL_DATE, b.MODIFY_DATE, b.FILE_PATH, b.HIT
+		    FROM BOARD b
+		    LEFT JOIN "USER" u ON b.USER_NO = u.NO
+		    LEFT JOIN BOARD_CATEGORY bc ON  b.CAT_NO = bc.NO
+		    <where>
+		        <if test="searchType == 'title'">
+		            AND b.TITLE LIKE '%' || #{searchValue} || '%'
+		        </if>
+		        <if test="searchType == 'name'">
+		            AND u.NAME LIKE '%' || #{searchValue} || '%'
+		        </if>
+		        
+		        AND STATUS = 'O' 
+		        AND CAT_NO = #{catNo}
+		    </where>
+		    ORDER BY NO
+		) x
+		ORDER BY ROWNUM DESC
+
 	</select>
+
 
 
 	<insert id="write" >
@@ -81,5 +72,34 @@
 		WHERE NO = #{NO}
 	</select>
 	
-  
+	<update id="increaseBoard">
+		UPDATE BOARD
+	    SET HIT = HIT + 1
+	    WHERE NO = #{no}
+	</update>
+  	
+  	
+  	<select id="getBaordListCnt" resultType="int">
+	    SELECT COUNT(*) AS total_rows
+	    FROM Board b
+	    LEFT JOIN "USER" u ON b.USER_NO = u."NO"
+        LEFT JOIN BOARD_CATEGORY bc ON b.CAT_NO = bc.NO
+	    <where>
+	        <!-- 검색 조건이 제목일 때, 제목에 해당하는 문서만 조회합니다. -->
+	        <if test="searchType == 'title'">
+	            AND b.TITLE LIKE '%' || #{searchValue} || '%'
+	        </if>
+	        <!-- 검색 조건이 작성자일 때, 작성자에 해당하는 문서만 조회합니다. -->
+	        <if test="searchType == 'name'">
+	            AND u.NAME LIKE '%' || #{searchValue} || '%'
+	        </if>
+	        <if test="searchType == 'status'">
+	            AND b.STATUS LIKE '%' || #{searchValue} || '%'
+	        </if>
+	        
+	        <!-- 다른 검색 조건이 추가되는 경우에도 if 태그를 추가하여 조건에 따른 쿼리를 작성할 수 있습니다. -->
+	        AND b.STATUS = 'O'
+	        AND b.CAT_NO = #{catNo}
+	    </where>
+	</select>
 </mapper>
