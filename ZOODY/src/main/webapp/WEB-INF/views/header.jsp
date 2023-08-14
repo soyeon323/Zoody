@@ -44,7 +44,7 @@
 
                 <c:if test="${not empty loginMember.profile}">
                     <div class="img-profile">
-                        <img class="user-profile-img" src="${root}/resources/img/employee/${loginMember.profile}" alt=" ">
+                        <img class="user-profile-img" src="${root}/resources/img/profile/${loginMember.id}.png" alt=" ">
 
                     </div>
                     

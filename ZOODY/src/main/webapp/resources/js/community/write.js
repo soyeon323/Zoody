@@ -37,7 +37,6 @@ $(document).ready(function() {
     callbacks:{
         onImageUpload : function(files){ 
             
-            alert(files)
 
             uploadSummernoteImageFile(files[0],this);
         },
