@@ -30,7 +30,6 @@
     
     const regex = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
     if (!regex.test(pwdVal)) {
-        alert('비밀번호를 먼저 설정해 주세요');
         location.href = "/zoody/pwd/setting";
     }
 }

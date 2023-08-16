@@ -32,4 +32,11 @@
 			)
 	</insert>
 	
+	<select id="getjoinStatus"  resultType="com.kh.zoody.survey.vo.SurveyVo">
+		SELECT STATUS FROM CURROPTION_SURVEY_USER WHERE NO = #{no}
+	</select>
+	
+	<update id="updateStatus">
+		UPDATE CURROPTION_SURVEY_USER SET STATUS='O' WHERE NO = #{no}
+	</update>
 </mapper>

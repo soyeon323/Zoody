@@ -38,7 +38,7 @@
                 <div name="title" id="t1" cols="30" rows="10">${vo.trainingTitle}</div>
                 
                 <span>훈련 내용</span> 
-                <div style="resize: no;" name="trainingContent" id="summernote" readonly cols="30" rows="10">${vo.trainingTitle} <input type="hidden" name="trainingContent"></div>
+                <div style="resize: no;" name="trainingContent" id="summernote" cols="30" rows="10">${vo.trainingTitle} <input type="hidden" name="trainingContent"></div>
             </div>
            
             <div id="btn-area">
