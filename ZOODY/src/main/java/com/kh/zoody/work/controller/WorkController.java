@@ -37,18 +37,19 @@ public class WorkController {
 	
 	//업무할당 화면  
 	@GetMapping("work")
-	public String work(Model m , HttpServletRequest req) {
+	public String work(Model m , HttpServletRequest req , WorkVo vo) {
 		
-		HttpSession session = req.getSession();
-		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
-		
-		List<WorkVo> vo = ws.workList(loginMember);
-		log.info("vo : {}",vo);
-		if(vo ==null) {
-			throw new RuntimeException();
-		}
-		m.addAttribute("loginMember" , loginMember);
-		m.addAttribute("vo",vo);
+//		HttpSession session = req.getSession();
+//		UserVo loginMember = (UserVo) session.getAttribute("loginMember");
+//		
+//		List<WorkVo> wvo = ws.workList(loginMember);
+//		log.info("vo : {}",wvo);
+//		
+//		if(vo ==null) {
+//			throw new RuntimeException();
+//		}
+//		m.addAttribute("loginMember" , loginMember);
+//		m.addAttribute("vo",wvo);
 		
 		return "work/work";
 	}
@@ -90,5 +91,20 @@ public class WorkController {
 		log.info(data);
 		return data;
 	}	
+	
+	//모달창을 눌러 해당 업무 상세 조회
+	@PostMapping("detail")
+	@ResponseBody
+	public String getWorkDetail(WorkVo vo) {
+		
+		WorkVo wvo = ws.getWorkDetail(vo);
+		log.info("getWorkDetail / wwv = {}" , wvo);
+		if(wvo ==null) {
+			throw new RuntimeException();
+		}
+		Gson gson = new Gson();
+		String data = gson.toJson(wvo);
+		return data;
+	}
 	
 }

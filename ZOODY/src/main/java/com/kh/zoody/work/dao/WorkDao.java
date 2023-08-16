@@ -30,4 +30,9 @@ public class WorkDao {
 		return sst.selectList("work.getWorkNameAndDate",userNo);
 	}
 
+	//모달창을 눌러 해당 업무 상세 조회
+	public WorkVo getWorkDetail(SqlSessionTemplate sst, WorkVo vo) {
+		return sst.selectOne("work.getWorkDetail" , vo);
+	}
+
 }
