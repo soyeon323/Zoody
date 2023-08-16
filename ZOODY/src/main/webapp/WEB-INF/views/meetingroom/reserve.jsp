@@ -121,6 +121,7 @@
 	                           </c:otherwise> 
                          	</c:choose> 
                         </div>
+                        </c:if>
 	                    <div class="card-body">
 	                      <h5 class="card-title">${vo.name} 회의실</h5>
 	                      <!-- <a href="#" class="btn btn-primary">예약하기</a> -->
@@ -138,7 +139,6 @@
                                 </button>
                             </c:otherwise> 
                           </c:choose> 
-                        </c:if>
                             
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
