@@ -15,5 +15,6 @@ public class ApplicationForLeaveVo {
 	private String type;
 	private String proxyNo;
 	private String userNo;
+	private String drafter;
 	
 }

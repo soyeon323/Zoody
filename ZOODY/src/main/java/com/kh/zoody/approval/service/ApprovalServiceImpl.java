@@ -200,9 +200,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 						ApplicationForLeaveVo data = approvalDao.getAflInfo(approvalNo, sqlSessionTemplate);
 						
 						LeaveVo leaveVo = new LeaveVo();
-						leaveVo.setUserNo(dataMap.get("userNo"));
+						leaveVo.setUserNo(data.getDrafter());
 						leaveVo.setLeaveNo(data.getTypeNo());
-						leaveVo.setProxyNo(dataMap.get("userNo") + 1);
+						leaveVo.setProxyNo(data.getDrafter() + 1);
 						leaveVo.setReasonContent(data.getReason());
 						String startDate = data.getFrom().substring(0,4) + '/' + data.getFrom().substring(4,6) + '/' + data.getFrom().substring(6,8);
 						leaveVo.setStartTime(startDate);
@@ -216,7 +216,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 						ApplicationForExtraWorkVo data = approvalDao.getAfeInfo(approvalNo, sqlSessionTemplate);
 						
 						ExtraWorkVo extraWorkVo = new ExtraWorkVo();
-						extraWorkVo.setUserNo(dataMap.get("userNo"));
+						extraWorkVo.setUserNo(data.getDrafter());
 						extraWorkVo.setTypeNo(data.getTypeNo());
 						extraWorkVo.setStartTime(data.getStartTime());
 						extraWorkVo.setEndTime(data.getEndTime());
@@ -237,9 +237,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 						ApplicationForLeaveVo data = approvalDao.getAflInfo(approvalNo, sqlSessionTemplate);
 						
 						LeaveVo leaveVo = new LeaveVo();
-						leaveVo.setUserNo(dataMap.get("userNo"));
+						leaveVo.setUserNo(data.getDrafter());
 						leaveVo.setLeaveNo(data.getTypeNo());
-						leaveVo.setProxyNo(dataMap.get("userNo") + 1);
+						leaveVo.setProxyNo(data.getDrafter() + 1);
 						leaveVo.setReasonContent(data.getReason());
 						String startDate = data.getFrom().substring(0,4) + '/' + data.getFrom().substring(4,6) + '/' + data.getFrom().substring(6,8);
 						leaveVo.setStartTime(startDate);
@@ -253,7 +253,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 						ApplicationForExtraWorkVo data = approvalDao.getAfeInfo(approvalNo, sqlSessionTemplate);
 						
 						ExtraWorkVo extraWorkVo = new ExtraWorkVo();
-						extraWorkVo.setUserNo(dataMap.get("userNo"));
+						extraWorkVo.setUserNo(data.getDrafter());
 						extraWorkVo.setTypeNo(data.getTypeNo());
 						extraWorkVo.setStartTime(data.getStartTime());
 						extraWorkVo.setEndTime(data.getEndTime());
