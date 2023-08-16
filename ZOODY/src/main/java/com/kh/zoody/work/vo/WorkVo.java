@@ -18,6 +18,6 @@ public class WorkVo {
 	private String workStatus;
 	
 	//checkList
-	private String chaekListName;
+	private String checkListName;
 	private String checkListStatus;
 }
