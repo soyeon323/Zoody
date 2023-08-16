@@ -185,7 +185,7 @@ function go() {
             document.querySelector('.circle').style.borderBottomColor = 'red';
         }
     }
-
+    checkScoreColor();
     </script>
         
 </body>
