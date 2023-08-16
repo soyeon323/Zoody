@@ -236,7 +236,7 @@
     }
 
     //웹소켓 만들기
-    let ws = new WebSocket("ws://127.0.0.1:8888/zoody/project");
+    let ws = new WebSocket("ws://127.0.0.1:8080/zoody/project");
 
     //웹소켓이 연결됐을 때 동작할 함수
     ws.onopen = funcOpen;

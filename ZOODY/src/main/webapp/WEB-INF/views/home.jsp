@@ -23,7 +23,7 @@
                         <span>입사일 ${loginMember.registrationDate}</span>
                     </div>
                     <div class="modal-top-profile-area">
-                        <div class="modal-profile"><img src="${root}/resources/img/profile/${loginMember.id}.png" alt="이미지"></div>
+                        <div class="modal-profile"><img src="${root}/resources/img/employee/${loginMember.profile}" alt="이미지"></div>
                         <span>${loginMember.name}</span>
                     </div>
                    
@@ -81,7 +81,7 @@
                             <img src="${root}/resources/img/profile/default_profile.svg" alt="">
                         </c:if>
                         <c:if test="${not empty loginMember.profile}">
-                            <img src="${root}/resources/img/profile/${loginMember.id}.png" alt="">
+                            <img src="${root}/resources/img/employee/${loginMember.profile}" alt="">
                         </c:if>
                     </div>
                     <div class="profile-info">

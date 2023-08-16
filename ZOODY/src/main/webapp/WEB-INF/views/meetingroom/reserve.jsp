@@ -121,6 +121,7 @@
 	                           </c:otherwise> 
                          	</c:choose> 
                         </div>
+                        </c:if>
 	                    <div class="card-body">
 	                      <h5 class="card-title">${vo.name} 회의실</h5>
 	                      <!-- <a href="#" class="btn btn-primary">예약하기</a> -->
@@ -138,7 +139,6 @@
                                 </button>
                             </c:otherwise> 
                           </c:choose> 
-                        </c:if>
                             
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -210,7 +210,7 @@
             </div>
             <!-- 'ADMIN'을 포함하는 경우에 실행할 내용 -->
             <div class="cardPlus">
-                <c:if test="${fn:contains(loginMember.id, 'ADMIN')}">
+                <c:if test="${fn:contains(loginMember.id, 'admin')}">
                     <a href="${root}/meetingroom/add">
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
