@@ -319,7 +319,7 @@ function loadComment(userNo) {
             for (let i = 0; i < x.length; i++) {
                 let newDivTag = document.createElement('div');
                 newDivTag.setAttribute('class', 'list-group-item');
-                newDivTag.innerHTML += x[i].workName + "/" + x[i].endDate +"/"+x[i].workNo;
+                newDivTag.innerHTML += x[i].workNo+ "업무 명 : "+x[i].workName + " 마감일시 : " + x[i].endDate +"|";
                 column.appendChild(newDivTag);
 
                 //클릭시 해당업무 상세조회
