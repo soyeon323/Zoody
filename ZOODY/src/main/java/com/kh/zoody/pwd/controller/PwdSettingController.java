@@ -61,4 +61,5 @@ public class PwdSettingController {
 	public String pwdFind() {
 		return "pwd/find";
 	}
+	
 }
