@@ -22,11 +22,11 @@
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="button" value="사번 확인" onclick="success();"> 
                 <br><br><br>
                     <span>비밀번호 설정</span><span id="lengthMsg" style="color: red; font-size: 0.8em;">(5글자 이상)</span><span id="specialCharMsg" style="color: red;  font-size: 0.8em;"> (특수문자가 하나 이상)</span>
-                <input type="password"  placeholder="비밀번호" id="pwdSet1">
+                <input type="password" class="form-control" placeholder="비밀번호" id="pwdSet1">
                 
                 <br>
-                <span>비밀번호 일치 확인</span>
-                <input type="password" name="pwd" placeholder="비밀번호" id="pwdSet2">
+                <span>비밀번호 재확인</span>
+                <input type="password" name="pwd" class="form-control" placeholder="비밀번호" id="pwdSet2">
                 
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em;" type="button" id="pwdCheck" value="비밀번호 일치 확인"> 
                 <br><br>
