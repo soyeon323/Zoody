@@ -3,7 +3,7 @@ package com.kh.zoody.user.vo;
 import lombok.Data;
 
 @Data
-public class UserVo {
+public class UserVo{
 
 	private String no;
 	private String departmentNo;

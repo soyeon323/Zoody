@@ -58,11 +58,16 @@
 		WHERE ID = #{id}
 	</select>
 	
-	<!--지 아이디로 비밀번호 설정 -->
+	<!--지 아이디로 혹은 이메일로 비밀번호 설정 -->
 	<update id="pwdSetting">
 		UPDATE "USER" 
 		SET PWD = #{pwd}
-		WHERE ID = #{id}
+		<if test="mail != null and mail !=''">
+			WHERE MAIL = #{mail}
+		</if>
+		<if test="id != null and id !=''">
+			WHERE ID = #{id}
+		</if>
 	</update>
   	
 </mapper>

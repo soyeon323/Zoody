@@ -21,7 +21,7 @@
                 <input type="text" name="id" id="id" placeholder="사번">
                 <input class="btn btn-primary" style="color: whitesmoke; height: 30px; font-size: 0.5em" type="button" value="사번 확인" onclick="success();"> 
                 <br><br><br>
-                    <span>비밀번호 설정</span><span id="lengthMsg" style="color: red; font-size: 0.8em;">(5글자 이상)</span><span id="specialCharMsg" style="color: red;  font-size: 0.8em;"> (특수문자가 하나 이상)</span>
+                    <span>비밀번호 설정</span><span id="lengthMsg" style="color: red; font-size: 0.8em;">(5글자 이상)</span><span id="specialCharMsg" style="color: red;  font-size: 0.8em;"> (특수문자 하나 포함)</span>
                 <input type="password" class="form-control" placeholder="비밀번호" id="pwdSet1">
                 
                 <br>
@@ -140,16 +140,20 @@ submitBtn.addEventListener('click', (event) => {
     //유효성 검사 
     function validatePassword() {
         const pwdSet1 = pwdSet1Input.value;
-        
-        const lengthMsg = document.getElementById('lengthMsg');
-        const specialCharMsg = document.getElementById('specialCharMsg');
+    
+    const lengthMsg = document.getElementById('lengthMsg');
+    const specialCharMsg = document.getElementById('specialCharMsg');
 
-        lengthMsg.style.display = pwdSet1.length < 5 ? 'block' : 'block';
-        lengthMsg.style.color = pwdSet1.length < 5 ? 'red' : 'blue';
+    const lengthValid = pwdSet1.length >= 5;
+    const specialCharValid = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pwdSet1);
 
-        const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        specialCharMsg.style.display = specialChars.test(pwdSet1) ? 'block' : 'block';
-        specialCharMsg.style.color = specialChars.test(pwdSet1) ? 'blue' : 'red';
+    lengthMsg.style.display = lengthValid ? 'block' : 'block';
+    lengthMsg.style.color = lengthValid ? 'green' : 'red';
+    lengthMsg.textContent = lengthValid ? '(5글자 이상) ✔️' : '(5글자 이상)';
+
+    specialCharMsg.style.display = specialCharValid ? 'block' : 'block';
+    specialCharMsg.style.color = specialCharValid ? 'green' : 'red';
+    specialCharMsg.textContent = specialCharValid ? '(특수문자 하나 포함)✔️' : '(특수문자 하나 포함)';
     }
 
 </script>
