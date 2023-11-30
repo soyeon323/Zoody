@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 모든서블릿 및 필터에서 공유하는 루트 스프링 컨테이너의 정의 -->
+	
+	<!--  SST bean 등록 (SqlSessionTamplate)-->
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0"  ref="ssfb"></constructor-arg>
+	</bean>
+	
+	<!-- SqlSessionFactory 타입의 빈 등록 -->
+	<bean id="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="bds"></property>
+		
+		<!-- <property name="configLocation" value="파일경로"></property> -->
+		
+		<property name="mapperLocations" value="classpath:mybatis/**/*-mapper.xml"></property> 
+	</bean>
+	
+	<!-- 데이터소스 빈 등록-->
+	<bean id="bds" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ex"></property>
+		<property name="username" value="C##FINAL"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+	
+	<!-- 트랜젝션 관리 bean 등록 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="bds"></property>
+	</bean>
+		
+</beans>
