@@ -22,7 +22,7 @@
 <body>
     <div id="wrap">
         <a href="${root}/pwd/find">
-            <div id="pwdpwd">비밀번호 찾기</div>
+           
         </a>
 
         <form id="login-form" action="${root}/member/login" method="POST" >
